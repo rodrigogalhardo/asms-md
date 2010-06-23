@@ -1,0 +1,310 @@
+﻿html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td
+{
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    background: transparent;
+    line-height:normal;
+}
+
+body
+{
+    line-height: 1;
+    background: #fff;
+    color: #333;    
+    font-family: Verdana,Arial,Liberation Sans,DejaVu Sans,sans-serif;
+    font-size: 80%;
+    text-align: center;
+}
+
+.error
+{
+    color:Red;
+}
+
+#menucontainer
+{
+    margin-top:40px;
+}
+
+div#title
+{
+    display:block;
+    float:left;
+    text-align:left;
+}
+
+/* Styles for validation helpers
+-----------------------------------------------------------*/
+.field-validation-error
+{
+    color: #ff0000;
+}
+
+.field-validation-valid
+{
+    display: none;
+}
+
+.input-validation-error
+{
+    border: 1px solid #ff0000;
+    background-color: #ffeeee;
+}
+
+.validation-summary-errors
+{
+    font-weight: bold;
+    color: #ff0000;
+}
+
+.validation-summary-valid
+{
+    display: none;
+}
+
+/* Styles for editor and display helpers
+----------------------------------------------------------*/
+.efield
+{    
+    clear: both;
+    width: 100%;
+    float: left;
+}
+
+.elabel
+{
+    margin-right: 10px;    
+    width: 150px; 
+    text-align: right;   
+    float: left; 
+}
+
+.elabel label
+{
+    line-height: 50px;
+}
+
+.einput
+{
+    float: left;
+    border: 0 none;
+}
+    
+
+#main-container
+{
+    background: url("main-container-background.jpg") repeat-x scroll center top #EEEEEE;
+    width: 100%;
+}
+#topline
+{ 
+    border-bottom: 1px solid #BFBFBE;
+    height: 5px;    
+}
+
+#bottomline
+{
+    background: url("bottomline-small.gif") repeat-x scroll center top #FFFFFF;
+    height: 7px;
+    width: 100%;
+}
+
+#top-wrapper
+{    
+    overflow: hidden;        
+}
+
+#hlogo
+{
+    margin-top: 5px;
+    
+    float: left;
+}
+
+#hmenus
+{
+    float: left;
+    padding: 10px 0px 0px 0px;
+    margin-left: 20px;    
+}
+
+#hlinks
+{
+    float: right;    
+    color: White;    
+}
+#topbar
+{
+    
+}
+
+#main
+{
+    padding: 30px 30px 15px 30px;    
+    min-height: 650px;
+    overflow: hidden;
+}
+
+#footer
+{      
+    height: 70px;    
+    padding-top: 2em; 
+}
+
+#footer a
+{
+    color: white;    
+}
+
+.cbt
+{
+    clear: both;
+}
+
+.nav
+{
+    float: left;
+    font-size: 120%;
+}
+.nav ul
+{
+    margin: 0;
+}
+.nav li
+{    
+    display: block;
+    float: left;
+    margin-right: 7px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    padding: 5px;
+    
+}
+.nav a
+{
+    color: #fff;
+    display: block;
+    font-weight: bold;
+    padding: 6px 12px 6px 12px;
+    text-decoration: none;
+}
+
+.maindiv
+{
+    background: url("main-back2.gif") repeat-x scroll center top #fff;
+    border-left: 1px solid #BFBFBE;
+    border-right: 1px solid #BFBFBE;
+    padding-top: 20px;
+    margin: auto;
+    text-align: left;
+    width: 77%;
+}
+
+
+.pagination {
+text-align: right;
+margin: 0 0 15px 0;
+font-weight: bold;
+font-size: 12px;
+}
+
+.pagination a {
+padding: 5px 10px 3px 10px;
+text-decoration: none;
+-moz-border-radius: 4px;
+-webkit-border-radius: 4px;
+margin: 3px;
+}
+
+.pagination .prev_page, .pagination .next_page {
+display: none;
+}
+
+.pagination span.current {
+-moz-border-radius: 4px;
+-webkit-border-radius: 4px;
+padding: 5px 10px 3px 10px;
+}
+
+.nos
+{
+    background: #ff5544;
+    text-align: center;
+    padding: 0.3em;    
+    color: White;
+    font-size: 2em;
+    font-weight:bold;
+}
+
+.container
+{    
+    margin: auto;
+    text-align: left;
+    width: 960px;
+}
+
+.loginpage
+{
+    background: #fff;
+    padding: 200px;
+}
+
+#loginbox
+{
+    width:450px;
+    height:170px;
+    margin: auto;  
+    -moz-border-radius: 7px;
+    -webkit-border-radius: 7px;
+    padding: 5px;
+    background-image: none;
+}
+
+input, select
+{    
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    padding: 3px 3px 3px 3px;
+    margin: 12px;
+    
+}
+
+input[type="text"], input[type="password"]
+{
+    width: 200px;
+    border: 1px solid #ccc;
+}
+
+input[type="checkbox"], input[type="radio"]
+{    
+    margin-top: 12px;
+}
+
+input[type="submit"]
+{
+    margin-left: 10px;
+    margin-top: 10px;            
+}
+
+.esubmit
+{
+    clear: both;
+    margin-left: 160px;
+}
+
+.fl
+{
+    float:left;
+}
+
+h2
+{
+    margin-bottom: 20px;
+    }
+    
+input[type="submit"], button
+{
+    cursor:pointer;
+}    
