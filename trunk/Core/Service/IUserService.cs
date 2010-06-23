@@ -1,0 +1,29 @@
+﻿using System.Collections.Generic;
+using MRGSP.ASMS.Core.Model;
+
+namespace MRGSP.ASMS.Core.Service
+{
+    public interface IUserService
+    {
+        long Insert(User user);
+        User Get(long id);
+        IPageable<User> GetPage(int page, int pageSize);
+        long Create(User user);
+        IEnumerable<string> GetRoles(long id);
+        bool Exists(string name);
+        IEnumerable<Role> GetRoles();
+        bool ChangePassword(long id, string password);
+        void Save(User user);
+        User GetFull(long id);
+        bool Exists(string name, string password);
+        User Get(string name, string password);
+    }
+
+    public interface IBankService
+    {
+        int Create(Bank o);
+        IPageable<Bank> GetPage(int page, int pageSize);
+        bool Exists(string code);
+        string Delete(int id);
+    }
+}
