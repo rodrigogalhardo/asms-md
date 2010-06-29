@@ -15,14 +15,21 @@ namespace MRGSP.ASMS.WebUI.Controllers
             this.bankService = bankService;
         }
 
-        public ActionResult Index(int? page)
+        [HttpPost]
+        public ActionResult Get(long id)
         {
-            return View(bankService.GetPage(page ?? 1, 10));
+            return Content(bankService.Get(id).Name);
         }
 
-        public ActionResult Page(int? page)
+        public ActionResult Index() 
         {
-            return View(bankService.GetPage(page ?? 1, 10));
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Page(int? page, string name, string code)
+        {
+            return View(bankService.GetPage(page ?? 1, 5, name, code));
         }
 
         public ActionResult Create()

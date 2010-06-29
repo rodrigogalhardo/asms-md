@@ -21,9 +21,10 @@ namespace MRGSP.ASMS.Core.Service
 
     public interface IBankService
     {
-        int Create(Bank o);
-        IPageable<Bank> GetPage(int page, int pageSize);
+        long Create(Bank o);
+        IPageable<Bank> GetPage(int page, int pageSize = 10, string name = null, string code = null);
         bool Exists(string code);
         string Delete(int id);
+        Bank Get(long id);
     }
 }

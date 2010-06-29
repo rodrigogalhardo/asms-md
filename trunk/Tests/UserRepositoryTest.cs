@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Diagnostics;
+using System.Linq;
 using MRGSP.ASMS.Core.Model;
 using MRGSP.ASMS.Data;
 using NUnit.Framework;
@@ -41,7 +42,11 @@ namespace MRGSP.ASMS.Tests
             repo.Insert(new User { Name = "j", Password = "a" });
             repo.Insert(new User { Name = "j1", Password = "a" });
             repo.Insert(new User { Name = "j2", Password = "a" });
+            var w = new Stopwatch();
+            w.Start();
             repo.GetPage(1, 3).Count().IsEqualTo(3);
+            w.Stop();
+            System.Console.Out.WriteLine(w.Elapsed);
             (repo.Count() > 3).IsTrue();
         }
 
@@ -58,8 +63,11 @@ namespace MRGSP.ASMS.Tests
         public void GetUser()
         {
             var id = repo.Insert("j".AsUser());
-
+            var w = new Stopwatch();
+            w.Start();
             var user = repo.Get(id);
+            w.Stop();
+            System.Console.Out.WriteLine(w.Elapsed);
             user.IsNotNull();
             user.Name.IsEqualTo("j");
         }
@@ -74,7 +82,7 @@ namespace MRGSP.ASMS.Tests
         [Test]
         public void UpdatePassword()
         {
-            var uid = repo.Insert("user".AsUser());
+            var uid = repo.Insert("ob1".AsUser());
             repo.UpdatePassword(uid, "aa");
             repo.Get(uid).Password.IsEqualTo("aa");
         }

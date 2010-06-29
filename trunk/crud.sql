@@ -1,13 +1,16 @@
 use master
+go
 drop database asms
+go
 create database asms
+go
 use asms
 
 create table users
 (
 id bigint identity primary key,
 name nvarchar(20) unique not null,
-password nvarchar(10) not null
+password nvarchar(20) not null
 )
 
 create table roles
@@ -35,7 +38,7 @@ id bigint identity primary key
 
 create table banks
 (
-id int identity primary key,
+id bigint identity primary key,
 code nvarchar(20) unique,
 name nvarchar(200)
 )
@@ -157,16 +160,26 @@ select count(*) from banks where code = @code
 
 go
 create proc getBanksCount
+@code nvarchar(20) = null,
+@name nvarchar(20) = null
 as
 select count(*) from banks
+where 
+(@code is null or code like '%' + @code + '%') and
+(@name is null or name like '%' + @name + '%')
 
 go
 create proc getBanksPage
 @pageSize int,
-@page int
+@page int,
+@code nvarchar(20) = null,
+@name nvarchar(20) = null
 as
 with result as(select *, ROW_NUMBER() over(order by id) nr
         from Banks
+        where 
+        (@code is null or code like '%' + @code + '%') and
+		(@name is null or name like '%' + @name + '%')
 )
 
 select  * 
@@ -179,3 +192,4 @@ create proc deleteBank
 @id int
 as
 delete from banks where id = @id
+

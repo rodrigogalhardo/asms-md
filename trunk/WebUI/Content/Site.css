@@ -205,7 +205,7 @@ div#title
 
 .pagination {
 text-align: right;
-margin: 0 0 15px 0;
+margin: 10px 0;
 font-weight: bold;
 font-size: 12px;
 }
@@ -308,3 +308,47 @@ input[type="submit"], button
 {
     cursor:pointer;
 }    
+
+.hidden
+{
+    display:none;
+}
+
+.selected 
+{
+    background:url("images/ui-bg_glass_55_fcf0ba_1x400.png") repeat-x scroll 50% 50% #FCF0BA;
+    
+}
+
+.grow
+{
+    cursor: pointer;
+}
+
+table
+{
+    border-collapse: collapse;
+    background: white;  
+    margin: auto;   
+    padding: 5px;
+    width: 100%;
+       
+}
+
+
+td, th
+{
+    padding: 2px 5px;
+}
+
+
+.toolbox input[type="text"]
+{
+    width: 100px;
+}
+
+.popup
+{
+    padding: 0px 10px;
+    text-align: left;
+}

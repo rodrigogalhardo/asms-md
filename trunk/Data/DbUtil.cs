@@ -62,5 +62,30 @@ namespace MRGSP.ASMS.Data
                 }
             }
         }
+
+        public static T Get<T>(long id, string cs) where T : new()
+        {
+            using (var conn = new SqlConnection(cs))
+            {
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = "select * from " + typeof(T).Name + "s where id = " + id;
+                    conn.Open();
+
+                    using (var dr = cmd.ExecuteReader())
+                    {
+                        if (dr != null)
+                            while (dr.Read())
+                            {
+                                var o = new T();
+                                o.InjectFrom<ReaderInjection>(dr);
+                                return o;
+                            }
+                    }
+                }
+            }
+            return default(T);
+        }
     }
 }
