@@ -33,5 +33,10 @@ namespace MRGSP.ASMS.Tests
         {
             Assert.IsNotNull(o);
         }
+
+        public static void IsNull(this object o)
+        {
+            Assert.IsNull(o);
+        }
     }
 }

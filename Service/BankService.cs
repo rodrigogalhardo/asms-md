@@ -15,7 +15,7 @@ namespace MRGSP.ASMS.Service
             this.repo = repo;
         }
 
-        public int Create(Bank o)
+        public long Create(Bank o)
         {
             return repo.Insert(o);
         }
@@ -25,14 +25,25 @@ namespace MRGSP.ASMS.Service
             return repo.Delete(id);
         }
 
-        public IPageable<Bank> GetPage(int page, int pageSize)
+        public IPageable<Bank> GetPage(int page, int pageSize = 10, string name = null, string code = null)
         {
-            return ServiceUtils.GetPage(page, pageSize, repo);
+            return new Pageable<Bank>
+            {
+                Page = repo.GetPage(page, pageSize, name, code),
+                PageCount = ServiceUtils.GetPageCount(pageSize, repo.Count(name, code)),
+                PageIndex = page,
+            };
         }
 
         public bool Exists(string code)
         {
             return repo.Count(code) != 0;
         }
+
+        public Bank Get(long id)
+        {
+            return repo.Get(id);
+        }
+        
     }
 }

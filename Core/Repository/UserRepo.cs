@@ -18,15 +18,17 @@ namespace MRGSP.ASMS.Core.Repository
 
     public interface IPagedRepo<T>
     {
-        int Count();
         IEnumerable<T> GetPage(int page, int pageSize);
-
+        int Count();
     }
 
-    public interface IBankRepo : IPagedRepo<Bank>
+ public interface IBankRepo
     {
-        int Insert(Bank o);
+        long Insert(Bank o);
         int Count(string code);
         string Delete(int id);
+        int Count(string name, string code);
+        IEnumerable<Bank> GetPage(int page, int pageSize, string name, string code);
+        Bank Get(long id);
     }
 }
