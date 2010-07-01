@@ -28,7 +28,11 @@ unique(userId, roleId)
 
 create table farmers
 (
-id bigint identity primary key
+id bigint identity primary key,
+code nvarchar(20) unique,
+name nvarchar(200) not null,
+DateReg Date,
+NrReg nvarchar(20)
 )
 
 create table cases
@@ -161,7 +165,7 @@ select count(*) from banks where code = @code
 go
 create proc getBanksCount
 @code nvarchar(20) = null,
-@name nvarchar(20) = null
+@name nvarchar(200) = null
 as
 select count(*) from banks
 where 
@@ -173,9 +177,9 @@ create proc getBanksPage
 @pageSize int,
 @page int,
 @code nvarchar(20) = null,
-@name nvarchar(20) = null
+@name nvarchar(200) = null
 as
-with result as(select *, ROW_NUMBER() over(order by id) nr
+with result as(select *, ROW_NUMBER() over(order by id desc) nr
         from Banks
         where 
         (@code is null or code like '%' + @code + '%') and
@@ -193,3 +197,41 @@ create proc deleteBank
 as
 delete from banks where id = @id
 
+/**************************  farmers **************************************/
+
+go
+create proc insertFarmer
+@code nvarchar(20),
+@name nvarchar(200)
+as
+insert farmers(code, name) values(@code, @name)
+select @@identity
+
+go
+create proc getFarmersCount
+@code nvarchar(20) = null,
+@name nvarchar(200) = null
+as
+select count(*) from farmers
+where 
+(@code is null or code like '%' + @code + '%') and
+(@name is null or name like '%' + @name + '%')
+
+go
+create proc getFarmersPage
+@pageSize int,
+@page int,
+@code nvarchar(20) = null,
+@name nvarchar(200) = null
+as
+with result as(select *, ROW_NUMBER() over(order by id desc) nr
+        from farmers
+        where 
+        (@code is null or code like '%' + @code + '%') and
+		(@name is null or name like '%' + @name + '%')
+)
+
+select  * 
+from    result
+where   nr  between ((@page - 1) * @pageSize + 1)
+        and (@page * @pageSize) 

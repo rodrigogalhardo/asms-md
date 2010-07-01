@@ -316,8 +316,7 @@ input[type="submit"], button
 
 .selected 
 {
-    background:url("images/ui-bg_glass_55_fcf0ba_1x400.png") repeat-x scroll 50% 50% #FCF0BA;
-    
+    background:url("images/ui-bg_glass_55_fcf0ba_1x400.png") repeat-x scroll 50% 50% #FCF0BA;    
 }
 
 .grow
@@ -351,4 +350,9 @@ td, th
 {
     padding: 0px 10px;
     text-align: left;
+}
+
+p
+{
+    margin: 10px;
 }

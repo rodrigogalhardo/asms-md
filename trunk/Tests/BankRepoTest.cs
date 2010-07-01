@@ -1,12 +1,27 @@
 ﻿using System.Diagnostics;
 using System.Linq;
+using System.Text.RegularExpressions;
 using MRGSP.ASMS.Core.Model;
 using MRGSP.ASMS.Data;
 using NUnit.Framework;
 
 namespace MRGSP.ASMS.Tests
 {
-    public class BanksRepositoryTest : BaseRepoTest
+    [TestFixture]
+    public class Regtest
+    {
+        [Test]
+        public void Test()
+        {
+            var re = @"\d\d";
+
+            var a = Regex.IsMatch("30.01.2009", @"\d\d.\d\d.\d\d\d\d");
+            System.Console.Out.WriteLine(a);
+        }
+        
+    }
+
+    public class BankRepoTest : BaseRepoTest
     {
         readonly BankRepo repo = new BankRepo(new ConnectionFactory());
 

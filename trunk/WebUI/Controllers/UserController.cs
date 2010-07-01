@@ -6,6 +6,14 @@ using MRGSP.ASMS.Infra.Dto;
 
 namespace MRGSP.ASMS.WebUI.Controllers
 {
+    public class ErrorController : Controller
+    {
+        public ActionResult Index()
+        {
+            return View("Error");
+        }
+    }
+
     public class CaseController : Controller
     {
         public ActionResult Create()

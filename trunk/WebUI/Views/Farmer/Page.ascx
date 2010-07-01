@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<IPageable<Bank>>" %>
+﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<IPageable<Farmer>>" %>
 <table>
     <thead class="ui-state-default">
         <tr>
@@ -10,23 +10,24 @@
             </th>
         </tr>
     </thead>
-    <% foreach (var bank in Model.Page)
+    <% foreach (var o in Model.Page)
        {
     %>
-    <tr class="grow" value="<%:bank.Id %>">
+    <tr class="grow" value="<%:o.Id %>">
         <td>
-            <%:bank.Name %>
+            <%:o.Name %>
         </td>
         <td>
-            <%:bank.Code %>
+            <%:o.Code %>
         </td>
     </tr>
     <%
         } %>
 </table>
 
-<%:Html.AjaxPagination(Model.PageCount, Model.PageIndex, "getBankPage") %>
+<%:Html.AjaxPagination(Model.PageCount, Model.PageIndex, "getFarmerPage") %>
 
 <script type="text/javascript">
-    $("#banklist table .grow").click(growbankClick);
+    $("#farmerlist table .grow").click(growfarmerClick);
 </script>
+

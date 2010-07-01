@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 
 namespace MRGSP.ASMS.Infra.Dto
@@ -33,6 +34,26 @@ namespace MRGSP.ASMS.Infra.Dto
         [BankCodeUnique]
         [DisplayName("Cod bancar")]
         public string Code { get; set; }
+    }
+
+    public class FarmerCreateInput
+    {
+        [Req]
+        [DisplayName("Denumirea")]
+        public string Name { get; set; }
+
+        [Req]
+        [FarmerCodeUnique]
+        [DisplayName("Cod")]
+        public string Code { get; set; }
+
+        [Req]
+        [DisplayName("Data inregistrarii")]
+        public DateTime? DateReg { get; set; }
+
+        [Req]
+        [DisplayName("Nr de inregistrare")]
+        public string NrReg { get; set; }
     }
 
     public class UserEditInput
@@ -70,5 +91,19 @@ namespace MRGSP.ASMS.Infra.Dto
     public class CaseCreateInput
     {
         
+    }
+
+    public class LookupInfo
+    {
+        public LookupInfo()
+        {
+            Choose = true;
+        }
+
+        public string For { get; set; }
+
+        public string Title { get; set; }
+
+        public bool Choose { get; set; }
     }
 }

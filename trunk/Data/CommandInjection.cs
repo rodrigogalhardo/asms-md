@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using Omu.ValueInjecter;
@@ -17,6 +18,7 @@ namespace MRGSP.ASMS.Data
                 var dbType = SqlDbType.NVarChar;
                 if (prop.PropertyType == typeof(int)) dbType = SqlDbType.Int;
                 if (prop.PropertyType == typeof(long)) dbType = SqlDbType.BigInt;
+                if (prop.PropertyType == typeof(DateTime?)) dbType = SqlDbType.Date;
 
                 cmd.Parameters.Add(prop.Name, dbType).Value = prop.GetValue(source);
             }
