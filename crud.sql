@@ -202,9 +202,11 @@ delete from banks where id = @id
 go
 create proc insertFarmer
 @code nvarchar(20),
-@name nvarchar(200)
+@name nvarchar(200),
+@dateReg Date,
+@nrReg nvarchar(20)
 as
-insert farmers(code, name) values(@code, @name)
+insert farmers(code, name, dateReg, nrReg) values(@code, @name, @dateReg, @nrReg)
 select @@identity
 
 go
@@ -235,3 +237,6 @@ select  *
 from    result
 where   nr  between ((@page - 1) * @pageSize + 1)
         and (@page * @pageSize) 
+
+
+select * from farmers
