@@ -48,6 +48,49 @@ namespace MRGSP.ASMS.Infra.Dto
         }
     }
 
+    public sealed class MyDate : ValidationAttribute
+    {
+        private const string DefaultErrorMessage = "invalid date";
+
+        public MyDate()
+            : base(DefaultErrorMessage)
+        {
+        }
+
+        public override string FormatErrorMessage(string name)
+        {
+            return DefaultErrorMessage;
+        }
+
+        public override bool IsValid(object value)
+        {
+            DateTime d;
+            return DateTime.TryParse((string) value, out d);
+        }
+    }
+
+    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
+    public sealed class FarmerCodeUniqueAttribute : ValidationAttribute
+    {
+        private const string DefaultErrorMessage = "o banca cu asa cod deja exista";
+
+        public FarmerCodeUniqueAttribute()
+            : base(DefaultErrorMessage)
+        {
+        }
+
+        public override string FormatErrorMessage(string name)
+        {
+            return DefaultErrorMessage;
+        }
+
+        public override bool IsValid(object value)
+        {
+            if (string.IsNullOrEmpty((string)value)) return true;
+            return !IoC.Resolve<IFarmerService>().Exists((string)value);
+        }
+    }
+
     public sealed class ReqAttribute : RequiredAttribute
     {
         public ReqAttribute()

@@ -22,7 +22,7 @@ namespace MRGSP.ASMS.Core.Repository
         int Count();
     }
 
- public interface IBankRepo
+    public interface IBankRepo
     {
         long Insert(Bank o);
         int Count(string code);
@@ -30,5 +30,13 @@ namespace MRGSP.ASMS.Core.Repository
         int Count(string name, string code);
         IEnumerable<Bank> GetPage(int page, int pageSize, string name, string code);
         Bank Get(long id);
+    }
+
+    public interface IFarmerRepo
+    {
+        long Insert(Farmer o);
+        Farmer Get(long id);
+        int Count(string name, string code);
+        IEnumerable<Farmer> GetPage(int page, int pageSize, string name, string code);
     }
 }

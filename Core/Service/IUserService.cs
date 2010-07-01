@@ -27,4 +27,13 @@ namespace MRGSP.ASMS.Core.Service
         string Delete(int id);
         Bank Get(long id);
     }
+
+    public interface IFarmerService
+    {
+        long Create(Farmer o);
+        IPageable<Farmer> GetPage(int page, int pageSize, string name = null, string code = null);
+        bool Exists(string code);
+        Farmer Get(long id);
+    }
+
 }

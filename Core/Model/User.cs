@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -42,7 +43,9 @@ namespace MRGSP.ASMS.Core.Model
 
     public class Farmer : EntityWithName
     {
-        
+        public string Code { get; set; }
+        public DateTime? DateReg { get; set; }
+        public string NrReg { get; set; }
     }
 
     public class Department : EntityWithName
