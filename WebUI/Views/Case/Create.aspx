@@ -16,6 +16,7 @@
        Html.RenderPartial("lookup", new LookupInfo {For = "farmer", Title = "Alege fermier"});%>    
     </div>    
 </div>
+
 <div class="efield">
     <div class="elabel">
         <label>Banca</label>
@@ -26,7 +27,34 @@
     </div>    
 </div>
 
-<input type="submit" value="submit">
+<div class="efield">
+    <div class="elabel">
+        <label>Camp</label>
+    </div>
+    <div class="einput">
+        <%:Html.TextBox("aazxc")%> 
+    </div>    
+</div>
+
+<div class="efield">
+    <div class="elabel">
+        <label>Camp</label>
+    </div>
+    <div class="einput">
+        <%:Html.TextBox("aazzxcxz")%> 
+    </div>    
+</div>
+
+<div class="efield">
+    <div class="elabel">
+        <label>Camp</label>
+    </div>
+    <div class="einput">
+        <%:Html.TextBox("aazzzxczxaas")%> 
+    </div>    
+</div>
+
+<input type="submit" value="submit"/>
 <%
    }%>
 </asp:Content>

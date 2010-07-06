@@ -37,7 +37,34 @@ NrReg nvarchar(20)
 
 create table cases
 (
-id bigint identity primary key
+id bigint identity primary key,
+responsibleId bigint not null,
+code nvarchar(20) not null unique,
+number int not null,
+farmerId bigint not null,
+activityType nvarchar(20),
+areaId int,
+districtId int,
+county nvarchar(100),
+bankId int not null,
+settlementAccount nvarchar(50),
+adminFirstName nvarchar(20),
+adminLastName nvarchar(20),
+representativeFirstName nvarchar(20),
+representativeLastName nvarchar(20),
+phone nvarchar(50),
+fax nvarchar(50),
+mobile nvarchar(50),
+friendPhone nvarchar(50),
+email nvarchar(max),
+proTraining bit,
+speciality nvarchar(max),
+diplomaIssuer nvarchar(max),
+hasContract bit,
+contractNumber nvarchar(max),
+contractDate Date,
+serviceProvider nvarchar(max),
+businessPlanHelper nvarchar(max)
 )
 
 create table banks
@@ -238,5 +265,93 @@ from    result
 where   nr  between ((@page - 1) * @pageSize + 1)
         and (@page * @pageSize) 
 
+/***************** cases *******************************/
+go
+create proc insertCase
+@responsibleId bigint ,
+@code nvarchar(20)  ,
+@number int ,
+@farmerId bigint ,
+@activityType nvarchar(20),
+@areaId int,
+@districtId int,
+@county nvarchar(100),
+@bankId int ,
+@settlementAccount nvarchar(50),
+@adminFirstName nvarchar(20),
+@adminLastName nvarchar(20),
+@representativeFirstName nvarchar(20),
+@representativeLastName nvarchar(20),
+@phone nvarchar(50),
+@fax nvarchar(50),
+@mobile nvarchar(50),
+@friendPhone nvarchar(50),
+@email nvarchar,
+@proTraining bit,
+@speciality nvarchar,
+@diplomaIssuer nvarchar,
+@hasContract bit,
+@contractNumber nvarchar,
+@contractDate Date,
+@serviceProvider nvarchar,
+@businessPlanHelper nvarchar
+as
+begin tran
+insert cases(responsibleId,
+code   ,
+number  ,
+farmerId  ,
+activityType ,
+areaId ,
+districtId ,
+county,
+bankId  ,
+settlementAccount ,
+adminFirstName ,
+adminLastName ,
+representativeFirstName ,
+representativeLastName ,
+phone ,
+fax ,
+mobile ,
+friendPhone ,
+email ,
+proTraining,
+speciality ,
+diplomaIssuer ,
+hasContract,
+contractNumber ,
+contractDate,
+serviceProvider ,
+businessPlanHelper )
 
-select * from farmers
+values(
+@responsibleId  ,
+@code   ,
+@number  ,
+@farmerId  ,
+@activityType ,
+@areaId ,
+@districtId ,
+@county,
+@bankId  ,
+@settlementAccount ,
+@adminFirstName ,
+@adminLastName ,
+@representativeFirstName ,
+@representativeLastName ,
+@phone ,
+@fax ,
+@mobile ,
+@friendPhone ,
+@email ,
+@proTraining,
+@speciality ,
+@diplomaIssuer ,
+@hasContract,
+@contractNumber ,
+@contractDate,
+@serviceProvider ,
+@businessPlanHelper
+)	
+commit
