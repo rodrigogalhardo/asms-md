@@ -39,4 +39,9 @@ namespace MRGSP.ASMS.Core.Repository
         int Count(string name, string code);
         IEnumerable<Farmer> GetPage(int page, int pageSize, string name, string code);
     }
+
+    public interface ICaseRepo
+    {
+        long Insert(Case o);
+    }
 }

@@ -61,10 +61,12 @@
 </div>
 <%if (Model.Choose)
   { %>
-<button id="open-<%=Model.For %>" type="button">
-    ...</button>
+
 <input type="text" id="display<%=Model.For %>" disabled="disabled" />
 <input type="hidden" id="<%=Model.For %>Id" name="<%=Model.For %>Id" />
+<button id="open-<%=Model.For %>" type="button">
+    ...</button>
+
 <%}
   else
   {%>
