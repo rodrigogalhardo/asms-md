@@ -20,13 +20,13 @@
         var v = $(list + " table .selected").attr("value");
         if (v != null)
             $.post(url, { id: v },
-                            function (data) { $(display).val(data); $(input).val(v); });
+                            function (data) { $(display).val(data); $(input).val(v); $(display+"x").val(data); });
         $(theDialog).dialog('close');
     }
     <%
       }%>
 
-    $(function () {
+    $(function () { 
         $("#select-<%=Model.For %>-dialog").dialog({
             resizable: true,
             height: 400,
@@ -54,19 +54,25 @@
                 function (data) { $("#select-<%=Model.For %>-dialog").html(data).dialog('open'); }
                 );
         });
+
+        
     });
         
 </script>
 <div id="select-<%=Model.For %>-dialog" title="<%=Model.Title %>" class="popup">
 </div>
+
 <%if (Model.Choose)
   { %>
+<input type="text" id="display<%=Model.For %>x" disabled="disabled" value='<%=Model.Display %>' />
+<%=Html.Hidden("display"+Model.For) %>
+<%=Html.Hidden(Model.For+"Id") %>
 
-<input type="text" id="display<%=Model.For %>" disabled="disabled" />
-<input type="hidden" id="<%=Model.For %>Id" name="<%=Model.For %>Id" />
-<button id="open-<%=Model.For %>" type="button">
-    ...</button>
+<a class=" abtn btn fl" id="open-<%=Model.For %>" href="#">
+<span class="ui-icon ui-icon-newwin"></span></a>
 
+<%--<button id="open-<%=Model.For %>" class="ui-state-default ui-corner-all" type="button">
+    ...</button>--%>
 <%}
   else
   {%>

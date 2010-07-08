@@ -2,11 +2,11 @@
 
 namespace MRGSP.ASMS.Data
 {
-    public class BaseRepository
+    public class BaseRepo
     {
         protected readonly string Cs;
 
-        public BaseRepository(IConnectionFactory connFactory)
+        public BaseRepo(IConnectionFactory connFactory)
         {
             Cs = connFactory.GetConnectionString();
         }

@@ -3,6 +3,11 @@ using MRGSP.ASMS.Core.Model;
 
 namespace MRGSP.ASMS.Core.Service
 {
+    public interface ICaseService
+    {
+        long Insert(Case o);
+        Case Get(long id);
+    }
     public interface IUserService
     {
         long Insert(User user);

@@ -37,6 +37,30 @@ namespace MRGSP.ASMS.Data
             }
         }
 
+        public static IEnumerable<T> GetAll<T>(string cs) where T: new()
+        {
+            using (var conn = new SqlConnection(cs))
+            {
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = "select * from " + typeof(T).Name + "s";
+                    conn.Open();
+
+                    using (var dr = cmd.ExecuteReader())
+                    {
+                        if (dr != null)
+                            while (dr.Read())
+                            {
+                                var o = new T();
+                                o.InjectFrom<ReaderInjection>(dr);
+                                yield return o;
+                            }
+                    }
+                }
+            }
+        }
+
         public static IEnumerable<T> GetPage<T>(int page, int pageSize, string name, string cs) where T : new()
         {
             using (var conn = new SqlConnection(cs))

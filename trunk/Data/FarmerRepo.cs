@@ -8,7 +8,7 @@ using Omu.ValueInjecter;
 
 namespace MRGSP.ASMS.Data
 {
-    public class FarmerRepo: BaseRepository, IFarmerRepo
+    public class FarmerRepo: BaseRepo, IFarmerRepo
     {
         public FarmerRepo(IConnectionFactory connFactory) : base(connFactory)
         {

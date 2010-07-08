@@ -1,5 +1,7 @@
 ﻿using MRGSP.ASMS.Core.Model;
+using MRGSP.ASMS.Core.Repository;
 using MRGSP.ASMS.Core.Security;
+using MRGSP.ASMS.Data;
 using MRGSP.ASMS.Infra;
 using MRGSP.ASMS.Infra.Dto;
 using MRGSP.ASMS.WebUI.Controllers;
@@ -17,6 +19,9 @@ namespace MRGSP.ASMS.WebUI
             WindsorRegistrar.Register("forms", typeof(IFormsAuthentication), typeof(FormAuthService));
             WindsorRegistrar.Register("q1", typeof(IBuilder<User, UserCreateInput>), typeof(UserBuilder<UserCreateInput>));
             WindsorRegistrar.Register("q2", typeof(IBuilder<User, UserEditInput>), typeof(UserBuilder<UserEditInput>));
+            WindsorRegistrar.Register("q3", typeof(IBuilder<Case, CaseCreateInput>), typeof(CaseBuilder));
+            WindsorRegistrar.Register("q4", typeof(IBuilder<Farmer, FarmerCreateInput>), typeof(FarmerCreateBuilder));
+            WindsorRegistrar.Register("ur", typeof(IUberRepo<>), typeof(UberRepo<>));
 
             
 

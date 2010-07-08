@@ -61,6 +61,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\libs\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="Omu.ValueInjecter, Version=1.9.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -82,8 +83,11 @@
     <Compile Include="Class1.cs" />
     <Compile Include="FarmerRepoTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="FillObjectInjection.cs" />
+    <Compile Include="Regtest.cs" />
     <Compile Include="TestingTools.cs" />
-    <Compile Include="UserRepositoryTest.cs" />
+    <Compile Include="UberRepoTests.cs" />
+    <Compile Include="UserRepoTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">

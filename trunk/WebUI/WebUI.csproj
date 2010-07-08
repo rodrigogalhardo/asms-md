@@ -51,6 +51,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\libs\Castle.Windsor.dll</HintPath>
     </Reference>
+    <Reference Include="MvcContrib, Version=2.0.36.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libs\MvcContrib.dll</HintPath>
+    </Reference>
     <Reference Include="MvcContrib.Castle, Version=2.0.36.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\libs\MvcContrib.Castle.dll</HintPath>
@@ -101,8 +105,11 @@
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="ConnectionFactory.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BankController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CaseController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\FarmerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NavController.cs" />
@@ -125,6 +132,24 @@
     <Content Include="Views\Farmer\Create.ascx" />
     <Content Include="Views\Farmer\Index.ascx" />
     <Content Include="Views\Farmer\Page.ascx" />
+    <Content Include="Views\InputBuilders\Array.aspx" />
+    <Content Include="Views\InputBuilders\ArrayAddButton.aspx" />
+    <Content Include="Views\InputBuilders\ArrayRemoveButton.aspx" />
+    <Content Include="Views\Shared\Boolean.aspx" />
+    <Content Include="Views\Shared\Guid.aspx" />
+    <Content Include="Views\Shared\DateTime.aspx" />
+    <Content Include="Views\InputBuilders\DisplayInline.aspx" />
+    <Content Include="Views\InputBuilders\DisplayLabel.aspx" />
+    <Content Include="Views\InputBuilders\DisplayParagraph.aspx" />
+    <Content Include="Views\Shared\Enum.aspx" />
+    <Content Include="Views\InputBuilders\Form.aspx" />
+    <Content Include="Views\Shared\1Guid.aspx" />
+    <Content Include="Views\Shared\Int32.aspx" />
+    <Content Include="Views\InputBuilders\MultilineText.aspx" />
+    <Content Include="Views\InputBuilders\RadioButtons.aspx" />
+    <Content Include="Views\InputBuilders\ReadOnly.aspx" />
+    <Content Include="Views\Shared\String.aspx" />
+    <Content Include="Views\InputBuilders\Submit.aspx" />
     <Content Include="Views\Shared\lookup.ascx" />
     <Content Include="Views\User\ChangePassword.aspx" />
     <Content Include="Views\User\Create.aspx" />
@@ -217,6 +242,13 @@
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>Messages.Designer.cs</LastGenOutput>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\InputBuilders\Array.Master" />
+    <Content Include="Views\InputBuilders\Display.Master" />
+    <Content Include="Views\Shared\Field.Master" />
+    <Content Include="Views\Shared\HiddenField.Master" />
+    <Content Include="Views\InputBuilders\Row.Master" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

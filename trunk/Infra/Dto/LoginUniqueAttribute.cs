@@ -65,7 +65,7 @@ namespace MRGSP.ASMS.Infra.Dto
         public override bool IsValid(object value)
         {
             DateTime d;
-            return DateTime.TryParse((string) value, out d);
+            return DateTime.TryParse((string)value, out d);
         }
     }
 
@@ -96,6 +96,28 @@ namespace MRGSP.ASMS.Infra.Dto
         public ReqAttribute()
         {
             ErrorMessage = "acest camp este obligatoriu";
+        }
+    }
+
+    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
+    public sealed class HiddenReq : ValidationAttribute
+    {
+        private const string DefaultErrorMessage = "dass ist nich gut";
+
+        public HiddenReq()
+            : base(DefaultErrorMessage)
+        {
+        }
+
+        public override string FormatErrorMessage(string name)
+        {
+            return DefaultErrorMessage;
+        }
+
+        public override bool IsValid(object value)
+        {
+            if (value == null || (long)value == 0) return false;
+            return true;
         }
     }
 

@@ -21,7 +21,24 @@
         $(function () {
             setFocusOnFirst();
             $(".mydate").datepicker();
+            dob();
         });
+
+        function dob() {
+            $(".abtn").hover(
+	            function () {
+	                $(this).addClass("ui-state-hover");
+	            },
+	            function () {
+	                $(this).removeClass("ui-state-hover");
+	            }).bind({
+	             
+	             'mousedown mouseup': function() {
+	              $(this).toggleClass('ui-state-active');
+	                }
+	 
+	             }).addClass("ui-state-default").addClass("ui-corner-all");	           
+        }
 
         function setFocusOnFirst() {
             $("input:text:visible:first").focus();
@@ -60,7 +77,7 @@
     <div id="topline">
     </div>
     <div id="main-container">
-        <div id="main" class="maindiv">
+        <div id="main" class="maindiv ">
             <asp:ContentPlaceHolder ID="MainContent" runat="server" />
         </div>
     </div>

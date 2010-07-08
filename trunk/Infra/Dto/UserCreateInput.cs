@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
+using MvcContrib.UI.InputBuilder.Attributes;
 
 namespace MRGSP.ASMS.Infra.Dto
 {
@@ -49,11 +50,14 @@ namespace MRGSP.ASMS.Infra.Dto
 
         [Req]
         [DisplayName("Data inregistrarii")]
+        [PartialView("DateTime")]
         public DateTime? DateReg { get; set; }
 
         [Req]
         [DisplayName("Nr de inregistrare")]
         public string NrReg { get; set; }
+
+        public object CompanyTypeId { get; set; }
     }
 
     public class UserEditInput
@@ -88,11 +92,6 @@ namespace MRGSP.ASMS.Infra.Dto
         public string Password { get; set; }
     }
 
-    public class CaseCreateInput
-    {
-        
-    }
-
     public class LookupInfo
     {
         public LookupInfo()
@@ -105,5 +104,7 @@ namespace MRGSP.ASMS.Infra.Dto
         public string Title { get; set; }
 
         public bool Choose { get; set; }
+
+        public string Display { get; set; }
     }
 }

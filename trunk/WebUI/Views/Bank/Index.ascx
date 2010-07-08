@@ -8,10 +8,10 @@
         Cod</label>
     <input type="text" id="search-bank-code" />
 
-    <button class="ui-state-default ui-corner-all" id="banksearch">
+    <button class=" abtn" id="banksearch">
         <span class="ui-icon ui-icon-search fl"></span>Cauta</button>
 
-    <button class="ui-state-default ui-corner-all" id="bankcreate">
+    <button class=" abtn" id="bankcreate">
         <span class="ui-icon ui-icon-circle-plus fl"></span>Adauga</button>
 </div>
 <br class="cbt" />
@@ -36,6 +36,7 @@
     });
 
     function init() {
+        
         getBankPage(1);
 
         $('#search-bank-name').keyup(function (e) {
@@ -99,9 +100,12 @@
             $('#create-bank-dialog').html(result);
             registerCreateForm();
             setFocusOnForm("#create-bank-dialog");
+            
         }
     }
 
+   
     init();
+    dob();
         
 </script>

@@ -9,7 +9,7 @@ using Omu.ValueInjecter;
 
 namespace MRGSP.ASMS.Data
 {
-    public class UserRepo : BaseRepository, IUserRepo
+    public class UserRepo : BaseRepo, IUserRepo
     {
         public UserRepo(IConnectionFactory connFactory) : base(connFactory)
         {

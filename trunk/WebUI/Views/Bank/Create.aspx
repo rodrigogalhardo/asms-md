@@ -3,6 +3,7 @@
 <%@ Import Namespace="xVal.Html" %>
 <% using (Html.BeginForm())
    {%>
+   <div class="short">
 <div class="efield">
     <div class="elabel">
         <%= Html.LabelFor(model => model.Name) %>
@@ -21,6 +22,7 @@
         <%= Html.ValidationMessageFor(model => model.Code) %>
     </div>
 </div>
-<input type="submit" class="hidden" />
+</div>
+<button type="submit" class="hidden" />
 <% } %>
 <%=Html.ClientSideValidation<BankCreateInput>() %>
