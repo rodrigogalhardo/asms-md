@@ -6,6 +6,31 @@ create database asms
 go
 use asms
 
+create table districts
+(
+id bigint identity primary key,
+name nvarchar(20),
+code nvarchar(2)
+)
+
+create table areas
+(
+id bigint identity primary key,
+name nvarchar(20)
+)
+
+create table consultants
+(
+id bigint identity primary key,
+name nvarchar(50)
+)
+
+create table companytypes
+(
+id bigint identity primary key,
+name nvarchar(50)
+)
+
 create table users
 (
 id bigint identity primary key,
@@ -31,17 +56,18 @@ create table farmers
 id bigint identity primary key,
 code nvarchar(20) unique,
 name nvarchar(200) not null,
-DateReg Date,
-NrReg nvarchar(20)
+dateReg Date,
+nrReg nvarchar(20),
+companyTypeId bigint
 )
 
 create table cases
 (
 id bigint identity primary key,
-responsibleId bigint not null,
-code nvarchar(20) not null unique,
-number int not null,
-farmerId bigint not null,
+responsibleId bigint,
+code nvarchar(20),
+number int,
+farmerId bigint,
 activityType nvarchar(20),
 areaId int,
 districtId int,
@@ -64,7 +90,8 @@ hasContract bit,
 contractNumber nvarchar(max),
 contractDate Date,
 serviceProvider nvarchar(max),
-businessPlanHelper nvarchar(max)
+consultantId bigint,
+regDate Date
 )
 
 create table banks
@@ -231,9 +258,10 @@ create proc insertFarmer
 @code nvarchar(20),
 @name nvarchar(200),
 @dateReg Date,
-@nrReg nvarchar(20)
+@nrReg nvarchar(20),
+@companyTypeId bigint
 as
-insert farmers(code, name, dateReg, nrReg) values(@code, @name, @dateReg, @nrReg)
+insert farmers(code, name, dateReg, nrReg, companyTypeId) values(@code, @name, @dateReg, @nrReg, @companyTypeId)
 select @@identity
 
 go
@@ -294,12 +322,11 @@ create proc insertCase
 @contractNumber nvarchar,
 @contractDate Date,
 @serviceProvider nvarchar,
-@businessPlanHelper nvarchar
+@consultantId nvarchar,
+@regDate Date
 as
 begin tran
 insert cases(responsibleId,
-code   ,
-number  ,
 farmerId  ,
 activityType ,
 areaId ,
@@ -323,12 +350,11 @@ hasContract,
 contractNumber ,
 contractDate,
 serviceProvider ,
-businessPlanHelper )
+consultantId,
+regDate )
 
 values(
 @responsibleId  ,
-@code   ,
-@number  ,
 @farmerId  ,
 @activityType ,
 @areaId ,
@@ -352,6 +378,26 @@ values(
 @contractNumber ,
 @contractDate,
 @serviceProvider ,
-@businessPlanHelper
+@consultantId,
+@regDate
 )	
+select @@IDENTITY
 commit
+
+go
+insert districts(name, code) values('Drochia','DR');
+insert districts(name, code) values('Ialoveni','IL');
+insert districts(name, code) values('Balti','BL');
+
+insert areas(name) values('Nord')
+insert areas(name) values('Centru')
+insert areas(name) values('Sud')
+
+insert consultants(name) values('ACSA')
+insert consultants(name) values('Solicitantul')
+insert consultants(name) values('Altele')
+
+insert companytypes(name) values('Intreprindere Individuala')
+insert companytypes(name) values('Gospodarie Taraneasca')
+insert companytypes(name) values('Societate cu Raspundere Limitata')
+insert companytypes(name) values('Societate pe Actiuni')

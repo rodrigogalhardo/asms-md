@@ -3,6 +3,12 @@ using MRGSP.ASMS.Core.Model;
 
 namespace MRGSP.ASMS.Core.Repository
 {
+    public interface IUberRepo<T> where T : new()
+    {
+        T Get(long id);
+        IEnumerable<T> GetAll();
+    }
+
     public interface IUserRepo : IPagedRepo<User>
     {
         long Insert(User o);
@@ -43,5 +49,6 @@ namespace MRGSP.ASMS.Core.Repository
     public interface ICaseRepo
     {
         long Insert(Case o);
+        Case Get(long id);
     }
 }

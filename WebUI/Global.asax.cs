@@ -49,25 +49,25 @@ namespace MRGSP.ASMS.WebUI
 
         protected void Application_Error(object sender, EventArgs e)
         {
-            Exception exception = Server.GetLastError();
-            // Log the exception.
+           // Exception exception = Server.GetLastError();
+           // // Log the exception.
 
-            Response.Clear();
+           // Response.Clear();
 
-            HttpException httpException = exception as HttpException;
+           // HttpException httpException = exception as HttpException;
 
-            RouteData routeData = new RouteData();
-            routeData.Values.Add("controller", "Error");
+           // RouteData routeData = new RouteData();
+           // routeData.Values.Add("controller", "Error");
 
-           routeData.Values.Add("action", "Index");
+           //routeData.Values.Add("action", "Index");
 
-            // Clear the error on server.
-            Server.ClearError();
+           // // Clear the error on server.
+           // Server.ClearError();
 
-            // Call target Controller and pass the routeData.
-            IController errorController = new ErrorController();
-            errorController.Execute(new RequestContext(
-                 new HttpContextWrapper(Context), routeData));
+           // // Call target Controller and pass the routeData.
+           // IController errorController = new ErrorController();
+           // errorController.Execute(new RequestContext(
+           //      new HttpContextWrapper(Context), routeData));
         }
 
     }

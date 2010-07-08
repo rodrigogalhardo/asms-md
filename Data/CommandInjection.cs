@@ -19,6 +19,9 @@ namespace MRGSP.ASMS.Data
                 if (prop.PropertyType == typeof(int)) dbType = SqlDbType.Int;
                 if (prop.PropertyType == typeof(long)) dbType = SqlDbType.BigInt;
                 if (prop.PropertyType == typeof(DateTime?)) dbType = SqlDbType.Date;
+                if (prop.PropertyType == typeof(DateTime)) dbType = SqlDbType.Date;
+                if (prop.PropertyType == typeof(bool)) dbType = SqlDbType.Bit;
+
 
                 cmd.Parameters.Add(prop.Name, dbType).Value = prop.GetValue(source);
             }

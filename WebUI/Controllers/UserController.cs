@@ -6,30 +6,6 @@ using MRGSP.ASMS.Infra.Dto;
 
 namespace MRGSP.ASMS.WebUI.Controllers
 {
-    public class ErrorController : Controller
-    {
-        public ActionResult Index()
-        {
-            return View("Error");
-        }
-    }
-
-    public class CaseController : Controller
-    {
-        public ActionResult Create()
-        {
-            return View(new CaseCreateInput());
-        }
-
-        [HttpPost]
-        public ActionResult Create(CaseCreateInput input)
-        {
-            return RedirectToAction("Index");
-        }
-
-        
-    }
-
     public class UserController : Controller
     {
         private readonly IUserService userService;

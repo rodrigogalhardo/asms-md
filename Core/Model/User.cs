@@ -14,6 +14,17 @@ namespace MRGSP.ASMS.Core.Model
         public string Name { get; set; }
     }
 
+    public class District : EntityWithName
+    {
+        public string Code { get; set; }
+    }
+
+    public class Consultant : EntityWithName { }
+
+    public class Area : EntityWithName { }
+
+    public class CompanyType : EntityWithName { }
+
     public class User : EntityWithName
     {
         public User()
@@ -35,15 +46,15 @@ namespace MRGSP.ASMS.Core.Model
         public string Code { get; set; }
     }
 
-    public class Case : EntityWithName
+    public class Case : Entity
     {
         public long ResponsibleId { get; set; }
         public string Code { get; set; }
         public int Number { get; set; }
         public long FarmerId { get; set; }
         public string ActivityType { get; set; }
-        public int Area { get; set; }
-        public int District { get; set; }
+        public long AreaId { get; set; }
+        public long DistrictId { get; set; }
         public string County { get; set; }
         public long BankId { get; set; }
         public string SettlementAccount { get; set; }
@@ -61,9 +72,10 @@ namespace MRGSP.ASMS.Core.Model
         public string DiplomaIssuer { get; set; }
         public bool HasContract { get; set; }
         public string ContractNumber { get; set; }
-        public DateTime ContractDate { get; set; }
+        public DateTime? ContractDate { get; set; }
         public string ServiceProvider { get; set; }
-        public string BusinessPlanHelper { get; set; }
+        public long ConsultantId { get; set; }
+        public DateTime? DateReg { get; set; }
     }
 
     public class Farmer : EntityWithName
@@ -71,7 +83,7 @@ namespace MRGSP.ASMS.Core.Model
         public string Code { get; set; }
         public DateTime? DateReg { get; set; }
         public string NrReg { get; set; }
-        public string OrganizationalForm { get; set; }
+        public long CompanyTypeId { get; set; }
     }
 
     public class Department : EntityWithName

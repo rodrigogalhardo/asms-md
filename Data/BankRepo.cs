@@ -8,7 +8,7 @@ using Omu.ValueInjecter;
 
 namespace MRGSP.ASMS.Data
 {
-    public class CaseRepo : BaseRepository, ICaseRepo
+    public class CaseRepo : BaseRepo, ICaseRepo
     {
         public CaseRepo(IConnectionFactory connFactory) : base(connFactory)
         {
@@ -18,8 +18,13 @@ namespace MRGSP.ASMS.Data
         {
             return Convert.ToInt64(DbUtil.Insert(o, Cs));
         }
+
+        public Case Get(long id)
+        {
+            return DbUtil.Get<Case>(id, Cs);
+        }
     }
-    public class BankRepo : BaseRepository, IBankRepo
+    public class BankRepo : BaseRepo, IBankRepo
     {
         public BankRepo(IConnectionFactory connFactory)
             : base(connFactory)

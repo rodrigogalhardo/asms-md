@@ -4,11 +4,50 @@ using System.ComponentModel;
 using System.Linq;
 using System.Web.Mvc;
 using MRGSP.ASMS.Core.Model;
+using MRGSP.ASMS.Core.Repository;
 using MRGSP.ASMS.Core.Service;
 using Omu.ValueInjecter;
 
 namespace MRGSP.ASMS.Infra
 {
+    public class LookupToLong : LoopValueInjection<object, long>
+    {
+        protected override long SetValue(object sourcePropertyValue)
+        {
+            return Utils.ReadInt64(sourcePropertyValue);
+        }
+    }
+
+    public class IdToDisplay<T> : ValueInjection where T : EntityWithName, new()
+    {
+        protected override void Inject(object source, object target, PropertyDescriptorCollection sourceProps, PropertyDescriptorCollection targetProps)
+        {
+            var sp = sourceProps.GetByNameType<long>(typeof (T).Name + "Id");
+            var tp = targetProps.GetByNameType<string>("Display" + typeof(T).Name);
+            
+            var t = IoC.Resolve<IUberRepo<T>>().Get((long) sp.GetValue(source));
+            if(t != null)
+            tp.SetValue(target,t.Name);
+        }
+    }
+    public class IdToLookup<T> : ValueInjection where T : EntityWithName, new()
+    {
+        protected override void Inject(object source, object target, PropertyDescriptorCollection sourceProps, PropertyDescriptorCollection targetProps)
+        {
+            var s = sourceProps.GetByNameType<long>(typeof(T).Name + "Id");
+            var t = targetProps.GetByNameType<object>(typeof(T).Name + "Id");
+            var value = (long)s.GetValue(source);
+            var sv = IoC.Resolve<IUberRepo<T>>().GetAll()
+                .Select(o => new SelectListItem
+                                 {
+                                     Value = o.Id.ToString(),
+                                     Text = o.Name,
+                                     Selected = o.Id == value
+                                 });
+            t.SetValue(target, sv);
+        }
+    }
+
     public class RolesToLookup : LoopValueInjection<IEnumerable<Role>, object>
     {
         protected override object SetValue(IEnumerable<Role> sourcePropertyValue)
@@ -37,5 +76,5 @@ namespace MRGSP.ASMS.Infra
                 .Where(o => keys.Contains(o.Id.ToString()));
         }
     }
-  
+
 }

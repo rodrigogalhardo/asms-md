@@ -8,9 +8,9 @@
         Cod</label>
     <input type="text" id="search-farmer-code" />
 
-    <button class="ui-state-default ui-corner-all" id="farmersearch">
+    <button class="abtn" id="farmersearch">
         <span class="ui-icon ui-icon-search fl"></span>Cauta</button>
-    <button class="ui-state-default ui-corner-all" id="farmercreate">
+    <button class="abtn" id="farmercreate">
         <span class="ui-icon ui-icon-circle-plus fl"></span>Adauga</button>
 </div>
 <br class="cbt" />
@@ -73,6 +73,7 @@
 
     ///on load
     getFarmerPage(1);
+    dob();
 
     $('#search-farmer-name').keyup(function (e) {
         if (e.keyCode == 13) {

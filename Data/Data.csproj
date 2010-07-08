@@ -74,7 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BankRepo.cs" />
-    <Compile Include="BaseRepository.cs" />
+    <Compile Include="BaseRepo.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="CommandInjection.cs" />
     <Compile Include="ConnectionFactory.cs" />
@@ -82,6 +82,7 @@
     <Compile Include="FarmerRepo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReaderInjection.cs" />
+    <Compile Include="UberRepo.cs" />
     <Compile Include="UserRepo.cs" />
   </ItemGroup>
   <ItemGroup>

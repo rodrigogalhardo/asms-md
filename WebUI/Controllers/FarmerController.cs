@@ -1,25 +1,21 @@
 ﻿using System.Web.Mvc;
 using MRGSP.ASMS.Core.Model;
 using MRGSP.ASMS.Core.Service;
+using MRGSP.ASMS.Infra;
 using MRGSP.ASMS.Infra.Dto;
 using Omu.ValueInjecter;
 
 namespace MRGSP.ASMS.WebUI.Controllers
 {
-    public class AdminController : BaseController
-    {
-        public ActionResult Index()
-        {
-            return View();
-        }
-    }
     public class FarmerController : BaseController
     {
         private readonly IFarmerService farmerService;
+        private IBuilder<Farmer, FarmerCreateInput> createBuilder;
 
-        public FarmerController(IFarmerService farmerService)
+        public FarmerController(IFarmerService farmerService, IBuilder<Farmer, FarmerCreateInput> createBuilder)
         {
             this.farmerService = farmerService;
+            this.createBuilder = createBuilder;
         }
 
         [HttpPost]
@@ -41,16 +37,16 @@ namespace MRGSP.ASMS.WebUI.Controllers
 
         public ActionResult Create()
         {
-            return View(new FarmerCreateInput());
+            return View(createBuilder.BuildInput(new Farmer()));
         }
 
         [HttpPost]
         public ActionResult Create(FarmerCreateInput input)
         {
             if (!ModelState.IsValid)
-                return View(input);
+                return View(createBuilder.RebuildInput(input));
 
-            farmerService.Create((Farmer)new Farmer().InjectFrom(input));
+            farmerService.Create(createBuilder.BuilEntity(input));
 
             return Content("ok");
         }
