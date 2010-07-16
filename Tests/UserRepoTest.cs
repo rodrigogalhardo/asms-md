@@ -3,24 +3,9 @@ using System.Linq;
 using MRGSP.ASMS.Core.Model;
 using MRGSP.ASMS.Data;
 using NUnit.Framework;
-using Omu.ValueInjecter;
 
 namespace MRGSP.ASMS.Tests
 {
-    [TestFixture]
-    public class CaseRepoTest : BaseRepoTest
-    {
-        readonly CaseRepo repo = new CaseRepo(new ConnectionFactory());
-
-        [Test]
-        public void Insert()
-        {
-            var c = new Case { AdminFirstName = "athene" };
-            c.InjectFrom<FillObjectInjection>();
-            var id = repo.Insert(c);
-            repo.Get(id).AdminFirstName.IsEqualTo(c.AdminFirstName);
-        }
-    }
     [TestFixture]
     public class UserRepoTest : BaseRepoTest
     {

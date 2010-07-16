@@ -4,7 +4,6 @@ using MRGSP.ASMS.Core.Service;
 
 namespace MRGSP.ASMS.WebUI.Controllers
 {
-
     [HandleError]
     public class AccountController : Controller
     {

@@ -20,8 +20,9 @@
     <script type="text/javascript">
         $(function () {
             setFocusOnFirst();
-            $(".mydate").datepicker();
+            $(".esubmit input").addClass("abtn");
             dob();
+            
         });
 
         function dob() {

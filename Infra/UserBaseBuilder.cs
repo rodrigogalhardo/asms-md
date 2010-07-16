@@ -4,7 +4,7 @@ using MRGSP.ASMS.Infra.Dto;
 
 namespace MRGSP.ASMS.Infra
 {
-    public class UserBuilder<TInput> : BuilderBase<User, TInput> where TInput : new()
+    public class UserBaseBuilder<TInput> : BaseBuilder<User, TInput> where TInput : new()
     {
         protected override User MakeEntity(User entity, TInput input)
         {
@@ -19,25 +19,23 @@ namespace MRGSP.ASMS.Infra
         }
     }
 
-    public class CaseBuilder : BuilderBase<Case, CaseCreateInput>
+    public class DossierBuilder : BaseBuilder<Dossier, DossierCreateInput>
     {
-        protected override CaseCreateInput MakeInput(CaseCreateInput input, Case entity)
+        protected override DossierCreateInput MakeInput(DossierCreateInput input, Dossier entity)
         {
             input.InjectFrom<IdToLookup<Area>>(entity)
-                 .InjectFrom<IdToLookup<District>>(entity)
-                 .InjectFrom<IdToLookup<Consultant>>(entity)
-                 .InjectFrom<IdToDisplay<Farmer>>(entity)
-                 .InjectFrom<IdToDisplay<Bank>>(entity);
+                .InjectFrom<IdToLookup<District>>(entity)
+                .InjectFrom<IdToLookup<Consultant>>(entity);
             return input;
         }
-        protected override Case MakeEntity(Case entity, CaseCreateInput input)
+        protected override Dossier MakeEntity(Dossier entity, DossierCreateInput input)
         {
-            entity.InjectFrom<LookupToLong>(input);
+            entity.InjectFrom<LookupToInt>(input);
             return entity;
         }
     }
 
-    public class FarmerCreateBuilder : BuilderBase<Farmer, FarmerCreateInput>
+    public class FarmerCreateBaseBuilder : BaseBuilder<Farmer, FarmerCreateInput>
     {
         protected override FarmerCreateInput MakeInput(FarmerCreateInput input, Farmer entity)
         {
@@ -47,7 +45,7 @@ namespace MRGSP.ASMS.Infra
 
         protected override Farmer MakeEntity(Farmer entity, FarmerCreateInput input)
         {
-            entity.InjectFrom<LookupToLong>(input);
+            entity.InjectFrom<LookupToInt>(input);
             return entity;
         }
     }

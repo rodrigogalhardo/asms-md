@@ -1,11 +1,114 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using Omu.ValueInjecter;
 
 namespace MRGSP.ASMS.Data
 {
+    public static class Extensions
+    {
+        public static string ToSqlValue(this object v, Type t)
+        {
+            string s;
+            if (t == typeof(string))
+            {
+                s = v != null ? "'" + v.ToString().Replace("'", "''") + "'" : "null";
+            }
+            else if (t == typeof(DateTime))
+            {
+                s = "'" + ((DateTime)v).ToShortDateString() + "'";
+            }
+            else if (t == typeof(DateTime?))
+            {
+                var value = (DateTime?)v;
+                s = value.HasValue ? "'" + value.Value.ToShortDateString() + "'" : "null";
+            }
+            else if (t == typeof(bool)) s = (((bool)v) ? 1 : 0).ToString();
+            else
+                s = v.ToString();
+
+            return s;
+
+        }
+    }
+    public class WhereInjection : KnownTargetValueInjection<string>
+    {
+        protected override void Inject(object source, ref string target, PropertyDescriptorCollection sourceProps)
+        {
+            for (var i = 0; i < sourceProps.Count; i++)
+            {
+                if (i != 0) target += " and ";
+
+                var p = sourceProps[i];
+                target += p.Name + "=" + p.GetValue(source).ToSqlValue(p.PropertyType);
+            }
+        }
+    }
+
+    public class InsertInjection : KnownTargetValueInjection<string>
+    {
+        private readonly IEnumerable<string> ignoredFields = new[] { "Id" };
+
+        protected override void Inject(object source, ref string target, PropertyDescriptorCollection sourceProps)
+        {
+            target = "insert " + source.GetType().Name +
+                "s(" + GetNames(sourceProps) + ") values("
+                + GetValues(source, sourceProps) + ") select @@identity";
+        }
+
+        private string GetNames(PropertyDescriptorCollection props)
+        {
+            var s = string.Empty;
+            for (var i = 0; i < props.Count; i++)
+            {
+                var prop = props[i];
+                if (ignoredFields.Contains(prop.Name)) continue;
+                s += prop.Name + ",";
+            }
+            s = s.TrimEnd(new[] { ',' });
+            return s;
+        }
+
+        private string GetValues(object source, PropertyDescriptorCollection props)
+        {
+            var s = string.Empty;
+            for (var i = 0; i < props.Count; i++)
+            {
+                var v = props[i].GetValue(source);
+                var t = props[i].PropertyType;
+
+                if (ignoredFields.Contains(props[i].Name)) continue;
+
+                s += v.ToSqlValue(t);
+
+                //if (t == typeof(string))
+                //{
+                //    s += v != null ? "'" + v.ToString().Replace("'", "''") + "'" : "null";
+                //}
+                //else if (t == typeof(DateTime))
+                //{
+                //    s += "'" + ((DateTime)v).ToShortDateString() + "'";
+                //}
+                //else if (t == typeof(DateTime?))
+                //{
+                //    var value = (DateTime?)v;
+                //    s += value.HasValue ? "'" + value.Value.ToShortDateString() + "'" : "null";
+                //}
+                //else if (t == typeof(bool)) s += (((bool)v) ? 1 : 0).ToString();
+                //else
+                //    s += v;
+
+                s += ",";
+            }
+
+            s = s.TrimEnd(new[] { ',' });
+            return s;
+        }
+    }
+
     public class CommandInjection : KnownTargetValueInjection<SqlCommand>
     {
         protected override void Inject(object source, ref SqlCommand cmd, PropertyDescriptorCollection sourceProps)

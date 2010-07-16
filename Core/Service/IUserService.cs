@@ -3,11 +3,32 @@ using MRGSP.ASMS.Core.Model;
 
 namespace MRGSP.ASMS.Core.Service
 {
-    public interface ICaseService
+    public interface IFieldsetService
     {
-        long Insert(Case o);
-        Case Get(long id);
+        IPageable<FieldsetDisplay> GetPageable(int page, int pageSize);
+        int Create(Fieldset o);
+        Fieldset Get(int id);
+        IEnumerable<Field> GetAssignedFields(int fieldsetId);
+        IEnumerable<Field> GetUnassignedFields(int fieldsetId);
+        void Assign(int fieldId, int fieldsetId);
+        void Unassign(int fieldId, int fieldsetId);
+        void CreateIndicator(Indicator o);
+        void DeleteIndicator(int id);
+        void CreateCoefficient(Coefficient o);
+        void DeleteCoefficient(int id);
+        void HasIndicators(int id);
+        void HasCoefficients(int id);
+        void HasFields(int id);
+        void Activate(int id);
+        void Deactivate(int id);
     }
+
+    public interface IDossierService
+    {
+        long Insert(Dossier o);
+        Dossier Get(int id);
+    }
+
     public interface IUserService
     {
         long Insert(User user);

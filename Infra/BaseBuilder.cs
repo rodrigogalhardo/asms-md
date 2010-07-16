@@ -2,7 +2,7 @@
 
 namespace MRGSP.ASMS.Infra
 {
-    public class BuilderBase<TEntity,TInput> : IBuilder<TEntity, TInput> where TInput : new() where TEntity : new()
+    public class BaseBuilder<TEntity,TInput> : IBuilder<TEntity, TInput> where TInput : new() where TEntity : new()
     {
         public TInput BuildInput(TEntity entity)
         {

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using MRGSP.ASMS.Core.Model;
 
 namespace MRGSP.ASMS.Core
 {
@@ -24,5 +26,21 @@ namespace MRGSP.ASMS.Core
         public IEnumerable<T> Page { get; set; }
 
         public int PageIndex { get; set; }
+    }
+
+    public static class Tools
+    {
+        public static int GetPageCount(int pageSize, int count)
+        {
+            var pages = count / pageSize;
+            if (count % pageSize > 0) pages++;
+            return pages;
+        }
+
+        public static bool IsEqual(this FieldsetStates oo, int o)
+        {
+            return o == (int)oo;
+        }
+
     }
 }
