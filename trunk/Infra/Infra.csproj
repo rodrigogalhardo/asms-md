@@ -92,10 +92,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BuilderBase.cs" />
+    <Compile Include="BaseBuilder.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="Dto\AtLeastOneTrueAttribute.cs" />
-    <Compile Include="Dto\CaseCreateInput.cs" />
+    <Compile Include="Dto\DossierCreateInput.cs" />
     <Compile Include="Dto\Class1.cs" />
     <Compile Include="Dto\LoginUniqueAttribute.cs" />
     <Compile Include="Dto\PropertiesMustMatchAttribute.cs" />
@@ -105,7 +105,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="ValueInjections.cs" />
-    <Compile Include="UserBuilder.cs" />
+    <Compile Include="UserBaseBuilder.cs" />
     <Compile Include="WindsorExtensions.cs" />
     <Compile Include="WindsorRegistrar.cs" />
   </ItemGroup>

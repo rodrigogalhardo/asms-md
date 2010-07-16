@@ -8,20 +8,20 @@ using Omu.ValueInjecter;
 
 namespace MRGSP.ASMS.Data
 {
-    public class CaseRepo : BaseRepo, ICaseRepo
+    public class DossierRepo : BaseRepo, IDossierRepo
     {
-        public CaseRepo(IConnectionFactory connFactory) : base(connFactory)
+        public DossierRepo(IConnectionFactory connFactory) : base(connFactory)
         {
         }
 
-        public long Insert(Case o)
+        public int Insert(Dossier o)
         {
-            return Convert.ToInt64(DbUtil.Insert(o, Cs));
+            return DbUtil.Insert(o, Cs);
         }
 
-        public Case Get(long id)
+        public Dossier Get(int id)
         {
-            return DbUtil.Get<Case>(id, Cs);
+            return DbUtil.Get<Dossier>(id, Cs);
         }
     }
     public class BankRepo : BaseRepo, IBankRepo
@@ -33,7 +33,7 @@ namespace MRGSP.ASMS.Data
 
         public long Insert(Bank o)
         {
-            return Convert.ToInt64(DbUtil.Insert(o, Cs));
+            return Convert.ToInt64(DbUtil.InsertSp(o, Cs));
         }
 
         public Bank Get(long id)

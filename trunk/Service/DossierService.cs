@@ -4,21 +4,21 @@ using MRGSP.ASMS.Core.Service;
 
 namespace MRGSP.ASMS.Service
 {
-    public class CaseService : ICaseService
+    public class DossierService : IDossierService
     {
-        private readonly ICaseRepo repo;
+        private readonly IDossierRepo repo;
 
-        public CaseService(ICaseRepo repo)
+        public DossierService(IDossierRepo repo)
         {
             this.repo = repo;
         }
 
-        public long Insert(Case o)
+        public long Insert(Dossier o)
         {
             return repo.Insert(o);
         }
 
-        public Case Get(long id)
+        public Dossier Get(int id)
         {
             return repo.Get(id);
         }

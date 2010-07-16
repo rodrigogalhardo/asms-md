@@ -9,8 +9,7 @@ namespace MRGSP.ASMS.Tests
         [Test]
         public void Test()
         {
-            var re = @"\d\d";
-
+            
             var a = Regex.IsMatch("30.01.2009", @"\d\d.\d\d.\d\d\d\d");
             System.Console.Out.WriteLine(a);
         }

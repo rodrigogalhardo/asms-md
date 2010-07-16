@@ -6,6 +6,7 @@ using NUnit.Framework;
 
 namespace MRGSP.ASMS.Tests
 {
+    [Ignore]
     public class BankRepoTest : BaseRepoTest
     {
         readonly BankRepo repo = new BankRepo(new ConnectionFactory());

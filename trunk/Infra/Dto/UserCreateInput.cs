@@ -1,6 +1,7 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 using System.ComponentModel;
+using MRGSP.ASMS.Core.Model;
 using MvcContrib.UI.InputBuilder.Attributes;
 
 namespace MRGSP.ASMS.Infra.Dto
@@ -10,51 +11,104 @@ namespace MRGSP.ASMS.Infra.Dto
     {
         [LoginUnique]
         [Req]
-        [DisplayName("Nume")]
+        [Label("Nume")]
         public string Name { get; set; }
 
         [Req]
-        [DisplayName("Parola dorita")]
+        [Label("Parola dorita")]
         public string Password { get; set; }
 
         [Req]
-        [DisplayName("Confirmati Parola")]
+        [Label("Confirmati Parola")]
         public string ConfirmPassword { get; set; }
-        
-        [DisplayName("Roluri")]
+
+        [Label("Roluri")]
         public object Roles { get; set; }
     }
 
     public class BankCreateInput
     {
         [Req]
-        [DisplayName("Denumirea bancii")]
+        [Label("Denumirea bancii")]
         public string Name { get; set; }
 
         [Req]
         [BankCodeUnique]
-        [DisplayName("Cod bancar")]
+        [Label("Cod bancar")]
         public string Code { get; set; }
+    }
+
+    public class IndicatorInput
+    {
+        public int FieldsetId { get; set; }
+
+        [Req]
+        [Label("Nume")]
+        public string Name { get; set; }
+        
+        [Req]
+        public string Formula { get; set; }
+    }
+    
+    public class CoefficientInput
+    {
+        public int FieldsetId { get; set; }
+
+        [Req]
+        [Label("Nume")]
+        public string Name { get; set; }
+        
+        [Req]
+        public string Formula { get; set; }
+    }
+
+    public class FieldsetInput
+    {
+        [Req]
+        [Label("Nume")]
+        public string Name { get; set; }
+
+        [Req]
+        [Label("Data de sfarsit")]
+        public DateTime EndDate { get; set; }
+
+    }
+
+    public class FieldsInput
+    {
+        public int FieldsetId { get; set; }
+        public IEnumerable<Field> Fields { get; set; }
+    }
+
+    public class FieldInput
+    {
+        [Req]
+        [Label("Nume")]
+        public string Name { get; set; }
+
+        [Req]
+        [Label("Descrierea")]
+        public string Description { get; set; }
     }
 
     public class FarmerCreateInput
     {
         [Req]
-        [DisplayName("Denumirea")]
+        [Label("Denumirea")]
         public string Name { get; set; }
 
         [Req]
         [FarmerCodeUnique]
-        [DisplayName("Cod")]
+        [Label("Cod")]
         public string Code { get; set; }
 
         [Req]
-        [DisplayName("Data inregistrarii")]
+        [Label("Data inregistrarii")]
         [PartialView("DateTime")]
         public DateTime? DateReg { get; set; }
 
         [Req]
-        [DisplayName("Nr de inregistrare")]
+        [Label("Nr de inregistrare")]
         public string NrReg { get; set; }
 
         public object CompanyTypeId { get; set; }
@@ -72,11 +126,11 @@ namespace MRGSP.ASMS.Infra.Dto
         public long Id { get; set; }
 
         [Req]
-        [DisplayName("Parola dorita")]
+        [Label("Parola dorita")]
         public string Password { get; set; }
 
         [Req]
-        [DisplayName("Confirmati parola")]
+        [Label("Confirmati parola")]
         public string ConfirmPassword { get; set; }
 
     }
@@ -84,11 +138,11 @@ namespace MRGSP.ASMS.Infra.Dto
     public class SignInInput
     {
         [Req]
-        [DisplayName("Nume utilizator")]
+        [Label("Nume utilizator")]
         public string Name { get; set; }
 
         [Req]
-        [DisplayName("Parola")]
+        [Label("Parola")]
         public string Password { get; set; }
     }
 

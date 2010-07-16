@@ -7,22 +7,22 @@ using MRGSP.ASMS.Infra.Dto;
 
 namespace MRGSP.ASMS.WebUI.Controllers
 {
-    public class CaseController : Controller
+    public class DossierController : Controller
     {
-        private readonly IBuilder<Case, CaseCreateInput> createBuilder;
+        private readonly IBuilder<Dossier, DossierCreateInput> createBuilder;
 
-        public CaseController(IBuilder<Case, CaseCreateInput> createBuilder)
+        public DossierController(IBuilder<Dossier, DossierCreateInput> createBuilder)
         {
             this.createBuilder = createBuilder;
         }
 
         public ActionResult Create()
         {
-            return View(createBuilder.BuildInput(new Case()));
+            return View(createBuilder.BuildInput(new Dossier()));
         }
 
         [HttpPost]
-        public ActionResult Create(CaseCreateInput input)
+        public ActionResult Create(DossierCreateInput input)
         {
             if (!ModelState.IsValid)
             {

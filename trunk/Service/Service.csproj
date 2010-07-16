@@ -72,9 +72,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BankService.cs" />
-    <Compile Include="CaseService.cs" />
+    <Compile Include="DossierService.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="FarmerService.cs" />
+    <Compile Include="FieldsetService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceUtils.cs" />
     <Compile Include="UserService.cs" />

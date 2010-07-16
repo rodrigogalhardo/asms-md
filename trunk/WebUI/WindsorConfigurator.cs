@@ -17,10 +17,11 @@ namespace MRGSP.ASMS.WebUI
 
             WindsorRegistrar.RegisterControllers(typeof(HomeController).Assembly);
             WindsorRegistrar.Register("forms", typeof(IFormsAuthentication), typeof(FormAuthService));
-            WindsorRegistrar.Register("q1", typeof(IBuilder<User, UserCreateInput>), typeof(UserBuilder<UserCreateInput>));
-            WindsorRegistrar.Register("q2", typeof(IBuilder<User, UserEditInput>), typeof(UserBuilder<UserEditInput>));
-            WindsorRegistrar.Register("q3", typeof(IBuilder<Case, CaseCreateInput>), typeof(CaseBuilder));
-            WindsorRegistrar.Register("q4", typeof(IBuilder<Farmer, FarmerCreateInput>), typeof(FarmerCreateBuilder));
+            WindsorRegistrar.Register("q1", typeof(IBuilder<User, UserCreateInput>), typeof(UserBaseBuilder<UserCreateInput>));
+            WindsorRegistrar.Register("q2", typeof(IBuilder<User, UserEditInput>), typeof(UserBaseBuilder<UserEditInput>));
+            WindsorRegistrar.Register("q3", typeof(IBuilder<Dossier, DossierCreateInput>), typeof(DossierBuilder));
+            WindsorRegistrar.Register("q4", typeof(IBuilder<Farmer, FarmerCreateInput>), typeof(FarmerCreateBaseBuilder));
+            WindsorRegistrar.Register("q5", typeof(IBuilder<, >), typeof(BaseBuilder<,>));
             WindsorRegistrar.Register("ur", typeof(IUberRepo<>), typeof(UberRepo<>));
 
             

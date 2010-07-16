@@ -11,9 +11,10 @@ namespace MRGSP.ASMS.Data
 {
     public class UserRepo : BaseRepo, IUserRepo
     {
-        public UserRepo(IConnectionFactory connFactory) : base(connFactory)
+        public UserRepo(IConnectionFactory connFactory)
+            : base(connFactory)
         {
-            
+
         }
 
         public long Insert(User o)
@@ -44,7 +45,7 @@ namespace MRGSP.ASMS.Data
                             cmd.CommandText = "assignRole";
                             cmd.Parameters.Add("userId", SqlDbType.NVarChar, 20).Value = userId;
                             cmd.Parameters.Add("roleId", SqlDbType.NVarChar, 20).Value = role.Id;
-                            
+
                             cmd.ExecuteNonQuery();
                         }
                     }
@@ -52,8 +53,8 @@ namespace MRGSP.ASMS.Data
                     return userId;
                 }
             }
-        } 
-        
+        }
+
         public void Update(User o)
         {
             using (var scope = new TransactionScope())
@@ -79,7 +80,7 @@ namespace MRGSP.ASMS.Data
                             cmd.CommandText = "assignRole";
                             cmd.Parameters.Add("userId", SqlDbType.NVarChar, 20).Value = o.Id;
                             cmd.Parameters.Add("roleId", SqlDbType.NVarChar, 20).Value = role.Id;
-                            
+
                             cmd.ExecuteNonQuery();
                         }
                     }
@@ -90,12 +91,12 @@ namespace MRGSP.ASMS.Data
 
         public IEnumerable<User> GetPage(int page, int pageSize)
         {
-            return DbUtil.GetPage<User>(page, pageSize, "User", Cs);
+            return DbUtil.GetPageSp<User>(page, pageSize, "User", Cs);
         }
 
         public int Count()
         {
-            return DbUtil.Count("User", Cs);
+            return DbUtil.CountSp("User", Cs);
         }
 
         public IEnumerable<Role> GetRoles(long id)
@@ -109,7 +110,7 @@ namespace MRGSP.ASMS.Data
                     cmd.Parameters.Add("id", SqlDbType.BigInt).Value = id;
                     conn.Open();
 
-                    using(var dr = cmd.ExecuteReader())
+                    using (var dr = cmd.ExecuteReader())
                     {
                         while (dr.Read())
                         {

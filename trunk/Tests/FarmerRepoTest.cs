@@ -5,6 +5,7 @@ using NUnit.Framework;
 
 namespace MRGSP.ASMS.Tests
 {
+    [Ignore]
     public class FarmerRepoTest: BaseRepoTest
     {
         readonly FarmerRepo repo = new FarmerRepo(new ConnectionFactory());

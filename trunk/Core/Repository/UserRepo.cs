@@ -3,10 +3,29 @@ using MRGSP.ASMS.Core.Model;
 
 namespace MRGSP.ASMS.Core.Repository
 {
+
+    public interface IFieldsetRepo : IUberRepo<Fieldset>
+    {
+        int ChangeState(int id, int stateId);
+    }
     public interface IUberRepo<T> where T : new()
     {
         T Get(long id);
         IEnumerable<T> GetAll();
+        int Insert(T o);
+        IEnumerable<T> GetPage(int page, int pageSize);
+        int Count();
+        IPageable<T> GetPageable(int page, int pageSize);
+        IEnumerable<T> GetWhere(object where);
+        int Delete(int id);
+    }
+
+    public interface IFieldRepo
+    {
+        IEnumerable<Field> GetAssigned(int id);
+        IEnumerable<Field> GetUnassigned(int id);
+        int AssignField(int fieldId, int fieldsetId);
+        int UnassignField(int fieldId, int fieldsetId);
     }
 
     public interface IUserRepo : IPagedRepo<User>
@@ -46,9 +65,9 @@ namespace MRGSP.ASMS.Core.Repository
         IEnumerable<Farmer> GetPage(int page, int pageSize, string name, string code);
     }
 
-    public interface ICaseRepo
+    public interface IDossierRepo
     {
-        long Insert(Case o);
-        Case Get(long id);
+        int Insert(Dossier o);
+        Dossier Get(int id);
     }
 }

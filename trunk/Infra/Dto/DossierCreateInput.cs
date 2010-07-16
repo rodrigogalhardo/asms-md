@@ -3,13 +3,9 @@ using MvcContrib.UI.InputBuilder.Attributes;
 
 namespace MRGSP.ASMS.Infra.Dto
 {
-    public class CaseCreateInput
+    public class DossierCreateInput
     {
-        [Req]
-        public long FarmerId { get; set; }
-
-        public string DisplayFarmer { get; set; }
-
+        
         [Req]
         [Label("Genul de activitate")]
         [Example("Primul indicat in statut")]
@@ -25,11 +21,7 @@ namespace MRGSP.ASMS.Infra.Dto
         [Label("Localitatea")]
         public string County { get; set; }
 
-        [Req]
-        public long BankId { get; set; }
-
-        public string DisplayBank { get; set; }
-
+      
         [Req]
         [Label("Cont de decontare")]
         [Example("Trebuie de indicat contul de decontare in MDL")]
@@ -83,7 +75,7 @@ namespace MRGSP.ASMS.Infra.Dto
         [Label("Numarul contractului de consultanta")]
         public string ContractNumber { get; set; }
 
-        [PartialView("DateTime")]
+        [PartialView("DateTimen")]
         [Label("Data inregistrarii contractului")]
         public DateTime? ContractDate { get; set; }
 

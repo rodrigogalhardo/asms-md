@@ -3,14 +3,13 @@ using MRGSP.ASMS.Core.Model;
 using MRGSP.ASMS.Core.Service;
 using MRGSP.ASMS.Infra;
 using MRGSP.ASMS.Infra.Dto;
-using Omu.ValueInjecter;
 
 namespace MRGSP.ASMS.WebUI.Controllers
 {
     public class FarmerController : BaseController
     {
         private readonly IFarmerService farmerService;
-        private IBuilder<Farmer, FarmerCreateInput> createBuilder;
+        private readonly IBuilder<Farmer, FarmerCreateInput> createBuilder;
 
         public FarmerController(IFarmerService farmerService, IBuilder<Farmer, FarmerCreateInput> createBuilder)
         {

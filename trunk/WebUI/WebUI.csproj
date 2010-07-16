@@ -51,6 +51,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\libs\Castle.Windsor.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="MvcContrib, Version=2.0.36.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\libs\MvcContrib.dll</HintPath>
@@ -108,10 +109,14 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BankController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Controllers\CaseController.cs" />
+    <Compile Include="Controllers\CoefficientController.cs" />
+    <Compile Include="Controllers\DossierController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\FarmerController.cs" />
+    <Compile Include="Controllers\FieldsController.cs" />
+    <Compile Include="Controllers\FieldsetController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IndicatorController.cs" />
     <Compile Include="Controllers\NavController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="CustomHelpers.cs" />
@@ -129,13 +134,28 @@
     <Content Include="Scripts\dp.ro.js" />
     <Content Include="Scripts\xVal.jquery.validate.js" />
     <Content Include="Views\Admin\Index.aspx" />
+    <Content Include="Views\Coefficient\Index.aspx" />
+    <Content Include="Views\Coefficient\List.ascx" />
     <Content Include="Views\Farmer\Create.ascx" />
     <Content Include="Views\Farmer\Index.ascx" />
     <Content Include="Views\Farmer\Page.ascx" />
+    <Content Include="Views\Fieldset\Assigned.ascx" />
+    <Content Include="Views\Fieldset\AssignedList.ascx" />
+    <Content Include="Views\Fieldset\Create.aspx" />
+    <Content Include="Views\Fieldset\Index.aspx" />
+    <Content Include="Views\Fieldset\ManageFields.aspx" />
+    <Content Include="Views\Fieldset\Open.aspx" />
+    <Content Include="Views\Fieldset\Unassigned.ascx" />
+    <Content Include="Views\Fields\Create.aspx" />
+    <Content Include="Views\Fields\Index.aspx" />
+    <Content Include="Views\Indicator\Index.aspx" />
+    <Content Include="Views\Indicator\List.ascx" />
+    <Content Include="Views\Indicator\ListLite.ascx" />
     <Content Include="Views\InputBuilders\Array.aspx" />
     <Content Include="Views\InputBuilders\ArrayAddButton.aspx" />
     <Content Include="Views\InputBuilders\ArrayRemoveButton.aspx" />
     <Content Include="Views\Shared\Boolean.aspx" />
+    <Content Include="Views\Shared\DateTimen.aspx" />
     <Content Include="Views\Shared\Guid.aspx" />
     <Content Include="Views\Shared\DateTime.aspx" />
     <Content Include="Views\InputBuilders\DisplayInline.aspx" />
@@ -148,6 +168,7 @@
     <Content Include="Views\InputBuilders\MultilineText.aspx" />
     <Content Include="Views\InputBuilders\RadioButtons.aspx" />
     <Content Include="Views\InputBuilders\ReadOnly.aspx" />
+    <Content Include="Views\Shared\save.ascx" />
     <Content Include="Views\Shared\String.aspx" />
     <Content Include="Views\InputBuilders\Submit.aspx" />
     <Content Include="Views\Shared\lookup.ascx" />
@@ -226,7 +247,7 @@
     <Content Include="Views\Bank\Create.aspx" />
     <Content Include="Views\Bank\Index.ascx" />
     <Content Include="Views\Bank\Page.ascx" />
-    <Content Include="Views\Case\Create.aspx" />
+    <Content Include="Views\Dossier\Create.aspx" />
     <Content Include="Views\Nav\Index.ascx" />
     <Content Include="Views\Shared\back.ascx" />
     <Content Include="Views\Shared\ConfirmDelete.ascx" />

@@ -10,11 +10,11 @@ using Omu.ValueInjecter;
 
 namespace MRGSP.ASMS.Infra
 {
-    public class LookupToLong : LoopValueInjection<object, long>
+    public class LookupToInt : LoopValueInjection<object, long>
     {
         protected override long SetValue(object sourcePropertyValue)
         {
-            return Utils.ReadInt64(sourcePropertyValue);
+            return Utils.ReadInt32(sourcePropertyValue);
         }
     }
 
@@ -22,10 +22,10 @@ namespace MRGSP.ASMS.Infra
     {
         protected override void Inject(object source, object target, PropertyDescriptorCollection sourceProps, PropertyDescriptorCollection targetProps)
         {
-            var sp = sourceProps.GetByNameType<long>(typeof (T).Name + "Id");
+            var sp = sourceProps.GetByNameType<int>(typeof (T).Name + "Id");
             var tp = targetProps.GetByNameType<string>("Display" + typeof(T).Name);
             
-            var t = IoC.Resolve<IUberRepo<T>>().Get((long) sp.GetValue(source));
+            var t = IoC.Resolve<IUberRepo<T>>().Get((int) sp.GetValue(source));
             if(t != null)
             tp.SetValue(target,t.Name);
         }
@@ -34,9 +34,9 @@ namespace MRGSP.ASMS.Infra
     {
         protected override void Inject(object source, object target, PropertyDescriptorCollection sourceProps, PropertyDescriptorCollection targetProps)
         {
-            var s = sourceProps.GetByNameType<long>(typeof(T).Name + "Id");
+            var s = sourceProps.GetByNameType<int>(typeof(T).Name + "Id");
             var t = targetProps.GetByNameType<object>(typeof(T).Name + "Id");
-            var value = (long)s.GetValue(source);
+            var value = (int)s.GetValue(source);
             var sv = IoC.Resolve<IUberRepo<T>>().GetAll()
                 .Select(o => new SelectListItem
                                  {
