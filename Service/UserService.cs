@@ -26,6 +26,11 @@ namespace MRGSP.ASMS.Service
             return repo.Get(id);
         }
 
+        public User Get(string name)
+        {
+            return repo.GetWhere(new {name}).FirstOrDefault();
+        }
+
         public User Get(string name, string password)
         {
             return repo.Get(name, password);

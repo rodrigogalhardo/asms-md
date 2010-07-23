@@ -55,18 +55,18 @@ namespace MRGSP.ASMS.Data
         protected override void Inject(object source, ref string target, PropertyDescriptorCollection sourceProps)
         {
             target = "insert " + source.GetType().Name +
-                "s(" + GetNames(sourceProps) + ") values("
-                + GetValues(source, sourceProps) + ") select @@identity";
+                "s(" + GetNames(sourceProps, false) + ") values("
+                + GetNames(sourceProps, true) + ")";
         }
 
-        private string GetNames(PropertyDescriptorCollection props)
+        private string GetNames(PropertyDescriptorCollection props, bool v)
         {
             var s = string.Empty;
             for (var i = 0; i < props.Count; i++)
             {
                 var prop = props[i];
                 if (ignoredFields.Contains(prop.Name)) continue;
-                s += prop.Name + ",";
+                s += (v ? "@" : string.Empty) + prop.Name + ",";
             }
             s = s.TrimEnd(new[] { ',' });
             return s;
@@ -83,24 +83,6 @@ namespace MRGSP.ASMS.Data
                 if (ignoredFields.Contains(props[i].Name)) continue;
 
                 s += v.ToSqlValue(t);
-
-                //if (t == typeof(string))
-                //{
-                //    s += v != null ? "'" + v.ToString().Replace("'", "''") + "'" : "null";
-                //}
-                //else if (t == typeof(DateTime))
-                //{
-                //    s += "'" + ((DateTime)v).ToShortDateString() + "'";
-                //}
-                //else if (t == typeof(DateTime?))
-                //{
-                //    var value = (DateTime?)v;
-                //    s += value.HasValue ? "'" + value.Value.ToShortDateString() + "'" : "null";
-                //}
-                //else if (t == typeof(bool)) s += (((bool)v) ? 1 : 0).ToString();
-                //else
-                //    s += v;
-
                 s += ",";
             }
 
@@ -118,15 +100,15 @@ namespace MRGSP.ASMS.Data
                 var prop = sourceProps[i];
                 if (prop.Name == "Id") continue;
 
-                var dbType = SqlDbType.NVarChar;
-                if (prop.PropertyType == typeof(int)) dbType = SqlDbType.Int;
-                if (prop.PropertyType == typeof(long)) dbType = SqlDbType.BigInt;
-                if (prop.PropertyType == typeof(DateTime?)) dbType = SqlDbType.Date;
-                if (prop.PropertyType == typeof(DateTime)) dbType = SqlDbType.Date;
-                if (prop.PropertyType == typeof(bool)) dbType = SqlDbType.Bit;
+                //var dbType = SqlDbType.NVarChar;
+                //if (prop.PropertyType == typeof(int)) dbType = SqlDbType.Int;
+                //if (prop.PropertyType == typeof(long)) dbType = SqlDbType.BigInt;
+                //if (prop.PropertyType == typeof(DateTime?)) dbType = SqlDbType.Date;
+                //if (prop.PropertyType == typeof(DateTime)) dbType = SqlDbType.Date;
+                //if (prop.PropertyType == typeof(bool)) dbType = SqlDbType.Bit;
 
-
-                cmd.Parameters.Add(prop.Name, dbType).Value = prop.GetValue(source);
+                var value = prop.GetValue(source) ?? DBNull.Value;
+                cmd.Parameters.AddWithValue("@" + prop.Name, value);
             }
 
         }

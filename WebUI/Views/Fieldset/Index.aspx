@@ -6,7 +6,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <h2>
         Seturi de campuri</h2>
-    <%:Html.ActionLink("Creaza", "Create") %>
+        <% Html.RenderPartial("bcreate"); %>
     <table>
         <thead>
             <tr>
@@ -19,25 +19,29 @@
                 <td>
                     Stare
                 </td>
+                <td>
+                </td>
             </tr>
         </thead>
-        <%foreach (var o in Model.Page)
-          {%>
-        <tr>
-            <td>
-                <%:o.Name %>
-            </td>
-            <td>
-                <%:o.EndDate.ToShortDateString() %>
-            </td>
-            <td>
-                <%:o.State %>
-            </td>
-            <td>
-                <%:Html.ActionLink("deschide","open",new{id = o.Id}) %>
-            </td>
-        </tr>
-        <%} %>
+        <tbody>
+            <%foreach (var o in Model.Page)
+              {%>
+            <tr>
+                <td>
+                    <%:o.Name %>
+                </td>
+                <td>
+                    <%:o.EndDate.ToShortDateString() %>
+                </td>
+                <td>
+                    <%:o.State %>
+                </td>
+                <td>
+                    <%:Html.ActionLink("deschide","open",new{id = o.Id}) %>
+                </td>
+            </tr>
+            <%} %>
+        </tbody>
     </table>
     <%=Html.Pagination() %>
 </asp:Content>

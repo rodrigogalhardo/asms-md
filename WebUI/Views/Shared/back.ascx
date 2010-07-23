@@ -1,4 +1,4 @@
 ﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl" %>
-<div>
+<p>
     <%= Html.ActionLink("Inapoi la lista", "Index") %>
-</div>
+</p>

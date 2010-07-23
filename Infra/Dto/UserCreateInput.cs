@@ -26,6 +26,11 @@ namespace MRGSP.ASMS.Infra.Dto
         public object Roles { get; set; }
     }
 
+    public class ErrorDisplay
+    {
+        public string Message { get; set; }
+    }
+
     public class BankCreateInput
     {
         [Req]
@@ -38,6 +43,7 @@ namespace MRGSP.ASMS.Infra.Dto
         public string Code { get; set; }
     }
 
+    [IndicatorFormulaCorrect]
     public class IndicatorInput
     {
         public int FieldsetId { get; set; }
@@ -45,11 +51,12 @@ namespace MRGSP.ASMS.Infra.Dto
         [Req]
         [Label("Nume")]
         public string Name { get; set; }
-        
+
         [Req]
         public string Formula { get; set; }
     }
-    
+
+    [CoefficientFormulaCorrect]
     public class CoefficientInput
     {
         public int FieldsetId { get; set; }
@@ -57,9 +64,21 @@ namespace MRGSP.ASMS.Infra.Dto
         [Req]
         [Label("Nume")]
         public string Name { get; set; }
-        
+
         [Req]
         public string Formula { get; set; }
+    }
+
+    public class MeasuresetInput
+    {
+        [Req]
+        [Label("Nume")]
+        public string Name { get; set; }
+
+        [Req]
+        [Label("Data de sfarsit")]
+        public DateTime EndDate { get; set; }
+
     }
 
     public class FieldsetInput
@@ -80,7 +99,47 @@ namespace MRGSP.ASMS.Infra.Dto
         public IEnumerable<Field> Fields { get; set; }
     }
 
+    public class PerfecterInput
+    {
+        [Req]
+        [Label("Nume")]
+        public string Name { get; set; }
+    }
+
+    public class DistrictInput
+    {
+        [Req]
+        [Label("Nume")]
+        public string Name { get; set; }
+
+        [Req]
+        [Label("Abrevierea")]
+        public string Code { get; set; }
+
+    }
+
     public class FieldInput
+    {
+        [Req]
+        [Label("Nume")]
+        public string Name { get; set; }
+
+        [Req]
+        [Label("Descrierea")]
+        public string Description { get; set; }
+    }
+
+    public class FieldInputz
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public decimal Value { get; set; }
+        public string ErrorMessage { get; set; }
+        public bool HasError { get { return !string.IsNullOrEmpty(ErrorMessage); } }
+    }
+
+    public class MeasureInput
     {
         [Req]
         [Label("Nume")]

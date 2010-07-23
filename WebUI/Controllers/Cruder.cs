@@ -1,43 +1,40 @@
 ﻿using System.Web.Mvc;
-using MRGSP.ASMS.Core.Model;
 using MRGSP.ASMS.Core.Repository;
-using MRGSP.ASMS.Core.Service;
 using MRGSP.ASMS.Infra;
-using MRGSP.ASMS.Infra.Dto;
 
 namespace MRGSP.ASMS.WebUI.Controllers
 {
-    public class FieldsController : Controller
+    public class Cruder<TEntity, TInput> : Controller
+        where TInput : new()
+        where TEntity : new()
     {
-        private readonly IUberRepo<Field> repo;
-        private readonly IBuilder<Field, FieldInput> builder;
+        protected readonly IUberRepo<TEntity> repo;
+        private readonly IBuilder<TEntity, TInput> builder;
 
 
-        public FieldsController(IUberRepo<Field> repo, IBuilder<Field, FieldInput> builder)
+        public Cruder(IUberRepo<TEntity> repo, IBuilder<TEntity, TInput> builder)
         {
             this.repo = repo;
             this.builder = builder;
         }
 
-        public ActionResult Index(int? page)
+        public virtual ActionResult Index(int? page)
         {
             return View(repo.GetPageable(page ?? 1, 5));
         }
 
         public ActionResult Create()
         {
-            return View();
+            return View(builder.BuildInput(new TEntity()));
         }
 
         [HttpPost]
-        public ActionResult Create(FieldInput o)
+        public ActionResult Create(TInput o)
         {
             if (!ModelState.IsValid)
                 return View(o);
             repo.Insert(builder.BuilEntity(o));
             return RedirectToAction("index");
         }
-
-        
     }
 }

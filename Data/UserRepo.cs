@@ -9,21 +9,21 @@ using Omu.ValueInjecter;
 
 namespace MRGSP.ASMS.Data
 {
-    public class UserRepo : BaseRepo, IUserRepo
+    public class UserRepo : UberRepo<User>, IUserRepo
     {
         public UserRepo(IConnectionFactory connFactory)
             : base(connFactory)
         {
 
         }
-
-        public long Insert(User o)
+            
+        public override int Insert(User o)
         {
             using (var scope = new TransactionScope())
             {
                 using (var conn = new SqlConnection(Cs))
                 {
-                    long userId;
+                    int userId;
                     conn.Open();
                     //insert user
                     using (var cmd = conn.CreateCommand())
@@ -33,7 +33,7 @@ namespace MRGSP.ASMS.Data
                         cmd.Parameters.Add("name", SqlDbType.NVarChar, 20).Value = o.Name;
                         cmd.Parameters.Add("password", SqlDbType.NVarChar, 20).Value = o.Password;
 
-                        userId = Convert.ToInt64(cmd.ExecuteScalar());
+                        userId = Convert.ToInt32(cmd.ExecuteScalar());
                     }
 
                     //assign roles
@@ -89,15 +89,15 @@ namespace MRGSP.ASMS.Data
             }
         }
 
-        public IEnumerable<User> GetPage(int page, int pageSize)
-        {
-            return DbUtil.GetPageSp<User>(page, pageSize, "User", Cs);
-        }
+        //public IEnumerable<User> GetPage(int page, int pageSize)
+        //{
+        //    return DbUtil.GetPageSp<User>(page, pageSize, "User", Cs);
+        //}
 
-        public int Count()
-        {
-            return DbUtil.CountSp("User", Cs);
-        }
+        //public int Count()
+        //{
+        //    return DbUtil.CountSp("User", Cs);
+        //}
 
         public IEnumerable<Role> GetRoles(long id)
         {

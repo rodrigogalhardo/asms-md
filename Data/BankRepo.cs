@@ -8,22 +8,6 @@ using Omu.ValueInjecter;
 
 namespace MRGSP.ASMS.Data
 {
-    public class DossierRepo : BaseRepo, IDossierRepo
-    {
-        public DossierRepo(IConnectionFactory connFactory) : base(connFactory)
-        {
-        }
-
-        public int Insert(Dossier o)
-        {
-            return DbUtil.Insert(o, Cs);
-        }
-
-        public Dossier Get(int id)
-        {
-            return DbUtil.Get<Dossier>(id, Cs);
-        }
-    }
     public class BankRepo : BaseRepo, IBankRepo
     {
         public BankRepo(IConnectionFactory connFactory)

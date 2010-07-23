@@ -8,36 +8,13 @@ as
 insert users(name, password) values(@name, @password)
 select @@identity
 
-go
-create proc getUsersCount
-as
-select count(*) from users
 
-go
-create proc getUsersPage
-@pageSize int,
-@page int
-as
-with result as(select *, ROW_NUMBER() over(order by id) nr
-        from Users
-)
-
-select  * 
-from    result
-where   nr  between ((@page - 1) * @pageSize + 1)
-        and (@page * @pageSize) 
-        
 go
 create proc getRolesByUserId
 @id bigint
 as
 select r.id, r.name from roles r inner join usersroles ur on r.id = ur.roleId inner join users u on u.id = ur.userId where u.id = @id
 
-go 
-create proc getUser
-@id bigint
-as
-select * from users where id = @id
 
 go
 create proc getUsersCountByNamePassword
@@ -64,8 +41,6 @@ create proc getRoles
 as
 select id, name from roles
 
-select * from usersroles
-select * from users
 
 go
 create proc updatePassword
@@ -88,192 +63,9 @@ as
 select * from users where @name = name 
 and @password COLLATE Latin1_General_CS_AS = password COLLATE Latin1_General_CS_AS
 
-/***************** banks **************/
 
-go
-create proc insertBank
-@code nvarchar(20),
-@name nvarchar(200)
-as
-insert banks(code, name) values(@code, @name)
-select @@identity
-
-go
-create proc getBanksCountByCode
-@code nvarchar(20)
-as
-select count(*) from banks where code = @code
-
-go
-create proc getBanksCount
-@code nvarchar(20) = null,
-@name nvarchar(200) = null
-as
-select count(*) from banks
-where 
-(@code is null or code like '%' + @code + '%') and
-(@name is null or name like '%' + @name + '%')
-
-go
-create proc getBanksPage
-@pageSize int,
-@page int,
-@code nvarchar(20) = null,
-@name nvarchar(200) = null
-as
-with result as(select *, ROW_NUMBER() over(order by id desc) nr
-        from Banks
-        where 
-        (@code is null or code like '%' + @code + '%') and
-		(@name is null or name like '%' + @name + '%')
-)
-
-select  * 
-from    result
-where   nr  between ((@page - 1) * @pageSize + 1)
-        and (@page * @pageSize) 
-
-go
-create proc deleteBank
-@id int
-as
-delete from banks where id = @id
-
-/**************************  farmers **************************************/
-
-go
-create proc insertFarmer
-@code nvarchar(20),
-@name nvarchar(200),
-@dateReg Date,
-@nrReg nvarchar(20),
-@companyTypeId bigint
-as
-insert farmers(code, name, dateReg, nrReg, companyTypeId) values(@code, @name, @dateReg, @nrReg, @companyTypeId)
-select @@identity
-
-go
-create proc getFarmersCount
-@code nvarchar(20) = null,
-@name nvarchar(200) = null
-as
-select count(*) from farmers
-where 
-(@code is null or code like '%' + @code + '%') and
-(@name is null or name like '%' + @name + '%')
-
-go
-create proc getFarmersPage
-@pageSize int,
-@page int,
-@code nvarchar(20) = null,
-@name nvarchar(200) = null
-as
-with result as(select *, ROW_NUMBER() over(order by id desc) nr
-        from farmers
-        where 
-        (@code is null or code like '%' + @code + '%') and
-		(@name is null or name like '%' + @name + '%')
-)
-
-select  * 
-from    result
-where   nr  between ((@page - 1) * @pageSize + 1)
-        and (@page * @pageSize) 
-
-/***************** cases *******************************/
-go
-create proc insertCase
-@responsibleId bigint ,
-@code nvarchar(20)  ,
-@number int ,
-@farmerId bigint ,
-@activityType nvarchar(20),
-@areaId int,
-@districtId int,
-@county nvarchar(100),
-@bankId int ,
-@settlementAccount nvarchar(50),
-@adminFirstName nvarchar(20),
-@adminLastName nvarchar(20),
-@representativeFirstName nvarchar(20),
-@representativeLastName nvarchar(20),
-@phone nvarchar(50),
-@fax nvarchar(50),
-@mobile nvarchar(50),
-@friendPhone nvarchar(50),
-@email nvarchar,
-@proTraining bit,
-@speciality nvarchar,
-@diplomaIssuer nvarchar,
-@hasContract bit,
-@contractNumber nvarchar,
-@contractDate Date,
-@serviceProvider nvarchar,
-@consultantId nvarchar,
-@regDate Date
-as
-begin tran
-insert cases(responsibleId,
-farmerId  ,
-activityType ,
-areaId ,
-districtId ,
-county,
-bankId  ,
-settlementAccount ,
-adminFirstName ,
-adminLastName ,
-representativeFirstName ,
-representativeLastName ,
-phone ,
-fax ,
-mobile ,
-friendPhone ,
-email ,
-proTraining,
-speciality ,
-diplomaIssuer ,
-hasContract,
-contractNumber ,
-contractDate,
-serviceProvider ,
-consultantId,
-regDate )
-
-values(
-@responsibleId  ,
-@farmerId  ,
-@activityType ,
-@areaId ,
-@districtId ,
-@county,
-@bankId  ,
-@settlementAccount ,
-@adminFirstName ,
-@adminLastName ,
-@representativeFirstName ,
-@representativeLastName ,
-@phone ,
-@fax ,
-@mobile ,
-@friendPhone ,
-@email ,
-@proTraining,
-@speciality ,
-@diplomaIssuer ,
-@hasContract,
-@contractNumber ,
-@contractDate,
-@serviceProvider ,
-@consultantId,
-@regDate
-)	
-select @@IDENTITY
-commit
-
-go
 /************* fieldset *********************/
+go
 create proc getFieldsByFieldsetId
 @id int
 as
@@ -309,3 +101,75 @@ create proc changeFieldsetState
 as
 update fieldsets set stateId = @stateId where id = @id
 
+go
+create proc activateFieldset
+@id int
+as
+begin tran
+update fieldsets set stateId = 6 where stateId = 5
+update fieldsets set stateId = 5 where id = @id
+commit
+
+/********************************  measureset  ******************************/
+go
+create proc getAssignedMeasures
+@measuresetId int
+as
+select m.* from measures m inner join measuresetsmeasures msm on m.id = msm.measureId
+where msm.measuresetId = @measuresetId
+
+go
+create proc getUnassignedMeasures
+@measuresetId int
+as
+select m.* from measures m
+where m.id not in (select msm.measureId from measuresetsmeasures msm where msm.measuresetId = @measuresetId)
+
+go 
+create proc assignMeasure
+@measureId int,
+@measuresetId int
+as
+insert measuresetsmeasures values(@measuresetId, @measureId)
+
+go
+create proc unassignMeasure 
+@measureId int,
+@measuresetId int
+as
+delete from measuresetsmeasures where measureId = @measureId and measuresetId = @measuresetId
+
+go
+create proc changeMeasuresetState
+@id int,
+@stateId int
+as
+update measuresets set stateId = @stateId where id = @id
+
+go
+create proc activateMeasureset
+@id int
+as
+begin tran
+update measuresets set stateId = 3 where stateId = 2
+update measuresets set stateId = 2 where id = @id
+commit
+
+go
+create proc getMeasures
+as
+select m.* from measures m inner join measuresetsmeasures msm on m.id = msm.measureId
+inner join measuresets ms on msm.measuresetId = ms.id 
+where ms.stateId = 2
+
+/**************************** dossier **************************/
+
+go
+create proc changeDossierState
+@id int,
+@stateId int
+as
+update dossiers set stateid = @stateId where id = @id
+
+go
+use master

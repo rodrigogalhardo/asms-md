@@ -3,6 +3,19 @@ using MRGSP.ASMS.Core.Model;
 
 namespace MRGSP.ASMS.Core.Service
 {
+    public interface IMeasuresetService
+    {
+        IEnumerable<Measure> GetAssignedMeasures(int measuresetId);
+        IEnumerable<Measure> GetUnassignedMeasures(int measuresetId);
+        void Assign(int measureId, int measuresetId);
+        void Unassign(int measureId, int measuresetId);
+        IPageable<MeasuresetDisplay> GetPageable(int page, int pageSize);
+        void Activate(int id);
+        void Deactivate(int id);
+        Measureset GetActive();
+    }
+
+
     public interface IFieldsetService
     {
         IPageable<FieldsetDisplay> GetPageable(int page, int pageSize);
@@ -21,12 +34,26 @@ namespace MRGSP.ASMS.Core.Service
         void HasFields(int id);
         void Activate(int id);
         void Deactivate(int id);
+        Fieldset GetActive();
+        IEnumerable<Field> GetFieldsByDossier(int dossierId);
     }
 
     public interface IDossierService
     {
-        long Insert(Dossier o);
+        int Create(Dossier o);
         Dossier Get(int id);
+        void Go(IEnumerable<FieldValue> fieldValues);
+        IPageable<Dossier> GetPageable(int page, int pageSize);
+    }
+
+    public interface IFormulaValidationService
+    {
+        bool IsIndicatorFormulaValidForFieldset(int fieldsetId, string formula);
+        bool IsCoefficientFormulaValidForFieldset(int fieldsetId, string formula);
+    }
+    public interface ISystemStateServcie
+    {
+        void AssureAbilityToCreateDossier();
     }
 
     public interface IUserService
@@ -43,6 +70,7 @@ namespace MRGSP.ASMS.Core.Service
         User GetFull(long id);
         bool Exists(string name, string password);
         User Get(string name, string password);
+        User Get(string name);
     }
 
     public interface IBankService

@@ -27,7 +27,7 @@ namespace MRGSP.ASMS.WebUI.Controllers
 
         [HttpPost]
         public ActionResult Index(IndicatorInput input)
-        {
+        {   
             if (!ModelState.IsValid)
             {
                 return View(builder.RebuildInput(input));

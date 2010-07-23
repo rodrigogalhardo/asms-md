@@ -1,9 +1,48 @@
 ﻿using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using MRGSP.ASMS.Core.Service;
 
 namespace MRGSP.ASMS.Infra.Dto
 {
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
+    public sealed class IndicatorFormulaCorrectAttribute : ValidationAttribute
+    {
+        private const string Msg = "formula nu este scrisa corect";
+
+        public override string FormatErrorMessage(string name)
+        {
+            return Msg;
+        }
+        
+        public override bool IsValid(object value)
+        {
+            var props = TypeDescriptor.GetProperties(value);
+            var fieldsetId = (int)props.Find("FieldsetId", true).GetValue(value);
+            var formula = (string)props.Find("Formula", true).GetValue(value);
+            return (IoC.Resolve<IFormulaValidationService>().IsIndicatorFormulaValidForFieldset(fieldsetId, formula));
+        }
+    }   
+    
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
+    public sealed class CoefficientFormulaCorrectAttribute : ValidationAttribute
+    {
+        private const string Msg = "formula nu este scrisa corect";
+
+        public override string FormatErrorMessage(string name)
+        {
+            return Msg;
+        }
+        
+        public override bool IsValid(object value)
+        {
+            var props = TypeDescriptor.GetProperties(value);
+            var fieldsetId = (int)props.Find("FieldsetId", true).GetValue(value);
+            var formula = (string)props.Find("Formula", true).GetValue(value);
+            return (IoC.Resolve<IFormulaValidationService>().IsCoefficientFormulaValidForFieldset(fieldsetId, formula));
+        }
+    }
+
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
     public sealed class LoginUniqueAttribute : ValidationAttribute
     {
