@@ -10,6 +10,7 @@
         <%:Html.ActionLink("Inapoi","Open","Fieldset",new{id = Model.FieldsetId}, null) %></p>
     <% Html.RenderAction("List", new { Model.FieldsetId }); %>
     <form action="<%:Url.Action("Index") %>" method="post">
+    <%=Html.ValidationSummary(true) %>
     <%=Html.HiddenFor(o => o.FieldsetId) %>
     <%=Html.Input(o => o.Name) %>
     <%=Html.Input(o => o.Formula) %>

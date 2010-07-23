@@ -16,14 +16,16 @@ namespace MRGSP.ASMS.Service
         private readonly IUberRepo<Indicator> indicatorRepo;
         private readonly IUberRepo<Coefficient> cRepo;
         private readonly IFieldRepo fieldRepo;
+        private readonly IDossierRepo dRepo;
 
         public FieldsetService(IFieldsetRepo fieldsetRepo,
             IUberRepo<FieldsetState> stateRepo,
             IUberRepo<Indicator> indicatorRepo,
             IFieldRepo fieldRepo,
-            IUberRepo<Coefficient> cRepo)
+            IUberRepo<Coefficient> cRepo, IDossierRepo dRepo)
         {
             this.fieldsetRepo = fieldsetRepo;
+            this.dRepo = dRepo;
             this.cRepo = cRepo;
             this.fieldRepo = fieldRepo;
             this.indicatorRepo = indicatorRepo;
@@ -63,12 +65,12 @@ namespace MRGSP.ASMS.Service
 
         public void HasFields(int id)
         {
-            Do(() => fieldsetRepo.ChangeState(id, (int) FieldsetStates.HasFields), FieldsetStates.Registered, id);
+            Do(() => fieldsetRepo.ChangeState(id, (int)FieldsetStates.HasFields), FieldsetStates.Registered, id);
         }
 
         public void Activate(int id)
         {
-            Do(() => fieldsetRepo.ChangeState(id, (int)FieldsetStates.Active), FieldsetStates.HasCoefficients, id);
+            Do(() => fieldsetRepo.Activate(id), FieldsetStates.HasCoefficients, id);
         }
 
         public void Deactivate(int id)
@@ -78,12 +80,12 @@ namespace MRGSP.ASMS.Service
 
         public void HasIndicators(int id)
         {
-            Do(() => fieldsetRepo.ChangeState(id, (int) FieldsetStates.HasIndicators), FieldsetStates.HasFields, id);
+            Do(() => fieldsetRepo.ChangeState(id, (int)FieldsetStates.HasIndicators), FieldsetStates.HasFields, id);
         }
 
         public void HasCoefficients(int id)
         {
-            Do(() => fieldsetRepo.ChangeState(id, (int) FieldsetStates.HasCoefficients), FieldsetStates.HasIndicators, id);
+            Do(() => fieldsetRepo.ChangeState(id, (int)FieldsetStates.HasCoefficients), FieldsetStates.HasIndicators, id);
         }
 
         public Fieldset Get(int id)
@@ -143,6 +145,19 @@ namespace MRGSP.ASMS.Service
                                                                                    }).ToArray();
 
             return displays;
+        }
+
+        public Fieldset GetActive()
+        {
+            return fieldsetRepo.GetWhere(new { stateId = (int)FieldsetStates.Active }).FirstOrDefault();
+        }
+
+        public IEnumerable<Field> GetFieldsByDossier(int dossierId)
+        {
+            var d = dRepo.Get(dossierId);
+            if (d == null) throw new AsmsEx("acest dosar nu exista");
+            var fs = fieldsetRepo.Get(d.FieldsetId);
+            return fieldRepo.GetAssigned(fs.Id);
         }
     }
 }

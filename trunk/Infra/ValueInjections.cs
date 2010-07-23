@@ -10,9 +10,9 @@ using Omu.ValueInjecter;
 
 namespace MRGSP.ASMS.Infra
 {
-    public class LookupToInt : LoopValueInjection<object, long>
+    public class LookupToInt : LoopValueInjection<object, int>
     {
-        protected override long SetValue(object sourcePropertyValue)
+        protected override int SetValue(object sourcePropertyValue)
         {
             return Utils.ReadInt32(sourcePropertyValue);
         }
@@ -30,6 +30,25 @@ namespace MRGSP.ASMS.Infra
             tp.SetValue(target,t.Name);
         }
     }
+
+    public class IdToLookupMeasure: ValueInjection
+    {
+        protected override void Inject(object source, object target, PropertyDescriptorCollection sourceProps, PropertyDescriptorCollection targetProps)
+        {
+            var s = sourceProps.GetByNameType<int>("MeasureId");
+            var t = targetProps.GetByNameType<object>("MeasureId");
+            var value = (int)s.GetValue(source);
+            var sv = IoC.Resolve<IMeasureRepo>().GetActives()
+                .Select(o => new SelectListItem
+                {
+                    Value = o.Id.ToString(),
+                    Text = o.Name,
+                    Selected = o.Id == value
+                });
+            t.SetValue(target, sv);
+        }
+    }
+
     public class IdToLookup<T> : ValueInjection where T : EntityWithName, new()
     {
         protected override void Inject(object source, object target, PropertyDescriptorCollection sourceProps, PropertyDescriptorCollection targetProps)

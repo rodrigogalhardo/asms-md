@@ -5,7 +5,24 @@ namespace MRGSP.ASMS.Infra.Dto
 {
     public class DossierCreateInput
     {
-        
+        [Req]
+        [Label("Denumirea solicitantului")]
+        public string FarmerName { get; set; }
+
+        [Req]
+        [Label("Cod Fiscal")]
+        public string FiscalCode { get; set; }
+
+        [Req]
+        [Label("Data inregistrarii")]
+        public DateTime DateReg { get; set; }
+
+        [Req]
+        [Label("Nr de inregistrare")]
+        public string NrReg { get; set; }
+
+        public object CompanyTypeId { get; set; }
+
         [Req]
         [Label("Genul de activitate")]
         [Example("Primul indicat in statut")]
@@ -21,6 +38,13 @@ namespace MRGSP.ASMS.Infra.Dto
         [Label("Localitatea")]
         public string County { get; set; }
 
+        [Req]
+        [Label("Denumirea bancii")]
+        public string BankName { get; set; }
+
+        [Req]
+        [Label("Cod bancar")]
+        public string BankCode { get; set; }
       
         [Req]
         [Label("Cont de decontare")]
@@ -83,6 +107,8 @@ namespace MRGSP.ASMS.Infra.Dto
         public string ServiceProvider { get; set; }
 
         [Label("Cine a perfectat business planul")]
-        public object ConsultantId { get; set; }
+        public object PerfecterId { get; set; }
+
+        public object MeasureId { get; set; }
     }
 }

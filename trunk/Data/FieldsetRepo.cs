@@ -14,5 +14,11 @@ namespace MRGSP.ASMS.Data
         {
             return DbUtil.ExecuteNonQuerySp(new { id, stateId }, Cs, "changeFieldsetState");
         }
+
+        public int Activate(int id)
+        {
+            return DbUtil.ExecuteNonQuerySp(new { id }, Cs, "activateFieldset");
+        }
+
     }
 }

@@ -19,22 +19,6 @@ namespace MRGSP.ASMS.Infra
         }
     }
 
-    public class DossierBuilder : BaseBuilder<Dossier, DossierCreateInput>
-    {
-        protected override DossierCreateInput MakeInput(DossierCreateInput input, Dossier entity)
-        {
-            input.InjectFrom<IdToLookup<Area>>(entity)
-                .InjectFrom<IdToLookup<District>>(entity)
-                .InjectFrom<IdToLookup<Consultant>>(entity);
-            return input;
-        }
-        protected override Dossier MakeEntity(Dossier entity, DossierCreateInput input)
-        {
-            entity.InjectFrom<LookupToInt>(input);
-            return entity;
-        }
-    }
-
     public class FarmerCreateBaseBuilder : BaseBuilder<Farmer, FarmerCreateInput>
     {
         protected override FarmerCreateInput MakeInput(FarmerCreateInput input, Farmer entity)

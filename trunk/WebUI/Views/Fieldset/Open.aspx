@@ -52,12 +52,13 @@
     <form method="post" action="<%:Url.Action("Deactivate") %>">
     <input type="hidden" name="fieldsetId" value="<%:Model.Id %>" />
     <input type="submit" value="Dezactiveaza" />
-    </form>
+    </form><p>
     acest set este activ
+    </p>
     <%
         }
         else
-        {%>acest set este inactiv<%}
+        {%><p>acest set este inactiv</p><%}
         %>
     <% Html.RenderPartial("back"); %>
 </asp:Content>

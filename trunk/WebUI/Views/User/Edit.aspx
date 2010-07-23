@@ -15,7 +15,7 @@
         <div class="efield">
             <div class="elabel">
                 <label>
-                    Roles</label>
+                    Roluri</label>
             </div>
             <div class="einput">
                 <% foreach (var role in Model.Roles as IEnumerable<SelectListItem>)

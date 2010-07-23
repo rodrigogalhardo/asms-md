@@ -1,10 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
+using System.Linq;
 
 namespace MRGSP.ASMS.Infra.Dto
 {
+   
+
+
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true, Inherited = true)]
     public sealed class PropertiesMustMatchAttribute : ValidationAttribute
     {

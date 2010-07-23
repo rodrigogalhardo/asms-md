@@ -10,7 +10,7 @@ namespace MRGSP.ASMS.Data
         {
         }
 
-        public T Get(long id) 
+        public T Get(int id) 
         {
             return DbUtil.Get<T>(id, Cs);
         }
@@ -20,9 +20,14 @@ namespace MRGSP.ASMS.Data
             return DbUtil.GetAll<T>(Cs);
         }
 
-        public int Insert(T o)
+        public virtual int Insert(T o)
         {
             return DbUtil.Insert(o, Cs);
+        }
+        
+        public virtual int InsertNoIdentity(T o)
+        {
+            return DbUtil.InsertNoIdentity(o, Cs);
         }
 
         public IEnumerable<T> GetPage(int page, int pageSize)

@@ -1,24 +1,39 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using MRGSP.ASMS.Core.Model;
+using MRGSP.ASMS.Core.Service;
 using MRGSP.ASMS.Infra;
 using MRGSP.ASMS.Infra.Dto;
+using Omu.ValueInjecter;
 
 namespace MRGSP.ASMS.WebUI.Controllers
 {
     public class DossierController : Controller
     {
         private readonly IBuilder<Dossier, DossierCreateInput> createBuilder;
+        private readonly IDossierService dossierService;
+        private readonly ISystemStateServcie systemStateServcie;
 
-        public DossierController(IBuilder<Dossier, DossierCreateInput> createBuilder)
+        public DossierController(IBuilder<Dossier, DossierCreateInput> createBuilder, IDossierService dossierService, ISystemStateServcie systemStateServcie)
         {
             this.createBuilder = createBuilder;
+            this.systemStateServcie = systemStateServcie;
+            this.dossierService = dossierService;
+        }
+
+        public ActionResult Index(int? page)
+        {
+            return View(dossierService.GetPageable(page ?? 1, 10));
+        }
+
+        public ActionResult Open(int id)
+        {
+            return View(dossierService.Get(id));
         }
 
         public ActionResult Create()
         {
-            return View(createBuilder.BuildInput(new Dossier()));
+            systemStateServcie.AssureAbilityToCreateDossier();
+            return View(createBuilder.BuildInput((Dossier)new Dossier().InjectFrom<FillObjectInjection>()));
         }
 
         [HttpPost]
@@ -28,15 +43,8 @@ namespace MRGSP.ASMS.WebUI.Controllers
             {
                 return View(createBuilder.RebuildInput(input));
             }
-            return Content("asdfa");
-        }
-    }
-
-    public static class ModelStateExtensions
-    {
-        public static IEnumerable<ModelError> GetErrors(this ModelStateDictionary state)
-        {
-            return state.Values.SelectMany(o => o.Errors);
+            var id = dossierService.Create(createBuilder.BuilEntity(input));
+            return RedirectToAction("Index", "FillFields", new { id });
         }
     }
 }

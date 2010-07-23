@@ -1,6 +1,7 @@
 ﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<IEnumerable<Field>>" %>
-
-campuri asignate
+<h2>
+Campuri asignate
+</h2>
 <table>
     <%
         foreach (var o in Model)

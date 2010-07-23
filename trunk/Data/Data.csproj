@@ -79,9 +79,12 @@
     <Compile Include="CommandInjection.cs" />
     <Compile Include="ConnectionFactory.cs" />
     <Compile Include="DbUtil.cs" />
+    <Compile Include="DossierRepo.cs" />
     <Compile Include="FarmerRepo.cs" />
     <Compile Include="FieldRepo.cs" />
     <Compile Include="FieldsetRepo.cs" />
+    <Compile Include="MeasureRepo.cs" />
+    <Compile Include="MeasuresetRepo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReaderInjection.cs" />
     <Compile Include="UberRepo.cs" />

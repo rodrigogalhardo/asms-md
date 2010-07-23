@@ -4,7 +4,14 @@ using System.Linq;
 
 namespace MRGSP.ASMS.Core.Model
 {
+    
     public class FieldsetDisplay : EntityWithName
+    {
+        public DateTime EndDate { get; set; }
+        public string State { get; set; }
+    }    
+    
+    public class MeasuresetDisplay : EntityWithName
     {
         public DateTime EndDate { get; set; }
         public string State { get; set; }
@@ -18,6 +25,13 @@ namespace MRGSP.ASMS.Core.Model
     public class Field : EntityWithName
     {
         public string Description { get; set; }
+    }
+
+    public class FieldValue
+    {
+        public int DossierId { get; set; }
+        public int FieldId { get; set; }
+        public decimal Value { get; set; }
     }
 
     public class Fieldset : EntityWithName
@@ -36,10 +50,30 @@ namespace MRGSP.ASMS.Core.Model
         Inactive
     }
 
+    public enum DossierStates
+    {
+        Registered = 1,
+        HasIndicators = 2,
+    }
+
+    public enum States
+    {
+        Registered = 1,
+        Active,
+        Inactive
+    }
+
     public class Indicator : EntityWithName
     {
         public int FieldsetId { get; set; }
         public string Formula { get; set; }
+    }
+
+    public class IndicatorValue
+    {
+        public int DossierId { get; set; }
+        public int IndicatorId { get; set; }
+        public decimal Value { get; set; }
     }
 
     public class Coefficient : EntityWithName
@@ -55,9 +89,13 @@ namespace MRGSP.ASMS.Core.Model
 
     public class Measureset : EntityWithName
     {
+        public Measureset()
+        {
+            StateId = 1;
+        }
+
         public DateTime EndDate { get; set; }
         public int StateId { get; set; }
-        public IEnumerable<int> Measures { get; set; }
     }
 
     public class Entity
@@ -75,7 +113,7 @@ namespace MRGSP.ASMS.Core.Model
         public string Code { get; set; }
     }
 
-    public class Consultant : EntityWithName { }
+    public class Perfecter : EntityWithName { }
 
     public class Area : EntityWithName { }
 
@@ -127,7 +165,7 @@ namespace MRGSP.ASMS.Core.Model
         public string ContractNumber { get; set; }
         public DateTime? ContractDate { get; set; }
         public string ServiceProvider { get; set; }
-        public int ConsultantId { get; set; }
+        public int PerfecterId { get; set; }
         public DateTime DateReg { get; set; }
 
         public string FiscalCode { get; set; }
@@ -137,7 +175,12 @@ namespace MRGSP.ASMS.Core.Model
         public string BankCode { get; set; }
         public string BankName { get; set; }
 
-        public string Name { get; set; }
+        public string FarmerName { get; set; }
+
+        public int MeasureId { get; set; }
+        public int FieldsetId { get; set; }
+
+        public int StateId { get; set; }
     }
 
     public class Farmer : EntityWithName

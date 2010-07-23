@@ -7,9 +7,24 @@
     <h2>
         Administrare</h2>
         <p>
-    <%=Html.ActionLink("Campuri", "Index","Fields") %>
+        <%=Html.ActionLink("Utilizatori", "Index","User") %>
     </p>
     <p>
-    <%=Html.ActionLink("Seturi de campuri", "Index", "Fieldset") %>
+        <%=Html.ActionLink("Campuri", "Index","Field") %>
+    </p>
+    <p>
+        <%=Html.ActionLink("Masuri", "Index","Measure") %>
+    </p>
+    <p>
+        <%=Html.ActionLink("Seturi de campuri", "Index", "Fieldset") %>
+    </p>
+    <p>
+        <%=Html.ActionLink("Seturi de masuri", "Index", "Measureset") %>
+    </p>
+    <p>
+        <%=Html.ActionLink("Raioane", "Index", "District") %>
+    </p>
+    <p>
+        <%=Html.ActionLink("Cine perfecteaza planul de afaceri", "Index", "Perfecter") %>
     </p>
 </asp:Content>

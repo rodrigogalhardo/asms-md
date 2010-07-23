@@ -38,7 +38,7 @@ namespace MRGSP.ASMS.Data
             using (var cmd = conn.CreateCommand())
             {
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "delete from " + typeof (T).Name + "s where id=" + id;
+                cmd.CommandText = "delete from " + typeof(T).Name + "s where id=" + id;
 
                 conn.Open();
                 return cmd.ExecuteNonQuery();
@@ -51,10 +51,26 @@ namespace MRGSP.ASMS.Data
             using (var cmd = conn.CreateCommand())
             {
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = (string)"".InjectFrom<InsertInjection>(o);
+                cmd.CommandText = (string)"".InjectFrom<InsertInjection>(o) + " select @@identity";
+                cmd.InjectFrom<CommandInjection>(o);
 
                 conn.Open();
                 return Convert.ToInt32(cmd.ExecuteScalar());
+            }
+        }
+
+        public static int InsertNoIdentity(object o, string cs)
+        {
+            using (var conn = new SqlConnection(cs))
+            using (var cmd = conn.CreateCommand())
+            {
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = (string)"".InjectFrom<InsertInjection>(o);
+                cmd.InjectFrom<CommandInjection>(o);
+                
+
+                conn.Open();
+                return cmd.ExecuteNonQuery();
             }
         }
 
@@ -69,6 +85,28 @@ namespace MRGSP.ASMS.Data
                     cmd.InjectFrom<CommandInjection>(parameters);
                     conn.Open();
                     return cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public static IEnumerable<T> ExecuteReaderSp<T>(object parameters, string cs, string sp) where T : new()
+        {
+            using (var conn = new SqlConnection(cs))
+            {
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = sp;
+                    cmd.InjectFrom<CommandInjection>(parameters);
+                    conn.Open();
+                    using (var dr = cmd.ExecuteReader())
+                        if (dr != null)
+                            while (dr.Read())
+                            {
+                                var o = new T();
+                                o.InjectFrom<ReaderInjection>(dr);
+                                yield return o;
+                            }
                 }
             }
         }

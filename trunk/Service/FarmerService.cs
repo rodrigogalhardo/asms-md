@@ -5,7 +5,7 @@ using MRGSP.ASMS.Core.Service;
 
 namespace MRGSP.ASMS.Service
 {
-   public class FarmerService : IFarmerService
+    public class FarmerService : IFarmerService
     {
         private readonly IFarmerRepo repo;
 
