@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<MRGSP.ASMS.Infra.Dto.UserCreateInput>" %>
-<%@ Import Namespace="xVal.Html" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
     Create
 </asp:Content>
@@ -11,33 +11,9 @@
     <%= Html.ValidationSummary(true) %>
     <%=Html.ValidationMessage("roles") %>
     <fieldset>
-        <div class="efield">
-            <div class="elabel">
-                <%= Html.LabelFor(model => model.Name) %>
-            </div>
-            <div class="einput">
-                <%= Html.TextBoxFor(model => model.Name) %>
-                <%= Html.ValidationMessageFor(model => model.Name) %>
-            </div>
-        </div>
-        <div class="efield">
-            <div class="elabel">
-                <%= Html.LabelFor(model => model.Password) %>
-            </div>
-            <div class="einput">
-                <%= Html.PasswordFor(model => model.Password) %>
-                <%= Html.ValidationMessageFor(model => model.Password) %>
-            </div>
-        </div>
-        <div class="efield">
-            <div class="elabel">
-                <%= Html.LabelFor(model => model.ConfirmPassword) %>
-            </div>
-            <div class="einput">
-                <%= Html.PasswordFor(model => model.ConfirmPassword) %>
-                <%= Html.ValidationMessageFor(model => model.ConfirmPassword) %>
-            </div>
-        </div>
+        <%=Html.Input(o => o.Name) %>
+        <%=Html.Input(o => o.Password) %>
+        <%=Html.Input(o => o.ConfirmPassword) %>
         <div class="efield">
             <div class="elabel">
                 <label>

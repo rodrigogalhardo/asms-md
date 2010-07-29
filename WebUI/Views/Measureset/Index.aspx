@@ -32,6 +32,7 @@
                 <%:o.State%>
             </td><td>
                 <%:Html.ActionLink("deschide", "open", new{o.Id}, null)%>
+                <%:Html.ActionLink("vizualizeaza", "view", new{o.Id}, null)%>
             </td>
         </tr>
         <%

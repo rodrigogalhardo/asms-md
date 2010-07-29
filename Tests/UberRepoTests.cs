@@ -8,8 +8,8 @@ namespace MRGSP.ASMS.Tests
     [TestFixture]
     public class UberRepoTests : BaseRepoTest
     {
-        readonly UberRepo<District> drepo = new UberRepo<District>(new ConnectionFactory());
-        readonly UberRepo<Field> frepo = new UberRepo<Field>(new ConnectionFactory());
+        readonly Repo<District> drepo = new Repo<District>(new ConnectionFactory());
+        readonly Repo<Field> frepo = new Repo<Field>(new ConnectionFactory());
 
         [Test]
         public void GetAll()

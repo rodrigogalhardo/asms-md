@@ -3,7 +3,7 @@ using MRGSP.ASMS.Core.Repository;
 
 namespace MRGSP.ASMS.Data
 {
-    public class MeasuresetRepo: UberRepo<Measureset>, IMeasuresetRepo
+    public class MeasuresetRepo: Repo<Measureset>, IMeasuresetRepo
     {
         public MeasuresetRepo(IConnectionFactory connFactory) : base(connFactory)
         {
@@ -11,12 +11,12 @@ namespace MRGSP.ASMS.Data
         
         public int ChangeState(int id, int stateId)
         {
-            return DbUtil.ExecuteNonQuerySp(new { id, stateId }, Cs, "changeMeasuresetState");
+            return DbUtil.ExecuteNonQuerySp("changeMeasuresetState", Cs, new { id, stateId });
         }
         
         public int Activate(int id)
         {
-            return DbUtil.ExecuteNonQuerySp(new { id }, Cs, "activateMeasureset");
+            return DbUtil.ExecuteNonQuerySp("activateMeasureset", Cs, new { id });
         }
     }
 }

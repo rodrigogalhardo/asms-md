@@ -3,7 +3,7 @@ using MRGSP.ASMS.Core.Repository;
 
 namespace MRGSP.ASMS.Data
 {
-    public class DossierRepo : UberRepo<Dossier>, IDossierRepo
+    public class DossierRepo : Repo<Dossier>, IDossierRepo
     {
         public DossierRepo(IConnectionFactory connFactory) : base(connFactory)
         {
@@ -11,7 +11,7 @@ namespace MRGSP.ASMS.Data
 
         public int ChangeState(int id, int stateId)
         {
-            return DbUtil.ExecuteNonQuerySp(new {id, stateId}, Cs, "changeDossierState");
+            return DbUtil.ExecuteNonQuerySp("changeDossierState", Cs, new {id, stateId});
         }
 
 

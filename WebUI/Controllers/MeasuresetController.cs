@@ -10,7 +10,7 @@ namespace MRGSP.ASMS.WebUI.Controllers
     public class MeasuresetController : Cruder<Measureset, MeasuresetInput>
     {
         private readonly IMeasuresetService service;
-        public MeasuresetController(IUberRepo<Measureset> repo, IBuilder<Measureset, MeasuresetInput> builder, IMeasuresetService service)
+        public MeasuresetController(IRepo<Measureset> repo, IBuilder<Measureset, MeasuresetInput> builder, IMeasuresetService service)
             : base(repo, builder)
         {
             this.service = service;
@@ -22,6 +22,16 @@ namespace MRGSP.ASMS.WebUI.Controllers
         }
 
         public ActionResult Open(int id)
+        {
+            return View(repo.Get(id));
+        }
+
+        public ActionResult AssignedListLite(int id)
+        {
+            return View(service.GetAssignedMeasures(id));
+        }
+
+        public ActionResult View(int id)
         {
             return View(repo.Get(id));
         }

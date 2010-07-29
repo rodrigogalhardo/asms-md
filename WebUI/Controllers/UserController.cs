@@ -41,7 +41,7 @@ namespace MRGSP.ASMS.WebUI.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Edit(long id)
+        public ActionResult Edit(int id)
         {
             return View(editBuilder.BuildInput(userService.GetFull(id)));
         }

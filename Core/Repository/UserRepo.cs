@@ -3,18 +3,18 @@ using MRGSP.ASMS.Core.Model;
 
 namespace MRGSP.ASMS.Core.Repository
 {
-    public interface IMeasuresetRepo : IUberRepo<Measureset>
+    public interface IMeasuresetRepo : IRepo<Measureset>
     {
         int ChangeState(int id, int stateId);
         int Activate(int id);
     }
 
-    public interface IFieldsetRepo : IUberRepo<Fieldset>
+    public interface IFieldsetRepo : IRepo<Fieldset>
     {
         int ChangeState(int id, int stateId);
         int Activate(int id);
     }
-    public interface IUberRepo<T> where T : new()
+    public interface IRepo<T> where T : new()
     {
         T Get(int id);
         IEnumerable<T> GetAll();
@@ -27,7 +27,7 @@ namespace MRGSP.ASMS.Core.Repository
         int InsertNoIdentity(T o);
     }
 
-    public interface IMeasureRepo : IUberRepo<Measure>
+    public interface IMeasureRepo : IRepo<Measure>
     {
         IEnumerable<Measure> GetAssigned(int measuresetId);
         IEnumerable<Measure> GetUnassigned(int measuresetId);
@@ -44,10 +44,9 @@ namespace MRGSP.ASMS.Core.Repository
         int UnassignField(int fieldId, int fieldsetId);
     }
 
-    public interface IUserRepo : IUberRepo<User>
+    public interface IUserRepo : IRepo<User>
     {
         IEnumerable<Role> GetRoles(long id);
-        User Get(long id);
         int Count(string name, string password);
         int Count(string name);
         IEnumerable<Role> GetRoles();
@@ -80,7 +79,7 @@ namespace MRGSP.ASMS.Core.Repository
         IEnumerable<Farmer> GetPage(int page, int pageSize, string name, string code);
     }
 
-    public interface IDossierRepo : IUberRepo<Dossier>
+    public interface IDossierRepo : IRepo<Dossier>
     {
         int ChangeState(int id, int stateId);
     }

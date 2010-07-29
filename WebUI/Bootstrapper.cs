@@ -9,6 +9,7 @@ namespace MRGSP.ASMS.WebUI
     {
         public static void Bootstrap()
         {
+            log4net.Config.XmlConfigurator.Configure();
             RouteConfigurator.RegisterRoutes(RouteTable.Routes);
             ControllerBuilder.Current.SetControllerFactory(new WindsorControllerFactory(IoC.Container));
             WindsorConfigurator.Configure();

@@ -13,7 +13,10 @@ namespace MRGSP.ASMS.WebUI.Controllers
         private readonly IDossierService dossierService;
         private readonly ISystemStateServcie systemStateServcie;
 
-        public DossierController(IBuilder<Dossier, DossierCreateInput> createBuilder, IDossierService dossierService, ISystemStateServcie systemStateServcie)
+        public DossierController(
+            IBuilder<Dossier, DossierCreateInput> createBuilder, 
+            IDossierService dossierService, 
+            ISystemStateServcie systemStateServcie)
         {
             this.createBuilder = createBuilder;
             this.systemStateServcie = systemStateServcie;
@@ -40,11 +43,13 @@ namespace MRGSP.ASMS.WebUI.Controllers
         public ActionResult Create(DossierCreateInput input)
         {
             if (!ModelState.IsValid)
-            {
                 return View(createBuilder.RebuildInput(input));
-            }
+
             var id = dossierService.Create(createBuilder.BuilEntity(input));
-            return RedirectToAction("Index", "FillFields", new { id });
+
+            return dossierService.IsNoContest(id) ? 
+                RedirectToAction("Index") : 
+                RedirectToAction("Index", "FillFields", new { id });
         }
     }
 }

@@ -11,9 +11,9 @@ namespace MRGSP.ASMS.WebUI.Controllers
     {
         private readonly IFieldsetService fieldsetService;
         private readonly IBuilder<Indicator, IndicatorInput> builder;
-        private readonly IUberRepo<Indicator> repo;
+        private readonly IRepo<Indicator> repo;
 
-        public IndicatorController(IFieldsetService fieldsetService, IBuilder<Indicator, IndicatorInput> builder, IUberRepo<Indicator> repo)
+        public IndicatorController(IFieldsetService fieldsetService, IBuilder<Indicator, IndicatorInput> builder, IRepo<Indicator> repo)
         {
             this.fieldsetService = fieldsetService;
             this.repo = repo;

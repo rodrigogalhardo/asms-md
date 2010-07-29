@@ -12,17 +12,17 @@ namespace MRGSP.ASMS.Service
     public class FieldsetService : IFieldsetService
     {
         private readonly IFieldsetRepo fieldsetRepo;
-        private readonly IUberRepo<FieldsetState> stateRepo;
-        private readonly IUberRepo<Indicator> indicatorRepo;
-        private readonly IUberRepo<Coefficient> cRepo;
+        private readonly IRepo<FieldsetState> stateRepo;
+        private readonly IRepo<Indicator> indicatorRepo;
+        private readonly IRepo<Coefficient> cRepo;
         private readonly IFieldRepo fieldRepo;
         private readonly IDossierRepo dRepo;
 
         public FieldsetService(IFieldsetRepo fieldsetRepo,
-            IUberRepo<FieldsetState> stateRepo,
-            IUberRepo<Indicator> indicatorRepo,
+            IRepo<FieldsetState> stateRepo,
+            IRepo<Indicator> indicatorRepo,
             IFieldRepo fieldRepo,
-            IUberRepo<Coefficient> cRepo, IDossierRepo dRepo)
+            IRepo<Coefficient> cRepo, IDossierRepo dRepo)
         {
             this.fieldsetRepo = fieldsetRepo;
             this.dRepo = dRepo;

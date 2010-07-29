@@ -46,6 +46,11 @@ namespace MRGSP.ASMS.WebUI.Controllers
             return View(fieldsetService.Get(id));
         }
 
+        public ActionResult View(int id)
+        {
+            return View(fieldsetService.Get(id));
+        }
+
         public ActionResult Assigned(int id)
         {
             var o = new FieldsInput
@@ -56,7 +61,7 @@ namespace MRGSP.ASMS.WebUI.Controllers
             return View(o);
         }
 
-        public ActionResult AssignedList(int fieldsetId)
+        public ActionResult AssignedListLite(int fieldsetId)
         {
             return View(fieldsetService.GetAssignedFields(fieldsetId));
         }

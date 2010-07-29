@@ -21,7 +21,7 @@ namespace MRGSP.ASMS.Service
             return repo.Insert(user);
         }
 
-        public User Get(long id)
+        public User Get(int id)
         {
             return repo.Get(id);
         }
@@ -36,7 +36,7 @@ namespace MRGSP.ASMS.Service
             return repo.Get(name, password);
         }
 
-        public User GetFull(long id)
+        public User GetFull(int id)
         {
             var o = repo.Get(id);
             o.Roles = repo.GetRoles(id);

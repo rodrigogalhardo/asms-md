@@ -16,10 +16,12 @@ namespace MRGSP.ASMS.Infra.Dto
 
         [Req]
         [Label("Parola dorita")]
+        [PartialView("Password")]
         public string Password { get; set; }
 
         [Req]
         [Label("Confirmati Parola")]
+        [PartialView("Password")]
         public string ConfirmPassword { get; set; }
 
         [Label("Roluri")]
@@ -148,6 +150,9 @@ namespace MRGSP.ASMS.Infra.Dto
         [Req]
         [Label("Descrierea")]
         public string Description { get; set; }
+
+        [Label("Fara concurs")]
+        public bool NoContest { get; set; }
     }
 
     public class FarmerCreateInput

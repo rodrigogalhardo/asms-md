@@ -20,6 +20,5 @@ namespace MRGSP.ASMS.Core
         {
             return o == (int)oo;
         }
-
     }
 }

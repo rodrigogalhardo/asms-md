@@ -44,6 +44,7 @@ namespace MRGSP.ASMS.Core.Service
         Dossier Get(int id);
         void Go(IEnumerable<FieldValue> fieldValues);
         IPageable<Dossier> GetPageable(int page, int pageSize);
+        bool IsNoContest(int id);
     }
 
     public interface IFormulaValidationService
@@ -59,7 +60,7 @@ namespace MRGSP.ASMS.Core.Service
     public interface IUserService
     {
         long Insert(User user);
-        User Get(long id);
+        User Get(int id);
         IPageable<User> GetPage(int page, int pageSize);
         long Create(User user);
         IEnumerable<string> GetRoles(long id);
@@ -67,7 +68,7 @@ namespace MRGSP.ASMS.Core.Service
         IEnumerable<Role> GetRoles();
         bool ChangePassword(long id, string password);
         void Save(User user);
-        User GetFull(long id);
+        User GetFull(int id);
         bool Exists(string name, string password);
         User Get(string name, string password);
         User Get(string name);

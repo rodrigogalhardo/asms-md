@@ -23,10 +23,5 @@ namespace MRGSP.ASMS.WebUI.Controllers
         {
             return View();
         }
-
-        public ActionResult General(Exception error)
-        {
-            return View();
-        }
     }
 }

@@ -25,7 +25,7 @@ namespace MRGSP.ASMS.Infra
             var sp = sourceProps.GetByNameType<int>(typeof (T).Name + "Id");
             var tp = targetProps.GetByNameType<string>("Display" + typeof(T).Name);
             
-            var t = IoC.Resolve<IUberRepo<T>>().Get((int) sp.GetValue(source));
+            var t = IoC.Resolve<IRepo<T>>().Get((int) sp.GetValue(source));
             if(t != null)
             tp.SetValue(target,t.Name);
         }
@@ -42,7 +42,7 @@ namespace MRGSP.ASMS.Infra
                 .Select(o => new SelectListItem
                 {
                     Value = o.Id.ToString(),
-                    Text = o.Name,
+                    Text = o.Name + " " + o.Description,
                     Selected = o.Id == value
                 });
             t.SetValue(target, sv);
@@ -56,7 +56,7 @@ namespace MRGSP.ASMS.Infra
             var s = sourceProps.GetByNameType<int>(typeof(T).Name + "Id");
             var t = targetProps.GetByNameType<object>(typeof(T).Name + "Id");
             var value = (int)s.GetValue(source);
-            var sv = IoC.Resolve<IUberRepo<T>>().GetAll()
+            var sv = IoC.Resolve<IRepo<T>>().GetAll()
                 .Select(o => new SelectListItem
                                  {
                                      Value = o.Id.ToString(),

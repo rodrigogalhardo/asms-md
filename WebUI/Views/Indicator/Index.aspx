@@ -18,5 +18,5 @@
     <%=Html.Input(o => o.Formula) %>
     <% Html.RenderPartial("save"); %>
     </form>
-    <% Html.RenderAction("AssignedList", "Fieldset",new{Model.FieldsetId}); %>
+    <% Html.RenderAction("AssignedListLite", "Fieldset",new{Model.FieldsetId}); %>
 </asp:Content>

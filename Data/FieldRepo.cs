@@ -13,22 +13,22 @@ namespace MRGSP.ASMS.Data
 
         public IEnumerable<Field> GetAssigned(int id)
         {
-            return DbUtil.ExecuteReaderSp<Field>(new {id}, Cs, "getFieldsByFieldsetId");
+            return DbUtil.ExecuteReaderSp<Field>("getFieldsByFieldsetId", Cs, new {id});
         }
 
         public IEnumerable<Field> GetUnassigned(int id)
         {
-            return DbUtil.ExecuteReaderSp<Field>(new { id }, Cs, "getUnassignedFieldsByFieldsetId");
+            return DbUtil.ExecuteReaderSp<Field>("getUnassignedFieldsByFieldsetId", Cs, new { id });
         }
 
         public int AssignField(int fieldId, int fieldsetId)
         {
-            return DbUtil.ExecuteNonQuerySp(new { fieldId, fieldsetId }, Cs, "assignField");
+            return DbUtil.ExecuteNonQuerySp("assignField", Cs, new { fieldId, fieldsetId });
         }
 
         public int UnassignField(int fieldId, int fieldsetId)
         {
-            return DbUtil.ExecuteNonQuerySp(new { fieldId, fieldsetId }, Cs, "unassignField");
+            return DbUtil.ExecuteNonQuerySp("unassignField", Cs, new { fieldId, fieldsetId });
         }
     }
 

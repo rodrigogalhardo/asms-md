@@ -16,6 +16,9 @@
                 <td>
                     descriere
                 </td>
+                <td>
+                    fara concurs
+                </td>
             </tr>
         </thead>
         <tbody>
@@ -27,6 +30,9 @@
             </td>
             <td>
                 <%:o.Description %>
+            </td>
+            <td>
+                <%:o.NoContest ? "da" : "nu" %>
             </td>
         </tr>
         <%
