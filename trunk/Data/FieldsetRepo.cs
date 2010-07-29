@@ -3,7 +3,7 @@ using MRGSP.ASMS.Core.Repository;
 
 namespace MRGSP.ASMS.Data
 {
-    public class FieldsetRepo : UberRepo<Fieldset>, IFieldsetRepo
+    public class FieldsetRepo : Repo<Fieldset>, IFieldsetRepo
     {
         public FieldsetRepo(IConnectionFactory connFactory)
             : base(connFactory)
@@ -12,12 +12,12 @@ namespace MRGSP.ASMS.Data
 
         public int ChangeState(int id, int stateId)
         {
-            return DbUtil.ExecuteNonQuerySp(new { id, stateId }, Cs, "changeFieldsetState");
+            return DbUtil.ExecuteNonQuerySp("changeFieldsetState", Cs, new { id, stateId });
         }
 
         public int Activate(int id)
         {
-            return DbUtil.ExecuteNonQuerySp(new { id }, Cs, "activateFieldset");
+            return DbUtil.ExecuteNonQuerySp("activateFieldset", Cs, new { id });
         }
 
     }

@@ -9,11 +9,10 @@
     <% using (Html.BeginForm())
        {%>
     <%: Html.ValidationSummary(true) %>
-
-        <%=Html.Input(o => o.Name) %>
-        <%=Html.Input(o => o.Description) %>        
-        <% Html.RenderPartial("save"); %>
-
+    <%=Html.Input(o => o.Name) %>
+    <%=Html.Input(o => o.Description) %>
+    <%=Html.Input(o => o.NoContest) %>
+    <% Html.RenderPartial("save"); %>
     <% } %>
     <%=Html.ClientSideValidation<FieldInput>() %>
     <div>

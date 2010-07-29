@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Transactions;
 using ILCalc;
@@ -13,13 +14,15 @@ namespace MRGSP.ASMS.Service
     {
         private readonly IDossierRepo repo;
         private readonly IFieldsetService fservice;
-        private readonly IUberRepo<FieldValue> fvRepo;
-        private readonly IUberRepo<Indicator> iRepo;
-        private readonly IUberRepo<IndicatorValue> ivRepo;
+        private readonly IRepo<FieldValue> fvRepo;
+        private readonly IRepo<Indicator> iRepo;
+        private readonly IRepo<IndicatorValue> ivRepo;
+        private readonly IRepo<Measure> mRepo;
 
-        public DossierService(IDossierRepo repo, IFieldsetService fservice, IUberRepo<FieldValue> fvRepo, IUberRepo<Indicator> iRepo, IUberRepo<IndicatorValue> ivRepo)
+        public DossierService(IDossierRepo repo, IFieldsetService fservice, IRepo<FieldValue> fvRepo, IRepo<Indicator> iRepo, IRepo<IndicatorValue> ivRepo, IRepo<Measure> mRepo)
         {
             this.repo = repo;
+            this.mRepo = mRepo;
             this.ivRepo = ivRepo;
             this.iRepo = iRepo;
             this.fvRepo = fvRepo;
@@ -36,9 +39,17 @@ namespace MRGSP.ASMS.Service
         {
             var fs = fservice.GetActive();
             if (fs == null) throw new AsmsEx("la moment nu exista nici un set de campuri activ");
+            var measure = mRepo.Get(o.MeasureId);
+
             o.FieldsetId = fs.Id;
-            o.StateId = (int)DossierStates.Registered;
+            o.StateId = (int)(measure.NoContest ? DossierStates.HasIndicators : DossierStates.Registered);
             return repo.Insert(o);
+        }
+
+        public bool IsNoContest(int id)
+        {
+            var d = repo.Get(id);
+            return mRepo.Get(d.MeasureId).NoContest;
         }
 
         public Dossier Get(int id)
@@ -74,8 +85,16 @@ namespace MRGSP.ASMS.Service
                 foreach (var iv in indicatorValues)
                 {
                     var iv1 = iv;
-                    iv.Value =
-                        calc.Evaluate(indicators.Where(o => o.Id == iv1.IndicatorId).Single().Formula);
+
+                    decimal val = 0;
+                    try
+                    {
+                        val = calc.Evaluate(indicators.Where(o => o.Id == iv1.IndicatorId).Single().Formula);
+                    }
+                    catch (DivideByZeroException)
+                    {
+                    }
+                    iv.Value = val;
                 }
 
                 if (!indicatorValues.All(o => ivRepo.InsertNoIdentity(o) == 1)) throw new AsmsEx("nu pot salva indicatorii");

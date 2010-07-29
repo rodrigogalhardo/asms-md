@@ -159,6 +159,4 @@ namespace MRGSP.ASMS.Infra.Dto
             return true;
         }
     }
-
-
 }

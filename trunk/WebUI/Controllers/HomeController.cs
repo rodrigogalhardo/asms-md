@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using log4net;
 
 namespace MRGSP.ASMS.WebUI.Controllers
 {
@@ -7,8 +8,6 @@ namespace MRGSP.ASMS.WebUI.Controllers
     {
         public ActionResult Index()
         {
-            ViewData["Message"] = "Welcome to ASP.NET MVC!";
-
             return View();
         }
 

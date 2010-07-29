@@ -85,6 +85,7 @@ namespace MRGSP.ASMS.Core.Model
     public class Measure : EntityWithName
     {
         public string Description { get; set; }
+        public bool NoContest { get; set; }
     }
 
     public class Measureset : EntityWithName

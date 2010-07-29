@@ -11,9 +11,9 @@ namespace MRGSP.ASMS.WebUI.Controllers
     {
         private readonly IFieldsetService fieldsetService;
         private readonly IBuilder<Coefficient, CoefficientInput> builder;
-        private readonly IUberRepo<Coefficient> repo;
+        private readonly IRepo<Coefficient> repo;
 
-        public CoefficientController(IFieldsetService fieldsetService, IBuilder<Coefficient, CoefficientInput> builder, IUberRepo<Coefficient> repo)
+        public CoefficientController(IFieldsetService fieldsetService, IBuilder<Coefficient, CoefficientInput> builder, IRepo<Coefficient> repo)
         {
             this.fieldsetService = fieldsetService;
             this.repo = repo;
@@ -39,6 +39,11 @@ namespace MRGSP.ASMS.WebUI.Controllers
         public ActionResult List(int fieldsetId)
         {
             return View(repo.GetWhere(new { fieldsetId }));
+        }
+
+        public ActionResult ListLite(int fieldsetId)
+        {
+            return View(repo.GetWhere(new {fieldsetId}));
         }
 
         [HttpPost]

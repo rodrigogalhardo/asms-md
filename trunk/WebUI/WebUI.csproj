@@ -51,6 +51,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\libs\Castle.Windsor.dll</HintPath>
     </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\libs\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="MvcContrib, Version=2.0.36.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -141,10 +144,14 @@
     <Content Include="Views\Admin\Index.aspx" />
     <Content Include="Views\Coefficient\Index.aspx" />
     <Content Include="Views\Coefficient\List.ascx" />
+    <Content Include="Views\Coefficient\ListLite.ascx" />
     <Content Include="Views\Dossier\Index.aspx" />
     <Content Include="Views\Dossier\Open.aspx" />
     <Content Include="Views\Error\Expected.aspx" />
+    <Content Include="Views\Fieldset\View.aspx" />
     <Content Include="Views\FillFields\Index.aspx" />
+    <Content Include="Views\Measureset\AssignedListLite.ascx" />
+    <Content Include="Views\Measureset\View.aspx" />
     <Content Include="Views\Perfecter\Create.aspx" />
     <Content Include="Views\Perfecter\Index.aspx" />
     <Content Include="Views\District\Create.aspx" />
@@ -161,7 +168,7 @@
     <Content Include="Views\Farmer\Index.ascx" />
     <Content Include="Views\Farmer\Page.ascx" />
     <Content Include="Views\Fieldset\Assigned.ascx" />
-    <Content Include="Views\Fieldset\AssignedList.ascx" />
+    <Content Include="Views\Fieldset\AssignedListLite.ascx" />
     <Content Include="Views\Fieldset\Create.aspx" />
     <Content Include="Views\Fieldset\Index.aspx" />
     <Content Include="Views\Fieldset\ManageFields.aspx" />
@@ -177,6 +184,7 @@
     <Content Include="Views\InputBuilders\ArrayRemoveButton.aspx" />
     <Content Include="Views\Shared\Boolean.aspx" />
     <Content Include="Views\Shared\bcreate.ascx" />
+    <Content Include="Views\Shared\Password.aspx" />
     <Content Include="Views\Shared\DateTimen.aspx" />
     <Content Include="Views\Shared\Guid.aspx" />
     <Content Include="Views\Shared\DateTime.aspx" />

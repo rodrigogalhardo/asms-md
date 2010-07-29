@@ -22,7 +22,7 @@ namespace MRGSP.ASMS.WebUI
             WindsorRegistrar.Register("q3", typeof(IBuilder<Dossier, DossierCreateInput>), typeof(DossierBuilder));
             WindsorRegistrar.Register("q4", typeof(IBuilder<Farmer, FarmerCreateInput>), typeof(FarmerCreateBaseBuilder));
             WindsorRegistrar.Register("q5", typeof(IBuilder<, >), typeof(BaseBuilder<,>));
-            WindsorRegistrar.Register("ur", typeof(IUberRepo<>), typeof(UberRepo<>));
+            WindsorRegistrar.Register("ur", typeof(IRepo<>), typeof(Repo<>));
 
             
 

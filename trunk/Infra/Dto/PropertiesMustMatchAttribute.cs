@@ -13,7 +13,7 @@ namespace MRGSP.ASMS.Infra.Dto
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true, Inherited = true)]
     public sealed class PropertiesMustMatchAttribute : ValidationAttribute
     {
-        private const string DefaultErrorMessage = "'{0}' and '{1}' do not match.";
+        private const string DefaultErrorMessage = "parola nu corespunde cu confirmarea ei.";
         private readonly object typeId = new object();
 
         public PropertiesMustMatchAttribute(string originalProperty, string confirmProperty)

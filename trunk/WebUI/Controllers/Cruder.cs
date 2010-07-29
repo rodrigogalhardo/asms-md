@@ -8,11 +8,11 @@ namespace MRGSP.ASMS.WebUI.Controllers
         where TInput : new()
         where TEntity : new()
     {
-        protected readonly IUberRepo<TEntity> repo;
+        protected readonly IRepo<TEntity> repo;
         private readonly IBuilder<TEntity, TInput> builder;
 
 
-        public Cruder(IUberRepo<TEntity> repo, IBuilder<TEntity, TInput> builder)
+        public Cruder(IRepo<TEntity> repo, IBuilder<TEntity, TInput> builder)
         {
             this.repo = repo;
             this.builder = builder;

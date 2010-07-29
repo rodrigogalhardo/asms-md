@@ -3,6 +3,7 @@
 Campuri asignate
 </h2>
 <table>
+<thead><tr><td>Nume</td><td>Descriere</td><td>Cod</td></tr></thead>
     <%
         foreach (var o in Model)
         {%>

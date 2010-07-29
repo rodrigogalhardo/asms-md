@@ -1,6 +1,9 @@
 ﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<IEnumerable<Indicator>>" %>
-
+<h2>Indicatori</h2>
 <table>
+<thead>
+<tr><td>Nume</td><td>Formula</td><td>Cod</td></tr>
+</thead>
 <% foreach (var o in Model)
    {
 %>

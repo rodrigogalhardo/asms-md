@@ -12,10 +12,10 @@ namespace MRGSP.ASMS.Service
     public class MeasuresetService : IMeasuresetService
     {
         private readonly IMeasureRepo mRepo;
-        private readonly IUberRepo<State> sRepo;
+        private readonly IRepo<State> sRepo;
         private readonly IMeasuresetRepo msRepo;
 
-        public MeasuresetService(IMeasureRepo mRepo, IMeasuresetRepo msRepo, IUberRepo<State> sRepo)
+        public MeasuresetService(IMeasureRepo mRepo, IMeasuresetRepo msRepo, IRepo<State> sRepo)
         {
             this.mRepo = mRepo;
             this.sRepo = sRepo;

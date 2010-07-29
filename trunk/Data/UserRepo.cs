@@ -9,7 +9,7 @@ using Omu.ValueInjecter;
 
 namespace MRGSP.ASMS.Data
 {
-    public class UserRepo : UberRepo<User>, IUserRepo
+    public class UserRepo : Repo<User>, IUserRepo
     {
         public UserRepo(IConnectionFactory connFactory)
             : base(connFactory)
@@ -124,30 +124,30 @@ namespace MRGSP.ASMS.Data
             }
         }
 
-        public User Get(long id)
-        {
-            using (var conn = new SqlConnection(Cs))
-            {
-                using (var cmd = conn.CreateCommand())
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getUser";
-                    cmd.Parameters.Add("id", SqlDbType.BigInt).Value = id;
-                    conn.Open();
+        //public User Get(long id)
+        //{
+        //    using (var conn = new SqlConnection(Cs))
+        //    {
+        //        using (var cmd = conn.CreateCommand())
+        //        {
+        //            cmd.CommandType = CommandType.StoredProcedure;
+        //            cmd.CommandText = "getUser";
+        //            cmd.Parameters.Add("id", SqlDbType.BigInt).Value = id;
+        //            conn.Open();
 
-                    using (var dr = cmd.ExecuteReader())
-                    {
-                        while (dr.Read())
-                        {
-                            var o = new User();
-                            o.InjectFrom<ReaderInjection>(dr);
-                            return o;
-                        }
-                    }
-                }
-            }
-            return null;
-        }
+        //            using (var dr = cmd.ExecuteReader())
+        //            {
+        //                while (dr.Read())
+        //                {
+        //                    var o = new User();
+        //                    o.InjectFrom<ReaderInjection>(dr);
+        //                    return o;
+        //                }
+        //            }
+        //        }
+        //    }
+        //    return null;
+        //}
 
         public User Get(string name, string password)
         {

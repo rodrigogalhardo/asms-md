@@ -4,7 +4,7 @@ using MRGSP.ASMS.Core.Repository;
 
 namespace MRGSP.ASMS.Data
 {
-    public class MeasureRepo: UberRepo<Measure>, IMeasureRepo
+    public class MeasureRepo: Repo<Measure>, IMeasureRepo
     {
         public MeasureRepo(IConnectionFactory connFactory) : base(connFactory)
         {
@@ -12,27 +12,27 @@ namespace MRGSP.ASMS.Data
 
         public IEnumerable<Measure> GetAssigned(int measuresetId)
         {
-            return DbUtil.ExecuteReaderSp<Measure>(new { measuresetId }, Cs, "getAssignedMeasures");
+            return DbUtil.ExecuteReaderSp<Measure>("getAssignedMeasures", Cs, new { measuresetId });
         }
 
         public IEnumerable<Measure> GetUnassigned(int measuresetId)
         {
-            return DbUtil.ExecuteReaderSp<Measure>(new { measuresetId }, Cs, "getUnassignedMeasures");
+            return DbUtil.ExecuteReaderSp<Measure>("getUnassignedMeasures", Cs, new { measuresetId });
         }
 
         public int Assign(int measureId, int measuresetId)
         {
-            return DbUtil.ExecuteNonQuerySp(new { measureId, measuresetId }, Cs, "assignMeasure");
+            return DbUtil.ExecuteNonQuerySp("assignMeasure", Cs, new { measureId, measuresetId });
         }
 
         public int Unassign(int measureId, int measuresetId)
         {
-            return DbUtil.ExecuteNonQuerySp(new { measureId, measuresetId }, Cs, "unassignMeasure");
+            return DbUtil.ExecuteNonQuerySp("unassignMeasure", Cs, new { measureId, measuresetId });
         }
 
         public IEnumerable<Measure> GetActives()
         {
-            return DbUtil.ExecuteReaderSp<Measure>(new object(), Cs, "getMeasures");
+            return DbUtil.ExecuteReaderSp<Measure>("getMeasures", Cs, new object());
         }
     }
 }
