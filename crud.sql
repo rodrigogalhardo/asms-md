@@ -148,7 +148,8 @@ regDate Date,
 measureId int references measures(id) not null,
 perfecterId int references perfecters(id) not null,
 fieldsetId int references fieldsets(id) not null,
-stateId int references dossierStates(id) not null
+stateId int references dossierStates(id) not null,
+disqualified bit default(0) not null
 )
 
 create table fieldvalues 
@@ -183,12 +184,21 @@ name nvarchar(30) not null,
 formula nvarchar(max) not null
 )
 
-create table coefficientsvalues
+create table coefficientvalues
 (
 dossierId int references dossiers(id),
 coefficientId int references coefficients(id),
 value money not null,
 unique(dossierId, coefficientId)
+)
+
+create table fpis
+(
+measuresetId int references measuresets(id),
+measureId int references measures(id),
+"month" int not null,
+amount money not null,
+unique(measuresetId, measureId, "month")
 )
 
 
@@ -208,6 +218,7 @@ go
 
 insert dossierStates values(1, 'inregistrat')
 insert dossierStates values(2, 'are_indicatori')
+insert dossierStates values(3, 'are_coeficienti')
 
 
 

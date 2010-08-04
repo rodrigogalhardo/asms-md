@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using MRGSP.ASMS.Core;
 using MRGSP.ASMS.Core.Repository;
+using Omu.ValueInjecter;
 
 namespace MRGSP.ASMS.Data
 {
@@ -11,9 +14,10 @@ namespace MRGSP.ASMS.Data
         public Repo(IConnectionFactory connFactory)
         {
             Cs = connFactory.GetConnectionString();
+
         }
 
-        public T Get(int id) 
+        public T Get(int id)
         {
             return DbUtil.Get<T>(id, Cs);
         }
@@ -28,7 +32,7 @@ namespace MRGSP.ASMS.Data
         {
             return DbUtil.Insert(o, Cs);
         }
-        
+
         //returns rows affected
         public virtual int InsertNoIdentity(T o)
         {
@@ -66,4 +70,5 @@ namespace MRGSP.ASMS.Data
             return DbUtil.Delete<T>(id, Cs);
         }
     }
+
 }

@@ -60,6 +60,9 @@
       <HintPath>..\libs\ILCalc.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Moq">
+      <HintPath>..\libs\Moq.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.core, Version=2.5.3.9345, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\libs\nunit.core.dll</HintPath>
@@ -89,6 +92,7 @@
     <Compile Include="BaseRepoTest.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="DossierRepoTest.cs" />
+    <Compile Include="EcoCalcTests.cs" />
     <Compile Include="FarmerRepoTest.cs" />
     <Compile Include="InsertInjectionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -107,6 +111,10 @@
     <ProjectReference Include="..\Data\Data.csproj">
       <Project>{B2C0FD04-EE1C-42FD-B509-900D942ADC94}</Project>
       <Name>Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Service\Service.csproj">
+      <Project>{00460587-4779-4B26-93B1-943EC5B32A3B}</Project>
+      <Name>Service</Name>
     </ProjectReference>
     <ProjectReference Include="..\WebUI\WebUI.csproj">
       <Project>{55E39CF2-5378-4920-B523-9E561824D328}</Project>

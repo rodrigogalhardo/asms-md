@@ -4,11 +4,11 @@ using Omu.ValueInjecter;
 
 namespace MRGSP.ASMS.WebUI.Controllers
 {
-    public class FillObjectInjection : NoSourceValueInjection
+    public class FillObject : NoSourceValueInjection
     {
         protected override void Inject(object target, PropertyDescriptorCollection targetProps)
         {
-            for (int i = 0; i < targetProps.Count; i++)
+            for (var i = 0; i < targetProps.Count; i++)
             {
                 var prop = targetProps[i];
                 object val = null;

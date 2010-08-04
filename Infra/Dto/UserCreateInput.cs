@@ -33,6 +33,16 @@ namespace MRGSP.ASMS.Infra.Dto
         public string Message { get; set; }
     }
 
+    public class FpiInput
+    {
+        public int MeasuresetId { get; set; }
+        public int MeasureId { get; set; }
+        public int Month { get; set; }
+
+        [Req]
+        public decimal Amount { get; set; }
+    }
+
     public class BankCreateInput
     {
         [Req]

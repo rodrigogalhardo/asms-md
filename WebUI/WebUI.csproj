@@ -78,23 +78,32 @@
     <Reference Include="System.Data.DataSetExtensions">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Extensions">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\Microsoft ASP.NET\ASP.NET MVC 2\\Assemblies\System.Web.Mvc.dll</HintPath>
+      <HintPath>..\libs\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.Abstractions" />
-    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Web.Abstractions">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Routing">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
-    <Reference Include="System.Web.Mobile" />
+    <Reference Include="System.Web.Mobile">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="xVal, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f8fbed92c68c4006, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\libs\xVal.dll</HintPath>
@@ -112,6 +121,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BankController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CalculationsController.cs" />
     <Compile Include="Controllers\CoefficientController.cs" />
     <Compile Include="Controllers\Cruder.cs" />
     <Compile Include="Controllers\DossierController.cs" />
@@ -120,7 +130,8 @@
     <Compile Include="Controllers\FieldController.cs" />
     <Compile Include="Controllers\FieldsetController.cs" />
     <Compile Include="Controllers\FillFieldsController.cs" />
-    <Compile Include="Controllers\FillObjectInjection.cs" />
+    <Compile Include="Controllers\FillObject.cs" />
+    <Compile Include="Controllers\FpiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IndicatorController.cs" />
     <Compile Include="Controllers\MeasuresetController.cs" />
@@ -142,6 +153,8 @@
     <Content Include="Scripts\dp.ro.js" />
     <Content Include="Scripts\xVal.jquery.validate.js" />
     <Content Include="Views\Admin\Index.aspx" />
+    <Content Include="Views\Calculations\Index.aspx" />
+    <Content Include="Views\Calculations\success.aspx" />
     <Content Include="Views\Coefficient\Index.aspx" />
     <Content Include="Views\Coefficient\List.ascx" />
     <Content Include="Views\Coefficient\ListLite.ascx" />
@@ -150,6 +163,8 @@
     <Content Include="Views\Error\Expected.aspx" />
     <Content Include="Views\Fieldset\View.aspx" />
     <Content Include="Views\FillFields\Index.aspx" />
+    <Content Include="Views\Fpi\Create.aspx" />
+    <Content Include="Views\Fpi\Index.aspx" />
     <Content Include="Views\Measureset\AssignedListLite.ascx" />
     <Content Include="Views\Measureset\View.aspx" />
     <Content Include="Views\Perfecter\Create.aspx" />
@@ -184,6 +199,7 @@
     <Content Include="Views\InputBuilders\ArrayRemoveButton.aspx" />
     <Content Include="Views\Shared\Boolean.aspx" />
     <Content Include="Views\Shared\bcreate.ascx" />
+    <Content Include="Views\Shared\Decimal.aspx" />
     <Content Include="Views\Shared\Password.aspx" />
     <Content Include="Views\Shared\DateTimen.aspx" />
     <Content Include="Views\Shared\Guid.aspx" />

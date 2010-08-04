@@ -87,6 +87,37 @@
             the same as calling Inject&lt;LoopValueInjection>()
             </summary>
         </member>
+        <member name="T:Omu.ValueInjecter.NoSourceValueInjection">
+            <summary>
+             inject value without source
+            </summary>
+        </member>
+        <member name="T:Omu.ValueInjecter.LoopValueInjection`2">
+            <summary>
+            maps the properties with the same name from the source object of type TSourceProperty to the ones from the target object of type TTargetProperty
+            </summary>
+            <typeparam name="TSourceProperty">source properties type</typeparam>
+            <typeparam name="TTargetProperty">target properties type</typeparam>
+        </member>
+        <member name="M:Omu.ValueInjecter.PrefixedValueInjection.SearchTargetName(System.String)">
+            <summary>
+            get a string representing the target property name using the source property name and prefixes
+            </summary>
+            <param name="s">source property original name</param>
+            <returns></returns>
+        </member>
+        <member name="M:Omu.ValueInjecter.PrefixedValueInjection.SearchSourceName(System.String)">
+            <summary>
+            get a string representing the source property name using the target property name and prefixes
+            </summary>
+            <param name="s">target property original name</param>
+            <returns></returns>
+        </member>
+        <member name="T:Omu.ValueInjecter.LoopValueInjection">
+            <summary>
+             maps the properties with the same name and type(by default, but you can override TypesMatch to change this) from source to the ones in the target
+            </summary>
+        </member>
         <member name="M:Omu.ValueInjecter.StaticValueInjecter.InjectFrom``1(System.Object,System.Object)">
             <summary>
             Injects values from source to target

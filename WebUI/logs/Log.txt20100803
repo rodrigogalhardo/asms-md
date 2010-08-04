@@ -1,0 +1,27 @@
+2010-08-02 17:24:31,617 [8] ERROR  - The controller for path '/asms/Calculations' could not be found or it does not implement IController.
+
+System.Web.HttpException (0x80004005): The controller for path '/asms/Calculations' could not be found or it does not implement IController.
+   at MvcContrib.Castle.WindsorControllerFactory.GetControllerInstance(RequestContext context, Type controllerType) in c:\builds\mvccontrib\src\MvcContrib.Castle\WindsorControllerFactory.cs:line 33
+   at System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+2010-08-02 17:24:39,939 [8] ERROR  - The controller for path '/asms/Calculations' could not be found or it does not implement IController.
+
+System.Web.HttpException (0x80004005): The controller for path '/asms/Calculations' could not be found or it does not implement IController.
+   at MvcContrib.Castle.WindsorControllerFactory.GetControllerInstance(RequestContext context, Type controllerType) in c:\builds\mvccontrib\src\MvcContrib.Castle\WindsorControllerFactory.cs:line 33
+   at System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+2010-08-02 17:24:43,469 [8] ERROR  - The controller for path '/asms/Calculations/Index' could not be found or it does not implement IController.
+
+System.Web.HttpException (0x80004005): The controller for path '/asms/Calculations/Index' could not be found or it does not implement IController.
+   at MvcContrib.Castle.WindsorControllerFactory.GetControllerInstance(RequestContext context, Type controllerType) in c:\builds\mvccontrib\src\MvcContrib.Castle\WindsorControllerFactory.cs:line 33
+   at System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using MRGSP.ASMS.Core.Model;
 
 namespace MRGSP.ASMS.Core.Repository
@@ -34,6 +35,7 @@ namespace MRGSP.ASMS.Core.Repository
         int Assign(int measureId, int measuresetId);
         int Unassign(int measureId, int measuresetId);
         IEnumerable<Measure> GetActives();
+        IEnumerable<int> GetUsedIn(DateTime month);
     }
 
     public interface IFieldRepo
@@ -82,5 +84,10 @@ namespace MRGSP.ASMS.Core.Repository
     public interface IDossierRepo : IRepo<Dossier>
     {
         int ChangeState(int id, int stateId);
+        IEnumerable<Dossier> GetBy(int measureId, DateTime month);
+    }
+    public interface IIndicatorValueRepo : IRepo<IndicatorValue>
+    {
+        IEnumerable<IndicatorValue> GetBy(int measureId, DateTime month);
     }
 }
