@@ -75,7 +75,7 @@ namespace MRGSP.ASMS.Data
             }
         }
 
-        
+
         /// <returns>rows affected</returns>
         public static int ExecuteNonQuerySp(string sp, string cs, object parameters)
         {
@@ -108,6 +108,25 @@ namespace MRGSP.ASMS.Data
                             var o = new T();
                             o.InjectFrom<ReaderInjection>(dr);
                             yield return o;
+                        }
+                }
+            }
+        }
+
+        public static IEnumerable<T> ExecuteReaderSpValueType<T>(string sp, string cs, object parameters)
+        {
+            using (var conn = new SqlConnection(cs))
+            {
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = sp;
+                    cmd.InjectFrom<CommandInjection>(parameters);
+                    conn.Open();
+                    using (var dr = cmd.ExecuteReader())
+                        while (dr.Read())
+                        {
+                            yield return (T)dr.GetValue(0);
                         }
                 }
             }
@@ -196,7 +215,7 @@ namespace MRGSP.ASMS.Data
                 }
             }
         }
-        
+
 
         public static T Get<T>(long id, string cs) where T : new()
         {

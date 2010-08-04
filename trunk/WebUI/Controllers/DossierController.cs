@@ -36,7 +36,7 @@ namespace MRGSP.ASMS.WebUI.Controllers
         public ActionResult Create()
         {
             systemStateServcie.AssureAbilityToCreateDossier();
-            return View(createBuilder.BuildInput((Dossier)new Dossier().InjectFrom<FillObjectInjection>()));
+            return View(createBuilder.BuildInput((Dossier)new Dossier().InjectFrom<FillObject>()));
         }
 
         [HttpPost]

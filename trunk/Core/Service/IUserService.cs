@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using MRGSP.ASMS.Core.Model;
 
 namespace MRGSP.ASMS.Core.Service
@@ -38,13 +39,21 @@ namespace MRGSP.ASMS.Core.Service
         IEnumerable<Field> GetFieldsByDossier(int dossierId);
     }
 
+    public interface IEcoCalc
+    {
+        IEnumerable<CoefficientValue> CalculateCoefficientValues(int measureId, DateTime month, IEnumerable<Dossier> dossiers);
+        IEnumerable<IndicatorValue> CalculateIndicatorValues(IEnumerable<FieldValue> fieldValues, Dossier dossier);
+    }
+
+
     public interface IDossierService
     {
         int Create(Dossier o);
         Dossier Get(int id);
-        void Go(IEnumerable<FieldValue> fieldValues);
+        void GoIndicators(IEnumerable<FieldValue> fieldValues);
         IPageable<Dossier> GetPageable(int page, int pageSize);
         bool IsNoContest(int id);
+        void GoCoefficients();
     }
 
     public interface IFormulaValidationService

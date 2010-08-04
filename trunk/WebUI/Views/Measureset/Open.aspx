@@ -19,9 +19,15 @@
     <%}
        else if (States.Active.IsEqual(Model.StateId))
        {%>
+    <p>
+        <%=Html.ActionLink("planul financiar","Index","Fpi",new{measuresetId = Model.Id}, null) %></p>
     <form method="post" action="<%:Url.Action("deactivate") %>">
     <input type="hidden" name="id" value="<%:Model.Id %>" />
     <input type="submit" value="deactiveaza" />
     </form>
-    <%} else{%><p>acest set de masuri este inactiv</p><%}%>
+    <%}
+       else
+       {%><p>
+        acest set de masuri este inactiv</p>
+    <%}%>
 </asp:Content>

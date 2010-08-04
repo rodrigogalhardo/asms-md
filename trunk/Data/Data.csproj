@@ -83,6 +83,7 @@
     <Compile Include="FarmerRepo.cs" />
     <Compile Include="FieldRepo.cs" />
     <Compile Include="FieldsetRepo.cs" />
+    <Compile Include="IndicatorValueRepo.cs" />
     <Compile Include="MeasureRepo.cs" />
     <Compile Include="MeasuresetRepo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

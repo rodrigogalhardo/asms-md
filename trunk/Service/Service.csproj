@@ -78,6 +78,7 @@
     <Compile Include="BankService.cs" />
     <Compile Include="DossierService.cs" />
     <Compile Include="Class1.cs" />
+    <Compile Include="EcoCalc.cs" />
     <Compile Include="FarmerService.cs" />
     <Compile Include="FieldsetService.cs" />
     <Compile Include="FormulaValidationService.cs" />

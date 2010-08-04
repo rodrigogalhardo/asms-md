@@ -172,4 +172,45 @@ as
 update dossiers set stateid = @stateId where id = @id
 
 go
+create proc getDossiers
+@measureId int,
+@month DateTime
+as
+select d.* from measures m
+inner join dossiers d on d.measureId = m.id
+where 
+m.id = @measureId
+and year(d.dateReg) = year(@month)
+and MONTH(d.dateReg) = MONTH(@month)
+and d.stateId = 2
+and d.disqualified = 0
+
+go
+
+create proc getUsedMeasureIds
+@month DateTime
+as
+select distinct d.measureId from dossiers d
+where YEAR(d.dateReg) = YEAR(@month)
+and MONTH(d.dateReg) = MONTH(@month)
+
+go 
+create proc getIndicatorValues
+@measureId int,
+@month DateTime
+as
+select d.id as dossierId, iv.indicatorId, iv.value from measures m
+inner join dossiers d on d.measureId = m.id
+inner join indicatorvalues iv on iv.dossierId = d.id
+where 
+m.id = @measureId
+and year(d.dateReg) = year(@month)
+and MONTH(d.dateReg) = MONTH(@month)
+and d.stateId = 2
+
+select * from indicatorvalues
+select * from fieldValues
+
+
+go
 use master

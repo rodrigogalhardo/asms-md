@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using MRGSP.ASMS.Core.Model;
 using MRGSP.ASMS.Core.Repository;
 
@@ -8,6 +9,11 @@ namespace MRGSP.ASMS.Data
     {
         public MeasureRepo(IConnectionFactory connFactory) : base(connFactory)
         {
+        }
+
+        public IEnumerable<int> GetUsedIn(DateTime month)
+        {
+            return DbUtil.ExecuteReaderSpValueType<int>("getUsedMeasureIds", Cs, new {month});
         }
 
         public IEnumerable<Measure> GetAssigned(int measuresetId)

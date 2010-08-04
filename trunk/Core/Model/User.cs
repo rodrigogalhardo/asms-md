@@ -54,6 +54,7 @@ namespace MRGSP.ASMS.Core.Model
     {
         Registered = 1,
         HasIndicators = 2,
+        HasCoefficients
     }
 
     public enum States
@@ -73,6 +74,13 @@ namespace MRGSP.ASMS.Core.Model
     {
         public int DossierId { get; set; }
         public int IndicatorId { get; set; }
+        public decimal Value { get; set; }
+    }    
+    
+    public class CoefficientValue
+    {
+        public int DossierId { get; set; }
+        public int CoefficientId { get; set; }
         public decimal Value { get; set; }
     }
 
@@ -190,6 +198,17 @@ namespace MRGSP.ASMS.Core.Model
         public DateTime? DateReg { get; set; }
         public string NrReg { get; set; }
         public int CompanyTypeId { get; set; }
+    }
+
+    /// <summary>
+    /// Financial Plan Item
+    /// </summary>
+    public class Fpi
+    {
+        public int MeasuresetId { get; set; }
+        public int MeasureId { get; set; }
+        public int Month { get; set; }
+        public decimal Amount { get; set; }
     }
 
     public class Department : EntityWithName
