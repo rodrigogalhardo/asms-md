@@ -32,7 +32,7 @@ namespace MRGSP.ASMS.Tests
             repo.GetRoles(id).Count().IsEqualTo(2);
             var user = repo.Get(id);
             user.Roles = new[] { new Role() { Id = 3 } };
-            repo.Update(user);
+            repo.ChangeRoles(user);
             repo.GetRoles(id).Count().IsEqualTo(1);
         }
 

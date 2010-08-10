@@ -60,7 +60,7 @@ namespace MRGSP.ASMS.Service
 
         public void Save(User user)
         {
-            repo.Update(user);
+            repo.ChangeRoles(user);
         }
 
         public IEnumerable<string> GetRoles(long id)

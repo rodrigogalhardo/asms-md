@@ -14,6 +14,7 @@ namespace MRGSP.ASMS.Core.Service
         void Activate(int id);
         void Deactivate(int id);
         Measureset GetActive();
+        Measureset Get(int id);
     }
 
 
@@ -53,7 +54,9 @@ namespace MRGSP.ASMS.Core.Service
         void GoIndicators(IEnumerable<FieldValue> fieldValues);
         IPageable<Dossier> GetPageable(int page, int pageSize);
         bool IsNoContest(int id);
-        void GoCoefficients();
+        void CalculateCoefficients(int measuresetId, int measureId, int month);
+        void Rank(int measuresetId, int measureId, int month);
+        IEnumerable<Dossier> GetForTop(int measuresetId, int measureId, int month);
     }
 
     public interface IFormulaValidationService

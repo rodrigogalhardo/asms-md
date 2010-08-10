@@ -4,7 +4,6 @@ using System.Linq;
 
 namespace MRGSP.ASMS.Core.Model
 {
-    
     public class FieldsetDisplay : EntityWithName
     {
         public DateTime EndDate { get; set; }
@@ -13,7 +12,7 @@ namespace MRGSP.ASMS.Core.Model
     
     public class MeasuresetDisplay : EntityWithName
     {
-        public DateTime EndDate { get; set; }
+        public int Year { get; set; }
         public string State { get; set; }
     }
 
@@ -54,7 +53,8 @@ namespace MRGSP.ASMS.Core.Model
     {
         Registered = 1,
         HasIndicators = 2,
-        HasCoefficients
+        HasCoefficients,
+        Winner
     }
 
     public enum States
@@ -103,7 +103,7 @@ namespace MRGSP.ASMS.Core.Model
             StateId = 1;
         }
 
-        public DateTime EndDate { get; set; }
+        public int Year { get; set; }
         public int StateId { get; set; }
     }
 
@@ -149,6 +149,12 @@ namespace MRGSP.ASMS.Core.Model
         public string Code { get; set; }
     }
 
+    public class RankedDossier : Entity
+    {
+        public decimal Value { get; set; }
+        public decimal AmountRequested { get; set; }
+    }
+
     public class Dossier : Entity
     {
         public int ResponsibleId { get; set; }
@@ -188,8 +194,12 @@ namespace MRGSP.ASMS.Core.Model
 
         public int MeasureId { get; set; }
         public int FieldsetId { get; set; }
+        public int MeasuresetId { get; set; }
 
         public int StateId { get; set; }
+
+        public decimal AmountRequested { get; set; }
+        public decimal Value { get; set; }
     }
 
     public class Farmer : EntityWithName
@@ -205,10 +215,12 @@ namespace MRGSP.ASMS.Core.Model
     /// </summary>
     public class Fpi
     {
+        public int Id { get; set; }
         public int MeasuresetId { get; set; }
         public int MeasureId { get; set; }
         public int Month { get; set; }
         public decimal Amount { get; set; }
+        public bool Calculated { get; set; }
     }
 
     public class Department : EntityWithName

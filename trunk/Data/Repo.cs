@@ -33,6 +33,16 @@ namespace MRGSP.ASMS.Data
             return DbUtil.Insert(o, Cs);
         }
 
+        public virtual int Update(T o)
+        {
+            return DbUtil.Update(o, Cs);
+        }
+
+        public virtual int UpdateWhatWhere(object what, object where)
+        {
+            return DbUtil.UpdateWhatWhere<T>(what, where, Cs);
+        }
+
         //returns rows affected
         public virtual int InsertNoIdentity(T o)
         {

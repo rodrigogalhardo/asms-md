@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using MRGSP.ASMS.Core.Model;
 using MvcContrib.UI.InputBuilder.Attributes;
 
@@ -88,9 +89,9 @@ namespace MRGSP.ASMS.Infra.Dto
         public string Name { get; set; }
 
         [Req]
-        [Label("Data de sfarsit")]
-        public DateTime EndDate { get; set; }
-
+        [Label("Anul")]
+        [Range(2009, 2100)]
+        public int Year { get; set; }
     }
 
     public class FieldsetInput

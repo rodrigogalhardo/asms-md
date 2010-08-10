@@ -1,10 +1,35 @@
 use master
-go
-drop database asms
-go
-create database asms
+--go
+--drop database asms
+--go
+--create database asms
+
 go
 use asms
+drop table fpis
+drop table coefficientvalues
+drop table coefficients
+drop table indicatorvalues
+drop table indicators
+drop table fieldvalues
+drop table dossiers
+drop table dossierStates
+drop table fieldsetsfields
+drop table fieldsets
+drop table fieldsetStates
+drop table fields
+drop table measuresetsmeasures
+drop table measuresets
+drop table measures
+drop table states
+drop table companytypes
+drop table perfecters
+drop table areas
+drop table usersroles
+drop table districts
+drop table roles
+drop table users
+
 create table users
 (
 id int identity primary key,
@@ -66,8 +91,10 @@ create table measuresets
 (
 id int identity primary key,
 name nvarchar(30) not null,
-enddate date not null,
-stateId int not null default(1) references states(id)
+"year" int not null,
+stateId int not null default(1) references states(id),
+dateActivated date,
+dateDeactivated date
 )
 
 create table measuresetsmeasures
@@ -145,11 +172,14 @@ contractDate Date,
 serviceProvider nvarchar(max),
 consultantId int,
 regDate Date,
+amountRequested money not null,
+value money,
 measureId int references measures(id) not null,
 perfecterId int references perfecters(id) not null,
 fieldsetId int references fieldsets(id) not null,
 stateId int references dossierStates(id) not null,
-disqualified bit default(0) not null
+disqualified bit default(0) not null,
+measuresetId int references measuresets(id) not null
 )
 
 create table fieldvalues 
@@ -194,12 +224,15 @@ unique(dossierId, coefficientId)
 
 create table fpis
 (
+id int identity primary key,
 measuresetId int references measuresets(id),
 measureId int references measures(id),
 "month" int not null,
 amount money not null,
+calculated bit default(0),
 unique(measuresetId, measureId, "month")
 )
+
 
 
 go
@@ -219,6 +252,7 @@ go
 insert dossierStates values(1, 'inregistrat')
 insert dossierStates values(2, 'are_indicatori')
 insert dossierStates values(3, 'are_coeficienti')
+insert dossierStates values(4, 'castigator')
 
 
 
@@ -345,16 +379,15 @@ insert fieldsets(name, stateId, enddate) values('setul pe anul 2010', 5, '12/31/
 insert fieldsetsfields(fieldId, fieldsetId) values(1,1)
 insert fieldsetsfields(fieldId, fieldsetId) values(2,1)
 insert fieldsetsfields(fieldId, fieldsetId) values(3,1)
-insert fieldsetsfields(fieldId, fieldsetId) values(4,1)
-insert fieldsetsfields(fieldId, fieldsetId) values(5,1)
+
 
 insert indicators(name,formula, fieldsetId) values('ind1','c1+c2', 1) 
 insert indicators(name,formula, fieldsetId) values('ind2','c2+c3', 1)
-insert indicators(name,formula, fieldsetId) values('ind3','c3+c4', 1)
+insert indicators(name,formula, fieldsetId) values('ind3','c3', 1)
 
 insert coefficients(name,formula,fieldsetId) values('coef1','i1+i2',1)
 insert coefficients(name,formula,fieldsetId) values('coef2','i2+i3',1)
-insert coefficients(name,formula,fieldsetId) values('coef3','i3+i4',1)
+insert coefficients(name,formula,fieldsetId) values('coef3','i3',1)
 
 
 insert measures(name,description) values('Masura 1','Stimularea creditarii producatorilor agricoli de catre bancile comerciale')
@@ -370,7 +403,7 @@ insert measures(name,description) values('Masura 10','Subventionarea producatori
 
 
 
-insert measuresets(name,enddate,stateId) values('setul de masuri pe anul 2010', '12/31/2010',2)
+insert measuresets(name,"year",stateId) values('setul de masuri pe anul 2010', 2010, 2)
 insert measuresetsmeasures(measureId, measuresetId) values(1, 1)
 insert measuresetsmeasures(measureId, measuresetId) values(2, 1)
 insert measuresetsmeasures(measureId, measuresetId) values(3, 1)
@@ -381,3 +414,8 @@ insert measuresetsmeasures(measureId, measuresetId) values(7, 1)
 insert measuresetsmeasures(measureId, measuresetId) values(8, 1)
 insert measuresetsmeasures(measureId, measuresetId) values(9, 1)
 insert measuresetsmeasures(measureId, measuresetId) values(10, 1)
+
+--reset
+update dossiers set stateId = 2 ,value = null
+delete from coefficientvalues
+delete from fpis

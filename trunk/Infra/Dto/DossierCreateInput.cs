@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using MvcContrib.UI.InputBuilder.Attributes;
 
 namespace MRGSP.ASMS.Infra.Dto
@@ -110,5 +111,8 @@ namespace MRGSP.ASMS.Infra.Dto
         public object PerfecterId { get; set; }
 
         public object MeasureId { get; set; }
+
+        [Label("Suma solicitata")]
+        public decimal AmountRequested { get; set; }
     }
 }

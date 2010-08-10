@@ -22,6 +22,11 @@ namespace MRGSP.ASMS.Service
             this.msRepo = msRepo;
         }
 
+        public Measureset Get(int id)
+        {
+            return msRepo.Get(id);
+        }
+
         public void Activate(int id)
         {
             Do(() => msRepo.Activate(id), States.Registered, id);
@@ -59,7 +64,7 @@ namespace MRGSP.ASMS.Service
             if (state.IsEqual(ms.StateId))
                 a();
             else
-                throw new Exception("Invalid operation");
+                throw new AsmsEx("Invalid operation");
         }
 
         public IPageable<MeasuresetDisplay> GetPageable(int page, int pageSize)
@@ -70,7 +75,7 @@ namespace MRGSP.ASMS.Service
             d.InjectFrom(ms);
             d.Page = ms.Page.Join(ss, o => o.StateId, oo => oo.Id,
                                   (o, oo) =>
-                                  new MeasuresetDisplay { Id = o.Id, EndDate = o.EndDate, Name = o.Name, State = oo.Name });
+                                  new MeasuresetDisplay { Id = o.Id, Year = o.Year, Name = o.Name, State = oo.Name });
             return d;
         }
 

@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Globalization;
+using System.Linq;
 using System.Text.RegularExpressions;
 using Ciloci.Flee;
 using ILCalc;
 using NUnit.Framework;
+using System.Collections.Generic;
 
 namespace MRGSP.ASMS.Tests
 {
@@ -26,9 +28,9 @@ namespace MRGSP.ASMS.Tests
         [Test]
         public void Dynamic()
         {
-            dynamic x = 3;
-            x = x + x;
-            TestingTools.IsEqualTo(x, 6);
+            dynamic d = new { id = 1, name = "hello" };
+            Console.Out.WriteLine(d.name);
+            Console.Out.WriteLine(d.id);
         }
 
         [Test]
@@ -50,14 +52,17 @@ namespace MRGSP.ASMS.Tests
         public void Calc2()
         {
             var calc = new CalcContext<decimal>();
-            try
+            calc.Constants.Add("c1", 3);
+            calc.Constants.Add("c2", 3);
+            calc.Constants.Add("c3", 3);
+            var s = new List<int>();
+            
+            for (int i = 0; i < 100; i++)
             {
-                Console.WriteLine(calc.Evaluate("32/0"));
+                s.Add(i);
             }
-            catch (DivideByZeroException)
-            {
 
-            }
+            s.AsParallel().ForAll(o => calc.Evaluate("c2+c3"));
         }
 
         [Test]

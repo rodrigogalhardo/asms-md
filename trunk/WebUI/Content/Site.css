@@ -373,6 +373,7 @@ td, th
 p
 {
     margin: 10px 0px;   
+    padding: 2px 0;
 }
 
 .short .efield .elabel
@@ -389,7 +390,7 @@ p
     margin: 0 2px;
 }
 
-.fg-button { 
+.fgb { 
    outline: 0; 
    margin:4px 4px 4px 0; 
    padding: .4em 1em; 

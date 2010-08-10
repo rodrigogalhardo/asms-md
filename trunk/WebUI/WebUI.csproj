@@ -121,7 +121,6 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BankController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Controllers\CalculationsController.cs" />
     <Compile Include="Controllers\CoefficientController.cs" />
     <Compile Include="Controllers\Cruder.cs" />
     <Compile Include="Controllers\DossierController.cs" />
@@ -165,6 +164,7 @@
     <Content Include="Views\FillFields\Index.aspx" />
     <Content Include="Views\Fpi\Create.aspx" />
     <Content Include="Views\Fpi\Index.aspx" />
+    <Content Include="Views\Fpi\Rank.aspx" />
     <Content Include="Views\Measureset\AssignedListLite.ascx" />
     <Content Include="Views\Measureset\View.aspx" />
     <Content Include="Views\Perfecter\Create.aspx" />

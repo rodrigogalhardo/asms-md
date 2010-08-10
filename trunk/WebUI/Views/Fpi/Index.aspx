@@ -11,7 +11,9 @@
     <table>
         <thead>
             <tr>
-            <td>Luna</td>
+                <td>
+                    Luna
+                </td>
                 <% foreach (var measure in measures)
                    {
                 %><td>
@@ -25,9 +27,9 @@
               {
             %>
             <tr>
-            <td>
-            <%=i %>
-            </td>
+                <td>
+                    <%=i %>
+                </td>
                 <%
                     foreach (var measure in measures)
                     {
@@ -37,17 +39,18 @@
                         {
                 %>
                 <%=x.Amount %>
+                <%=Html.ActionLink("Clasament","Rank",new{fpiId = x.Id}) %>
                 <%
-                        }
-              else
-              {
+}
+                        else
+                        {
                 %>
                 <%=Html.ActionLink("+", "Create", new{ measuresetId, measureId = measure.Id, month = i}) %>
                 <%
                     }
                         Response.Write("</td>");
-          }%>
-          </tr>
+                    }%>
+            </tr>
             <%
                 } %>
         </tbody>

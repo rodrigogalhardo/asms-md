@@ -7,7 +7,7 @@ using Omu.ValueInjecter;
 
 namespace MRGSP.ASMS.WebUI.Controllers
 {
-    public class DossierController : Controller
+    public class DossierController : BaseController
     {
         private readonly IBuilder<Dossier, DossierCreateInput> createBuilder;
         private readonly IDossierService dossierService;

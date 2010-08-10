@@ -23,7 +23,7 @@ namespace MRGSP.ASMS.Service
 
             var m = mService.GetActive();
             if (m == null) throw new AsmsEx("la moment nu exista nici un set de masuri activ");
-            if (m.EndDate < DateTime.Now.AddDays(-1)) throw new AsmsEx("termenul setului de masuri activ a expirat");
+            if (m.Year != DateTime.Now.Year) throw new AsmsEx("setului de masuri activ nu este pentru anul curent");
         }
     }
 }
