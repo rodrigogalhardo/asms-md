@@ -55,7 +55,7 @@ namespace MRGSP.ASMS.Data
             }
         }
 
-        public void Update(User o)
+        public void ChangeRoles(User o)
         {
             using (var scope = new TransactionScope())
             {
@@ -88,16 +88,6 @@ namespace MRGSP.ASMS.Data
                 }
             }
         }
-
-        //public IEnumerable<User> GetPage(int page, int pageSize)
-        //{
-        //    return DbUtil.GetPageSp<User>(page, pageSize, "User", Cs);
-        //}
-
-        //public int Count()
-        //{
-        //    return DbUtil.CountSp("User", Cs);
-        //}
 
         public IEnumerable<Role> GetRoles(long id)
         {

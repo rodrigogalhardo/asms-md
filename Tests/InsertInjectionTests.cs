@@ -13,8 +13,10 @@ namespace MRGSP.ASMS.Tests
         {
             //var s = (string) "".InjectFrom<InsertInjection>(new Field() {Name = "name", Description = "good"});
             //System.Console.WriteLine(s);
-
-            var s = (string) "".InjectFrom<InsertInjection>(new Dossier {AdminFirstName = "name", Email = "good"});
+            var o = new Farmer {Code = "asdf", Name = "asd"};
+            var s = "insert " + o.GetType().Name + "s("
+                    .InjectFrom(new FieldsByComma().IgnoreFields("Id"), o) + ") values("
+                    .InjectFrom(new FieldsByComma().IgnoreFields("Id").SetFormat("@{0}"), o);
             System.Console.WriteLine(s);
         }
 

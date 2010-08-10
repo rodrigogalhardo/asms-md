@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
+using MRGSP.ASMS.Core;
 using MRGSP.ASMS.Core.Model;
 using MRGSP.ASMS.Core.Repository;
 using MRGSP.ASMS.Core.Service;

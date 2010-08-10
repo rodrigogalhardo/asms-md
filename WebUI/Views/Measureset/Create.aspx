@@ -11,7 +11,7 @@
     <%: Html.ValidationSummary(true) %>
 
         <%=Html.Input(o => o.Name) %>
-        <%=Html.Input(o => o.EndDate) %>        
+        <%=Html.Input(o => o.Year) %>        
         <% Html.RenderPartial("save"); %>
 
     <% } %>

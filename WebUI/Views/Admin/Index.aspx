@@ -26,8 +26,5 @@
     </p>
     <p>
         <%=Html.ActionLink("Cine perfecteaza planul de afaceri", "Index", "Perfecter") %>
-    </p>
-    <p>
-        <%=Html.ActionLink("Calcularea coeficientilor", "Index", "Calculations") %>
-    </p>
+    </p>    
 </asp:Content>

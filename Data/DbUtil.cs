@@ -16,7 +16,7 @@ namespace MRGSP.ASMS.Data
                 {
                     cmd.CommandType = CommandType.Text;
                     cmd.CommandText = "select * from " + typeof(T).Name + "s where ".InjectFrom<WhereInjection>(where);
-                    cmd.InjectFrom<CommandInjection>(where);
+                    cmd.InjectFrom<SetParamsValues>(where);
                     conn.Open();
 
                     using (var dr = cmd.ExecuteReader())
@@ -52,8 +52,48 @@ namespace MRGSP.ASMS.Data
             using (var cmd = conn.CreateCommand())
             {
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = (string)"".InjectFrom<InsertInjection>(o) + " select @@identity";
-                cmd.InjectFrom(new CommandInjection().IgnoreFields("Id"), o);
+                cmd.CommandText = "insert " + o.GetType().Name + "s("
+                    .InjectFrom(new FieldsByComma().IgnoreFields("Id"), o) + ") values("
+                    .InjectFrom(new FieldsByComma().IgnoreFields("Id").SetFormat("@{0}"), o)
+                    + ") select @@identity";
+
+                cmd.InjectFrom(new SetParamsValues().IgnoreFields("Id"), o);
+
+                conn.Open();
+                return Convert.ToInt32(cmd.ExecuteScalar());
+            }
+        }
+
+        public static int Update(object o, string cs)
+        {
+            using (var conn = new SqlConnection(cs))
+            using (var cmd = conn.CreateCommand())
+            {
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "update " + o.GetType().Name + "s set "
+                    .InjectFrom(new FieldsByComma().IgnoreFields("Id").SetFormat("{0}=@{0}"), o)
+                    + " where Id = @Id";
+
+                cmd.InjectFrom<SetParamsValues>(o);
+
+                conn.Open();
+                return Convert.ToInt32(cmd.ExecuteScalar());
+            }
+        }
+
+        public static int UpdateWhatWhere<T>(object what, object where, string cs)
+        {
+            using (var conn = new SqlConnection(cs))
+            using (var cmd = conn.CreateCommand())
+            {
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "update " + typeof(T).Name + "s set "
+                    .InjectFrom(new FieldsByComma().SetFormat("{0}=@{0}"), what)
+                    + " where "
+                    .InjectFrom(new FieldsByComma().SetFormat("{0}=@wp{0}"), where);
+
+                cmd.InjectFrom<SetParamsValues>(what);
+                cmd.InjectFrom(new SetParamsValues().Prefix("wp"), where);
 
                 conn.Open();
                 return Convert.ToInt32(cmd.ExecuteScalar());
@@ -66,9 +106,12 @@ namespace MRGSP.ASMS.Data
             using (var cmd = conn.CreateCommand())
             {
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = (string)"".InjectFrom<InsertInjection>(o);
-                cmd.InjectFrom(new CommandInjection().IgnoreFields("Id"), o);
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "insert " + o.GetType().Name + "s("
+                    .InjectFrom(new FieldsByComma().IgnoreFields("Id"), o) + ") values("
+                    .InjectFrom(new FieldsByComma().IgnoreFields("Id").SetFormat("@{0}"), o) + ")";
 
+                cmd.InjectFrom<SetParamsValues>(o);
 
                 conn.Open();
                 return cmd.ExecuteNonQuery();
@@ -85,7 +128,7 @@ namespace MRGSP.ASMS.Data
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = sp;
-                    cmd.InjectFrom<CommandInjection>(parameters);
+                    cmd.InjectFrom<SetParamsValues>(parameters);
                     conn.Open();
                     return cmd.ExecuteNonQuery();
                 }
@@ -100,7 +143,7 @@ namespace MRGSP.ASMS.Data
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = sp;
-                    cmd.InjectFrom<CommandInjection>(parameters);
+                    cmd.InjectFrom<SetParamsValues>(parameters);
                     conn.Open();
                     using (var dr = cmd.ExecuteReader())
                         while (dr.Read())
@@ -121,7 +164,7 @@ namespace MRGSP.ASMS.Data
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = sp;
-                    cmd.InjectFrom<CommandInjection>(parameters);
+                    cmd.InjectFrom<SetParamsValues>(parameters);
                     conn.Open();
                     using (var dr = cmd.ExecuteReader())
                         while (dr.Read())
@@ -140,7 +183,7 @@ namespace MRGSP.ASMS.Data
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "insert" + o.GetType().Name;
-                    cmd.InjectFrom<CommandInjection>(o);
+                    cmd.InjectFrom<SetParamsValues>(o);
                     conn.Open();
                     return cmd.ExecuteScalar();
                 }

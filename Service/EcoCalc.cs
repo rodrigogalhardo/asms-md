@@ -4,7 +4,6 @@ using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using ILCalc;
-using MRGSP.ASMS.Core;
 using MRGSP.ASMS.Core.Model;
 using MRGSP.ASMS.Core.Repository;
 using MRGSP.ASMS.Core.Service;
@@ -26,12 +25,12 @@ namespace MRGSP.ASMS.Service
 
         public IEnumerable<CoefficientValue> CalculateCoefficientValues(int measureId, DateTime month, IEnumerable<Dossier> dossiers)
         {
-            var ivs = ivRepo.GetBy(measureId, month);
+            var ivs = ivRepo.GetBy(measureId, month).ToArray();
             var cvs = new List<CoefficientValue>();
 
             foreach (var fsid in dossiers.Select(o => o.FieldsetId).Distinct())
             {
-                var cc = cRepo.GetWhere(new { FieldsetId = fsid });
+                var cc = cRepo.GetWhere(new { FieldsetId = fsid }).ToArray();
 
                 //calculate each coefficient for all dossiers
                 foreach (var c in cc)
@@ -64,11 +63,14 @@ namespace MRGSP.ASMS.Service
         {
             var calc = new CalcContext<decimal>();
 
-            fieldValues.AsParallel().ForAll(o => calc.Constants.Add("c" + o.FieldId, o.Value));
+            foreach (var o in fieldValues)
+            {
+               calc.Constants.Add("c" + o.FieldId, o.Value); 
+            } 
 
             var indicators = iRepo.GetWhere(new { dossier.FieldsetId }).ToList();
 
-            var indicatorValues = indicators.AsParallel()
+            var indicatorValues = indicators
                 .Select(
                 indicator =>
                         new IndicatorValue

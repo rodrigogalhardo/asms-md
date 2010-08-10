@@ -1,10 +1,10 @@
 ﻿using System.Web.Mvc;
 using log4net;
+using MRGSP.ASMS.Core;
 
 namespace MRGSP.ASMS.WebUI.Controllers
 {
-    [HandleError]
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         public ActionResult Index()
         {

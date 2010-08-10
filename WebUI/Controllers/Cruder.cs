@@ -4,7 +4,7 @@ using MRGSP.ASMS.Infra;
 
 namespace MRGSP.ASMS.WebUI.Controllers
 {
-    public class Cruder<TEntity, TInput> : Controller
+    public class Cruder<TEntity, TInput> : BaseController
         where TInput : new()
         where TEntity : new()
     {
@@ -32,7 +32,7 @@ namespace MRGSP.ASMS.WebUI.Controllers
         public ActionResult Create(TInput o)
         {
             if (!ModelState.IsValid)
-                return View(o);
+                return View(builder.RebuildInput(o));
             repo.Insert(builder.BuilEntity(o));
             return RedirectToAction("index");
         }

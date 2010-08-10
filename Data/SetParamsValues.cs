@@ -21,36 +21,49 @@ namespace MRGSP.ASMS.Data
         }
     }
 
-    public class InsertInjection : KnownTargetValueInjection<string>
+    public class FieldsByComma : KnownTargetValueInjection<string>
     {
-        private readonly IEnumerable<string> ignoredFields = new[] { "Id" };
+        private IEnumerable<string> ignoredFields = new string[] { };
+        private string format = "{0}";
+
+        public FieldsByComma IgnoreFields(params string[] fields)
+        {
+            ignoredFields = fields;
+            return this;
+        }
+
+        public FieldsByComma SetFormat(string f)
+        {
+            format = f;
+            return this;
+        }
 
         protected override void Inject(object source, ref string target, PropertyDescriptorCollection sourceProps)
         {
-            target = "insert " + source.GetType().Name +
-                "s(" + GetNames(sourceProps, false) + ") values("
-                + GetNames(sourceProps, true) + ")";
-        }
-
-        private string GetNames(PropertyDescriptorCollection props, bool v)
-        {
             var s = string.Empty;
-            for (var i = 0; i < props.Count; i++)
+            for (var i = 0; i < sourceProps.Count; i++)
             {
-                var prop = props[i];
+                var prop = sourceProps[i];
                 if (ignoredFields.Contains(prop.Name)) continue;
-                s += (v ? "@" : string.Empty) + prop.Name + ",";
+                s += string.Format(format, prop.Name) + ",";
             }
             s = s.TrimEnd(new[] { ',' });
-            return s;
+            target += s;
         }
     }
-
-    public class CommandInjection : KnownTargetValueInjection<SqlCommand>
+    
+    public class SetParamsValues : KnownTargetValueInjection<SqlCommand>
     {
-        private IEnumerable<string> ignoredFields = new string[]{};
+        private IEnumerable<string> ignoredFields = new string[] { };
+        private string prefix = string.Empty;
 
-        public CommandInjection IgnoreFields(params string[] fields)
+        public SetParamsValues Prefix(string p)
+        {
+            prefix = p;
+            return this;
+        }
+
+        public SetParamsValues IgnoreFields(params string[] fields)
         {
             ignoredFields = fields.AsEnumerable();
             return this;
@@ -64,7 +77,7 @@ namespace MRGSP.ASMS.Data
                 if (ignoredFields.Contains(prop.Name)) continue;
 
                 var value = prop.GetValue(source) ?? DBNull.Value;
-                cmd.Parameters.AddWithValue("@" + prop.Name, value);
+                cmd.Parameters.AddWithValue("@" + prefix + prop.Name, value);
             }
         }
     }

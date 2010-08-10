@@ -11,7 +11,7 @@
     <% Html.RenderPartial("back"); %>
     <% if (States.Registered.IsEqual(Model.StateId))
        {%>
-    <%:Html.ActionLink("alege masuri", "ManageMeasures", new { measuresetId = Model.Id })%>
+    <%:Html.ActionLink("alege masuri", "ManageMeasures", new { measuresetId = Model.Id }, new{@class="fgb"})%>
     <form method="post" action="<%:Url.Action("Activate") %>">
     <input type="hidden" name="id" value="<%:Model.Id %>" />
     <% Html.RenderPartial("save"); %>
@@ -20,7 +20,7 @@
        else if (States.Active.IsEqual(Model.StateId))
        {%>
     <p>
-        <%=Html.ActionLink("planul financiar","Index","Fpi",new{measuresetId = Model.Id}, null) %></p>
+        <%=Html.ActionLink("planul financiar","Index","Fpi",new{measuresetId = Model.Id}, new{@class="fgb"} ) %></p>
     <form method="post" action="<%:Url.Action("deactivate") %>">
     <input type="hidden" name="id" value="<%:Model.Id %>" />
     <input type="submit" value="deactiveaza" />

@@ -9,7 +9,7 @@ using Omu.ValueInjecter;
 
 namespace MRGSP.ASMS.WebUI.Controllers
 {
-    public class FillFieldsController : Controller
+    public class FillFieldsController : BaseController
     {
         private readonly IFieldsetService fService;
         private readonly IDossierService dService;

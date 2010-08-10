@@ -23,13 +23,18 @@
 
             //$("tbody").addClass("ui-state-highlight");
             $("thead").addClass("ui-state-default");
-
+            <%if ((bool)ViewData["painttables"])
+              {%>
             $("tbody tr:even").addClass("ui-widget-content");
             $("tbody tr:odd").addClass("ui-state-highlight");
+            <%
+              }%>
             $("input[type=submit]").addClass("abtn");
-            $("tbody a").addClass("fg-button").addClass("abtn"); 
-            $("a:contains('napoi')").addClass("fg-button").addClass("abtn");
-            $("a:contains('reaza')").addClass("fg-button").addClass("abtn");
+            $("tbody a").addClass("fgb");
+            $("a:contains('napoi')").addClass("fgb");
+            $("a:contains('reaza')").addClass("fgb");
+            $(".fgb").addClass("abtn");
+
             dob();
 
         });
@@ -59,6 +64,16 @@
             $(id + " form input:text:visible:first").focus();
         }       
     </script>
+
+    <% if(ViewData["errmsg"] != null) {%>
+    $(function(){
+        $("#errmsg").dialog('open');
+    });
+    <div id="errmsg">
+    <%=ViewData["errmsg"] %>
+    </div>
+    <%}%>
+    
     <noscript>
         <div id="nos" class="nos">
             this site works best with javascript enabled

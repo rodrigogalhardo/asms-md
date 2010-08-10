@@ -14,7 +14,7 @@
                     nume
                 </td>
                 <td>
-                    data sfarsit
+                    an
                 </td><td>
                     stare
                 </td><td></td>
@@ -27,7 +27,7 @@
                 <%:o.Name %>
             </td>
             <td>
-                <%:o.EndDate.ToShortDateString() %>
+                <%:o.Year %>
             </td><td>
                 <%:o.State%>
             </td><td>

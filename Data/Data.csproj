@@ -76,7 +76,7 @@
     <Compile Include="BankRepo.cs" />
     <Compile Include="BaseRepo.cs" />
     <Compile Include="Class1.cs" />
-    <Compile Include="CommandInjection.cs" />
+    <Compile Include="SetParamsValues.cs" />
     <Compile Include="ConnectionFactory.cs" />
     <Compile Include="DbUtil.cs" />
     <Compile Include="DossierRepo.cs" />

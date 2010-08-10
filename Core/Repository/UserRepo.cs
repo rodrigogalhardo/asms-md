@@ -26,6 +26,8 @@ namespace MRGSP.ASMS.Core.Repository
         IEnumerable<T> GetWhere(object where);
         int Delete(int id);
         int InsertNoIdentity(T o);
+        int Update(T o);
+        int UpdateWhatWhere(object what, object where);
     }
 
     public interface IMeasureRepo : IRepo<Measure>
@@ -53,7 +55,7 @@ namespace MRGSP.ASMS.Core.Repository
         int Count(string name);
         IEnumerable<Role> GetRoles();
         int UpdatePassword(long id, string password);
-        void Update(User o);
+        void ChangeRoles(User o);
         User Get(string name, string password);
     }
 
@@ -84,7 +86,8 @@ namespace MRGSP.ASMS.Core.Repository
     public interface IDossierRepo : IRepo<Dossier>
     {
         int ChangeState(int id, int stateId);
-        IEnumerable<Dossier> GetBy(int measureId, DateTime month);
+        IEnumerable<Dossier> GetBy(int measuresetId, int measureId, int month, int? stateId);
+        IEnumerable<RankedDossier> GetRankedDossiers(int measuresetId, int measureId, int month);
     }
     public interface IIndicatorValueRepo : IRepo<IndicatorValue>
     {
