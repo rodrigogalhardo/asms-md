@@ -6,7 +6,7 @@ using MRGSP.ASMS.Infra.Dto;
 
 namespace MRGSP.ASMS.WebUI.Controllers
 {
-    public class UserController : Controller
+    public class UserController : BaseController
     {
         private readonly IUserService userService;
         private readonly IBuilder<User, UserCreateInput> createBuilder;

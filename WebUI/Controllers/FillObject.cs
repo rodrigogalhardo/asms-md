@@ -1,13 +1,14 @@
 ﻿using System;
-using System.ComponentModel;
 using Omu.ValueInjecter;
 
 namespace MRGSP.ASMS.WebUI.Controllers
 {
     public class FillObject : NoSourceValueInjection
     {
-        protected override void Inject(object target, PropertyDescriptorCollection targetProps)
+        protected override void Inject(object target)
         {
+            var targetProps = target.GetProps();
+
             for (var i = 0; i < targetProps.Count; i++)
             {
                 var prop = targetProps[i];

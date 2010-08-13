@@ -89,7 +89,7 @@
             <div id="hlogo">
                 <a href="<%=Url.Content("~") %>">
                     <%--<img src='<%=Url.Content("~\\Content\\cherry.png") %>' />--%>
-                    <img src='<%=Url.Content("~\\Content\\strawberry.png") %>' />
+                    <img src='<%=Url.Content("~\\Content\\strawberry.png") %>' alt="logo" />
                     <%--<img src='<%=Url.Content("~\\Content\\ooo2.png") %>' />--%>
                 </a>
             </div>

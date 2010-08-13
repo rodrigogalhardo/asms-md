@@ -22,31 +22,19 @@
             </summary>
             <returns>search result or null if nothing was found</returns>
         </member>
-        <member name="T:Omu.ValueInjecter.Flatter">
+        <member name="M:Omu.ValueInjecter.PrefixedValueInjection.SearchTargetName(System.String)">
             <summary>
-            provides flattening/unflattening functionality
-            Vadim Plamadeala made this ☺
+            get a string representing the target property name using the source property name and prefixes
             </summary>
+            <param name="s">source property original name</param>
+            <returns></returns>
         </member>
-        <member name="M:Omu.ValueInjecter.Flatter.SearchForUnflatProperty(System.String,System.ComponentModel.PropertyDescriptorCollection,System.Object)">
+        <member name="M:Omu.ValueInjecter.PrefixedValueInjection.SearchSourceName(System.String)">
             <summary>
-            searches for the unflat property in the unflat object according to the flatPropertyName
+            get a string representing the source property name using the target property name and prefixes
             </summary>
-            <param name="flatPropertyFlatPropertyName">the string name of the flat property, Sample: FooBarAddressName</param>
-            <param name="unflatProps">the properties of the unflat object (where the search is going to be)</param>
-            <param name="unflat">the unflat object (e.g. the one that has Foo.Bar.Address.Name)</param>
-            <returns>null if nothing was found or
-            object that contains component (the last object in the tree where the property was found) and the Property that was found</returns>
-        </member>
-        <member name="M:Omu.ValueInjecter.Flatter.Unflattify(System.String,System.ComponentModel.PropertyDescriptorCollection,System.Object)">
-            <summary>
-            searches for the unflat property (according to the flatPropertyName), and creates instances of objects if it finds null values in it's way
-            </summary>
-            <param name="flatPropertyName">the string name of the flat property, Sample: FooBarAddressName</param>
-            <param name="unflatProps">the properties of the unflat object (where the search is going to be)</param>
-            <param name="unflat">the unflat object (e.g. the one that has Foo.Bar.Address.Name)</param>
-            <returns>null if nothing was found or
-            object that contains component (the last object in the tree where the property was found) and the Property that was found</returns>
+            <param name="s">target property original name</param>
+            <returns></returns>
         </member>
         <member name="M:Omu.ValueInjecter.ValueInjecter.Inject``1(System.Object,System.Object)">
             <summary>
@@ -87,6 +75,12 @@
             the same as calling Inject&lt;LoopValueInjection>()
             </summary>
         </member>
+        <member name="T:Omu.ValueInjecter.UberFlatter">
+            <summary>
+            performs flattening and unflattening
+            first version of this class was made by Vadim Plamadeala ☺
+            </summary>
+        </member>
         <member name="T:Omu.ValueInjecter.NoSourceValueInjection">
             <summary>
              inject value without source
@@ -98,20 +92,6 @@
             </summary>
             <typeparam name="TSourceProperty">source properties type</typeparam>
             <typeparam name="TTargetProperty">target properties type</typeparam>
-        </member>
-        <member name="M:Omu.ValueInjecter.PrefixedValueInjection.SearchTargetName(System.String)">
-            <summary>
-            get a string representing the target property name using the source property name and prefixes
-            </summary>
-            <param name="s">source property original name</param>
-            <returns></returns>
-        </member>
-        <member name="M:Omu.ValueInjecter.PrefixedValueInjection.SearchSourceName(System.String)">
-            <summary>
-            get a string representing the source property name using the target property name and prefixes
-            </summary>
-            <param name="s">target property original name</param>
-            <returns></returns>
         </member>
         <member name="T:Omu.ValueInjecter.LoopValueInjection">
             <summary>
@@ -160,6 +140,10 @@
         <member name="T:Omu.ValueInjecter.PropertyInfosStorage">
             <summary>
             this is for caching the PropertyDescriptorCollection of each Type
+            </summary>
+        </member>
+        <member name="T:Omu.ValueInjecter.ExactValueInjection">
+            <summary>
             </summary>
         </member>
     </members>

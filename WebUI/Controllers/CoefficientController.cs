@@ -7,7 +7,7 @@ using MRGSP.ASMS.Infra.Dto;
 
 namespace MRGSP.ASMS.WebUI.Controllers
 {
-    public class CoefficientController : Controller
+    public class CoefficientController : BaseController
     {
         private readonly IFieldsetService fieldsetService;
         private readonly IBuilder<Coefficient, CoefficientInput> builder;

@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using MRGSP.ASMS.Core.Model;
@@ -16,53 +16,83 @@ namespace MRGSP.ASMS.Infra
             return Utils.ReadInt32(sourcePropertyValue);
         }
     }
-
-    public class IdToDisplay<T> : ValueInjection where T : EntityWithName, new()
+    
+    public class IdToDisplay<T> : ExactValueInjection where T : EntityWithName, new()
     {
-        protected override void Inject(object source, object target, PropertyDescriptorCollection sourceProps, PropertyDescriptorCollection targetProps)
+        public override string SourceName()
         {
-            var sp = sourceProps.GetByNameType<int>(typeof (T).Name + "Id");
-            var tp = targetProps.GetByNameType<string>("Display" + typeof(T).Name);
-            
-            var t = IoC.Resolve<IRepo<T>>().Get((int) sp.GetValue(source));
-            if(t != null)
-            tp.SetValue(target,t.Name);
+            return typeof(T).Name + "Id";
+        }
+
+        public override string TargetName()
+        {
+            return "Display" + typeof (T).Name;
+        }
+
+        protected override bool TypesMatch(Type sourceType, Type targetType)
+        {
+            return sourceType == typeof (int) && targetType == typeof (string);
+        }
+
+        protected override object SetValue(object sourcePropertyValue)
+        {
+            return IoC.Resolve<IRepo<T>>().Get((int) sourcePropertyValue).Name;
         }
     }
 
-    public class IdToLookupMeasure: ValueInjection
+    public class IdToLookupMeasure : ExactValueInjection
     {
-        protected override void Inject(object source, object target, PropertyDescriptorCollection sourceProps, PropertyDescriptorCollection targetProps)
+        public override string SourceName()
         {
-            var s = sourceProps.GetByNameType<int>("MeasureId");
-            var t = targetProps.GetByNameType<object>("MeasureId");
-            var value = (int)s.GetValue(source);
-            var sv = IoC.Resolve<IMeasureRepo>().GetActives()
+            return "MeasureId";
+        }
+
+        protected override bool TypesMatch(Type sourceType, Type targetType)
+        {
+            return sourceType == typeof (int) && targetType == typeof (object);
+        }
+
+        protected override object SetValue(object sourcePropertyValue)
+        {
+            var value = (int)sourcePropertyValue;
+            return IoC.Resolve<IMeasureRepo>().GetActives()
                 .Select(o => new SelectListItem
                 {
                     Value = o.Id.ToString(),
                     Text = o.Name + " " + o.Description,
                     Selected = o.Id == value
                 });
-            t.SetValue(target, sv);
         }
     }
 
-    public class IdToLookup<T> : ValueInjection where T : EntityWithName, new()
+
+    public class IdToLookup<T> : ExactValueInjection where T : EntityWithName, new()
     {
-        protected override void Inject(object source, object target, PropertyDescriptorCollection sourceProps, PropertyDescriptorCollection targetProps)
+        public override string SourceName()
         {
-            var s = sourceProps.GetByNameType<int>(typeof(T).Name + "Id");
-            var t = targetProps.GetByNameType<object>(typeof(T).Name + "Id");
-            var value = (int)s.GetValue(source);
-            var sv = IoC.Resolve<IRepo<T>>().GetAll()
+            return typeof(T).Name + "Id";
+        }
+
+        public override string TargetName()
+        {
+            return typeof(T).Name;
+        }
+
+        protected override bool TypesMatch(Type sourceType, Type targetType)
+        {
+            return sourceType == typeof (int) && targetType == typeof (object);
+        }
+
+        protected override object SetValue(object sourcePropertyValue)
+        {
+            var value = (int)sourcePropertyValue;
+            return IoC.Resolve<IRepo<T>>().GetAll()
                 .Select(o => new SelectListItem
                                  {
                                      Value = o.Id.ToString(),
                                      Text = o.Name,
                                      Selected = o.Id == value
                                  });
-            t.SetValue(target, sv);
         }
     }
 
