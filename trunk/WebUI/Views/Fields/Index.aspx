@@ -6,7 +6,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <h2>
         Campuri</h2>
-        <%=Html.ActionLink("Creaza", "Create") %>
+        <% Html.RenderPartial("bcreate"); %>
     <table>
         <thead>
             <tr>
