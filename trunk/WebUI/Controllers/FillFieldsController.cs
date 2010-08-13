@@ -63,7 +63,7 @@ namespace MRGSP.ASMS.WebUI.Controllers
                 fieldInputz => new FieldValue { FieldId = fieldInputz.Id, Value = fieldInputz.Value, DossierId = dossierId }).ToList();
 
             dService.GoIndicators(fieldValues);
-            return Content("");
+            return View("success");
         }
     }
 }

@@ -17,7 +17,6 @@ namespace MRGSP.ASMS.Core.Service
         Measureset Get(int id);
     }
 
-
     public interface IFieldsetService
     {
         IPageable<FieldsetDisplay> GetPageable(int page, int pageSize);

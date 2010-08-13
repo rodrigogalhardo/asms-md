@@ -162,6 +162,7 @@
     <Content Include="Views\Error\Expected.aspx" />
     <Content Include="Views\Fieldset\View.aspx" />
     <Content Include="Views\FillFields\Index.aspx" />
+    <Content Include="Views\FillFields\success.aspx" />
     <Content Include="Views\Fpi\Create.aspx" />
     <Content Include="Views\Fpi\Index.aspx" />
     <Content Include="Views\Fpi\Rank.aspx" />

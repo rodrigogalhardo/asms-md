@@ -6,7 +6,7 @@ using MRGSP.ASMS.Infra.Dto;
 
 namespace MRGSP.ASMS.WebUI.Controllers
 {
-    public class FieldsetController : Controller
+    public class FieldsetController : BaseController
     {
         private readonly IBuilder<Fieldset, FieldsetInput> builder;
         private readonly IFieldsetService fieldsetService;

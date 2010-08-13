@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using MRGSP.ASMS.Core;
 using MRGSP.ASMS.Core.Repository;
-using Omu.ValueInjecter;
 
 namespace MRGSP.ASMS.Data
 {
@@ -14,7 +11,6 @@ namespace MRGSP.ASMS.Data
         public Repo(IConnectionFactory connFactory)
         {
             Cs = connFactory.GetConnectionString();
-
         }
 
         public T Get(int id)

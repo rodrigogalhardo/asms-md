@@ -7,7 +7,7 @@ using MRGSP.ASMS.Infra.Dto;
 
 namespace MRGSP.ASMS.WebUI.Controllers
 {
-    public class IndicatorController : Controller
+    public class IndicatorController : BaseController
     {
         private readonly IFieldsetService fieldsetService;
         private readonly IBuilder<Indicator, IndicatorInput> builder;

@@ -112,6 +112,7 @@ namespace MRGSP.ASMS.Service
 
         public void CreateCoefficient(Coefficient o)
         {
+            o.Formula = o.Formula.Replace(" ", "");
             Do(() => cRepo.Insert(o), FieldsetStates.HasIndicators, o.FieldsetId);
         }
 
