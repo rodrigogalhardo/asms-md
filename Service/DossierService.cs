@@ -20,6 +20,7 @@ namespace MRGSP.ASMS.Service
         private readonly IRepo<CoefficientValue> cvRepo;
         private readonly IMeasuresetService msService;
         private readonly IRepo<Fpi> fpiRepo;
+        private readonly IRepo<Disqualifier> disqRepo;
 
         public DossierService(
             IDossierRepo dossierRepo,
@@ -29,9 +30,10 @@ namespace MRGSP.ASMS.Service
             IIndicatorValueRepo ivRepo,
             IRepo<FieldValue> fvRepo,
             IRepo<CoefficientValue> cvRepo,
-            IMeasuresetService msService, IRepo<Fpi> fpiRepo)
+            IMeasuresetService msService, IRepo<Fpi> fpiRepo, IRepo<Disqualifier> disqRepo)
         {
             this.dossierRepo = dossierRepo;
+            this.disqRepo = disqRepo;
             this.fpiRepo = fpiRepo;
             this.msService = msService;
             this.cvRepo = cvRepo;
@@ -42,9 +44,19 @@ namespace MRGSP.ASMS.Service
             this.fservice = fservice;
         }
 
+        public void Disqualify(int id, string reason)
+        {
+            using (var scope = new TransactionScope())
+            {
+                disqRepo.Insert(new Disqualifier { DossierId = id, Reason = reason });
+                dossierRepo.UpdateWhatWhere(new { Disqualified = true }, new { Id = id });
+                scope.Complete();
+            }
+        }
+
         public IEnumerable<Dossier> GetForTop(int measuresetId, int measureId, int month)
         {
-            return dossierRepo.GetBy(measuresetId, measureId, month, (int) DossierStates.Winner)
+            return dossierRepo.GetBy(measuresetId, measureId, month, (int)DossierStates.Winner)
                 .Union(dossierRepo.GetBy(measuresetId, measureId, month, (int)DossierStates.HasCoefficients))
                 .OrderByDescending(o => o.Value);
         }
@@ -53,27 +65,27 @@ namespace MRGSP.ASMS.Service
         {
             var fpi = fpiRepo.GetWhere(new { measuresetId, measureId, month }).Single();
             var measureset = msService.Get(measuresetId);
-            
+
             if (!fpi.Calculated && DateTime.Now.Month > month && DateTime.Now.Year >= measureset.Year)
                 using (var scope = new TransactionScope())
                 {
                     CalculateCoefficients(measuresetId, measureId, month);
                     fpi.Calculated = true;
                     fpiRepo.Update(fpi);
-                  
+
                     var rds = dossierRepo.GetRankedDossiers(measuresetId, measureId, month)
                         .OrderByDescending(o => o.Value).ToArray();
 
                     foreach (var rd in rds)
                     {
                         fpi.Amount -= rd.AmountRequested;
-                        
-                        if(fpi.Amount >= 0) 
-                        dossierRepo.UpdateWhatWhere(new {rd.Value, StateId = (int)DossierStates.Winner }, new {rd.Id});
+
+                        if (fpi.Amount >= 0)
+                            dossierRepo.UpdateWhatWhere(new { rd.Value, StateId = (int)DossierStates.Winner }, new { rd.Id });
                         else
                             dossierRepo.UpdateWhatWhere(new { rd.Value }, new { rd.Id });
                     }
-                    
+
                     scope.Complete();
                 }
         }
@@ -130,6 +142,7 @@ namespace MRGSP.ASMS.Service
             o.FieldsetId = fs.Id;
             o.MeasuresetId = ms.Id;
             o.StateId = (int)(measure.NoContest ? DossierStates.HasIndicators : DossierStates.Registered);
+            o.CreatedDate = DateTime.Now;
             return dossierRepo.Insert(o);
         }
 

@@ -22,20 +22,34 @@ namespace MRGSP.ASMS.Data
         }
     }
 
-    public class FieldsByComma : KnownTargetValueInjection<string>
+    public class FieldsBy : KnownTargetValueInjection<string>
     {
         private IEnumerable<string> ignoredFields = new string[] { };
         private string format = "{0}";
+        private string nullFormat;
+        private string glue = ",";
 
-        public FieldsByComma IgnoreFields(params string[] fields)
+        public FieldsBy SetGlue(string g)
+        {
+            glue = " " + g + " ";
+            return this;
+        }
+
+        public FieldsBy IgnoreFields(params string[] fields)
         {
             ignoredFields = fields;
             return this;
         }
 
-        public FieldsByComma SetFormat(string f)
+        public FieldsBy SetFormat(string f)
         {
             format = f;
+            return this;
+        }
+
+        public FieldsBy SetNullFormat(string f)
+        {
+            nullFormat = f;
             return this;
         }
 
@@ -47,9 +61,12 @@ namespace MRGSP.ASMS.Data
             {
                 var prop = sourceProps[i];
                 if (ignoredFields.Contains(prop.Name)) continue;
-                s += string.Format(format, prop.Name) + ",";
+                if (prop.GetValue(source) == DBNull.Value && nullFormat != null)
+                    s += string.Format(nullFormat, prop.Name);
+                else
+                    s += string.Format(format, prop.Name) + glue;
             }
-            s = s.TrimEnd(new[] { ',' });
+            s = s.RemoveSuffix(glue);
             target += s;
         }
     }

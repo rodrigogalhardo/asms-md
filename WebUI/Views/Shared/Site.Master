@@ -23,7 +23,7 @@
 
             //$("tbody").addClass("ui-state-highlight");
             $("thead").addClass("ui-state-default");
-            <%if ((bool)ViewData["painttables"])
+            <%if (ViewData["painttables"] == null)
               {%>
             $("tbody tr:even").addClass("ui-widget-content");
             $("tbody tr:odd").addClass("ui-state-highlight");
@@ -34,6 +34,11 @@
             $("a:contains('napoi')").addClass("fgb");
             $("a:contains('reaza')").addClass("fgb");
             $(".fgb").addClass("abtn");
+
+            $(".formz").addClass("ui-state-highlight");
+            $(".formhead").addClass("ui-state-default");
+
+            $("td form").addClass("fr");
 
             dob();
 

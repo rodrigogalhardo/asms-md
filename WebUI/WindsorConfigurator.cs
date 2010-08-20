@@ -1,9 +1,11 @@
 ﻿using MRGSP.ASMS.Core.Model;
 using MRGSP.ASMS.Core.Repository;
 using MRGSP.ASMS.Core.Security;
+using MRGSP.ASMS.Core.Service;
 using MRGSP.ASMS.Data;
 using MRGSP.ASMS.Infra;
 using MRGSP.ASMS.Infra.Dto;
+using MRGSP.ASMS.Service;
 using MRGSP.ASMS.WebUI.Controllers;
 
 namespace MRGSP.ASMS.WebUI
@@ -17,11 +19,13 @@ namespace MRGSP.ASMS.WebUI
 
             WindsorRegistrar.RegisterControllers(typeof(HomeController).Assembly);
             WindsorRegistrar.Register("forms", typeof(IFormsAuthentication), typeof(FormAuthService));
+            WindsorRegistrar.Register("s1", typeof(IFarmersEntityService<>), typeof(FarmersEntityService<>));
             WindsorRegistrar.Register("q1", typeof(IBuilder<User, UserCreateInput>), typeof(UserBaseBuilder<UserCreateInput>));
             WindsorRegistrar.Register("q2", typeof(IBuilder<User, UserEditInput>), typeof(UserBaseBuilder<UserEditInput>));
             WindsorRegistrar.Register("q3", typeof(IBuilder<Dossier, DossierCreateInput>), typeof(DossierBuilder));
-            WindsorRegistrar.Register("q4", typeof(IBuilder<Farmer, FarmerCreateInput>), typeof(FarmerCreateBaseBuilder));
-            WindsorRegistrar.Register("q5", typeof(IBuilder<, >), typeof(BaseBuilder<,>));
+            WindsorRegistrar.Register("q4", typeof(IBuilder<Organization, OrganizationInput>), typeof(OrganizationBuilder));
+            WindsorRegistrar.Register("q5", typeof(IBuilder<Address, AddressInput>), typeof(AddressBuilder));
+            WindsorRegistrar.Register("qg", typeof(IBuilder<, >), typeof(BaseBuilder<,>));
             WindsorRegistrar.Register("ur", typeof(IRepo<>), typeof(Repo<>));
 
             

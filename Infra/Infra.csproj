@@ -97,6 +97,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddressBuilder.cs" />
     <Compile Include="BaseBuilder.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="DossierBuilder.cs" />
@@ -108,6 +109,7 @@
     <Compile Include="Dto\UserCreateInput.cs" />
     <Compile Include="IInputBuilder.cs" />
     <Compile Include="IoC.cs" />
+    <Compile Include="OrganizationBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="ValueInjections.cs" />

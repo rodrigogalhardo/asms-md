@@ -5,33 +5,48 @@
     border: 0;
     font-size: 100%;
     background: transparent;
-    line-height:normal;
+    line-height: normal;
 }
 
 body
 {
     background: #fff;
-    color: #333;    
-    font-family: Verdana,Arial,Liberation Sans,DejaVu Sans,sans-serif;
+    color: #333;
+    font-family: Verdana, Arial,Liberation Sans,DejaVu Sans,sans-serif;
     font-size: 80%;
     text-align: center;
 }
+fieldset
+{
+    border: 1.5px solid #aaa;
+    padding: 1em;
+    margin: 1em;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+}
+
+legend
+{
+    padding: 0.3em;
+    font-weight: bold;
+    }
+
 
 .error
 {
-    color:Red;
+    color: Red;
 }
 
 #menucontainer
 {
-    margin-top:40px;
+    margin-top: 40px;
 }
 
 div#title
 {
-    display:block;
-    float:left;
-    text-align:left;
+    display: block;
+    float: left;
+    text-align: left;
 }
 
 /* Styles for validation helpers
@@ -67,7 +82,7 @@ div#title
 /* Styles for editor and display helpers
 ----------------------------------------------------------*/
 .efield
-{    
+{
     clear: both;
     width: 95%;
     float: left;
@@ -76,11 +91,10 @@ div#title
 
 .elabel
 {
-    width: 300px; 
-    text-align: right;   
-    float: left; 
+    width: 300px;
+    text-align: right;
+    float: left;
     margin-right: 5px;
-    
 }
 
 .einput
@@ -91,16 +105,16 @@ div#title
 
 .einput input
 {
-    float:left;
-    }
+    float: left;
+}
 .example
 {
     margin-left: 300px;
-    clear:both;
+    clear: both;
     font-style: italic;
-    font-size:smaller;    
+    font-size: smaller;
 }
-    
+
 
 #main-container
 {
@@ -108,9 +122,9 @@ div#title
     width: 100%;
 }
 #topline
-{ 
+{
     border-bottom: 1px solid #BFBFBE;
-    height: 5px;    
+    height: 5px;
 }
 
 #bottomline
@@ -121,14 +135,13 @@ div#title
 }
 
 #top-wrapper
-{    
-    overflow: hidden;        
+{
+    overflow: hidden;
 }
 
 #hlogo
 {
     margin-top: 5px;
-    
     float: left;
 }
 
@@ -136,35 +149,34 @@ div#title
 {
     float: left;
     padding: 10px 0px 0px 0px;
-    margin-left: 20px;    
+    margin-left: 20px;
 }
 
 #hlinks
 {
-    float: right;    
-    color: White;    
+    float: right;
+    color: White;
 }
 #topbar
 {
-    
 }
 
 #main
 {
-    padding: 30px 30px 15px 30px;    
+    padding: 30px 30px 15px 30px;
     min-height: 650px;
     overflow: hidden;
 }
 
 #footer
-{      
-    height: 70px;    
-    padding-top: 2em; 
+{
+    height: 70px;
+    padding-top: 2em;
 }
 
 #footer a
 {
-    color: white;    
+    color: white;
 }
 
 .cbt
@@ -182,14 +194,13 @@ div#title
     margin: 0;
 }
 .nav li
-{    
+{
     display: block;
     float: left;
     margin-right: 7px;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
     padding: 5px;
-    
 }
 .nav a
 {
@@ -212,43 +223,47 @@ div#title
 }
 
 
-.pagination {
-text-align: right;
-margin: 10px 0;
-font-weight: bold;
-font-size: 12px;
+.pagination
+{
+    text-align: right;
+    margin: 10px 0;
+    font-weight: bold;
+    font-size: 12px;
 }
 
-.pagination a {
-padding: 5px 10px 3px 10px;
-text-decoration: none;
--moz-border-radius: 4px;
--webkit-border-radius: 4px;
-margin: 3px;
+.pagination a
+{
+    padding: 5px 10px 3px 10px;
+    text-decoration: none;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    margin: 3px;
 }
 
-.pagination .prev_page, .pagination .next_page {
-display: none;
+.pagination .prev_page, .pagination .next_page
+{
+    display: none;
 }
 
-.pagination span.current {
--moz-border-radius: 4px;
--webkit-border-radius: 4px;
-padding: 5px 10px 3px 10px;
+.pagination span.current
+{
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    padding: 5px 10px 3px 10px;
 }
 
 .nos
 {
     background: #ff5544;
     text-align: center;
-    padding: 0.3em;    
+    padding: 0.3em;
     color: White;
     font-size: 2em;
-    font-weight:bold;
+    font-weight: bold;
 }
 
 .container
-{    
+{
     margin: auto;
     text-align: left;
     width: 77%;
@@ -262,9 +277,9 @@ padding: 5px 10px 3px 10px;
 
 #loginbox
 {
-    width:450px;
-    height:170px;
-    margin: auto;  
+    width: 450px;
+    height: 170px;
+    margin: auto;
     -moz-border-radius: 7px;
     -webkit-border-radius: 7px;
     padding: 5px;
@@ -272,11 +287,10 @@ padding: 5px 10px 3px 10px;
 }
 
 input, select
-{    
+{
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
-    padding: 5px;  
-    
+    padding: 5px;
 }
 
 input[type="text"], input[type="password"]
@@ -292,14 +306,13 @@ select
 }
 
 input[type="checkbox"], input[type="radio"]
-{    
-    
+{
 }
 
 input[type="submit"]
 {
     margin-left: 10px;
-    margin-top: 10px;            
+    margin-top: 10px;
 }
 
 .esubmit
@@ -310,28 +323,28 @@ input[type="submit"]
 
 .fl
 {
-    float:left;
+    float: left;
 }
 
 h2
 {
     margin: 20px 0;
-    }
-    
+}
+
 input[type="submit"], button
 {
-    cursor:pointer;
+    cursor: pointer;
     padding: 4px 5px;
-}    
+}
 
 .hidden
 {
-    display:none;
+    display: none;
 }
 
-.selected 
+.selected
 {
-    background:url("images/ui-bg_glass_55_fcf0ba_1x400.png") repeat-x scroll 50% 50% #FCF0BA;    
+    background: url("images/ui-bg_glass_55_fcf0ba_1x400.png") repeat-x scroll 50% 50% #FCF0BA;
 }
 
 .grow
@@ -342,12 +355,10 @@ input[type="submit"], button
 table
 {
     border-collapse: collapse;
-    background: white;  
-    margin: auto;   
+    background: white;
+    margin: 10px auto 20px;
     padding: 5px;
     width: 100%;
-    margin-top: 10px;
-       
 }
 
 
@@ -372,40 +383,50 @@ td, th
 
 p
 {
-    margin: 10px 0px;   
+    margin: 10px 0px;
     padding: 2px 0;
 }
 
 .short .efield .elabel
 {
-    width:150px;   
-    
+    width: 150px;
 }
 
 .btn
 {
-    position:relative;
+    position: relative;
     padding: 0.4em;
     text-decoration: none;
     margin: 0 2px;
 }
 
-.fgb { 
-   outline: 0; 
-   margin:4px 4px 4px 0; 
-   padding: .4em 1em; 
-   text-decoration:none; 
-   }
-   
+.fgb
+{
+    padding: .3em 1em;
+    text-decoration: none;
+}
+
 tbody td
 {
     padding: 7px;
-    }
+}
 
-.abtn{}
+.abtn
+{
+}
 
 a
 {
- color: navy;
-    }
+    font-family: Verdana, Tahoma, sans-serif;
+    color: navy;
+    padding: 5px;
+}
 
+.formhead
+{
+    padding: 2px;
+    }
+    
+    .formz{  margin: 10px;}
+
+.fr{float:right;}

@@ -8,8 +8,8 @@ namespace MRGSP.ASMS.Core.Model
     {
         public DateTime EndDate { get; set; }
         public string State { get; set; }
-    }    
-    
+    }
+
     public class MeasuresetDisplay : EntityWithName
     {
         public int Year { get; set; }
@@ -17,9 +17,9 @@ namespace MRGSP.ASMS.Core.Model
     }
 
     public class State : EntityWithName
-    {}
+    { }
 
-    public class FieldsetState: EntityWithName{}
+    public class FieldsetState : EntityWithName { }
 
     public class Field : EntityWithName
     {
@@ -64,6 +64,19 @@ namespace MRGSP.ASMS.Core.Model
         Inactive
     }
 
+    public enum FarmerType
+    {
+        LandOwner = 1,
+        Organization
+    }
+
+    public enum PhoneType
+    {
+        Fix = 1,
+        Mobile,
+        Fax
+    }
+
     public class Indicator : EntityWithName
     {
         public int FieldsetId { get; set; }
@@ -75,8 +88,8 @@ namespace MRGSP.ASMS.Core.Model
         public int DossierId { get; set; }
         public int IndicatorId { get; set; }
         public decimal Value { get; set; }
-    }    
-    
+    }
+
     public class CoefficientValue
     {
         public int DossierId { get; set; }
@@ -126,7 +139,10 @@ namespace MRGSP.ASMS.Core.Model
 
     public class Area : EntityWithName { }
 
-    public class CompanyType : EntityWithName { }
+    public class OrganizationForm : EntityWithName
+    {
+        public string Abbreviation { get; set; }
+    }
 
     public class User : EntityWithName
     {
@@ -156,23 +172,14 @@ namespace MRGSP.ASMS.Core.Model
     }
 
     public class Dossier : Entity
-    {
-        public int ResponsibleId { get; set; }
-        public int Number { get; set; }
-        public string ActivityType { get; set; }
-        public int AreaId { get; set; }
-        public int DistrictId { get; set; }
-        public string County { get; set; }
-        public string SettlementAccount { get; set; }
+    {  
         public string AdminFirstName { get; set; }
         public string AdminLastName { get; set; }
         public string RepresentativeFirstName { get; set; }
         public string RepresentativeLastName { get; set; }
-        public string Phone { get; set; }
-        public string Fax { get; set; }
-        public string Mobile { get; set; }
+
         public string FriendPhone { get; set; }
-        public string Email { get; set; }
+
         public bool ProTraining { get; set; }
         public string Speciality { get; set; }
         public string DiplomaIssuer { get; set; }
@@ -181,16 +188,10 @@ namespace MRGSP.ASMS.Core.Model
         public DateTime? ContractDate { get; set; }
         public string ServiceProvider { get; set; }
         public int PerfecterId { get; set; }
-        public DateTime DateReg { get; set; }
 
-        public string FiscalCode { get; set; }
-        public string NrReg { get; set; }
-        public int CompanyTypeId { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public int CreatedBy { get; set; }
 
-        public string BankCode { get; set; }
-        public string BankName { get; set; }
-
-        public string FarmerName { get; set; }
 
         public int MeasureId { get; set; }
         public int FieldsetId { get; set; }
@@ -200,15 +201,15 @@ namespace MRGSP.ASMS.Core.Model
 
         public decimal AmountRequested { get; set; }
         public decimal Value { get; set; }
+        public bool Disqualified { get; set; }
     }
 
-    public class Farmer : EntityWithName
+    public class Disqualifier : Entity
     {
-        public string Code { get; set; }
-        public DateTime? DateReg { get; set; }
-        public string NrReg { get; set; }
-        public int CompanyTypeId { get; set; }
+        public int DossierId { get; set; }
+        public string Reason { get; set; }
     }
+
 
     /// <summary>
     /// Financial Plan Item

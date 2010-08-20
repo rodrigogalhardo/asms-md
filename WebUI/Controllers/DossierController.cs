@@ -14,13 +14,25 @@ namespace MRGSP.ASMS.WebUI.Controllers
         private readonly ISystemStateServcie systemStateServcie;
 
         public DossierController(
-            IBuilder<Dossier, DossierCreateInput> createBuilder, 
-            IDossierService dossierService, 
+            IBuilder<Dossier, DossierCreateInput> createBuilder,
+            IDossierService dossierService,
             ISystemStateServcie systemStateServcie)
         {
             this.createBuilder = createBuilder;
             this.systemStateServcie = systemStateServcie;
             this.dossierService = dossierService;
+        }
+
+        public ActionResult Disqualify(int dossierId)
+        {
+            return View(new DisqualifyInput { DossierId = dossierId });
+        }
+
+        [HttpPost]
+        public ActionResult Disqualify(DisqualifyInput input)
+        {
+            dossierService.Disqualify(input.DossierId, input.Reason);
+            return RedirectToAction("Open", new { id = input.DossierId });
         }
 
         public ActionResult Index(int? page)
@@ -47,8 +59,8 @@ namespace MRGSP.ASMS.WebUI.Controllers
 
             var id = dossierService.Create(createBuilder.BuilEntity(input));
 
-            return dossierService.IsNoContest(id) ? 
-                RedirectToAction("Index") : 
+            return dossierService.IsNoContest(id) ?
+                RedirectToAction("Index") :
                 RedirectToAction("Index", "FillFields", new { id });
         }
     }

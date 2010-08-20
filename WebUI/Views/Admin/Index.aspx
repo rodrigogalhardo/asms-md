@@ -21,9 +21,7 @@
     <p>
         <%=Html.ActionLink("Seturi de masuri", "Index", "Measureset") %>
     </p>
-    <p>
-        <%=Html.ActionLink("Raioane", "Index", "District") %>
-    </p>
+    
     <p>
         <%=Html.ActionLink("Cine perfecteaza planul de afaceri", "Index", "Perfecter") %>
     </p>    

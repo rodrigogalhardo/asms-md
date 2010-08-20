@@ -75,7 +75,7 @@ namespace MRGSP.ASMS.Infra
 
         public override string TargetName()
         {
-            return typeof(T).Name;
+            return typeof(T).Name + "Id";
         }
 
         protected override bool TypesMatch(Type sourceType, Type targetType)

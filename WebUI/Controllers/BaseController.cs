@@ -6,12 +6,12 @@ namespace MRGSP.ASMS.WebUI.Controllers
     {
         public BaseController()
         {
-            PaintTables(true);
+            
         }
 
-        protected void PaintTables(bool doit)
+        protected void PaintTables()
         {
-            ViewData["painttables"] = doit;
+            ViewData["painttables"] = true;
         }
 
         protected void SetError(string s)

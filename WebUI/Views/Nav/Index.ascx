@@ -8,5 +8,6 @@
     <li>
         <%=Html.ActionLink("Adauga Dosar","Create", "Dossier") %></li>
     <li>
-        <%=Html.ActionLink("Administrare", "Index", "Admin") %></li>
+        <%=Html.ActionLink("Administrare", "Index", "Admin") %></li><li>
+        <%=Html.ActionLink("Registrul Fermierilor", "Index", "FarmerRegister") %></li>
 </ul>
