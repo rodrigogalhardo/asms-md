@@ -44,6 +44,53 @@ namespace MRGSP.ASMS.Infra.Dto
         public decimal Amount { get; set; }
     }
 
+    public class DisqualifyInput
+    {
+        public int DossierId { get; set; }
+        [Req]
+        public string Reason { get; set; }
+    }
+
+    public class DropDownInput
+    {
+        public string Label { get; set; }
+        public object Value { get; set; }
+        public string Name { get; set; }
+    }
+
+    public class FarmersInput
+    {
+        public int FarmerId { get; set; }
+    }
+
+    public class AddressInput : FarmersInput
+    {
+        public object DistrictId { get; set; }
+        [Req]
+        public string Locality { get; set; }
+        public string Zip { get; set; }
+        public string Street { get; set; }
+        public string House { get; set; }
+        public string Apartment { get; set; }
+       
+    }
+
+    public class EmailInput : FarmersInput
+    {
+        [Req]
+        public string Address { get; set; }
+
+      
+    }
+
+    public class PhoneInput : FarmersInput
+    {
+        [Req]
+        public string Number { get; set; }
+
+        public PhoneType Type { get; set; }
+    }
+
     public class BankCreateInput
     {
         [Req]
@@ -164,6 +211,40 @@ namespace MRGSP.ASMS.Infra.Dto
 
         [Label("Fara concurs")]
         public bool NoContest { get; set; }
+    }
+
+    public class LandOwnerInput
+    {
+        [Req]
+        public string FirstName { get; set; }
+        [Req]
+        public string LastName { get; set; }
+        [Req]
+        public string FathersName { get; set; }
+        [Req]
+        public DateTime DateOfBirth { get; set; }
+        [Req]
+        public string FiscalCode { get; set; }
+
+        public int FarmerId { get; set; }
+    }
+
+    public class OrganizationInput
+    {
+        [Req]
+        public string Name { get; set; }
+        [Req]
+        public string FiscalCode { get; set; }
+
+        public object OrganizationFormId { get; set; }
+        [Req]
+        public DateTime RegDate { get; set; }
+        [Req]
+        public string RegNr { get; set; }
+        [Req]
+        public string ActivityType { get; set; }
+
+        public int FarmerId { get; set; }
     }
 
     public class FarmerCreateInput

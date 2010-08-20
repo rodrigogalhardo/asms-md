@@ -230,7 +230,7 @@ from dossiers d left join coefficientvalues cv on d.id = cv.dossierId
 where
 d.measureId = @measureId
 and d.measuresetId = @measuresetId
-and month(d.dateReg) = @month
+and month(d.createdDate) = @month
 and d.stateId = 3
 and d.disqualified = 0
 group by d.Id, d.amountRequested
@@ -248,7 +248,7 @@ select d.* from dossiers d
 where 
 d.measureId = @measureId
 and d.measuresetId = @measuresetId
-and MONTH(d.dateReg) >= @month
+and MONTH(d.createdDate) >= @month
 and (d.stateId = @stateId or @stateId = null)
 and d.disqualified = 0
 
@@ -259,8 +259,8 @@ create proc getUsedMeasureIds
 @month DateTime
 as
 select distinct d.measureId from dossiers d
-where YEAR(d.dateReg) = YEAR(@month)
-and MONTH(d.dateReg) = MONTH(@month)
+where YEAR(d.createdDate) = YEAR(@month)
+and MONTH(d.createdDate) = MONTH(@month)
 
 go
 drop proc getIndicatorValues
@@ -274,10 +274,13 @@ inner join dossiers d on d.measureId = m.id
 inner join indicatorvalues iv on iv.dossierId = d.id
 where 
 m.id = @measureId
-and year(d.dateReg) = year(@month)
-and MONTH(d.dateReg) = MONTH(@month)
+and year(d.createdDate) = year(@month)
+and MONTH(d.createdDate) = MONTH(@month)
 and d.stateId = 2
+go
+
+
 
 
 go
-use master
+--use master

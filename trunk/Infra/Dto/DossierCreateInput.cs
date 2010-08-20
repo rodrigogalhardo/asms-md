@@ -1,57 +1,11 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 using MvcContrib.UI.InputBuilder.Attributes;
 
 namespace MRGSP.ASMS.Infra.Dto
 {
     public class DossierCreateInput
     {
-        [Req]
-        [Label("Denumirea solicitantului")]
-        public string FarmerName { get; set; }
-
-        [Req]
-        [Label("Cod Fiscal")]
-        public string FiscalCode { get; set; }
-
-        [Req]
-        [Label("Data inregistrarii")]
-        public DateTime DateReg { get; set; }
-
-        [Req]
-        [Label("Nr de inregistrare")]
-        public string NrReg { get; set; }
-
-        public object CompanyTypeId { get; set; }
-
-        [Req]
-        [Label("Genul de activitate")]
-        [Example("Primul indicat in statut")]
-        public string ActivityType { get; set; }
         
-        [Label("Zona geografica")]
-        public object AreaId { get; set; }
-
-        [Label("Raion")]
-        public object DistrictId { get; set; }
-
-        [Req]
-        [Label("Localitatea")]
-        public string County { get; set; }
-
-        [Req]
-        [Label("Denumirea bancii")]
-        public string BankName { get; set; }
-
-        [Req]
-        [Label("Cod bancar")]
-        public string BankCode { get; set; }
-      
-        [Req]
-        [Label("Cont de decontare")]
-        [Example("Trebuie de indicat contul de decontare in MDL")]
-        public string SettlementAccount { get; set; }
-
         [Req]
         [Label("Prenume Administrator")]
         [Example("ex: Vasile")]
@@ -62,27 +16,14 @@ namespace MRGSP.ASMS.Infra.Dto
         [Example("ex: Popescu")]
         public string AdminLastName { get; set; }
 
-
         [Label("Prenumele reprezentantului legal")]
         public string RepresentativeFirstName { get; set; }
 
         [Label("Numele reprezentantului legal")]
         public string RepresentativeLastName { get; set; }
 
-        [Req]
-        [Label("Telefon fix")]
-        public string Phone { get; set; }
-
-        public string Fax { get; set; }
-
-        [Label("Telefon mobil")]
-        public string Mobile { get; set; }
-
         [Label("Telefonul unei persoane apropiate")]
         public string FriendPhone { get; set; }
-
-        [Label("Adresa e-mail")]
-        public string Email { get; set; }
 
         [Label("Pregatire profesionala")]
         public bool ProTraining { get; set; }

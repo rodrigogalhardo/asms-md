@@ -20,7 +20,7 @@ namespace MRGSP.ASMS.Infra
             input.InjectFrom<IdToLookup<Area>>(entity)
                 .InjectFrom<IdToLookup<District>>(entity)
                 .InjectFrom<IdToLookup<Perfecter>>(entity)
-                .InjectFrom<IdToLookup<CompanyType>>(entity)
+                .InjectFrom<IdToLookup<OrganizationForm>>(entity)
                 .InjectFrom<IdToLookupMeasure>(entity);
             return input;
         }

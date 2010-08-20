@@ -42,7 +42,7 @@ namespace MRGSP.ASMS.WebUI.Controllers
 
         public ActionResult Rank(int fpiId)
         {
-            PaintTables(false);
+            PaintTables();
             var fpi = repo.Get(fpiId);
             
             var msg = "clasament pe luna " + fpi.Month + (fpi.Calculated ? " calculat" : "necalculat");

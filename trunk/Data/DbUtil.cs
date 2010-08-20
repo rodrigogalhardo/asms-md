@@ -6,8 +6,25 @@ using Omu.ValueInjecter;
 
 namespace MRGSP.ASMS.Data
 {
+    public static class TableConvention
+    {
+        public static string Resolve(Type t)
+        {
+            var name = t.Name;
+            if (name.EndsWith("s")) return t.Name + "es";
+            return t.Name + "s";
+        }
+
+        public static string Resolve(object o)
+        {
+            return Resolve(o.GetType());
+        }
+    }
+
     public static class DbUtil
     {
+
+
         public static IEnumerable<T> GetWhere<T>(object where, string cs) where T : new()
         {
             using (var conn = new SqlConnection(cs))
@@ -15,7 +32,12 @@ namespace MRGSP.ASMS.Data
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandType = CommandType.Text;
-                    cmd.CommandText = "select * from " + typeof(T).Name + "s where ".InjectFrom<WhereInjection>(where);
+                    cmd.CommandText = "select * from " + TableConvention.Resolve(typeof(T)) + " where "
+                        .InjectFrom(new FieldsBy()
+                        .SetFormat("{0}=@{0}")
+                        .SetNullFormat("{0} is null")
+                        .SetGlue("and"),
+                        where);
                     cmd.InjectFrom<SetParamsValues>(where);
                     conn.Open();
 
@@ -38,7 +60,7 @@ namespace MRGSP.ASMS.Data
             using (var cmd = conn.CreateCommand())
             {
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "delete from " + typeof(T).Name + "s where id=" + id;
+                cmd.CommandText = "delete from " + TableConvention.Resolve(typeof(T)) + " where id=" + id;
 
                 conn.Open();
                 return cmd.ExecuteNonQuery();
@@ -52,9 +74,9 @@ namespace MRGSP.ASMS.Data
             using (var cmd = conn.CreateCommand())
             {
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "insert " + o.GetType().Name + "s("
-                    .InjectFrom(new FieldsByComma().IgnoreFields("Id"), o) + ") values("
-                    .InjectFrom(new FieldsByComma().IgnoreFields("Id").SetFormat("@{0}"), o)
+                cmd.CommandText = "insert " + TableConvention.Resolve(o) + " ("
+                    .InjectFrom(new FieldsBy().IgnoreFields("Id"), o) + ") values("
+                    .InjectFrom(new FieldsBy().IgnoreFields("Id").SetFormat("@{0}"), o)
                     + ") select @@identity";
 
                 cmd.InjectFrom(new SetParamsValues().IgnoreFields("Id"), o);
@@ -70,8 +92,8 @@ namespace MRGSP.ASMS.Data
             using (var cmd = conn.CreateCommand())
             {
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "update " + o.GetType().Name + "s set "
-                    .InjectFrom(new FieldsByComma().IgnoreFields("Id").SetFormat("{0}=@{0}"), o)
+                cmd.CommandText = "update " + TableConvention.Resolve(o) + " set "
+                    .InjectFrom(new FieldsBy().IgnoreFields("Id").SetFormat("{0}=@{0}"), o)
                     + " where Id = @Id";
 
                 cmd.InjectFrom<SetParamsValues>(o);
@@ -87,10 +109,14 @@ namespace MRGSP.ASMS.Data
             using (var cmd = conn.CreateCommand())
             {
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "update " + typeof(T).Name + "s set "
-                    .InjectFrom(new FieldsByComma().SetFormat("{0}=@{0}"), what)
+                cmd.CommandText = "update " + TableConvention.Resolve(typeof(T)) + " set "
+                    .InjectFrom(new FieldsBy().SetFormat("{0}=@{0}"), what)
                     + " where "
-                    .InjectFrom(new FieldsByComma().SetFormat("{0}=@wp{0}"), where);
+                    .InjectFrom(new FieldsBy()
+                    .SetFormat("{0}=@wp{0}")
+                    .SetNullFormat("{0} is null")
+                    .SetGlue("and"),
+                    where);
 
                 cmd.InjectFrom<SetParamsValues>(what);
                 cmd.InjectFrom(new SetParamsValues().Prefix("wp"), where);
@@ -107,9 +133,9 @@ namespace MRGSP.ASMS.Data
             {
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "insert " + o.GetType().Name + "s("
-                    .InjectFrom(new FieldsByComma().IgnoreFields("Id"), o) + ") values("
-                    .InjectFrom(new FieldsByComma().IgnoreFields("Id").SetFormat("@{0}"), o) + ")";
+                cmd.CommandText = "insert " + TableConvention.Resolve(o) + " ("
+                    .InjectFrom(new FieldsBy().IgnoreFields("Id"), o) + ") values("
+                    .InjectFrom(new FieldsBy().IgnoreFields("Id").SetFormat("@{0}"), o) + ")";
 
                 cmd.InjectFrom<SetParamsValues>(o);
 
@@ -117,7 +143,6 @@ namespace MRGSP.ASMS.Data
                 return cmd.ExecuteNonQuery();
             }
         }
-
 
         /// <returns>rows affected</returns>
         public static int ExecuteNonQuerySp(string sp, string cs, object parameters)
@@ -197,7 +222,7 @@ namespace MRGSP.ASMS.Data
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandType = CommandType.Text;
-                    cmd.CommandText = "select count(*) from " + typeof(T).Name + "s";
+                    cmd.CommandText = "select count(*) from " + TableConvention.Resolve(typeof(T));
                     conn.Open();
 
                     return (int)cmd.ExecuteScalar();
@@ -212,7 +237,7 @@ namespace MRGSP.ASMS.Data
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandType = CommandType.Text;
-                    cmd.CommandText = "select * from " + typeof(T).Name + "s";
+                    cmd.CommandText = "select * from " + TableConvention.Resolve(typeof(T));
                     conn.Open();
 
                     using (var dr = cmd.ExecuteReader())
@@ -234,7 +259,7 @@ namespace MRGSP.ASMS.Data
             {
                 using (var cmd = conn.CreateCommand())
                 {
-                    var name = typeof(T).Name + "s";
+                    var name = TableConvention.Resolve(typeof(T));
 
                     cmd.CommandType = CommandType.Text;
                     cmd.CommandText = string.Format(@"with result as(select *, ROW_NUMBER() over(order by id desc) nr
@@ -259,27 +284,22 @@ namespace MRGSP.ASMS.Data
             }
         }
 
-
         public static T Get<T>(long id, string cs) where T : new()
         {
             using (var conn = new SqlConnection(cs))
+            using (var cmd = conn.CreateCommand())
             {
-                using (var cmd = conn.CreateCommand())
-                {
-                    cmd.CommandType = CommandType.Text;
-                    cmd.CommandText = "select * from " + typeof(T).Name + "s where id = " + id;
-                    conn.Open();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "select * from " + TableConvention.Resolve(typeof(T)) + " where id = " + id;
+                conn.Open();
 
-                    using (var dr = cmd.ExecuteReader())
+                using (var dr = cmd.ExecuteReader())
+                    while (dr.Read())
                     {
-                        while (dr.Read())
-                        {
-                            var o = new T();
-                            o.InjectFrom<ReaderInjection>(dr);
-                            return o;
-                        }
+                        var o = new T();
+                        o.InjectFrom<ReaderInjection>(dr);
+                        return o;
                     }
-                }
             }
             return default(T);
         }

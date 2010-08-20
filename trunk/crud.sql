@@ -1,34 +1,101 @@
 use master
---go
---drop database asms
---go
---create database asms
-
 go
+drop database asms
+go
+create database asms
+go
+
 use asms
-drop table fpis
-drop table coefficientvalues
-drop table coefficients
-drop table indicatorvalues
-drop table indicators
-drop table fieldvalues
-drop table dossiers
-drop table dossierStates
-drop table fieldsetsfields
-drop table fieldsets
-drop table fieldsetStates
-drop table fields
-drop table measuresetsmeasures
-drop table measuresets
-drop table measures
-drop table states
-drop table companytypes
-drop table perfecters
-drop table areas
-drop table usersroles
-drop table districts
-drop table roles
-drop table users
+
+create table areas
+(
+id int identity primary key,
+name nvarchar(20)
+)
+
+create table districts
+(
+id int identity primary key,
+name nvarchar(20),
+code nvarchar(2),
+areaId int references areas(id)
+)
+
+create table organizationForms
+(
+id int identity primary key,
+name nvarchar(50),
+abbreviation nvarchar(5)
+)
+
+create table farmers
+(
+id int identity primary key,
+ftype tinyint not null check(ftype in (1,2))
+)
+
+create table landowners
+(
+id int identity primary key,
+farmerId int references farmers(id) not null,
+firstName nvarchar(20) not null,
+lastName nvarchar(20) not null,
+fathersName nvarchar(20) not null,
+dateOfBirth Date not null,
+fiscalCode nvarchar(13) not null,
+startDate date not null,
+endDate date
+)
+
+create table organizations
+(
+id int identity primary key,
+farmerId int,
+fiscalCode nvarchar(13) not null,
+name nvarchar(200) not null,
+RegDate Date,
+RegNr nvarchar(20),
+OrganizationFormId int,
+activityType nvarchar(20),
+
+startDate date not null,
+endDate date
+)
+
+create table addresses
+(
+id int identity primary key,
+farmerId int references farmers(id) not null,
+districtId int references districts(id),
+locality nvarchar(30),
+zip nvarchar(5),
+street nvarchar(30),
+house nvarchar(5),
+apartment nvarchar(5),
+startDate date not null,
+endDate date
+)
+
+create table phones
+(
+id int identity primary key,
+farmerId int references farmers(id) not null,
+number nvarchar(15) not null,
+type tinyint not null,
+startDate date not null,
+endDate date
+)
+
+create table emails
+(
+id int identity primary key,
+farmerId int references farmers(id) not null,
+address nvarchar(50) not null,
+startDate date not null,
+endDate date
+)
+
+
 
 create table users
 (
@@ -50,18 +117,7 @@ roleId int foreign key references roles(id),
 unique(userId, roleId)
 )
 
-create table districts
-(
-id int identity primary key,
-name nvarchar(20),
-code nvarchar(2)
-)
 
-create table areas
-(
-id int identity primary key,
-name nvarchar(20)
-)
 
 create table perfecters
 (
@@ -69,11 +125,6 @@ id int identity primary key,
 name nvarchar(50)
 )
 
-create table companytypes
-(
-id int identity primary key,
-name nvarchar(50)
-)
 create table states
 (
 id int primary key,
@@ -140,29 +191,11 @@ name nvarchar(20) not null
 create table dossiers
 (
 id int identity primary key,
-responsibleId int,
-fiscalcode nvarchar(20),
-farmerName nvarchar(200) not null,
-dateReg Date,
-nrReg nvarchar(20),
-companyTypeId int,
-number int,
-activityType nvarchar(20),
-areaId int,
-districtId int,
-county nvarchar(100),
-bankcode nvarchar(20),
-bankname nvarchar(200),
-settlementAccount nvarchar(50),
 adminFirstName nvarchar(20),
 adminLastName nvarchar(20),
 representativeFirstName nvarchar(20),
 representativeLastName nvarchar(20),
-phone nvarchar(50),
-fax nvarchar(50),
-mobile nvarchar(50),
 friendPhone nvarchar(50),
-email nvarchar(max),
 proTraining bit,
 speciality nvarchar(max),
 diplomaIssuer nvarchar(max),
@@ -171,14 +204,15 @@ contractNumber nvarchar(max),
 contractDate Date,
 serviceProvider nvarchar(max),
 consultantId int,
-regDate Date,
 amountRequested money not null,
 value money,
+disqualified bit default(0) not null,
+createdBy int, --references users(id),
+createdDate Date,
 measureId int references measures(id) not null,
 perfecterId int references perfecters(id) not null,
 fieldsetId int references fieldsets(id) not null,
 stateId int references dossierStates(id) not null,
-disqualified bit default(0) not null,
 measuresetId int references measuresets(id) not null
 )
 
@@ -233,10 +267,40 @@ calculated bit default(0),
 unique(measuresetId, measureId, "month")
 )
 
+create table disqualifiers
+(
+id int identity primary key,
+dossierId int references dossiers(id),
+reason nvarchar(max)
+)
+/********************************* views ***************************/
+go
+create view farmerInfos
+as
+select f.id, o.name + ' ' + orgf.abbreviation as name, o.fiscalCode, f.FType 
+from farmers f 
+inner join organizations o on o.farmerId = f.id
+inner join organizationForms orgf on orgf.id = o.OrganizationFormId
+where o.enddate is null
+union
+select f.id, l.FirstName +' '+ l.LastName + ' ' + l.FathersName as name, l.fiscalCode, f.FType 
+from farmers f
+inner join landowners l on l.farmerId = f.id
+where l.enddate is null
+
+go
+create view addressInfos
+as
+select a.*, d.name as district from addresses a inner join districts d on a.districtId = d.id
+
+go
+create view organizationDisplays
+as
+select o.*, orgf.abbreviation as OrganizationForm from organizations o inner join organizationForms orgf on o.OrganizationFormId = orgf.id
 
 
 go
-
+/********************************* data *******************************/
 insert roles values(1, 'admin')
 insert roles values(2, 'superuser')
 insert roles values(3, 'user')
@@ -267,6 +331,10 @@ insert fieldsetStates values(6, 'dezactivat')
 insert states values(1, 'inregistrat')
 insert states values(2, 'activ')
 insert states values(3, 'dezactivat')
+
+insert areas(name) values('Nord')
+insert areas(name) values('Centru')
+insert areas(name) values('Sud')
 
 insert districts(name, code) values('Balti','BL')
 insert districts(name, code) values('Briceni','BR')
@@ -301,27 +369,24 @@ insert districts(name, code) values('Stefan Voda','SV')
 insert districts(name, code) values('Taraclia','TR')
 insert districts(name, code) values('UTA Gagauzia','GE')
 
-insert areas(name) values('Nord')
-insert areas(name) values('Centru')
-insert areas(name) values('Sud')
 
 insert perfecters(name) values('ACSA')
 insert perfecters(name) values('AGROINFORM')
 insert perfecters(name) values('UNIAGROPROTECT')
 insert perfecters(name) values('FNFM')
 insert perfecters(name) values('DIRECTIE AGRICOLA RAIONALA')
-insert perfecters(name) values('SOLICITANTUL')
+insert perfecters(name) values('Solicitantul')
 insert perfecters(name) values('Altele')
 
 
-insert companytypes(name) values('Cooperativa de productie')
-insert companytypes(name) values('Cooperativa de intreprinzator')
-insert companytypes(name) values('Gospodarie Taraneasca')
-insert companytypes(name) values('Intreprindere Individual')
-insert companytypes(name) values('Societate pe Actiuni')
-insert companytypes(name) values('Societate in Comandita')
-insert companytypes(name) values('Societate in Nume Colectiv')
-insert companytypes(name) values('Societate cu Raspundere Limitata')
+insert organizationForms(name, abbreviation) values('Cooperativa de productie', 'CP')
+insert organizationForms(name, abbreviation) values('Cooperativa de intreprinzator', 'CI')
+insert organizationForms(name, abbreviation) values('Gospodarie Taraneasca', 'GT')
+insert organizationForms(name, abbreviation) values('Intreprindere Individual', 'II')
+insert organizationForms(name, abbreviation) values('Societate pe Actiuni', 'SA')
+insert organizationForms(name, abbreviation) values('Societate in Comandita', 'SC')
+insert organizationForms(name, abbreviation) values('Societate in Nume Colectiv', 'SNC')
+insert organizationForms(name, abbreviation) values('Societate cu Raspundere Limitata', 'SRL')
 
 --1
 insert fields(name, description) values('Locuri de munca create aditional in urma investitiei', 'Daca se creaza: 0 locuri de munca - se indica valoare "0"; de la 1 pana la 5 locuri de munca - se indica valoarea "0.2"; de la 6 pana la 10 locuri de munca - se indica valoarea "0.3"; peste 10 locuri de munca - se indica valoarea "0.5"')

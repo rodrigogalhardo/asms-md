@@ -11,24 +11,6 @@ namespace MRGSP.ASMS.Tests
         readonly FarmerRepo repo = new FarmerRepo(new ConnectionFactory());
 
         [Test]
-        public void Insert()
-        {
-            var id = repo.Insert(new Farmer() { Code = "1234", Name = "name" });
-            (id > 0).IsTrue();
-        }
-
-        [Test]
-        public void Get()
-        {
-            var id = repo.Insert(new Farmer { Code = "1234", Name = "name" });
-            (id > 0).IsTrue();
-            
-            repo.Get(id).Code.IsEqualTo("1234");
-           
-            repo.Get(-1).IsNull();
-        }
-
-        [Test]
         public void Count()
         {
             repo.Count(null, null);
