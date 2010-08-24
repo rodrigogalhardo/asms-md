@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MRGSP.ASMS.Tests</RootNamespace>
-    <AssemblyName>MRGSP.ASMS.Core.Tests</AssemblyName>
+    <AssemblyName>MRGSP.ASMS.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
@@ -71,7 +71,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\libs\nunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="Omu.ValueInjecter, Version=1.9.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="Omu.ValueInjecter, Version=1.9.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libs\Omu.ValueInjecter.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -88,20 +91,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BankRepoTest.cs" />
-    <Compile Include="BaseRepoTest.cs" />
-    <Compile Include="Class1.cs" />
-    <Compile Include="DossierRepoTest.cs" />
+    <Compile Include="BaseRepoTests.cs" />
+    <Compile Include="DossierRepoTests.cs" />
     <Compile Include="EcoCalcTests.cs" />
-    <Compile Include="FarmerRepoTest.cs" />
+    <Compile Include="FarmerInfoRepoTests.cs" />
+    <Compile Include="FarmerRepoTests.cs" />
     <Compile Include="InsertInjectionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FillObjectInjection.cs" />
     <Compile Include="Regtest.cs" />
     <Compile Include="SimpleTests.cs" />
     <Compile Include="TestingTools.cs" />
-    <Compile Include="UberRepoTests.cs" />
-    <Compile Include="UserRepoTest.cs" />
+    <Compile Include="UberRepoTestses.cs" />
+    <Compile Include="UserRepoTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">

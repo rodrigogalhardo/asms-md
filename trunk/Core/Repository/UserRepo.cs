@@ -75,9 +75,13 @@ namespace MRGSP.ASMS.Core.Repository
         Bank Get(long id);
     }
 
+    public interface IFarmerInfoRepo : IRepo<FarmerInfo>
+    {
+        IEnumerable<FarmerInfo> Seek(string name, string fiscalCode);
+    }
+
     public interface IFarmerRepo
     {
-        long Insert(Farmer o);
         Farmer Get(long id);
         int Count(string name, string code);
         IEnumerable<Farmer> GetPage(int page, int pageSize, string name, string code);

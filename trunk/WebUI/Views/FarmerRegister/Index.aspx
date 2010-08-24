@@ -18,7 +18,7 @@
         </p>
     </fieldset>
     <fieldset>
-        <legend>Seturi</legend>
+        <legend>Multimi</legend>
         <p>
             <%=Html.ActionLink("Raioane", "Index", "District") %>
         </p>

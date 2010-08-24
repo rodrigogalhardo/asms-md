@@ -14,11 +14,6 @@ namespace MRGSP.ASMS.Data
         {
         }
 
-        public long Insert(Farmer o) 
-        {
-            return Convert.ToInt64(DbUtil.InsertSp(o, Cs));
-        }
-
         public Farmer Get(long id)
         {
             return DbUtil.Get<Farmer>(id, Cs);

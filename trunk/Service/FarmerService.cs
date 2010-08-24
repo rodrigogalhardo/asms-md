@@ -16,7 +16,7 @@ namespace MRGSP.ASMS.Service
         private readonly IRepo<Organization> organizationRepo;
         private readonly IRepo<LandOwner> landOwnerRepo;
         private readonly IRepo<FarmerInfo> farmerInfoRepo;
-        private IRepo<OrganizationDisplay> organizationDisplayRepo;
+        private readonly IRepo<OrganizationDisplay> organizationDisplayRepo;
 
         public FarmerService(IFarmerRepo repo, IRepo<Organization> organizationRepo, IRepo<Farmer> farmerRepo, IRepo<LandOwner> landOwnerRepo, IRepo<FarmerInfo> farmerInfoRepo, IRepo<OrganizationDisplay> organizationDisplayRepo)
         {
@@ -110,11 +110,6 @@ namespace MRGSP.ASMS.Service
                 scope.Complete();
                 return farmerId;
             }
-        }
-
-        public long Create(Farmer o)
-        {
-            return repo.Insert(o);
         }
 
         public IPageable<Farmer> GetPage(int page, int pageSize, string name = null, string code = null)

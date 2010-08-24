@@ -129,6 +129,7 @@
     <Compile Include="Controllers\EmailController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\FarmerController.cs" />
+    <Compile Include="Controllers\FarmerLookupController.cs" />
     <Compile Include="Controllers\FarmerRegisterController.cs" />
     <Compile Include="Controllers\FarmersCruder.cs" />
     <Compile Include="Controllers\FieldController.cs" />
@@ -172,6 +173,8 @@
     <Content Include="Views\Farmer\DisplayLandOwner.ascx" />
     <Content Include="Views\Farmer\DisplayOrganization.ascx" />
     <Content Include="Views\Farmer\Index.aspx" />
+    <Content Include="Views\FarmerLookup\Page.ascx" />
+    <Content Include="Views\FarmerLookup\Index.ascx" />
     <Content Include="Views\Phone\Create.aspx" />
     <Content Include="Views\Phone\Index.ascx" />
     <Content Include="Views\Dossier\Disqualify.aspx" />

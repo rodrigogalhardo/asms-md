@@ -20,9 +20,11 @@
     <script type="text/javascript">
         $(function () {
             setFocusOnFirst();
+            dob();
+        });
 
-            //$("tbody").addClass("ui-state-highlight");
-            $("thead").addClass("ui-state-default");
+        function dob() {
+        $("thead").addClass("ui-state-default");
             <%if (ViewData["painttables"] == null)
               {%>
             $("tbody tr:even").addClass("ui-widget-content");
@@ -33,18 +35,13 @@
             $("tbody a").addClass("fgb");
             $("a:contains('napoi')").addClass("fgb");
             $("a:contains('reaza')").addClass("fgb");
-            $(".fgb").addClass("abtn");
 
             $(".formz").addClass("ui-state-highlight");
             $(".formhead").addClass("ui-state-default");
 
             $("td form").addClass("fr");
-
-            dob();
-
-        });
-
-        function dob() {
+        
+            $(".fgb").addClass("abtn");
             $(".abtn").hover(
 	            function () {
 	                $(this).addClass("ui-state-hover");

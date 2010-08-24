@@ -191,6 +191,7 @@ name nvarchar(20) not null
 create table dossiers
 (
 id int identity primary key,
+farmerId int references farmers(id),
 adminFirstName nvarchar(20),
 adminLastName nvarchar(20),
 representativeFirstName nvarchar(20),
@@ -298,6 +299,12 @@ create view organizationDisplays
 as
 select o.*, orgf.abbreviation as OrganizationForm from organizations o inner join organizationForms orgf on o.OrganizationFormId = orgf.id
 
+go
+create view dossierInfos
+as
+select d.id, d.createdDate, f.name, f.fiscalCode, m.name as measure, d.stateId, d.disqualified
+from dossiers d inner join farmerInfos f on f.id = d.farmerId
+inner join measures m on m.id = d.measureId
 
 go
 /********************************* data *******************************/

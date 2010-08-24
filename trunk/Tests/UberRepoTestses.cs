@@ -6,7 +6,7 @@ using NUnit.Framework;
 namespace MRGSP.ASMS.Tests
 {
     [TestFixture]
-    public class UberRepoTests : BaseRepoTest
+    public class UberRepoTestses : BaseRepoTests
     {
         readonly Repo<District> drepo = new Repo<District>(new ConnectionFactory());
         readonly Repo<Field> frepo = new Repo<Field>(new ConnectionFactory());

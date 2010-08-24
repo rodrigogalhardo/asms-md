@@ -1,27 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data.SqlClient;
 using System.Linq;
 using Omu.ValueInjecter;
 
 namespace MRGSP.ASMS.Data
 {
-    public class WhereInjection : KnownTargetValueInjection<string>
-    {
-        protected override void Inject(object source, ref string target)
-        {
-            var sourceProps = source.GetProps();
-            for (var i = 0; i < sourceProps.Count; i++)
-            {
-                if (i != 0) target += " and ";
-
-                var p = sourceProps[i];
-                target += p.Name + "=@" + p.Name;
-            }
-        }
-    }
-
     public class FieldsBy : KnownTargetValueInjection<string>
     {
         private IEnumerable<string> ignoredFields = new string[] { };

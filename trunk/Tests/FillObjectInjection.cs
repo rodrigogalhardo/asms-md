@@ -1,12 +1,12 @@
-﻿using System.ComponentModel;
-using Omu.ValueInjecter;
+﻿using Omu.ValueInjecter;
 
 namespace MRGSP.ASMS.Tests
 {
     public class FillObjectInjection : NoSourceValueInjection
     {
-        protected override void Inject(object target, PropertyDescriptorCollection targetProps)
+        protected override void Inject(object target)
         {
+            var targetProps = target.GetProps();
             for (int i = 0; i < targetProps.Count; i++)
             {
                 var prop = targetProps[i];

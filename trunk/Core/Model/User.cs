@@ -202,6 +202,16 @@ namespace MRGSP.ASMS.Core.Model
         public decimal AmountRequested { get; set; }
         public decimal Value { get; set; }
         public bool Disqualified { get; set; }
+        public int FarmerId { get; set; }
+    }
+
+    public class DossierInfo : EntityWithName
+    {
+        public DateTime CreatedDate { get; set; }
+        public string FiscalCode { get; set; }
+        public string Measure { get; set; }
+        public int StateId { get; set; }
+        public bool Disqualified { get; set; }
     }
 
     public class Disqualifier : Entity

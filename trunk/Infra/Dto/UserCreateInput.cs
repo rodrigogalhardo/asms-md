@@ -304,16 +304,9 @@ namespace MRGSP.ASMS.Infra.Dto
 
     public class LookupInfo
     {
-        public LookupInfo()
-        {
-            Choose = true;
-        }
-
         public string For { get; set; }
 
         public string Title { get; set; }
-
-        public bool Choose { get; set; }
 
         public string Display { get; set; }
     }

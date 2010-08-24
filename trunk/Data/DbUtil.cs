@@ -6,25 +6,8 @@ using Omu.ValueInjecter;
 
 namespace MRGSP.ASMS.Data
 {
-    public static class TableConvention
-    {
-        public static string Resolve(Type t)
-        {
-            var name = t.Name;
-            if (name.EndsWith("s")) return t.Name + "es";
-            return t.Name + "s";
-        }
-
-        public static string Resolve(object o)
-        {
-            return Resolve(o.GetType());
-        }
-    }
-
     public static class DbUtil
     {
-
-
         public static IEnumerable<T> GetWhere<T>(object where, string cs) where T : new()
         {
             using (var conn = new SqlConnection(cs))
@@ -50,6 +33,27 @@ namespace MRGSP.ASMS.Data
                             yield return o;
                         }
                     }
+                }
+            }
+        }
+        
+        public static int CountWhere<T>(object where, string cs) where T : new()
+        {
+            using (var conn = new SqlConnection(cs))
+            {
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = "select count(*) from " + TableConvention.Resolve(typeof(T)) + " where "
+                        .InjectFrom(new FieldsBy()
+                        .SetFormat("{0}=@{0}")
+                        .SetNullFormat("{0} is null")
+                        .SetGlue("and"),
+                        where);
+                    cmd.InjectFrom<SetParamsValues>(where);
+                    conn.Open();
+
+                    return (int) cmd.ExecuteScalar();
                 }
             }
         }
@@ -160,6 +164,27 @@ namespace MRGSP.ASMS.Data
             }
         }
 
+        public static IEnumerable<T> ExecuteReader<T>(string query, object parameters, string cs) where T : new()
+        {
+            using (var conn = new SqlConnection(cs))
+            {
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = query;
+                    cmd.InjectFrom<SetParamsValues>(parameters);
+                    conn.Open();
+                    using (var dr = cmd.ExecuteReader())
+                        while (dr.Read())
+                        {
+                            var o = new T();
+                            o.InjectFrom<ReaderInjection>(dr);
+                            yield return o;
+                        }
+                }
+            }
+        }
+
         public static IEnumerable<T> ExecuteReaderSp<T>(string sp, string cs, object parameters) where T : new()
         {
             using (var conn = new SqlConnection(cs))
@@ -196,21 +221,6 @@ namespace MRGSP.ASMS.Data
                         {
                             yield return (T)dr.GetValue(0);
                         }
-                }
-            }
-        }
-
-        public static object InsertSp(object o, string cs)
-        {
-            using (var conn = new SqlConnection(cs))
-            {
-                using (var cmd = conn.CreateCommand())
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "insert" + o.GetType().Name;
-                    cmd.InjectFrom<SetParamsValues>(o);
-                    conn.Open();
-                    return cmd.ExecuteScalar();
                 }
             }
         }

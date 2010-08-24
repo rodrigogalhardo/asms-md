@@ -344,7 +344,7 @@ input[type="submit"], button
 
 .selected
 {
-    background: url("images/ui-bg_glass_55_fcf0ba_1x400.png") repeat-x scroll 50% 50% #FCF0BA;
+    border: 0.2em solid green !important;
 }
 
 .grow
@@ -404,6 +404,7 @@ p
 {
     padding: .3em 1em;
     text-decoration: none;
+    cursor: pointer;
 }
 
 tbody td

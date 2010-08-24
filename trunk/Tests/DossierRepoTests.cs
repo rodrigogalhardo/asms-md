@@ -5,7 +5,17 @@ using NUnit.Framework;
 namespace MRGSP.ASMS.Tests
 {
     [TestFixture]
-    public class DossierRepoTest : BaseRepoTest
+    public class DbUtilTestses : BaseRepoTests
+    {
+        [Test]
+        public void CountWhereTest()
+        {
+            DbUtil.CountWhere<District>(new {Name = "Ialoveni"}, new ConnectionFactory().GetConnectionString());
+        }
+    }
+
+    [TestFixture]
+    public class DossierRepoTests : BaseRepoTests
     {
         readonly DossierRepo repo = new DossierRepo(new ConnectionFactory());
 

@@ -19,12 +19,6 @@ namespace MRGSP.ASMS.Tests
                     .InjectFrom(new FieldsBy().IgnoreFields("Id").SetFormat("@{0}"), o);
             System.Console.WriteLine(s);
         }
-
-        [Test]
-        public void WhereInjectionTest()
-        {
-            System.Console.WriteLine("select * from pros where ".InjectFrom<WhereInjection>(new { id = 5, name = "athene"}));
-        }
     }
 
     
