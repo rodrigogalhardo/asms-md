@@ -1,9 +1,9 @@
 ﻿using System.Web.Mvc;
 using MRGSP.ASMS.Core.Model;
+using MRGSP.ASMS.Core.Repository;
 using MRGSP.ASMS.Core.Service;
 using MRGSP.ASMS.Infra;
 using MRGSP.ASMS.Infra.Dto;
-using Omu.ValueInjecter;
 
 namespace MRGSP.ASMS.WebUI.Controllers
 {
@@ -12,13 +12,15 @@ namespace MRGSP.ASMS.WebUI.Controllers
         private readonly IBuilder<Dossier, DossierCreateInput> createBuilder;
         private readonly IDossierService dossierService;
         private readonly ISystemStateServcie systemStateServcie;
+        private IRepo<DossierInfo> dir;
 
         public DossierController(
             IBuilder<Dossier, DossierCreateInput> createBuilder,
             IDossierService dossierService,
-            ISystemStateServcie systemStateServcie)
+            ISystemStateServcie systemStateServcie, IRepo<DossierInfo> dir)
         {
             this.createBuilder = createBuilder;
+            this.dir = dir;
             this.systemStateServcie = systemStateServcie;
             this.dossierService = dossierService;
         }
@@ -37,18 +39,18 @@ namespace MRGSP.ASMS.WebUI.Controllers
 
         public ActionResult Index(int? page)
         {
-            return View(dossierService.GetPageable(page ?? 1, 10));
+            return View(dir.GetPageable(page ?? 1, 10));
         }
 
         public ActionResult Open(int id)
         {
-            return View(dossierService.Get(id));
+            return View(dir.Get(id));
         }
 
         public ActionResult Create()
         {
             systemStateServcie.AssureAbilityToCreateDossier();
-            return View(createBuilder.BuildInput((Dossier)new Dossier().InjectFrom<FillObject>()));
+            return View(createBuilder.BuildInput(new Dossier()));
         }
 
         [HttpPost]

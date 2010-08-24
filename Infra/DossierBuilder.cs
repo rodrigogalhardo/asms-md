@@ -21,7 +21,8 @@ namespace MRGSP.ASMS.Infra
                 .InjectFrom<IdToLookup<District>>(entity)
                 .InjectFrom<IdToLookup<Perfecter>>(entity)
                 .InjectFrom<IdToLookup<OrganizationForm>>(entity)
-                .InjectFrom<IdToLookupMeasure>(entity);
+                .InjectFrom<IdToLookupMeasure>(entity)
+                .InjectFrom<IdToDisplay<FarmerInfo>>(entity);
             return input;
         }
 

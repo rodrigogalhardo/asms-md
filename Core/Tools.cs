@@ -20,5 +20,11 @@ namespace MRGSP.ASMS.Core
         {
             return o == (int)oo;
         }
+
+        public static object Value(this string o)
+        {
+            if (o == null) return null;
+            return o.Trim().Length != 0 ? o.Trim() : null;
+        }
     }
 }

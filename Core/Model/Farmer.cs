@@ -7,9 +7,8 @@ namespace MRGSP.ASMS.Core.Model
         public FarmerType FType { get; set; }
     }
 
-    public class FarmerInfo : Entity
+    public class FarmerInfo : EntityWithName
     {
-        public string Name { get; set; }
         public string FiscalCode { get; set; }
         public FarmerType FType { get; set; }
     }

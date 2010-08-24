@@ -16,27 +16,32 @@ namespace MRGSP.ASMS.Infra
             return Utils.ReadInt32(sourcePropertyValue);
         }
     }
-    
+
     public class IdToDisplay<T> : ExactValueInjection where T : EntityWithName, new()
     {
         public override string SourceName()
         {
-            return typeof(T).Name + "Id";
+            return typeof(T).Name.RemoveSuffix("Info") + "Id";
         }
 
         public override string TargetName()
         {
-            return "Display" + typeof (T).Name;
+            return "Display" + typeof(T).Name.RemoveSuffix("Info");
         }
 
         protected override bool TypesMatch(Type sourceType, Type targetType)
         {
-            return sourceType == typeof (int) && targetType == typeof (string);
+            return sourceType == typeof(int) && targetType == typeof(string);
+        }
+
+        protected override bool AllowSetValue(object value)
+        {
+            return (int)value != 0;
         }
 
         protected override object SetValue(object sourcePropertyValue)
         {
-            return IoC.Resolve<IRepo<T>>().Get((int) sourcePropertyValue).Name;
+            return IoC.Resolve<IRepo<T>>().Get((int)sourcePropertyValue).Name;
         }
     }
 
@@ -49,7 +54,7 @@ namespace MRGSP.ASMS.Infra
 
         protected override bool TypesMatch(Type sourceType, Type targetType)
         {
-            return sourceType == typeof (int) && targetType == typeof (object);
+            return sourceType == typeof(int) && targetType == typeof(object);
         }
 
         protected override object SetValue(object sourcePropertyValue)
@@ -80,7 +85,7 @@ namespace MRGSP.ASMS.Infra
 
         protected override bool TypesMatch(Type sourceType, Type targetType)
         {
-            return sourceType == typeof (int) && targetType == typeof (object);
+            return sourceType == typeof(int) && targetType == typeof(object);
         }
 
         protected override object SetValue(object sourcePropertyValue)

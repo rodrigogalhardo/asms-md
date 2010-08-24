@@ -3,11 +3,12 @@
     <li>
         <%= Html.ActionLink("Acasa", "Index", "Home")%></li>
     <li>
-        <%= Html.ActionLink("Despre", "About", "Home")%></li><li>
         <%= Html.ActionLink("Dosare", "Index", "Dossier")%></li>
     <li>
         <%=Html.ActionLink("Adauga Dosar","Create", "Dossier") %></li>
     <li>
-        <%=Html.ActionLink("Administrare", "Index", "Admin") %></li><li>
+        <%=Html.ActionLink("Administrare", "Index", "Admin") %></li>
+    <li>
         <%=Html.ActionLink("Registrul Fermierilor", "Index", "FarmerRegister") %></li>
+    
 </ul>

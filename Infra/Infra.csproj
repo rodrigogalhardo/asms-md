@@ -99,7 +99,6 @@
   <ItemGroup>
     <Compile Include="AddressBuilder.cs" />
     <Compile Include="BaseBuilder.cs" />
-    <Compile Include="Class1.cs" />
     <Compile Include="DossierBuilder.cs" />
     <Compile Include="Dto\AtLeastOneTrueAttribute.cs" />
     <Compile Include="Dto\DossierCreateInput.cs" />
