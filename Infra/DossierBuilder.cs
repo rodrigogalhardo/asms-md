@@ -22,7 +22,7 @@ namespace MRGSP.ASMS.Infra
                 .InjectFrom<IdToLookup<Perfecter>>(entity)
                 .InjectFrom<IdToLookup<OrganizationForm>>(entity)
                 .InjectFrom<IdToLookupMeasure>(entity)
-                .InjectFrom<IdToDisplay<FarmerInfo>>(entity);
+                .InjectFrom<IdToDisplay<FarmerVersionInfo>>(entity);
             return input;
         }
 

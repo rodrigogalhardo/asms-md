@@ -1,4 +1,4 @@
-<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<System.Collections.Generic.IEnumerable<MRGSP.ASMS.Core.Model.OrganizationDisplay>>" %>
+<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<System.Collections.Generic.IEnumerable<MRGSP.ASMS.Core.Model.OrganizationInfo>>" %>
 <%= Html.ActionLink("Editeaza","EditOrganization",new{Model.First().FarmerId}, new{@class="fgb"}) %>
 <table>
     <thead>

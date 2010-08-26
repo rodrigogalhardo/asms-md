@@ -82,9 +82,12 @@ namespace MRGSP.ASMS.Core.Repository
 
     public interface IFarmerRepo
     {
-        Farmer Get(long id);
-        int Count(string name, string code);
-        IEnumerable<Farmer> GetPage(int page, int pageSize, string name, string code);
+        LandOwner GetLandOwner(int farmerId);
+        Organization GetOrganization(int farmerId);
+        int CreateOrganization(Organization o);
+        void AddLandOwner(LandOwner o, int farmerId);
+        void AddOrganization(Organization o, int farmerId);
+        int CreateLandOwner(LandOwner o);
     }
 
     public interface IDossierRepo : IRepo<Dossier>

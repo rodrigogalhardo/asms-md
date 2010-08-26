@@ -1,69 +1,104 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
+using System.Linq;
+using System.Transactions;
 using MRGSP.ASMS.Core.Model;
 using MRGSP.ASMS.Core.Repository;
-using Omu.ValueInjecter;
 
 namespace MRGSP.ASMS.Data
 {
     public class FarmerRepo: BaseRepo, IFarmerRepo
     {
-        public FarmerRepo(IConnectionFactory connFactory) : base(connFactory)
+        private readonly IRepo<FarmerVersion> farmerVersionRepo;
+        private readonly IRepo<LandOwner> landOwnerRepo;
+        private readonly IRepo<Organization> organizationRepo;
+        private readonly IRepo<Farmer> farmerRepo;
+
+        public FarmerRepo(IConnectionFactory connFactory, IRepo<FarmerVersion> farmerVersionRepo, IRepo<LandOwner> landOwnerRepo, IRepo<Organization> organizationRepo, IRepo<Farmer> farmerRepo) : base(connFactory)
         {
+            this.farmerVersionRepo = farmerVersionRepo;
+            this.farmerRepo = farmerRepo;
+            this.organizationRepo = organizationRepo;
+            this.landOwnerRepo = landOwnerRepo;
         }
 
-        public Farmer Get(long id)
+        public LandOwner GetLandOwner(int farmerId)
         {
-            return DbUtil.Get<Farmer>(id, Cs);
+            var fv = farmerVersionRepo.GetWhere(new {farmerId, EndDate = DBNull.Value}).Single();
+            return landOwnerRepo.GetWhere(new {farmerVersionId = fv.Id}).Single();
+        }
+        
+        public Organization GetOrganization(int farmerId)
+        {
+            var fv = farmerVersionRepo.GetWhere(new {farmerId, EndDate = DBNull.Value}).Single();
+            return organizationRepo.GetWhere(new {farmerVersionId = fv.Id}).Single();
         }
 
-        public int Count(string name, string code)
+        public int CreateOrganization(Organization o)
         {
-            using (var conn = new SqlConnection(Cs))
+            using (var scope = new TransactionScope())
             {
-                using (var cmd = conn.CreateCommand())
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getFarmersCount";
-                    cmd.Parameters.Add("code", SqlDbType.NVarChar, 20).Value = code;
-                    cmd.Parameters.Add("name", SqlDbType.NVarChar, 200).Value = name;
-                    conn.Open();
+                var farmerId = farmerRepo.Insert(new Farmer { FType = FarmerType.Organization });
 
-                    return (int)cmd.ExecuteScalar();
-                }
-            }
-        }
-
-        public IEnumerable<Farmer> GetPage(int page, int pageSize, string name, string code)
-        {
-            using (var conn = new SqlConnection(Cs))
-            {
-                using (var cmd = conn.CreateCommand())
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getFarmersPage";
-                    cmd.Parameters.Add("pageSize", SqlDbType.Int).Value = pageSize;
-                    cmd.Parameters.Add("page", SqlDbType.Int).Value = page;
-                    cmd.Parameters.Add("name", SqlDbType.NVarChar, 200).Value = name;
-                    cmd.Parameters.Add("code", SqlDbType.NVarChar, 20).Value = code;
-                    conn.Open();
-
-                    using (var dr = cmd.ExecuteReader())
-                    {
-                        if (dr != null)
-                            while (dr.Read())
+                var v = new FarmerVersion
                             {
-                                var o = new Farmer();
-                                o.InjectFrom<ReaderInjection>(dr);
-                                yield return o;
-                            }
-                    }
-                }
+                                FarmerId = farmerId,
+                                StartDate = DateTime.Now
+                            };
+
+                o.FarmerVersionId = farmerVersionRepo.Insert(v);
+
+                organizationRepo.Insert(o);
+
+                scope.Complete();
+                return farmerId;
             }
         }
 
+        public void AddLandOwner(LandOwner o, int farmerId)
+        {
+            using (var scope = new TransactionScope())
+            {
+                farmerVersionRepo.UpdateWhatWhere(new { EndDate = DateTime.Now }, new { farmerId, EndDate = DBNull.Value });
 
+                o.FarmerVersionId = farmerVersionRepo.Insert(new FarmerVersion { FarmerId = farmerId, StartDate = DateTime.Now });
+                landOwnerRepo.Insert(o);
+
+                scope.Complete();
+            }
+        }
+
+        public void AddOrganization(Organization o, int farmerId)
+        {
+            using (var scope = new TransactionScope())
+            {
+                farmerVersionRepo.UpdateWhatWhere(new { EndDate = DateTime.Now }, new { farmerId, EndDate = DBNull.Value });
+
+                o.FarmerVersionId = farmerVersionRepo.Insert(new FarmerVersion { FarmerId = farmerId, StartDate = DateTime.Now });
+                organizationRepo.Insert(o);
+
+                scope.Complete();
+            }
+        }
+
+        public int CreateLandOwner(LandOwner o)
+        {
+            using (var scope = new TransactionScope())
+            {
+                var farmerId = farmerRepo.Insert(new Farmer { FType = FarmerType.LandOwner });
+                var v = new FarmerVersion
+                            {
+                                FarmerId = farmerId,
+                                StartDate = DateTime.Now
+                            };
+
+                o.FarmerVersionId = farmerVersionRepo.Insert(v);
+
+                landOwnerRepo.Insert(o);
+
+                scope.Complete();
+                return farmerId;
+            }
+        }
     }
+    
 }

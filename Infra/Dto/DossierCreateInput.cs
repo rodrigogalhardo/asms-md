@@ -6,9 +6,9 @@ namespace MRGSP.ASMS.Infra.Dto
     public class DossierCreateInput
     {
         [Req]
-        public int FarmerId { get; set; }
+        public int FarmerVersionId { get; set; }
 
-        public string DisplayFarmer { get; set; }
+        public string DisplayFarmerVersion { get; set; }
         
         [Req]
         [Label("Prenume Administrator")]

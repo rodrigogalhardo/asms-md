@@ -247,28 +247,7 @@ namespace MRGSP.ASMS.Infra.Dto
         public int FarmerId { get; set; }
     }
 
-    public class FarmerCreateInput
-    {
-        [Req]
-        [Label("Denumirea")]
-        public string Name { get; set; }
-
-        [Req]
-        [FarmerCodeUnique]
-        [Label("Cod")]
-        public string Code { get; set; }
-
-        [Req]
-        [Label("Data inregistrarii")]
-        [PartialView("DateTime")]
-        public DateTime? DateReg { get; set; }
-
-        [Req]
-        [Label("Nr de inregistrare")]
-        public string NrReg { get; set; }
-
-        public object CompanyTypeId { get; set; }
-    }
+  
 
     public class UserEditInput
     {

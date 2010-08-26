@@ -108,27 +108,7 @@ namespace MRGSP.ASMS.Infra.Dto
         }
     }
 
-    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
-    public sealed class FarmerCodeUniqueAttribute : ValidationAttribute
-    {
-        private const string DefaultErrorMessage = "o banca cu asa cod deja exista";
-
-        public FarmerCodeUniqueAttribute()
-            : base(DefaultErrorMessage)
-        {
-        }
-
-        public override string FormatErrorMessage(string name)
-        {
-            return DefaultErrorMessage;
-        }
-
-        public override bool IsValid(object value)
-        {
-            if (string.IsNullOrEmpty((string)value)) return true;
-            return !IoC.Resolve<IFarmerService>().Exists((string)value);
-        }
-    }
+   
 
     public sealed class ReqAttribute : RequiredAttribute
     {
