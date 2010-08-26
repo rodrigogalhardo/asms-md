@@ -34,32 +34,35 @@ id int identity primary key,
 ftype tinyint not null check(ftype in (1,2))
 )
 
+create table farmerVersions
+(
+id int identity primary key,
+farmerId int references farmers(id),
+startDate date not null,
+endDate date
+)
+
 create table landowners
 (
 id int identity primary key,
-farmerId int references farmers(id) not null,
+farmerVersionId int references farmerVersions(id) not null,
 firstName nvarchar(20) not null,
 lastName nvarchar(20) not null,
 fathersName nvarchar(20) not null,
 dateOfBirth Date not null,
-fiscalCode nvarchar(13) not null,
-startDate date not null,
-endDate date
+fiscalCode nvarchar(13) not null
 )
 
 create table organizations
 (
 id int identity primary key,
-farmerId int,
+farmerVersionId int references farmerVersions(id) not null,
 fiscalCode nvarchar(13) not null,
 name nvarchar(200) not null,
 RegDate Date,
 RegNr nvarchar(20),
 OrganizationFormId int,
-activityType nvarchar(20),
-
-startDate date not null,
-endDate date
+activityType nvarchar(20)
 )
 
 create table addresses
@@ -191,7 +194,7 @@ name nvarchar(20) not null
 create table dossiers
 (
 id int identity primary key,
-farmerId int references farmers(id),
+farmerVersionId int references farmerVersions(id),
 adminFirstName nvarchar(20),
 adminLastName nvarchar(20),
 representativeFirstName nvarchar(20),
@@ -278,16 +281,32 @@ reason nvarchar(max)
 go
 create view farmerInfos
 as
-select f.id, o.name + ' ' + orgf.abbreviation as name, o.fiscalCode, f.FType 
+select f.id, fv.id as farmerVersionId, o.name + ' ' + orgf.abbreviation as name, o.fiscalCode, f.FType 
 from farmers f 
-inner join organizations o on o.farmerId = f.id
+inner join farmerVersions fv on f.id = fv.farmerid
+inner join organizations o on o.farmerVersionId = fv.id
 inner join organizationForms orgf on orgf.id = o.OrganizationFormId
-where o.enddate is null
+where fv.enddate is null
 union
-select f.id, l.FirstName +' '+ l.LastName + ' ' + l.FathersName as name, l.fiscalCode, f.FType 
+select f.id, fv.id as farmerVersionId, l.FirstName +' '+ l.LastName + ' ' + l.FathersName as name, l.fiscalCode, f.FType 
 from farmers f
-inner join landowners l on l.farmerId = f.id
-where l.enddate is null
+inner join farmerVersions fv on fv.farmerid = f.id
+inner join landowners l on l.farmerVersionId = fv.id
+where fv.enddate is null
+
+go
+create view farmerVersionInfos
+as
+select f.id as FarmerId, fv.id, o.name + ' ' + orgf.abbreviation as name, o.fiscalCode, f.FType 
+from farmers f 
+inner join farmerVersions fv on f.id = fv.farmerid
+inner join organizations o on o.farmerVersionId = fv.id
+inner join organizationForms orgf on orgf.id = o.OrganizationFormId
+union
+select f.id as FarmerId, fv.id, l.FirstName +' '+ l.LastName + ' ' + l.FathersName as name, l.fiscalCode, f.FType 
+from farmers f
+inner join farmerVersions fv on fv.farmerid = f.id
+inner join landowners l on l.farmerVersionId = fv.id
 
 go
 create view addressInfos
@@ -295,16 +314,24 @@ as
 select a.*, d.name as district from addresses a inner join districts d on a.districtId = d.id
 
 go
-create view organizationDisplays
+create view organizationInfos
 as
-select o.*, orgf.abbreviation as OrganizationForm from organizations o inner join organizationForms orgf on o.OrganizationFormId = orgf.id
+select o.*, orgf.abbreviation as OrganizationForm, fv.farmerId, fv.startDate, fv.endDate from organizations o 
+inner join organizationForms orgf on o.OrganizationFormId = orgf.id
+inner join farmerVersions fv on fv.id = o.farmerVersionId
 
 go
 create view dossierInfos
 as
-select d.id, d.createdDate, f.name, f.fiscalCode, m.name as measure, d.stateId, d.disqualified
-from dossiers d inner join farmerInfos f on f.id = d.farmerId
+select d.id, d.createdDate, fv.name, fv.fiscalCode, m.name as measure, d.stateId, d.disqualified
+from dossiers d inner join farmerVersionInfos fv on fv.id = d.farmerVersionId
 inner join measures m on m.id = d.measureId
+
+go
+create view landOwnerInfos
+as
+select lo.*, fv.startDate, fv.endDate, fv.farmerId from landowners lo
+inner join farmerVersions fv on fv.id = lo.farmerVersionId
 
 go
 /********************************* data *******************************/

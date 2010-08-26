@@ -202,7 +202,7 @@ namespace MRGSP.ASMS.Core.Model
         public decimal AmountRequested { get; set; }
         public decimal Value { get; set; }
         public bool Disqualified { get; set; }
-        public int FarmerId { get; set; }
+        public int FarmerVersionId { get; set; }
     }
 
     public class DossierInfo : EntityWithName

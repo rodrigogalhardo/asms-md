@@ -97,19 +97,10 @@ namespace MRGSP.ASMS.Core.Service
 
     public interface IFarmerService
     {
-        IPageable<Farmer> GetPage(int page, int pageSize, string name = null, string code = null);
-        bool Exists(string code);
-        Farmer Get(long id);
-        int CreateOrganization(Organization o);
-        int CreateLandOwner(LandOwner o);
         FarmerInfo GetInfo(int id);
         IPageable<FarmerInfo> GetPageableInfo(int page, int pageSize);
-        void AddLandOwner(LandOwner o);
-        void AddOrganization(Organization o);
-        LandOwner GetLandOwner(int id);
-        Organization GetOrganization(int id);
-        IEnumerable<LandOwner> GetLandOwners(int farmerId);
-        IEnumerable<OrganizationDisplay> GetOrganizations(int farmerId);
+        IEnumerable<LandOwnerInfo> GetLandOwners(int farmerId);
+        IEnumerable<OrganizationInfo> GetOrganizations(int farmerId);
     }
 
     public interface IFarmersEntityService<T> where T : FarmersEntity, new()

@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using MRGSP.ASMS.Core.Model;
+using MRGSP.ASMS.Core.Repository;
 using MRGSP.ASMS.Core.Service;
 using MRGSP.ASMS.Infra;
 using MRGSP.ASMS.Infra.Dto;
@@ -11,13 +12,15 @@ namespace MRGSP.ASMS.WebUI.Controllers
         private readonly IBuilder<Organization, OrganizationInput> organizationBuilder;
         private readonly IBuilder<LandOwner, LandOwnerInput> landOwnerBuilder;
         private readonly IFarmerService farmerService;
+        private readonly IFarmerRepo farmerRepo;
 
         public FarmerController(
             IBuilder<Organization, OrganizationInput> organizationBuilder,
             IBuilder<LandOwner, LandOwnerInput> landOwnerBuilder,
-            IFarmerService farmerService)
+            IFarmerService farmerService, IFarmerRepo farmerRepo)
         {
             this.organizationBuilder = organizationBuilder;
+            this.farmerRepo = farmerRepo;
             this.farmerService = farmerService;
             this.landOwnerBuilder = landOwnerBuilder;
         }
@@ -41,27 +44,27 @@ namespace MRGSP.ASMS.WebUI.Controllers
 
         public ActionResult EditOrganization(int farmerId)
         {
-            return View("CreateOrganization", organizationBuilder.BuildInput(farmerService.GetOrganization(farmerId)));
+            return View("CreateOrganization", organizationBuilder.BuildInput(farmerRepo.GetOrganization(farmerId)));
         }
 
         [HttpPost]
         public ActionResult EditOrganization(OrganizationInput input)
         {
             if (!ModelState.IsValid) return View("CreateOrganization", organizationBuilder.RebuildInput(input));
-            farmerService.AddOrganization(organizationBuilder.BuilEntity(input));
+            farmerRepo.AddOrganization(organizationBuilder.BuilEntity(input), input.FarmerId);
             return RedirectToAction("open", new { id = input.FarmerId });
         }
 
         public ActionResult EditLandOwner(int farmerId)
         {
-            return View("CreateLandOwner", landOwnerBuilder.BuildInput(farmerService.GetLandOwner(farmerId)));
+            return View("CreateLandOwner", landOwnerBuilder.BuildInput(farmerRepo.GetLandOwner(farmerId)));
         }
 
         [HttpPost]
         public ActionResult EditLandOwner(LandOwnerInput input)
         {
             if (!ModelState.IsValid) return View("CreateLandOwner", landOwnerBuilder.RebuildInput(input));
-            farmerService.AddLandOwner(landOwnerBuilder.BuilEntity(input));
+            farmerRepo.AddLandOwner(landOwnerBuilder.BuilEntity(input), input.FarmerId);
             return RedirectToAction("open", new {id = input.FarmerId});
         }
 
@@ -81,7 +84,7 @@ namespace MRGSP.ASMS.WebUI.Controllers
             return !ModelState.IsValid
                        ? (ActionResult)View(landOwnerBuilder.RebuildInput(input))
                        : RedirectToAction("open",
-                                          new { id = farmerService.CreateLandOwner(landOwnerBuilder.BuilEntity(input)) });
+                                          new { id = farmerRepo.CreateLandOwner(landOwnerBuilder.BuilEntity(input)) });
         }
 
         [HttpPost]
@@ -90,7 +93,7 @@ namespace MRGSP.ASMS.WebUI.Controllers
             return !ModelState.IsValid
                        ? (ActionResult)View(organizationBuilder.RebuildInput(input))
                        : RedirectToAction("open",
-                                          new { id = farmerService.CreateOrganization(organizationBuilder.BuilEntity(input)) });
+                                          new { id = farmerRepo.CreateOrganization(organizationBuilder.BuilEntity(input)) });
         }
 
         public ActionResult Open(int id)
