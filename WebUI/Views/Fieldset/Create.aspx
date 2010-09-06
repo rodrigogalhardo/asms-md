@@ -7,8 +7,8 @@
     <h2>
         Create</h2>
     <form action="<%=Url.Action("Create") %>" method="post">
-    <%=Html.Input(o => o.Name) %>
-    <%=Html.Input(o => o.EndDate) %>
+    <%=Html.EditorFor(o => o.Name) %>
+    <%=Html.EditorFor(o => o.EndDate) %>
     <% Html.RenderPartial("save"); %>
     </form>
     <%=Html.ClientSideValidation<FieldsetInput>() %>

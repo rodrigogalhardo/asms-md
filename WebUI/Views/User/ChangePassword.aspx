@@ -11,8 +11,8 @@
     <%= Html.ValidationSummary(true) %>
     <fieldset>
         <%= Html.HiddenFor(model => model.Id) %>
-        <%=Html.Input(o => o.Password) %>
-        <%=Html.Input(o => o.ConfirmPassword) %>        
+        <%=Html.EditorFor(o => o.Password) %>
+        <%=Html.EditorFor(o => o.ConfirmPassword) %>        
         <% Html.RenderPartial("submit"); %>
     </fieldset>
     <% } %>

@@ -8,8 +8,8 @@
     <%=Html.ActionLink("Inapoi","Index", "ContactInfo", new{Model.FarmerId}, null) %>
     <% using (Html.BeginForm())
        {%>
-    <%=Html.Input(o => o.Number) %>
-    <%=Html.Input(o => o.Type) %>
+    <%=Html.EditorFor(o => o.Number) %>
+    <%=Html.EditorFor(o => o.Type) %>
     <%=Html.HiddenFor(o => o.FarmerId) %>
     <% Html.RenderPartial("save"); %>
     <%} %>

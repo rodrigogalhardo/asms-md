@@ -39,15 +39,7 @@ namespace MRGSP.ASMS.Data
                     //assign roles
                     foreach (var role in o.Roles)
                     {
-                        using (var cmd = conn.CreateCommand())
-                        {
-                            cmd.CommandType = CommandType.StoredProcedure;
-                            cmd.CommandText = "assignRole";
-                            cmd.Parameters.Add("userId", SqlDbType.NVarChar, 20).Value = userId;
-                            cmd.Parameters.Add("roleId", SqlDbType.NVarChar, 20).Value = role.Id;
-
-                            cmd.ExecuteNonQuery();
-                        }
+                        DbUtil.ExecuteNonQuerySp("assignRole", Cs, new {userId, roleId = role.Id});
                     }
                     scope.Complete();
                     return userId;
@@ -63,26 +55,12 @@ namespace MRGSP.ASMS.Data
                 {
                     conn.Open();
                     //clear roles
-                    using (var cmd = conn.CreateCommand())
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "clearRoles";
-                        cmd.Parameters.Add("id", SqlDbType.BigInt).Value = o.Id;
-                        cmd.ExecuteNonQuery();
-                    }
-
+                    DbUtil.ExecuteNonQuerySp("clearRoles", Cs, new {o.Id});
+                    
                     //assign roles
                     foreach (var role in o.Roles)
                     {
-                        using (var cmd = conn.CreateCommand())
-                        {
-                            cmd.CommandType = CommandType.StoredProcedure;
-                            cmd.CommandText = "assignRole";
-                            cmd.Parameters.Add("userId", SqlDbType.NVarChar, 20).Value = o.Id;
-                            cmd.Parameters.Add("roleId", SqlDbType.NVarChar, 20).Value = role.Id;
-
-                            cmd.ExecuteNonQuery();
-                        }
+                        DbUtil.ExecuteNonQuerySp("assignRole", Cs, new { userId = o.Id, roleId = role.Id });
                     }
                     scope.Complete();
                 }
@@ -91,53 +69,8 @@ namespace MRGSP.ASMS.Data
 
         public IEnumerable<Role> GetRoles(long id)
         {
-            using (var conn = new SqlConnection(Cs))
-            {
-                using (var cmd = conn.CreateCommand())
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getRolesByUserId";
-                    cmd.Parameters.Add("id", SqlDbType.BigInt).Value = id;
-                    conn.Open();
-
-                    using (var dr = cmd.ExecuteReader())
-                    {
-                        while (dr.Read())
-                        {
-                            var o = new Role();
-                            o.Id = dr.GetInt32(0);
-                            o.Name = dr.GetString(1);
-                            yield return o;
-                        }
-                    }
-                }
-            }
+            return DbUtil.ExecuteReaderSp<Role>("getRolesByUserId", Cs, new { id });
         }
-
-        //public User Get(long id)
-        //{
-        //    using (var conn = new SqlConnection(Cs))
-        //    {
-        //        using (var cmd = conn.CreateCommand())
-        //        {
-        //            cmd.CommandType = CommandType.StoredProcedure;
-        //            cmd.CommandText = "getUser";
-        //            cmd.Parameters.Add("id", SqlDbType.BigInt).Value = id;
-        //            conn.Open();
-
-        //            using (var dr = cmd.ExecuteReader())
-        //            {
-        //                while (dr.Read())
-        //                {
-        //                    var o = new User();
-        //                    o.InjectFrom<ReaderInjection>(dr);
-        //                    return o;
-        //                }
-        //            }
-        //        }
-        //    }
-        //    return null;
-        //}
 
         public User Get(string name, string password)
         {

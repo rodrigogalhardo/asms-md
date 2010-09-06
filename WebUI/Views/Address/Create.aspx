@@ -9,11 +9,11 @@
     <% using (Html.BeginForm())
        {%>
     <% Html.RenderPartial("dropdown", new DropDownInput { Label = "Raion", Name = "DistrictId", Value = Model.DistrictId }); %>
-    <%=Html.Input(o => o.Locality) %>
-    <%=Html.Input(o => o.Street) %>
-    <%=Html.Input(o => o.House) %>
-    <%=Html.Input(o => o.Apartment) %>
-    <%=Html.Input(o => o.Zip) %>
+    <%=Html.EditorFor(o => o.Locality) %>
+    <%=Html.EditorFor(o => o.Street) %>
+    <%=Html.EditorFor(o => o.House) %>
+    <%=Html.EditorFor(o => o.Apartment) %>
+    <%=Html.EditorFor(o => o.Zip) %>
     <%=Html.HiddenFor(o => o.FarmerId) %>
     <%
            Html.RenderPartial("save");%>

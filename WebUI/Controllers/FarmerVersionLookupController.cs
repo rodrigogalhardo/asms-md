@@ -5,11 +5,11 @@ using MRGSP.ASMS.Core.Repository;
 
 namespace MRGSP.ASMS.WebUI.Controllers
 {
-    public  class FarmerLookupController : BaseController
+    public  class FarmerVersionLookupController : BaseController
     {
         private readonly IFarmerInfoRepo r;
 
-        public FarmerLookupController(IFarmerInfoRepo r)
+        public FarmerVersionLookupController(IFarmerInfoRepo r)
         {
             this.r = r;
         }

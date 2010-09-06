@@ -11,9 +11,9 @@
     <%= Html.ValidationSummary(true) %>
     <%=Html.ValidationMessage("roles") %>
     <fieldset>
-        <%=Html.Input(o => o.Name) %>
-        <%=Html.Input(o => o.Password) %>
-        <%=Html.Input(o => o.ConfirmPassword) %>
+        <%=Html.EditorFor(o => o.Name) %>
+        <%=Html.EditorFor(o => o.Password) %>
+        <%=Html.EditorFor(o => o.ConfirmPassword) %>
         <div class="efield">
             <div class="elabel">
                 <label>

@@ -1,5 +1,6 @@
 ﻿using System;
-using MvcContrib.UI.InputBuilder.Attributes;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace MRGSP.ASMS.Infra.Dto
 {
@@ -11,53 +12,52 @@ namespace MRGSP.ASMS.Infra.Dto
         public string DisplayFarmerVersion { get; set; }
         
         [Req]
-        [Label("Prenume Administrator")]
-        [Example("ex: Vasile")]
+        [DisplayName("Prenume Administrator")]
         public string AdminFirstName { get; set; }
 
         [Req]
-        [Label("Nume Administrator")]
-        [Example("ex: Popescu")]
+        [DisplayName("Nume Administrator")]
         public string AdminLastName { get; set; }
 
-        [Label("Prenumele reprezentantului legal")]
+        [DisplayName("Prenumele reprezentantului legal")]
         public string RepresentativeFirstName { get; set; }
 
-        [Label("Numele reprezentantului legal")]
+        [DisplayName("Numele reprezentantului legal")]
         public string RepresentativeLastName { get; set; }
 
-        [Label("Telefonul unei persoane apropiate")]
+        [DisplayName("Telefonul unei persoane apropiate")]
         public string FriendPhone { get; set; }
 
-        [Label("Pregatire profesionala")]
+        [DisplayName("Pregatire profesionala")]
         public bool ProTraining { get; set; }
 
-        [Label("Denumirea specialitatii")]
-        [Example("Conform dimplomei")]
+        [DisplayName("Denumirea specialitatii")]
         public string Speciality { get; set; }
 
-        [Label("Institutia care a eliberat diploma")]
+        [DisplayName("Institutia care a eliberat diploma")]
         public string DiplomaIssuer { get; set; }
 
-        [Label("Contract de consultanta")]
+        [DisplayName("Contract de consultanta")]
         public bool HasContract { get; set; }
 
-        [Label("Numarul contractului de consultanta")]
+        [DisplayName("Numarul contractului de consultanta")]
         public string ContractNumber { get; set; }
 
-        [PartialView("DateTimen")]
-        [Label("Data inregistrarii contractului")]
+        [DisplayName("Data inregistrarii contractului")]
         public DateTime? ContractDate { get; set; }
 
-        [Label("Prestatorul de servicii de consultanta")]
+        [DisplayName("Prestatorul de servicii de consultanta")]
         public string ServiceProvider { get; set; }
 
-        [Label("Cine a perfectat business planul")]
+        [DisplayName("Cine a perfectat business planul")]
+        [UIHint("Lookup")]
         public object PerfecterId { get; set; }
 
+        [DisplayName("Masura")]
+        [UIHint("Lookup")]
         public object MeasureId { get; set; }
 
-        [Label("Suma solicitata")]
+        [DisplayName("Suma solicitata")]
         public decimal AmountRequested { get; set; }
     }
 }

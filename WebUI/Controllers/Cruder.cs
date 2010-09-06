@@ -20,7 +20,7 @@ namespace MRGSP.ASMS.WebUI.Controllers
 
         public virtual ActionResult Index(int? page)
         {
-            return View(repo.GetPageable(page ?? 1, 5));
+            return View(repo.GetPageable(page ?? 1, 1));
         }
 
         public ActionResult Create()

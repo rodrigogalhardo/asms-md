@@ -3,6 +3,6 @@
 <%@ Import Namespace="System.Web.Mvc.Html"%>
 <%=Html.ValidationSummary() %>
 <% using(Html.BeginForm()) { %>
-		<% Html.InputFields( Model );%>
-		<%=Html.InputButtons( ) %>
+		<% Html.EditorForFields( Model );%>
+		<%=Html.EditorForButtons( ) %>
 <%	}%>

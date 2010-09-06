@@ -4,31 +4,19 @@
     SignIn
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <div id="loginbox" class="ui-state-default">
+    <div id="loginbox">
         <% using (Html.BeginForm())
            {%>
         <%= Html.ValidationSummary(true) %>
+        <%=Html.EditorFor(o => o.Name) %>
+        <%=Html.EditorFor(o => o.Password) %>
         <div class="efield">
-            <div class="elabel">
-                <%= Html.LabelFor(model => model.Name) %>
+            <div class="elabel">&nbsp;
             </div>
             <div class="einput">
-                <%= Html.TextBoxFor(model => model.Name) %>
-                <%= Html.ValidationMessageFor(model => model.Name) %>
-            </div>
-        </div>
-        <div class="efield">
-            <div class="elabel">
-                <%= Html.LabelFor(model => model.Password) %>
-            </div>
-            <div class="einput">
-                <%= Html.PasswordFor(model => model.Password) %>
-                <%= Html.ValidationMessageFor(model => model.Password) %>
-            </div>
-        </div>
-        <div class="esubmit">
-            <input type="submit" value="Sign In" />
+                <input type="submit" value="Autentificare" /></div>
         </div>
         <% } %>
     </div>
+    <%=Html.ClientSideValidation<SignInInput>() %>
 </asp:Content>

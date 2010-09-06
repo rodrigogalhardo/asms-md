@@ -55,10 +55,6 @@
       <HintPath>..\libs\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="MvcContrib, Version=2.0.36.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\libs\MvcContrib.dll</HintPath>
-    </Reference>
     <Reference Include="MvcContrib.Castle, Version=2.0.36.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\libs\MvcContrib.Castle.dll</HintPath>
@@ -221,30 +217,25 @@
     <Content Include="Views\InputBuilders\Array.aspx" />
     <Content Include="Views\InputBuilders\ArrayAddButton.aspx" />
     <Content Include="Views\InputBuilders\ArrayRemoveButton.aspx" />
-    <Content Include="Views\Shared\Boolean.aspx" />
     <Content Include="Views\Shared\bcreate.ascx" />
     <Content Include="Views\Shared\Confirm.ascx" />
-    <Content Include="Views\Shared\Decimal.aspx" />
-    <Content Include="Views\Shared\DropDown.ascx" />
-    <Content Include="Views\Shared\fhr.ascx" />
-    <Content Include="Views\Shared\Password.aspx" />
-    <Content Include="Views\Shared\DateTimen.aspx" />
-    <Content Include="Views\Shared\Guid.aspx" />
-    <Content Include="Views\Shared\DateTime.aspx" />
+    <Content Include="Views\Shared\EditorTemplates\Boolean.aspx" />
+    <Content Include="Views\Shared\EditorTemplates\DateTime.aspx" />
+    <Content Include="Views\Shared\EditorTemplates\Password.aspx" />
+    <Content Include="Views\Shared\EditorTemplates\Decimal.aspx" />
+    <Content Include="Views\Shared\EditorTemplates\Lookup.aspx" />
+    <Content Include="Views\Shared\EditorTemplates\String.aspx" />
     <Content Include="Views\InputBuilders\DisplayInline.aspx" />
     <Content Include="Views\InputBuilders\DisplayLabel.aspx" />
     <Content Include="Views\InputBuilders\DisplayParagraph.aspx" />
-    <Content Include="Views\Shared\Enum.aspx" />
     <Content Include="Views\InputBuilders\Form.aspx" />
-    <Content Include="Views\Shared\1Guid.aspx" />
-    <Content Include="Views\Shared\Int32.aspx" />
     <Content Include="Views\InputBuilders\MultilineText.aspx" />
     <Content Include="Views\InputBuilders\RadioButtons.aspx" />
     <Content Include="Views\InputBuilders\ReadOnly.aspx" />
-    <Content Include="Views\Shared\save.ascx" />
-    <Content Include="Views\Shared\String.aspx" />
-    <Content Include="Views\InputBuilders\Submit.aspx" />
     <Content Include="Views\Shared\lookup.ascx" />
+    <Content Include="Views\Shared\save.ascx" />
+    <Content Include="Views\Shared\start.ascx" />
+    <Content Include="Views\InputBuilders\Submit.aspx" />
     <Content Include="Views\User\ChangePassword.aspx" />
     <Content Include="Views\User\Create.aspx" />
     <Content Include="Views\User\Edit.aspx" />
@@ -340,9 +331,10 @@
   <ItemGroup>
     <Content Include="Views\InputBuilders\Array.Master" />
     <Content Include="Views\InputBuilders\Display.Master" />
-    <Content Include="Views\Shared\Field.Master" />
-    <Content Include="Views\Shared\HiddenField.Master" />
     <Content Include="Views\InputBuilders\Row.Master" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\EditorTemplates\Template.Master" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

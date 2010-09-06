@@ -86,7 +86,7 @@ div#title
     clear: both;
     width: 95%;
     float: left;
-    padding: 0.7em;
+    padding: 1.4em 0 0 0;
 }
 
 .elabel
@@ -252,7 +252,7 @@ div#title
     padding: 5px 10px 3px 10px;
 }
 
-.nos
+#nos
 {
     background: #ff5544;
     text-align: center;
@@ -269,21 +269,26 @@ div#title
     width: 77%;
 }
 
+html, body, .loginpage
+{
+    height: 100%;
+}
+
 .loginpage
 {
-    background: #fff;
-    padding: 200px;
+    background: green;
+    padding: 1px;
 }
 
 #loginbox
 {
-    width: 450px;
-    height: 170px;
-    margin: auto;
+    width: 800px;    
+    margin: 200px auto;
     -moz-border-radius: 7px;
     -webkit-border-radius: 7px;
-    padding: 5px;
-    background-image: none;
+    padding: 20px 0;
+    background: #fff;
+    overflow: hidden;
 }
 
 input, select
@@ -303,16 +308,6 @@ select
 {
     width: 212px;
     border: 1px solid #aaa;
-}
-
-input[type="checkbox"], input[type="radio"]
-{
-}
-
-input[type="submit"]
-{
-    margin-left: 10px;
-    margin-top: 10px;
 }
 
 .esubmit

@@ -2,11 +2,11 @@
 <asp:Content runat="server" ID="Title" ContentPlaceHolderID="TitleContent"></asp:Content>
 <asp:Content runat="server" ID="Main" ContentPlaceHolderID="MainContent">
 <% using(Html.BeginForm()) {%>
-<%=Html.Input(o => o.FirstName) %>
-<%=Html.Input(o => o.LastName) %>
-<%=Html.Input(o => o.FathersName) %>
-<%=Html.Input(o => o.DateOfBirth) %>
-<%=Html.Input(o => o.FiscalCode) %>
+<%=Html.EditorFor(o => o.FirstName) %>
+<%=Html.EditorFor(o => o.LastName) %>
+<%=Html.EditorFor(o => o.FathersName) %>
+<%=Html.EditorFor(o => o.DateOfBirth) %>
+<%=Html.EditorFor(o => o.FiscalCode) %>
 <% Html.RenderPartial("save"); %>
 <%}%>
 </asp:Content>
