@@ -6,13 +6,13 @@
 <asp:Content runat="server" ID="Main" ContentPlaceHolderID="MainContent">
     <% using (Html.BeginForm())
        {%>
-       <%=Html.Input(o => o.Name) %>
-       <%=Html.Input(o => o.FiscalCode) %>
+       <%=Html.EditorFor(o => o.Name) %>
+       <%=Html.EditorFor(o => o.FiscalCode) %>
        <% Html.RenderPartial("dropdown", 
               new DropDownInput {Name = "OrganizationFormId", Value = Model.OrganizationFormId, Label = "Forma organizatorica"}); %>
-       <%=Html.Input(o => o.RegDate) %>
-       <%=Html.Input(o => o.RegNr) %>
-       <%=Html.Input(o => o.ActivityType) %>
+       <%=Html.EditorFor(o => o.RegDate) %>
+       <%=Html.EditorFor(o => o.RegNr) %>
+       <%=Html.EditorFor(o => o.ActivityType) %>
        <% Html.RenderPartial("save"); %>
     <%} %>
 </asp:Content>

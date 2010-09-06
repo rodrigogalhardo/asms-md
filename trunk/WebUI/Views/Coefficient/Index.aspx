@@ -12,8 +12,8 @@
     <form action="<%:Url.Action("Index") %>" method="post">
     <%=Html.ValidationSummary(true) %>
     <%=Html.HiddenFor(o => o.FieldsetId) %>
-    <%=Html.Input(o => o.Name) %>
-    <%=Html.Input(o => o.Formula) %>
+    <%=Html.EditorFor(o => o.Name) %>
+    <%=Html.EditorFor(o => o.Formula) %>
     <% Html.RenderPartial("save"); %>
     </form>
     <% Html.RenderAction("ListLite","Indicator", new{Model.FieldsetId}); %>

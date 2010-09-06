@@ -1,12 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Runtime.Serialization;
 
 namespace MRGSP.ASMS.Core
 {
-    public class Class1
-    {
-    }
-
     public interface IPageableInfo
     {
         int PageCount { get; set; }

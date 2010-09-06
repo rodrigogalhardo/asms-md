@@ -1,11 +1,12 @@
 ﻿using System.Web.Mvc;
 using MRGSP.ASMS.Core.Security;
 using MRGSP.ASMS.Core.Service;
+using MRGSP.ASMS.Infra.Dto;
 
 namespace MRGSP.ASMS.WebUI.Controllers
 {
     [HandleError]
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         private readonly IFormsAuthentication formsAuth;
         private readonly IUserService userService;
@@ -22,18 +23,25 @@ namespace MRGSP.ASMS.WebUI.Controllers
         }
 
         [HttpPost]
-        public ActionResult SignIn(string name, string password)
+        public ActionResult SignIn(SignInInput input)
         {
-            var user = userService.Get(name, password);
+            if(!ModelState.IsValid)
+            {
+                input.Password = null;
+                input.Name = null;
+                return View(input);
+            }
+            var user = userService.Get(input.Name, input.Password);
             if (user == null)
             {
-                ModelState.AddModelError("_FORM", "Login or Password not correct, please try againg");
+                SetError("Numele sau parola nu sunt introduse corect, va rugam sa mai incercati o data");
+                //ModelState.AddModelError("", );
                 return View();
             }
 
             var roles = userService.GetRoles(user.Id);
 
-            formsAuth.SignIn(name, false, roles);
+            formsAuth.SignIn(input.Name, false, roles);
 
             return RedirectToAction("Index", "Home");
 

@@ -26,8 +26,4 @@
             <%=Html.ActionLink("Cine perfecteaza planul de afaceri", "Index", "Perfecter") %>
         </p>
     </fieldset>
-    <fieldset>
-        <legend>Securitate</legend>
-        <%=Html.ActionLink("Utilizatori", "Index", "User") %>
-    </fieldset>
 </asp:Content>

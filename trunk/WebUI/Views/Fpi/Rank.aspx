@@ -14,9 +14,7 @@
     <table>
         <thead>
             <tr>
-                <td>
-                    Nume
-                </td>
+              
                 <td>
                     Suma solicitata
                 </td>
@@ -28,10 +26,7 @@
         <tbody>
             <%foreach (var dossier in Model)
               {
-            %><tr class="<%= dossier.StateId == 3 ? "loser" : "winner" %>">
-                <td>
-                    <%:dossier.FarmerName %>
-                </td>
+            %><tr class="<%= dossier.StateId == 3 ? "loser" : "winner" %>">                
                 <td>
                     <%:dossier.AmountRequested %>
                 </td>

@@ -114,7 +114,7 @@ namespace MRGSP.ASMS.Infra.Dto
     {
         public ReqAttribute()
         {
-            ErrorMessage = "acest camp este obligatoriu";
+            ErrorMessage = "camp obligatoriu";
         }
     }
 

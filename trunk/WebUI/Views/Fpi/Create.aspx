@@ -9,7 +9,7 @@
     <%=Html.HiddenFor(o => o.MeasureId) %>
     <%=Html.HiddenFor(o => o.MeasuresetId) %>
     <%=Html.HiddenFor(o => o.Month) %>
-    <%=Html.Input(o => o.Amount) %>
+    <%=Html.EditorFor(o => o.Amount) %>
     <% Html.RenderPartial("save"); %>
     <%} %>
 </asp:Content>

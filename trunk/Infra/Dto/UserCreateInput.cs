@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using MRGSP.ASMS.Core.Model;
-using MvcContrib.UI.InputBuilder.Attributes;
 
 namespace MRGSP.ASMS.Infra.Dto
 {
@@ -12,20 +11,20 @@ namespace MRGSP.ASMS.Infra.Dto
     {
         [LoginUnique]
         [Req]
-        [Label("Nume")]
+        [DisplayName("Nume")]
         public string Name { get; set; }
 
         [Req]
-        [Label("Parola dorita")]
-        [PartialView("Password")]
+        [DisplayName("Parola dorita")]
+        [UIHint("Password")]
         public string Password { get; set; }
 
         [Req]
-        [Label("Confirmati Parola")]
-        [PartialView("Password")]
+        [DisplayName("Confirmati Parola")]
+        [UIHint("Password")]
         public string ConfirmPassword { get; set; }
 
-        [Label("Roluri")]
+        [DisplayName("Roluri")]
         public object Roles { get; set; }
     }
 
@@ -94,12 +93,12 @@ namespace MRGSP.ASMS.Infra.Dto
     public class BankCreateInput
     {
         [Req]
-        [Label("Denumirea bancii")]
+        [DisplayName("Denumirea bancii")]
         public string Name { get; set; }
 
         [Req]
         [BankCodeUnique]
-        [Label("Cod bancar")]
+        [DisplayName("Cod bancar")]
         public string Code { get; set; }
     }
 
@@ -109,7 +108,7 @@ namespace MRGSP.ASMS.Infra.Dto
         public int FieldsetId { get; set; }
 
         [Req]
-        [Label("Nume")]
+        [DisplayName("Nume")]
         public string Name { get; set; }
 
         [Req]
@@ -122,7 +121,7 @@ namespace MRGSP.ASMS.Infra.Dto
         public int FieldsetId { get; set; }
 
         [Req]
-        [Label("Nume")]
+        [DisplayName("Nume")]
         public string Name { get; set; }
 
         [Req]
@@ -132,11 +131,11 @@ namespace MRGSP.ASMS.Infra.Dto
     public class MeasuresetInput
     {
         [Req]
-        [Label("Nume")]
+        [DisplayName("Nume")]
         public string Name { get; set; }
 
         [Req]
-        [Label("Anul")]
+        [DisplayName("Anul")]
         [Range(2009, 2100)]
         public int Year { get; set; }
     }
@@ -144,11 +143,11 @@ namespace MRGSP.ASMS.Infra.Dto
     public class FieldsetInput
     {
         [Req]
-        [Label("Nume")]
+        [DisplayName("Nume")]
         public string Name { get; set; }
 
         [Req]
-        [Label("Data de sfarsit")]
+        [DisplayName("Data de sfarsit")]
         public DateTime EndDate { get; set; }
 
     }
@@ -162,18 +161,18 @@ namespace MRGSP.ASMS.Infra.Dto
     public class PerfecterInput
     {
         [Req]
-        [Label("Nume")]
+        [DisplayName("Nume")]
         public string Name { get; set; }
     }
 
     public class DistrictInput
     {
         [Req]
-        [Label("Nume")]
+        [DisplayName("Nume")]
         public string Name { get; set; }
 
         [Req]
-        [Label("Abrevierea")]
+        [DisplayName("Abrevierea")]
         public string Code { get; set; }
 
     }
@@ -181,11 +180,11 @@ namespace MRGSP.ASMS.Infra.Dto
     public class FieldInput
     {
         [Req]
-        [Label("Nume")]
+        [DisplayName("Nume")]
         public string Name { get; set; }
 
         [Req]
-        [Label("Descrierea")]
+        [DisplayName("Descrierea")]
         public string Description { get; set; }
     }
 
@@ -202,14 +201,14 @@ namespace MRGSP.ASMS.Infra.Dto
     public class MeasureInput
     {
         [Req]
-        [Label("Nume")]
+        [DisplayName("Nume")]
         public string Name { get; set; }
 
         [Req]
-        [Label("Descrierea")]
+        [DisplayName("Descrierea")]
         public string Description { get; set; }
 
-        [Label("Fara concurs")]
+        [DisplayName("Fara concurs")]
         public bool NoContest { get; set; }
     }
 
@@ -251,7 +250,7 @@ namespace MRGSP.ASMS.Infra.Dto
 
     public class UserEditInput
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
         public object Roles { get; set; }
     }
 
@@ -261,11 +260,11 @@ namespace MRGSP.ASMS.Infra.Dto
         public long Id { get; set; }
 
         [Req]
-        [Label("Parola dorita")]
+        [DisplayName("Parola dorita")]
         public string Password { get; set; }
 
         [Req]
-        [Label("Confirmati parola")]
+        [DisplayName("Confirmati parola")]
         public string ConfirmPassword { get; set; }
 
     }
@@ -273,11 +272,12 @@ namespace MRGSP.ASMS.Infra.Dto
     public class SignInInput
     {
         [Req]
-        [Label("Nume utilizator")]
+        [DisplayName("Nume utilizator")]
         public string Name { get; set; }
 
         [Req]
-        [Label("Parola")]
+        [DisplayName("Parola")]
+        [UIHint("Password")]
         public string Password { get; set; }
     }
 

@@ -248,7 +248,7 @@ select d.* from dossiers d
 where 
 d.measureId = @measureId
 and d.measuresetId = @measuresetId
-and MONTH(d.createdDate) >= @month
+and MONTH(d.createdDate) <= @month
 and (d.stateId = @stateId or @stateId = null)
 and d.disqualified = 0
 
@@ -278,7 +278,6 @@ and year(d.createdDate) = year(@month)
 and MONTH(d.createdDate) = MONTH(@month)
 and d.stateId = 2
 go
-
 
 
 
