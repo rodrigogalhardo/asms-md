@@ -10,8 +10,8 @@
        {%>
     <%: Html.ValidationSummary(true) %>
 
-        <%=Html.Input(o => o.Name) %>
-        <%=Html.Input(o => o.Description) %>        
+        <%=Html.EditorFor(o => o.Name) %>
+        <%=Html.EditorFor(o => o.Description) %>        
         <% Html.RenderPartial("save"); %>
 
     <% } %>
