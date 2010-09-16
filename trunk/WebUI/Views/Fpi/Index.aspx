@@ -39,7 +39,7 @@
                         {
                 %>
                 <%=x.Amount %>
-                <%=Html.ActionLink("Clasament","Rank",new{fpiId = x.Id}) %>
+                <%=Html.ActionLink("c","Index","Rank",new{fpiId = x.Id}, null) %>
                 <%
 }
                         else

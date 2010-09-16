@@ -61,8 +61,8 @@ namespace MRGSP.ASMS.WebUI.Controllers
 
             var fieldValues = list.AsParallel().Select(
                 fieldInputz => new FieldValue { FieldId = fieldInputz.Id, Value = fieldInputz.Value, DossierId = dossierId }).ToList();
-
-            dService.GoIndicators(fieldValues);
+            
+            dService.Init(fieldValues, dossierId);
             return View("success");
         }
     }

@@ -31,15 +31,14 @@ namespace MRGSP.ASMS.WebUI.Controllers
                 input.Name = null;
                 return View(input);
             }
-            var user = userService.Get(input.Name, input.Password);
-            if (user == null)
+
+            if (!userService.Validate(input.Name, input.Password))
             {
                 SetError("Numele sau parola nu sunt introduse corect, va rugam sa mai incercati o data");
-                //ModelState.AddModelError("", );
                 return View();
             }
 
-            var roles = userService.GetRoles(user.Id);
+            var roles = userService.GetRoles(userService.Get(input.Name).Id);
 
             formsAuth.SignIn(input.Name, false, roles);
 

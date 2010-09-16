@@ -13,7 +13,7 @@
         <%= Html.HiddenFor(model => model.Id) %>
         <%=Html.EditorFor(o => o.Password) %>
         <%=Html.EditorFor(o => o.ConfirmPassword) %>        
-        <% Html.RenderPartial("submit"); %>
+        <% Html.RenderPartial("save"); %>
     </fieldset>
     <% } %>
     <% Html.RenderPartial("back"); %>
