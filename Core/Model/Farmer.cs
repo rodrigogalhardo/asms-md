@@ -7,10 +7,20 @@ namespace MRGSP.ASMS.Core.Model
         public FarmerType FType { get; set; }
     }
 
+    public class Competitor : EntityWithName
+    {
+        public decimal AmountPayed { get; set; }
+        public decimal Value { get; set; }
+        public int FpiId { get; set; }
+        public DossierStates StateId { get; set; }
+        public bool Disqualified { get; set; }
+    }
+
     public class FarmerInfo : EntityWithName
     {
         public string FiscalCode { get; set; }
         public FarmerType FType { get; set; }
+        public int FarmerVersionId { get; set; }
     }
 
     public class FarmerVersionInfo : EntityWithName

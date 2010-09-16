@@ -4,71 +4,58 @@ using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using ILCalc;
+using MRGSP.ASMS.Core;
 using MRGSP.ASMS.Core.Model;
-using MRGSP.ASMS.Core.Repository;
 using MRGSP.ASMS.Core.Service;
 
 namespace MRGSP.ASMS.Service
 {
     public class EcoCalc : IEcoCalc
     {
-        private readonly IRepo<Indicator> iRepo;
-        private readonly IIndicatorValueRepo ivRepo;
-        private readonly IRepo<Coefficient> cRepo;
-
-        public EcoCalc(IRepo<Indicator> iRepo, IIndicatorValueRepo ivRepo, IRepo<Coefficient> cRepo)
+        public IEnumerable<CoefficientValue> CalculateCoefficientValues(IEnumerable<IndicatorValue> indicatorValues, IEnumerable<Dossier> dossiers, IEnumerable<Coefficient> coefficients)
         {
-            this.iRepo = iRepo;
-            this.ivRepo = ivRepo;
-            this.cRepo = cRepo;
-        }
+            var coefficientValues = new List<CoefficientValue>();
 
-        public IEnumerable<CoefficientValue> CalculateCoefficientValues(int measureId, DateTime month, IEnumerable<Dossier> dossiers)
-        {
-            var ivs = ivRepo.GetBy(measureId, month).ToArray();
-            var cvs = new List<CoefficientValue>();
+            if (dossiers.Select(o => o.FieldsetId).Distinct().Count() > 1)
+                throw new AsmsEx("in luna respectiva sunt dosare inregistrate la diferite seturi de campuri");
 
-            foreach (var fsid in dossiers.Select(o => o.FieldsetId).Distinct())
+            if (dossiers.Select(o => o.MeasuresetId).Distinct().Count() > 1)
+                throw new AsmsEx("in luna respectiva sunt dosare inregistrate la diferite seturi de masuri");
+
+            //calculate each coefficient for all dossiers
+            foreach (var coefficient in coefficients)
             {
-                var cc = cRepo.GetWhere(new { FieldsetId = fsid }).ToArray();
+                EvalSums(coefficient, indicatorValues);
 
-                //calculate each coefficient for all dossiers
-                foreach (var c in cc)
+                var calc = new CalcContext<decimal>();
+                foreach (var dossier in dossiers)
                 {
-                    EvalSums(c, ivs);
-
-                    var calc = new CalcContext<decimal>();
-                    foreach (var d in dossiers.Where(o => o.FieldsetId == fsid))
+                    calc.Constants.Clear();
+                    foreach (var indicatorValue in indicatorValues.Where(o => o.DossierId == dossier.Id))
                     {
-                        calc.Constants.Clear();
-                        foreach (var iv in ivs.Where(o => o.DossierId == d.Id))
-                        {
-                            calc.Constants.Add("i" + iv.IndicatorId, iv.Value);
-                        }
-
-                        cvs.Add(new CoefficientValue
-                                    {
-                                        CoefficientId = c.Id,
-                                        DossierId = d.Id,
-                                        Value = Zero(() => calc.Evaluate(c.Formula)),
-                                    });
+                        calc.Constants.Add("i" + indicatorValue.IndicatorId, indicatorValue.Value);
                     }
+
+                    coefficientValues.Add(new CoefficientValue
+                                {
+                                    CoefficientId = coefficient.Id,
+                                    DossierId = dossier.Id,
+                                    Value = Zero(() => calc.Evaluate(coefficient.Formula)),
+                                });
                 }
             }
 
-            return cvs;
+            return coefficientValues;
         }
 
-        public IEnumerable<IndicatorValue> CalculateIndicatorValues(IEnumerable<FieldValue> fieldValues, Dossier dossier)
+        public IEnumerable<IndicatorValue> CalculateIndicatorValues(Dossier dossier, IEnumerable<FieldValue> fieldValues, IEnumerable<Indicator> indicators)
         {
             var calc = new CalcContext<decimal>();
 
             foreach (var o in fieldValues)
             {
-               calc.Constants.Add("c" + o.FieldId, o.Value); 
-            } 
-
-            var indicators = iRepo.GetWhere(new { dossier.FieldsetId }).ToList();
+                calc.Constants.Add("c" + o.FieldId, o.Value);
+            }
 
             var indicatorValues = indicators
                 .Select(
@@ -89,7 +76,9 @@ namespace MRGSP.ASMS.Service
         {
             try
             {
-                return f();
+                var x = f();
+                if (x < 0) x = 0;
+                return x;
             }
             catch (DivideByZeroException)
             {

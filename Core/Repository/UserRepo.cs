@@ -28,6 +28,7 @@ namespace MRGSP.ASMS.Core.Repository
         int InsertNoIdentity(T o);
         int Update(T o);
         int UpdateWhatWhere(object what, object where);
+        int DeleteWhere(object where);
     }
 
     public interface IMeasureRepo : IRepo<Measure>
@@ -51,12 +52,10 @@ namespace MRGSP.ASMS.Core.Repository
     public interface IUserRepo : IRepo<User>
     {
         IEnumerable<Role> GetRoles(long id);
-        int Count(string name, string password);
         int Count(string name);
         IEnumerable<Role> GetRoles();
-        int UpdatePassword(long id, string password);
+        int UpdatePassword(int id, string password);
         void ChangeRoles(User o);
-        User Get(string name, string password);
     }
 
     public interface IPagedRepo<T>
@@ -90,14 +89,28 @@ namespace MRGSP.ASMS.Core.Repository
         int CreateLandOwner(LandOwner o);
     }
 
+    public interface ICompetitorRepo : IRepo<Competitor>
+    {
+        IEnumerable<Competitor> Losers(int fpiId);
+    }
+
+    public interface IFpiRepo: IRepo<Fpi>
+    {
+        decimal GetAmountPayed(int fpiId);
+    }
+
     public interface IDossierRepo : IRepo<Dossier>
     {
-        int ChangeState(int id, int stateId);
+        int ChangeState(int id, DossierStates stateId);
         IEnumerable<Dossier> GetBy(int measuresetId, int measureId, int month, int? stateId);
-        IEnumerable<RankedDossier> GetRankedDossiers(int measuresetId, int measureId, int month);
+        IEnumerable<RankedDossier> GetForRanking(int measuresetId, int measureId, int month);
+        int RollbackWinners(int fpiId);
+        void RollbackToIndicators(int fpiId);
+        void UpdateToFpi(int fpiId);
+        void CloseFpis(int fpiId);
     }
     public interface IIndicatorValueRepo : IRepo<IndicatorValue>
     {
-        IEnumerable<IndicatorValue> GetBy(int measureId, DateTime month);
+        IEnumerable<IndicatorValue> GetBy(int fpiId);
     }
 }

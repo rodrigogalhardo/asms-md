@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
+﻿using System.Collections.Generic;
 using System.Transactions;
 using MRGSP.ASMS.Core.Model;
 using MRGSP.ASMS.Core.Repository;
-using Omu.ValueInjecter;
 
 namespace MRGSP.ASMS.Data
 {
@@ -16,34 +12,18 @@ namespace MRGSP.ASMS.Data
         {
 
         }
-            
+
         public override int Insert(User o)
         {
             using (var scope = new TransactionScope())
             {
-                using (var conn = new SqlConnection(Cs))
-                {
-                    int userId;
-                    conn.Open();
-                    //insert user
-                    using (var cmd = conn.CreateCommand())
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "insertUser";
-                        cmd.Parameters.Add("name", SqlDbType.NVarChar, 20).Value = o.Name;
-                        cmd.Parameters.Add("password", SqlDbType.NVarChar, 20).Value = o.Password;
+                var userId = DbUtil.Insert(o, Cs, new[] { "Id", "Roles" });
 
-                        userId = Convert.ToInt32(cmd.ExecuteScalar());
-                    }
+                foreach (var role in o.Roles)
+                    DbUtil.ExecuteNonQuerySp("assignRole", new { userId, roleId = role.Id }, Cs);
 
-                    //assign roles
-                    foreach (var role in o.Roles)
-                    {
-                        DbUtil.ExecuteNonQuerySp("assignRole", Cs, new {userId, roleId = role.Id});
-                    }
-                    scope.Complete();
-                    return userId;
-                }
+                scope.Complete();
+                return userId;
             }
         }
 
@@ -51,126 +31,32 @@ namespace MRGSP.ASMS.Data
         {
             using (var scope = new TransactionScope())
             {
-                using (var conn = new SqlConnection(Cs))
-                {
-                    conn.Open();
-                    //clear roles
-                    DbUtil.ExecuteNonQuerySp("clearRoles", Cs, new {o.Id});
-                    
-                    //assign roles
-                    foreach (var role in o.Roles)
-                    {
-                        DbUtil.ExecuteNonQuerySp("assignRole", Cs, new { userId = o.Id, roleId = role.Id });
-                    }
-                    scope.Complete();
-                }
+                DbUtil.ExecuteNonQuerySp("clearRoles", new { o.Id }, Cs);
+
+                foreach (var role in o.Roles)
+                    DbUtil.ExecuteNonQuerySp("assignRole", new { userId = o.Id, roleId = role.Id }, Cs);
+                scope.Complete();
             }
         }
 
         public IEnumerable<Role> GetRoles(long id)
         {
-            return DbUtil.ExecuteReaderSp<Role>("getRolesByUserId", Cs, new { id });
-        }
-
-        public User Get(string name, string password)
-        {
-            using (var conn = new SqlConnection(Cs))
-            {
-                using (var cmd = conn.CreateCommand())
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getUserByNamePass";
-                    cmd.Parameters.Add("name", SqlDbType.NVarChar).Value = name;
-                    cmd.Parameters.Add("password", SqlDbType.NVarChar).Value = password;
-                    conn.Open();
-
-                    using (var dr = cmd.ExecuteReader())
-                    {
-                        while (dr.Read())
-                        {
-                            var o = new User();
-                            o.InjectFrom<ReaderInjection>(dr);
-                            return o;
-                        }
-                    }
-                }
-            }
-            return null;
-        }
-
-        public int Count(string name, string password)
-        {
-            using (var conn = new SqlConnection(Cs))
-            {
-                using (var cmd = conn.CreateCommand())
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getUsersCountByNamePassword";
-                    cmd.Parameters.Add("name", SqlDbType.NVarChar, 20).Value = name;
-                    cmd.Parameters.Add("password", SqlDbType.NVarChar, 20).Value = password;
-                    conn.Open();
-
-                    return (int)cmd.ExecuteScalar();
-                }
-            }
+            return DbUtil.ExecuteReaderSp<Role>("getRolesByUserId", new { id }, Cs);
         }
 
         public int Count(string name)
         {
-            using (var conn = new SqlConnection(Cs))
-            {
-                using (var cmd = conn.CreateCommand())
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getUsersCountByName";
-                    cmd.Parameters.Add("name", SqlDbType.NVarChar, 20).Value = name;
-                    conn.Open();
-
-                    return (int)cmd.ExecuteScalar();
-                }
-            }
+            return DbUtil.CountWhere<User>(new { name }, Cs);
         }
 
         public IEnumerable<Role> GetRoles()
         {
-            using (var conn = new SqlConnection(Cs))
-            {
-                using (var cmd = conn.CreateCommand())
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getRoles";
-                    conn.Open();
-
-                    using (var dr = cmd.ExecuteReader())
-                    {
-                        while (dr.Read())
-                        {
-                            var o = new Role();
-                            o.Id = dr.GetInt32(0);
-                            o.Name = dr.GetString(1);
-                            yield return o;
-                        }
-                    }
-                }
-            }
+            return DbUtil.GetAll<Role>(Cs);
         }
 
-        public int UpdatePassword(long id, string password)
+        public int UpdatePassword(int id, string password)
         {
-            using (var conn = new SqlConnection(Cs))
-            {
-                using (var cmd = conn.CreateCommand())
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "updatePassword";
-                    cmd.Parameters.Add("id", SqlDbType.BigInt).Value = id;
-                    cmd.Parameters.Add("password", SqlDbType.NVarChar, 20).Value = password;
-                    conn.Open();
-
-                    return cmd.ExecuteNonQuery();
-                }
-            }
+            return DbUtil.UpdateWhatWhere<User>(new { password }, new { id }, Cs);
         }
-
     }
 }

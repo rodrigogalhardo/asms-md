@@ -1,41 +1,12 @@
 use asms
 
 go
-drop proc insertUser
-go
-create proc insertUser
-@name nvarchar(20),
-@password nvarchar(20)
-as
-insert users(name, password) values(@name, @password)
-select @@identity
-
-
-go
 drop proc getRolesByUserId
 go
 create proc getRolesByUserId
 @id bigint
 as
 select r.id, r.name from roles r inner join usersroles ur on r.id = ur.roleId inner join users u on u.id = ur.userId where u.id = @id
-
-
-go
-drop proc getUsersCountByNamePassword
-go
-create proc getUsersCountByNamePassword
-@name nvarchar(20),
-@password nvarchar(20)
-as
-select count(*) from users where name = @name and password = @password
-
-go
-drop proc getUsersCountByName
-go
-create proc getUsersCountByName
-@name nvarchar(20)
-as
-select count(*) from users where name = @name
 
 go
 drop proc assignRole
@@ -47,38 +18,12 @@ as
 insert usersroles values(@userId, @roleId)
 
 go
-drop proc getRoles
-go
-create proc getRoles
-as
-select id, name from roles
-
-go
-drop proc updatePassword
-go
-create proc updatePassword
-@id bigint,
-@password nvarchar(20)
-as
-update users set password = @password where id = @id
-
-go
 drop proc clearRoles
 go
 create proc clearRoles
 @id bigint
 as
 delete from usersroles where userid = @id
-
-go
-drop proc getUserByNamePass
-go
-create proc getUserByNamePass
-@name nvarchar(20),
-@password nvarchar(20)
-as
-select * from users where @name = name 
-and @password COLLATE Latin1_General_CS_AS = password COLLATE Latin1_General_CS_AS
 
 
 /************* fieldset *********************/
@@ -206,6 +151,83 @@ inner join measuresets ms on msm.measuresetId = ms.id
 where ms.stateId = 2
 
 /**************************** dossier **************************/
+go
+drop proc getLosers
+go
+create proc getLosers
+@fpiId int
+as
+select * from competitors where
+stateId < 5 and disqualified = 0 and fpiId = @fpiId
+
+go
+drop proc closeFpis
+go
+create proc closeFpis
+@fpiId int
+as
+begin
+declare @measuresetId int, @measureId int, @month int;
+
+select @month = "month", @measureId = measureId, @measuresetId = measuresetId from fpis
+where id = @fpiId;
+
+update fpis set closed = 1 where 
+measureId = @measureId and
+measuresetId = @measuresetId and
+"month" < @month
+
+end
+
+go 
+drop proc updateToFpi
+go
+create proc updateToFpi
+@fpiId int
+as
+begin
+declare @measuresetId int, @measureId int, @month int;
+
+select @month = "month", @measureId = measureId, @measuresetId = measuresetId from fpis
+where id = @fpiId;
+
+update dossiers 
+set fpiId = @fpiId
+where measuresetId = @measuresetId and measureId = @measureId and MONTH(createdDate) < @month and stateId = 4 and disqualified = 0
+end
+
+go
+drop proc rollbackWinners
+go
+create proc rollbackWinners
+@fpiId int
+as
+update dossiers 
+set stateId = 4
+where stateId = 5 
+and fpiId = @fpiId
+and disqualified = 0
+
+go
+drop proc RollbackToIndicators
+go
+create proc RollbackToIndicators
+@fpiId int
+as
+begin tran
+
+delete from coefficientvalues where dossierId in
+(select id from dossiers 
+where fpiId = @fpiId and
+(stateId = 4 or stateId = 5)
+and disqualified = 0 )
+
+update dossiers set stateId = 3 where 
+fpiId = @fpiId and
+(stateId = 4 or stateId = 5) and
+disqualified = 0
+
+commit 
 
 go
 drop proc changeDossierState
@@ -218,22 +240,22 @@ update dossiers set stateid = @stateId where id = @id
 
 
 go
-drop proc getRankedDossiers
+drop proc getDossiersForRanking
 go
-create proc getRankedDossiers
+create proc getDossiersForRanking
 @measuresetId int,
 @measureId int,
 @month int
 as
-select sum(cv.value) as value, d.id, d.amountRequested
+select sum(cv.value) as value, d.id, d.amountPayed
 from dossiers d left join coefficientvalues cv on d.id = cv.dossierId
 where
 d.measureId = @measureId
 and d.measuresetId = @measuresetId
 and month(d.createdDate) = @month
-and d.stateId = 3
+and d.stateId = 4
 and d.disqualified = 0
-group by d.Id, d.amountRequested
+group by d.Id, d.amountPayed
 
 go
 drop proc getDossiers
@@ -248,7 +270,7 @@ select d.* from dossiers d
 where 
 d.measureId = @measureId
 and d.measuresetId = @measuresetId
-and MONTH(d.createdDate) <= @month
+and MONTH(d.createdDate) = @month
 and (d.stateId = @stateId or @stateId = null)
 and d.disqualified = 0
 
@@ -266,20 +288,24 @@ go
 drop proc getIndicatorValues
 go 
 create proc getIndicatorValues
-@measureId int,
-@month DateTime
+@fpiId int
 as
-select d.id as dossierId, iv.indicatorId, iv.value from measures m
-inner join dossiers d on d.measureId = m.id
-inner join indicatorvalues iv on iv.dossierId = d.id
+select d.id as dossierId, iv.indicatorId, iv.value from 
+dossiers d inner join indicatorvalues iv on iv.dossierId = d.id
 where 
-m.id = @measureId
-and year(d.createdDate) = year(@month)
-and MONTH(d.createdDate) = MONTH(@month)
-and d.stateId = 2
-go
-
+d.stateId = 3
+and d.fpiId = @fpiId
+and d.disqualified = 0
 
 
 go
---use master
+drop proc getAmountPayed
+go
+create proc getAmountPayed
+@fpiId int
+as
+select coalesce(sum(AmountPayed),0) from dossiers 
+where @fpiId = fpiId
+and stateId = 6
+
+go

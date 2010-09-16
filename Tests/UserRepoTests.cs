@@ -71,13 +71,7 @@ namespace MRGSP.ASMS.Tests
             user.IsNotNull();
             user.Name.IsEqualTo("j");
         }
-
-        [Test]
-        public void CountByNamePassword()
-        {
-            repo.Insert("uber".AsUser());
-            repo.Count("uber", "uberpass").IsEqualTo(1);
-        }
+        
 
         [Test]
         public void UpdatePassword()
@@ -85,24 +79,6 @@ namespace MRGSP.ASMS.Tests
             var uid = repo.Insert("ob1".AsUser());
             repo.UpdatePassword(uid, "aa");
             repo.Get(uid).Password.IsEqualTo("aa");
-        }
-
-        [Test]
-        public void GetUserByNamePass()
-        {
-            repo.Insert("uber".AsUser());
-            var user = repo.Get("uber", "uberpass");
-            user.Name.IsEqualTo("uber");
-            user.Password.IsEqualTo("uberpass");
-        }
-
-        [Test]
-        public void GetUnexistentUser()
-        {
-            var x = repo.Get("asdfasdf", "afadf");
-
-            x.IsEqualTo(null);
-
         }
     }
 }

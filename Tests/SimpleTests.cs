@@ -7,6 +7,7 @@ using Ciloci.Flee;
 using ILCalc;
 using NUnit.Framework;
 using System.Collections.Generic;
+using Omu.Encrypto;
 
 namespace MRGSP.ASMS.Tests
 {
@@ -17,7 +18,11 @@ namespace MRGSP.ASMS.Tests
         public void Test()
         {
             Console.WriteLine(DateTime.Now.Date.ToShortDateString());
+            var h = new Hasher();
+            Console.WriteLine(h.Encrypt("1"));
         }
+
+
 
         [Test]
         public void TestTrim()

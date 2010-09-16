@@ -62,8 +62,15 @@ namespace MRGSP.ASMS.Infra.Dto
         public int FarmerId { get; set; }
     }
 
+    public class ChangeAmountInput
+    {
+        public int Id { get; set; }
+        public decimal Amount { get; set; }
+    }
+
     public class AddressInput : FarmersInput
     {
+        [UIHint("lookup")]
         public object DistrictId { get; set; }
         [Req]
         public string Locality { get; set; }
@@ -71,7 +78,7 @@ namespace MRGSP.ASMS.Infra.Dto
         public string Street { get; set; }
         public string House { get; set; }
         public string Apartment { get; set; }
-       
+
     }
 
     public class EmailInput : FarmersInput
@@ -79,7 +86,7 @@ namespace MRGSP.ASMS.Infra.Dto
         [Req]
         public string Address { get; set; }
 
-      
+
     }
 
     public class PhoneInput : FarmersInput
@@ -87,6 +94,7 @@ namespace MRGSP.ASMS.Infra.Dto
         [Req]
         public string Number { get; set; }
 
+        [UIHint("Enum")]
         public PhoneType Type { get; set; }
     }
 
@@ -234,7 +242,7 @@ namespace MRGSP.ASMS.Infra.Dto
         public string Name { get; set; }
         [Req]
         public string FiscalCode { get; set; }
-
+        [UIHint("Lookup")]
         public object OrganizationFormId { get; set; }
         [Req]
         public DateTime RegDate { get; set; }
@@ -246,7 +254,7 @@ namespace MRGSP.ASMS.Infra.Dto
         public int FarmerId { get; set; }
     }
 
-  
+
 
     public class UserEditInput
     {
@@ -257,7 +265,7 @@ namespace MRGSP.ASMS.Infra.Dto
     [PropertiesMustMatch("Password", "ConfirmPassword")]
     public class ChangePasswordInput
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         [Req]
         [DisplayName("Parola dorita")]

@@ -11,12 +11,12 @@ namespace MRGSP.ASMS.Data
         
         public int ChangeState(int id, int stateId)
         {
-            return DbUtil.ExecuteNonQuerySp("changeMeasuresetState", Cs, new { id, stateId });
+            return DbUtil.ExecuteNonQuerySp("changeMeasuresetState", new { id, stateId }, Cs);
         }
         
         public int Activate(int id)
         {
-            return DbUtil.ExecuteNonQuerySp("activateMeasureset", Cs, new { id });
+            return DbUtil.ExecuteNonQuerySp("activateMeasureset", new { id }, Cs);
         }
     }
 }

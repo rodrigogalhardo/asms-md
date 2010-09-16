@@ -12,9 +12,9 @@ namespace MRGSP.ASMS.Data
         {
         }
 
-        public IEnumerable<IndicatorValue> GetBy(int measureId, DateTime month)
+        public IEnumerable<IndicatorValue> GetBy(int fpiId)
         {
-            return DbUtil.ExecuteReaderSp<IndicatorValue>("getIndicatorValues", Cs, new { measureId, month });
+            return DbUtil.ExecuteReaderSp<IndicatorValue>("getIndicatorValues", new { fpiId }, Cs);
         }
     }
 }

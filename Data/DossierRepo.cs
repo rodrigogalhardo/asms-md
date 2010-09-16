@@ -11,19 +11,41 @@ namespace MRGSP.ASMS.Data
         {
         }
 
-        public int ChangeState(int id, int stateId)
+        public int ChangeState(int id, DossierStates stateId)
         {
-            return DbUtil.ExecuteNonQuerySp("changeDossierState", Cs, new { id, stateId });
+            return DbUtil.ExecuteNonQuerySp("changeDossierState", new { id, stateId }, Cs);
         }
 
         public IEnumerable<Dossier> GetBy(int measuresetId, int measureId, int month, int? stateId = null)
         {
-            return DbUtil.ExecuteReaderSp<Dossier>("getDossiers", Cs, new { measuresetId, measureId, month, stateId });
+            return DbUtil.ExecuteReaderSp<Dossier>("getDossiers", new { measuresetId, measureId, month, stateId }, Cs);
         }
 
-        public IEnumerable<RankedDossier> GetRankedDossiers(int measuresetId, int measureId, int month)
+        public IEnumerable<RankedDossier> GetForRanking(int measuresetId, int measureId, int month)
         {
-            return DbUtil.ExecuteReaderSp<RankedDossier>("getRankedDossiers", Cs, new { measuresetId, measureId, month });
+            return DbUtil.ExecuteReaderSp<RankedDossier>("getDossiersForRanking", new { measuresetId, measureId, month }, Cs);
+        }
+
+        
+
+        public int RollbackWinners(int fpiId)
+        {
+            return DbUtil.ExecuteNonQuerySp("rollbackWinners", new {fpiId}, Cs);
+        }
+
+        public void RollbackToIndicators(int fpiId)
+        {
+            DbUtil.ExecuteNonQuerySp("rollbackToIndicators", new {fpiId}, Cs);
+        }
+
+        public void UpdateToFpi(int fpiId)
+        {
+            DbUtil.ExecuteNonQuerySp("updateToFpi", new {fpiId}, Cs);
+        }
+
+        public void CloseFpis(int fpiId)
+        {
+            DbUtil.ExecuteNonQuerySp("closeFpis", new {fpiId}, Cs);
         }
     }
 }

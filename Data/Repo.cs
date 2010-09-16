@@ -75,6 +75,11 @@ namespace MRGSP.ASMS.Data
         {
             return DbUtil.Delete<T>(id, Cs);
         }
+
+        public int DeleteWhere(object where)
+        {
+            return DbUtil.DeleteWhere<T>(where, Cs);
+        }
     }
 
 }

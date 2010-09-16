@@ -74,7 +74,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseRepo.cs" />
+    <Compile Include="CompetitorRepo.cs" />
     <Compile Include="FarmerInfoRepo.cs" />
+    <Compile Include="FpiRepo.cs" />
     <Compile Include="SetParamsValues.cs" />
     <Compile Include="ConnectionFactory.cs" />
     <Compile Include="DbUtil.cs" />

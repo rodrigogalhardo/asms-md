@@ -4,12 +4,14 @@ using MRGSP.ASMS.Core;
 using MRGSP.ASMS.Core.Model;
 using MRGSP.ASMS.Core.Repository;
 using MRGSP.ASMS.Core.Service;
+using Omu.Encrypto;
 
 namespace MRGSP.ASMS.Service
 {
     public class UserService : IUserService
     {
         private readonly IUserRepo repo;
+        private readonly IHasher hasher = new Hasher();
 
         public UserService(IUserRepo repo)
         {
@@ -31,9 +33,10 @@ namespace MRGSP.ASMS.Service
             return repo.GetWhere(new {name}).FirstOrDefault();
         }
 
-        public User Get(string name, string password)
+        public bool Validate(string name, string password)
         {
-            return repo.Get(name, password);
+            var u = Get(name);
+            return u != null && hasher.CompareStringToHash(password, u.Password);
         }
 
         public User GetFull(int id)
@@ -55,6 +58,7 @@ namespace MRGSP.ASMS.Service
 
         public long Create(User user)
         {
+            user.Password = hasher.Encrypt(user.Password);
             return repo.Insert(user);
         }
 
@@ -63,7 +67,7 @@ namespace MRGSP.ASMS.Service
             repo.ChangeRoles(user);
         }
 
-        public IEnumerable<string> GetRoles(long id)
+        public IEnumerable<string> GetRoles(int id)
         {
             return repo.GetRoles(id).Select(o => o.Name);
         }
@@ -78,14 +82,9 @@ namespace MRGSP.ASMS.Service
             return repo.Count(name).Equals(1);
         }
 
-        public bool Exists(string name, string password)
+        public bool ChangePassword(int id, string password)
         {
-            return repo.Count(name, password) > 0;
-        }
-
-        public bool ChangePassword(long id, string password)
-        {
-            return repo.UpdatePassword(id, password) == 1;
+            return repo.UpdatePassword(id, hasher.Encrypt(password)) == 1;
         }
     }
 }
