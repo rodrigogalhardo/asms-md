@@ -7,74 +7,36 @@
 <asp:Content runat="server" ID="Content1" ContentPlaceHolderID="MainContent">
     <% using (Html.BeginForm())
        {%>
-       <div class="efield">
-        <div class="elabel">
-            Masura:
-        </div>
-        <div class="einput">
-            <%=Html.DropDownList("MeasureId", Model.MeasureId as IEnumerable<SelectListItem>)%>
-        </div>
-    </div>
-    <%=Html.Input(o => o.FarmerName) %>
     <div class="efield">
         <div class="elabel">
-            Forma organizatorico-juridica:
+            <label>
+                Fermier *: </label>
         </div>
         <div class="einput">
-            <%=Html.DropDownList("CompanyTypeId",Model.CompanyTypeId as IEnumerable<SelectListItem>) %>
+            <%
+                Html.RenderPartial("lookup", new LookupInfo { For = "farmerversion", Title = "Alege fermier", Display = Model.DisplayFarmerVersion});%>
+                <%=Html.ValidationMessageFor(o => o.FarmerVersionId) %>
         </div>
     </div>
-    <%=Html.Input(o => o.DateReg) %>
-    <%=Html.Input(o => o.NrReg) %>
-    <%=Html.Input(o => o.ActivityType) %>
-    <%=Html.Input(o => o.FiscalCode) %>
-    <div class="efield">
-        <div class="elabel">
-            Zona geografica:
-        </div>
-        <div class="einput">
-            <%=Html.DropDownList("AreaId",Model.AreaId as IEnumerable<SelectListItem>) %>
-        </div>
-    </div>
-    <div class="efield">
-        <div class="elabel">
-            Raion:
-        </div>
-        <div class="einput">
-            <%=Html.DropDownList("DistrictId",Model.DistrictId as IEnumerable<SelectListItem>) %>
-        </div>
-    </div>
-    <%=Html.Input(o => o.County) %>
-    <%=Html.Input(o => o.BankName) %>
-    <%=Html.Input(o => o.BankCode) %>
-    <%=Html.Input(o => o.SettlementAccount) %>
-    <%=Html.Input(o => o.AdminFirstName) %>
-    <%=Html.Input(o => o.AdminLastName) %>
-    <%=Html.Input(o => o.RepresentativeFirstName) %>
-    <%=Html.Input(o => o.RepresentativeLastName) %>
-    <%=Html.Input(o => o.Phone) %>
-    <%=Html.Input(o => o.Fax) %>
-    <%=Html.Input(o => o.Mobile) %>
-    <%=Html.Input(o => o.FriendPhone) %>
-    <%=Html.Input(o => o.Email) %>
-    <%=Html.Input(o => o.ProTraining) %>
-    <%=Html.Input(o => o.Speciality) %>
-    <%=Html.Input(o => o.DiplomaIssuer) %>
-    <%=Html.Input(o => o.HasContract) %>
-    <%=Html.Input(o => o.ContractNumber) %>
-    <%=Html.Input(o => o.ContractDate) %>
-    <%=Html.Input(o => o.ServiceProvider) %>
-    <%=Html.Input(o => o.AmountRequested) %>
-    <div class="efield">
-        <div class="elabel">
-            Cine a perfectat business planul:
-        </div>
-        <div class="einput">
-            <%=Html.DropDownList("PerfecterId",Model.PerfecterId as IEnumerable<SelectListItem>) %>
-        </div>
-    </div>
+    <%=Html.EditorFor(o => o.MeasureId) %>
+    <%=Html.EditorFor(o => o.AdminFirstName) %>
+    <%=Html.Example("ex: Vasile")%>
+    <%=Html.EditorFor(o => o.AdminLastName) %>
+    <%=Html.Example("ex: Popescu")%>
+    <%=Html.EditorFor(o => o.RepresentativeFirstName) %>
+    <%=Html.EditorFor(o => o.RepresentativeLastName) %>
+    <%=Html.EditorFor(o => o.FriendPhone) %>
+    <%=Html.EditorFor(o => o.ProTraining) %>
+    <%=Html.EditorFor(o => o.Speciality) %>
+    <%=Html.Example("Conform dimplomei")%>
+    <%=Html.EditorFor(o => o.DiplomaIssuer) %>
+    <%=Html.EditorFor(o => o.HasContract) %>
+    <%=Html.EditorFor(o => o.ContractNumber) %>
+    <%=Html.EditorFor(o => o.ContractDate) %>
+    <%=Html.EditorFor(o => o.ServiceProvider) %>
+    <%=Html.EditorFor(o => o.AmountRequested) %>
+    <%=Html.EditorFor(o => o.PerfecterId) %>    
     <% Html.RenderPartial("save"); %>
     <%
         }%>
-    <%=Html.ClientSideValidation<DossierCreateInput>() %>
 </asp:Content>
