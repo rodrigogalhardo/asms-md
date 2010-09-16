@@ -9,7 +9,7 @@
     <a class="fgb" id="farmersearch">Cauta</a>
 </div>
 <br class="cbt" />
-<div id="farmerlist">
+<div id="farmerversionlist">
 </div>
 <script type="text/javascript">
     
@@ -21,7 +21,7 @@
 
         $.post('<%=Url.Action("Page") %>', { name: name, code: code },
                 function (data) {
-                    $("#farmerlist").html(data);
+                    $("#farmerversionlist").html(data);
                     dob();
                 }
             );

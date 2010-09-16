@@ -14,7 +14,7 @@
     <% foreach (var o in Model)
        {
     %>
-    <tr class="grow" value="<%:o.Id %>">
+    <tr class="grow" value="<%:o.FarmerVersionId %>">
         <td>
             <%:o.Name %>
         </td>
@@ -28,5 +28,5 @@
 </table>
 
 <script type="text/javascript">
-    $("#farmerlist table .grow").click(growfarmerClick);
+    $("#farmerversionlist table .grow").click(growfarmerversionClick);
 </script>
