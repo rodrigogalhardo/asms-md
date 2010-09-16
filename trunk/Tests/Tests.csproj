@@ -71,6 +71,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\libs\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="Omu.Encrypto">
+      <HintPath>..\libs\Omu.Encrypto.dll</HintPath>
+    </Reference>
     <Reference Include="Omu.ValueInjecter, Version=1.9.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\libs\Omu.ValueInjecter.dll</HintPath>
@@ -93,7 +96,6 @@
   <ItemGroup>
     <Compile Include="BaseRepoTests.cs" />
     <Compile Include="DossierRepoTests.cs" />
-    <Compile Include="EcoCalcTests.cs" />
     <Compile Include="FarmerInfoRepoTests.cs" />
     <Compile Include="FarmerRepoTests.cs" />
     <Compile Include="InsertInjectionTests.cs" />

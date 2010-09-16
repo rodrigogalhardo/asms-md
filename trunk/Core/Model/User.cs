@@ -52,9 +52,11 @@ namespace MRGSP.ASMS.Core.Model
     public enum DossierStates
     {
         Registered = 1,
-        HasIndicators = 2,
+        HasFieldValues,
+        HasIndicators,
         HasCoefficients,
-        Winner
+        Winner,
+        Authorized,
     }
 
     public enum States
@@ -73,7 +75,7 @@ namespace MRGSP.ASMS.Core.Model
     public enum PhoneType
     {
         Fix = 1,
-        Mobile,
+        Mobil,
         Fax
     }
 
@@ -168,7 +170,7 @@ namespace MRGSP.ASMS.Core.Model
     public class RankedDossier : Entity
     {
         public decimal Value { get; set; }
-        public decimal AmountRequested { get; set; }
+        public decimal AmountPayed { get; set; }
     }
 
     public class Dossier : Entity
@@ -197,12 +199,15 @@ namespace MRGSP.ASMS.Core.Model
         public int FieldsetId { get; set; }
         public int MeasuresetId { get; set; }
 
-        public int StateId { get; set; }
+        public DossierStates StateId { get; set; }
 
         public decimal AmountRequested { get; set; }
+        public decimal AmountPayed { get; set; }
         public decimal Value { get; set; }
         public bool Disqualified { get; set; }
         public int FarmerVersionId { get; set; }
+
+        public int FpiId { get; set; }
     }
 
     public class DossierInfo : EntityWithName
@@ -231,7 +236,7 @@ namespace MRGSP.ASMS.Core.Model
         public int MeasureId { get; set; }
         public int Month { get; set; }
         public decimal Amount { get; set; }
-        public bool Calculated { get; set; }
+        public bool Closed { get; set; }
     }
 
     public class Department : EntityWithName

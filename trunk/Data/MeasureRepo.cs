@@ -18,27 +18,27 @@ namespace MRGSP.ASMS.Data
 
         public IEnumerable<Measure> GetAssigned(int measuresetId)
         {
-            return DbUtil.ExecuteReaderSp<Measure>("getAssignedMeasures", Cs, new { measuresetId });
+            return DbUtil.ExecuteReaderSp<Measure>("getAssignedMeasures", new { measuresetId }, Cs);
         }
 
         public IEnumerable<Measure> GetUnassigned(int measuresetId)
         {
-            return DbUtil.ExecuteReaderSp<Measure>("getUnassignedMeasures", Cs, new { measuresetId });
+            return DbUtil.ExecuteReaderSp<Measure>("getUnassignedMeasures", new { measuresetId }, Cs);
         }
 
         public int Assign(int measureId, int measuresetId)
         {
-            return DbUtil.ExecuteNonQuerySp("assignMeasure", Cs, new { measureId, measuresetId });
+            return DbUtil.ExecuteNonQuerySp("assignMeasure", new { measureId, measuresetId }, Cs);
         }
 
         public int Unassign(int measureId, int measuresetId)
         {
-            return DbUtil.ExecuteNonQuerySp("unassignMeasure", Cs, new { measureId, measuresetId });
+            return DbUtil.ExecuteNonQuerySp("unassignMeasure", new { measureId, measuresetId }, Cs);
         }
 
         public IEnumerable<Measure> GetActives()
         {
-            return DbUtil.ExecuteReaderSp<Measure>("getMeasures", Cs, new object());
+            return DbUtil.ExecuteReaderSp<Measure>("getMeasures", new object(), Cs);
         }
     }
 }

@@ -41,22 +41,26 @@ namespace MRGSP.ASMS.Core.Service
 
     public interface IEcoCalc
     {
-        IEnumerable<CoefficientValue> CalculateCoefficientValues(int measureId, DateTime month, IEnumerable<Dossier> dossiers);
-        IEnumerable<IndicatorValue> CalculateIndicatorValues(IEnumerable<FieldValue> fieldValues, Dossier dossier);
+        IEnumerable<CoefficientValue> CalculateCoefficientValues(IEnumerable<IndicatorValue> indicatorValues, IEnumerable<Dossier> dossiers, IEnumerable<Coefficient> coefficients);
+        IEnumerable<IndicatorValue> CalculateIndicatorValues(Dossier dossier, IEnumerable<FieldValue> fieldValues, IEnumerable<Indicator> indicators);
     }
-
+    public interface IFpiService
+    {
+        void ChangeAmount(int id, decimal amount);
+        Fpi Get(int id);
+    }
 
     public interface IDossierService
     {
         int Create(Dossier o);
         Dossier Get(int id);
-        void GoIndicators(IEnumerable<FieldValue> fieldValues);
         IPageable<Dossier> GetPageable(int page, int pageSize);
         bool IsNoContest(int id);
-        void CalculateCoefficients(int measuresetId, int measureId, int month);
-        void Rank(int measuresetId, int measureId, int month);
         IEnumerable<Dossier> GetForTop(int measuresetId, int measureId, int month);
         void Disqualify(int id, string reason);
+        void ChangeFieldValues(IEnumerable<FieldValue> fieldValues, int dossierId);
+        void Recalculate(int fpiId);
+        void Init(IEnumerable<FieldValue> fieldValues, int dossierId);
     }
 
     public interface IFormulaValidationService
@@ -75,15 +79,14 @@ namespace MRGSP.ASMS.Core.Service
         User Get(int id);
         IPageable<User> GetPage(int page, int pageSize);
         long Create(User user);
-        IEnumerable<string> GetRoles(long id);
+        IEnumerable<string> GetRoles(int id);
         bool Exists(string name);
         IEnumerable<Role> GetRoles();
-        bool ChangePassword(long id, string password);
+        bool ChangePassword(int id, string password);
         void Save(User user);
         User GetFull(int id);
-        bool Exists(string name, string password);
-        User Get(string name, string password);
         User Get(string name);
+        bool Validate(string name, string password);
     }
 
     public interface IBankService

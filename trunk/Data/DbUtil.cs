@@ -15,12 +15,13 @@ namespace MRGSP.ASMS.Data
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandType = CommandType.Text;
-                    cmd.CommandText = "select * from " + TableConvention.Resolve(typeof(T)) + " where "
-                        .InjectFrom(new FieldsBy()
-                        .SetFormat("{0}=@{0}")
-                        .SetNullFormat("{0} is null")
-                        .SetGlue("and"),
-                        where);
+                    cmd.CommandText = "select * from "
+                        + TableConvention.Resolve(typeof(T)) + " where "
+                                                        .InjectFrom(new FieldsBy()
+                                                        .SetFormat("{0}=@{0}")
+                                                        .SetNullFormat("{0} is null")
+                                                        .SetGlue("and"),
+                                                            where);
                     cmd.InjectFrom<SetParamsValues>(where);
                     conn.Open();
 
@@ -36,7 +37,28 @@ namespace MRGSP.ASMS.Data
                 }
             }
         }
-        
+
+        public static int DeleteWhere<T>(object where, string cs)
+        {
+            using (var conn = new SqlConnection(cs))
+            {
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = "delete from " + TableConvention.Resolve(typeof(T)) + " where "
+                        .InjectFrom(new FieldsBy()
+                        .SetFormat("{0}=@{0}")
+                        .SetNullFormat("{0} is null")
+                        .SetGlue("and"),
+                        where);
+                    cmd.InjectFrom<SetParamsValues>(where);
+                    conn.Open();
+
+                    return cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
         public static int CountWhere<T>(object where, string cs) where T : new()
         {
             using (var conn = new SqlConnection(cs))
@@ -53,7 +75,7 @@ namespace MRGSP.ASMS.Data
                     cmd.InjectFrom<SetParamsValues>(where);
                     conn.Open();
 
-                    return (int) cmd.ExecuteScalar();
+                    return (int)cmd.ExecuteScalar();
                 }
             }
         }
@@ -72,18 +94,19 @@ namespace MRGSP.ASMS.Data
         }
 
         ///<returns> the id of the inserted object </returns>
-        public static int Insert(object o, string cs)
+        public static int Insert(object o, string cs, string[] ignore = null)
         {
+            ignore = ignore ?? new[] { "Id" };
             using (var conn = new SqlConnection(cs))
             using (var cmd = conn.CreateCommand())
             {
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = "insert " + TableConvention.Resolve(o) + " ("
-                    .InjectFrom(new FieldsBy().IgnoreFields("Id"), o) + ") values("
-                    .InjectFrom(new FieldsBy().IgnoreFields("Id").SetFormat("@{0}"), o)
+                    .InjectFrom(new FieldsBy().IgnoreFields(ignore), o) + ") values("
+                    .InjectFrom(new FieldsBy().IgnoreFields(ignore).SetFormat("@{0}"), o)
                     + ") select @@identity";
 
-                cmd.InjectFrom(new SetParamsValues().IgnoreFields("Id"), o);
+                cmd.InjectFrom(new SetParamsValues().IgnoreFields(ignore), o);
 
                 conn.Open();
                 return Convert.ToInt32(cmd.ExecuteScalar());
@@ -149,7 +172,7 @@ namespace MRGSP.ASMS.Data
         }
 
         /// <returns>rows affected</returns>
-        public static int ExecuteNonQuerySp(string sp, string cs, object parameters)
+        public static int ExecuteNonQuerySp(string sp, object parameters, string cs)
         {
             using (var conn = new SqlConnection(cs))
             {
@@ -160,6 +183,21 @@ namespace MRGSP.ASMS.Data
                     cmd.InjectFrom<SetParamsValues>(parameters);
                     conn.Open();
                     return cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public static object ExecuteScalarSp(string sp, string cs, object parameters)
+        {
+            using (var conn = new SqlConnection(cs))
+            {
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = sp;
+                    cmd.InjectFrom<SetParamsValues>(parameters);
+                    conn.Open();
+                    return cmd.ExecuteScalar();
                 }
             }
         }
@@ -185,7 +223,7 @@ namespace MRGSP.ASMS.Data
             }
         }
 
-        public static IEnumerable<T> ExecuteReaderSp<T>(string sp, string cs, object parameters) where T : new()
+        public static IEnumerable<T> ExecuteReaderSp<T>(string sp, object parameters, string cs) where T : new()
         {
             using (var conn = new SqlConnection(cs))
             {
