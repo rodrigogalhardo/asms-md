@@ -1,46 +1,53 @@
-<%@ Page Title="" Language="C#" Inherits="System.Web.Mvc.ViewPage<MRGSP.ASMS.Core.IPageable<MRGSP.ASMS.Core.Model.Dossier>>"
+<%@ Page Title="" Language="C#" Inherits="System.Web.Mvc.ViewPage<MRGSP.ASMS.Core.IPageable<MRGSP.ASMS.Core.Model.DossierInfo>>"
     MasterPageFile="~/Views/Shared/Site.Master" %>
 
 <asp:Content runat="server" ID="Content" ContentPlaceHolderID="TitleContent">
 </asp:Content>
 <asp:Content runat="server" ID="Content1" ContentPlaceHolderID="MainContent">
-<h2>Dosare</h2>
+    <h2>
+        Dosare</h2>
     <table>
         <thead>
             <tr>
                 <td>
-                    Nume
+                    Nume fermier
                 </td>
                 <td>
-                    cod fiscal
+                    Cod fiscal
                 </td>
                 <td>
-                    nume administrator
+                    Data crearii
+                </td>
+                <td>
+                    Masura
                 </td>
                 <td>
                 </td>
             </tr>
         </thead>
-    <tbody>
-    <%foreach (var o in Model.Page)
-      {
-    %><tr>
-        <td>
-            <%:o.FarmerName %>
-        </td>
-        <td>
-            <%:o.FiscalCode %>
-        </td>
-        <td>
-            <%:o.AdminFirstName %>
-        </td>
-        <td>
-            <%=Html.ActionLink("deschide","open",new{o.Id}) %>
-        </td>
-    </tr>
-    <%
-        } %>
+        <tbody>
+            <%foreach (var o in Model.Page)
+              {
+            %><tr>
+                <td>
+                    <%=o.Name %>
+                </td>
+                <td>
+                    <%=o.FiscalCode %>
+                </td>
+                <td>
+                    <%=o.CreatedDate %>
+                </td>
+                <td>
+                    <%=o.Measure %>
+                </td>
+                <td>
+                    <%=Html.ActionLink("deschide","open",new{o.Id}) %>
+                </td>
+            </tr>
+            <%
+                } %>
         </tbody>
-        </table>
+    </table>
     <%=Html.Pagination() %>
 </asp:Content>
