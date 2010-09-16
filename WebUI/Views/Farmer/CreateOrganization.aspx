@@ -8,8 +8,7 @@
        {%>
        <%=Html.EditorFor(o => o.Name) %>
        <%=Html.EditorFor(o => o.FiscalCode) %>
-       <% Html.RenderPartial("dropdown", 
-              new DropDownInput {Name = "OrganizationFormId", Value = Model.OrganizationFormId, Label = "Forma organizatorica"}); %>
+       <%=Html.EditorFor(o => o.OrganizationFormId) %>       
        <%=Html.EditorFor(o => o.RegDate) %>
        <%=Html.EditorFor(o => o.RegNr) %>
        <%=Html.EditorFor(o => o.ActivityType) %>

@@ -12,7 +12,7 @@ namespace MRGSP.ASMS.WebUI.Controllers
         private readonly IBuilder<Dossier, DossierCreateInput> createBuilder;
         private readonly IDossierService dossierService;
         private readonly ISystemStateServcie systemStateServcie;
-        private IRepo<DossierInfo> dir;
+        private readonly IRepo<DossierInfo> dir;
 
         public DossierController(
             IBuilder<Dossier, DossierCreateInput> createBuilder,

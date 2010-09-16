@@ -139,6 +139,7 @@
     <Compile Include="Controllers\ModelStateExtensions.cs" />
     <Compile Include="Controllers\NavController.cs" />
     <Compile Include="Controllers\PhoneController.cs" />
+    <Compile Include="Controllers\RankController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="CustomHelpers.cs" />
     <Compile Include="FormAuths.cs" />
@@ -171,6 +172,8 @@
     <Content Include="Views\Farmer\Index.aspx" />
     <Content Include="Views\FarmerVersionLookup\Page.ascx" />
     <Content Include="Views\FarmerVersionLookup\Index.ascx" />
+    <Content Include="Views\Rank\ChangeAmount.aspx" />
+    <Content Include="Views\Rank\comp.ascx" />
     <Content Include="Views\Phone\Create.aspx" />
     <Content Include="Views\Phone\Index.ascx" />
     <Content Include="Views\Dossier\Disqualify.aspx" />
@@ -187,7 +190,7 @@
     <Content Include="Views\FillFields\success.aspx" />
     <Content Include="Views\Fpi\Create.aspx" />
     <Content Include="Views\Fpi\Index.aspx" />
-    <Content Include="Views\Fpi\Rank.aspx" />
+    <Content Include="Views\Rank\index.aspx" />
     <Content Include="Views\Measureset\AssignedListLite.ascx" />
     <Content Include="Views\Measureset\View.aspx" />
     <Content Include="Views\Perfecter\Create.aspx" />
@@ -220,6 +223,7 @@
     <Content Include="Views\Shared\bcreate.ascx" />
     <Content Include="Views\Shared\Confirm.ascx" />
     <Content Include="Views\Shared\EditorTemplates\Boolean.aspx" />
+    <Content Include="Views\Shared\EditorTemplates\Enum.aspx" />
     <Content Include="Views\Shared\EditorTemplates\DateTime.aspx" />
     <Content Include="Views\Shared\EditorTemplates\Password.aspx" />
     <Content Include="Views\Shared\EditorTemplates\Decimal.aspx" />
@@ -320,7 +324,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_GlobalResources\Messages.resx">

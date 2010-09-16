@@ -7,21 +7,23 @@ namespace MRGSP.ASMS.WebUI.Controllers
 {
     public  class FarmerVersionLookupController : BaseController
     {
-        private readonly IFarmerInfoRepo r;
+        private readonly IFarmerInfoRepo farmerInfoRepo;
+        private readonly IRepo<FarmerVersionInfo> farmerVersionInfoRepo;
 
-        public FarmerVersionLookupController(IFarmerInfoRepo r)
+        public FarmerVersionLookupController(IFarmerInfoRepo farmerInfoRepo, IRepo<FarmerVersionInfo> farmerVersionInfoRepo)
         {
-            this.r = r;
+            this.farmerInfoRepo = farmerInfoRepo;
+            this.farmerVersionInfoRepo = farmerVersionInfoRepo;
         }
 
         [HttpPost]
         public ActionResult Page(string name, string code)
         {
             if (code.Length == 13) 
-            return View(r.Seek(null, code));
+            return View(farmerInfoRepo.Seek(null, code));
 
-            if (name.Trim().Length > 4)
-                return View(r.Seek(name, null));
+            if (name.Trim().Length > 2)
+                return View(farmerInfoRepo.Seek(name, null));
             return View(Enumerable.Empty<FarmerInfo>());
         }
 
@@ -32,7 +34,7 @@ namespace MRGSP.ASMS.WebUI.Controllers
 
         public ActionResult Get(int id)
         {
-            return Content(r.Get(id).Name);
+            return Content(farmerVersionInfoRepo.Get(id).Name);
         }
     }
 }

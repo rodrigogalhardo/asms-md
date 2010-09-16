@@ -34,9 +34,7 @@
             </div>
         </div>
         <br class="cbt" />
-        <div class="esubmit">
-            <input type="submit" value="Salveaza" />
-        </div>
+        <% Html.RenderPartial("save"); %>
     </fieldset>
     <% } %>
     <div>

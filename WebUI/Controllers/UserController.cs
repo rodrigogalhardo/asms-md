@@ -57,7 +57,7 @@ namespace MRGSP.ASMS.WebUI.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult ChangePassword(long id)
+        public ActionResult ChangePassword(int id)
         {
             return View(new ChangePasswordInput { Id = id });
         }

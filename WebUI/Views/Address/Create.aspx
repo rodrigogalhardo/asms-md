@@ -8,7 +8,7 @@
     <%=Html.ActionLink("Inapoi","Index", "ContactInfo", new{Model.FarmerId}, null) %>
     <% using (Html.BeginForm())
        {%>
-    <% Html.RenderPartial("dropdown", new DropDownInput { Label = "Raion", Name = "DistrictId", Value = Model.DistrictId }); %>
+    <%=Html.EditorFor(o => o.DistrictId) %>
     <%=Html.EditorFor(o => o.Locality) %>
     <%=Html.EditorFor(o => o.Street) %>
     <%=Html.EditorFor(o => o.House) %>
@@ -16,7 +16,7 @@
     <%=Html.EditorFor(o => o.Zip) %>
     <%=Html.HiddenFor(o => o.FarmerId) %>
     <%
-           Html.RenderPartial("save");%>
+        Html.RenderPartial("save");%>
     <%
-       } %>
+        } %>
 </asp:Content>
