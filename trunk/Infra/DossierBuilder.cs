@@ -17,12 +17,9 @@ namespace MRGSP.ASMS.Infra
 
         protected override DossierCreateInput MakeInput(DossierCreateInput input, Dossier entity)
         {
-            input.InjectFrom<IdToLookup<Area>>(entity)
-                .InjectFrom<IdToLookup<District>>(entity)
+            input
                 .InjectFrom<IdToLookup<Perfecter>>(entity)
-                .InjectFrom<IdToLookup<OrganizationForm>>(entity)
-                .InjectFrom<IdToLookupMeasure>(entity)
-                .InjectFrom<IdToDisplay<FarmerVersionInfo>>(entity);
+                .InjectFrom<IdToLookupMeasure>(entity);
             return input;
         }
 

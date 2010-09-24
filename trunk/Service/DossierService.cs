@@ -54,6 +54,10 @@ namespace MRGSP.ASMS.Service
 
         public void Disqualify(int id, string reason)
         {
+            var d = dossierRepo.Get(id);
+            if(d.StateId == DossierStates.Authorized)
+                throw new AsmsEx("acest dosar nu mai poate fi discalificat");
+
             using (var scope = new TransactionScope())
             {
                 disqualifierRepo.Insert(new Disqualifier { DossierId = id, Reason = reason });
@@ -72,17 +76,15 @@ namespace MRGSP.ASMS.Service
         public void ChangeAmountPayed(int id, decimal amountPayed)
         {
             var dossier = dossierRepo.Get(id);
-            if (dossier.StateId != DossierStates.Winner)
-                throw new AsmsEx("la moment pentru acest dosar nu poate fi schimbata suma platita, el trebuie sa fie in stare 'castigator'");
+            if (dossier.StateId != DossierStates.Winner && dossier.StateId != DossierStates.HasCoefficients)
+                throw new AsmsEx("la moment pentru acest dosar nu poate fi schimbata suma platita");
 
             using (var scope = new TransactionScope())
             {
                 dossierRepo.UpdateWhatWhere(new { AmountPayed = amountPayed }, new { id });
 
                 var fpi = fpiRepo.GetWhere(new { id = dossier.FpiId }).Single();
-                dossierRepo.RollbackWinners(fpi.Id);
-
-                Rank(fpi.Id);
+                Rerank(fpi.Id);
                 scope.Complete();
             }
         }
@@ -104,6 +106,13 @@ namespace MRGSP.ASMS.Service
                 dossierRepo.UpdateWhatWhere(new { FpiId = fpi.Id }, new { dossier.Id });
                 scope.Complete();
             }
+        }
+
+        public void Rerank(int fpiId)
+        {
+            dossierRepo.RollbackWinners(fpiId);
+
+            Rank(fpiId);
         }
 
         public void Recalculate(int fpiId)
@@ -144,7 +153,7 @@ namespace MRGSP.ASMS.Service
             }
         }
 
-        private void Rank(int fpiId)
+        public void Rank(int fpiId)
         {
             var fpi = fpiRepo.GetWhere(new { id = fpiId }).Single();
             fpi.Amount -= fpiRepo.GetAmountPayed(fpi.Id);

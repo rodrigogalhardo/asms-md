@@ -25,9 +25,7 @@ namespace MRGSP.ASMS.Data
         {
             return DbUtil.ExecuteReaderSp<RankedDossier>("getDossiersForRanking", new { measuresetId, measureId, month }, Cs);
         }
-
         
-
         public int RollbackWinners(int fpiId)
         {
             return DbUtil.ExecuteNonQuerySp("rollbackWinners", new {fpiId}, Cs);

@@ -71,14 +71,5 @@ namespace MRGSP.ASMS.Tests
             user.IsNotNull();
             user.Name.IsEqualTo("j");
         }
-        
-
-        [Test]
-        public void UpdatePassword()
-        {
-            var uid = repo.Insert("ob1".AsUser());
-            repo.UpdatePassword(uid, "aa");
-            repo.Get(uid).Password.IsEqualTo("aa");
-        }
     }
 }

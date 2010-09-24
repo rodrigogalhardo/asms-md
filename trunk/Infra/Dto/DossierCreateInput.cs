@@ -7,25 +7,29 @@ namespace MRGSP.ASMS.Infra.Dto
     public class DossierCreateInput
     {
         [Req]
+        [UIHint("Lookup")]
         public int FarmerVersionId { get; set; }
-
-        public string DisplayFarmerVersion { get; set; }
         
         [Req]
         [DisplayName("Prenume Administrator")]
+        [StringLength(20)]
         public string AdminFirstName { get; set; }
 
         [Req]
         [DisplayName("Nume Administrator")]
+        [StringLength(20)]
         public string AdminLastName { get; set; }
 
         [DisplayName("Prenumele reprezentantului legal")]
+        [StringLength(20)]
         public string RepresentativeFirstName { get; set; }
 
         [DisplayName("Numele reprezentantului legal")]
+        [StringLength(20)]
         public string RepresentativeLastName { get; set; }
 
         [DisplayName("Telefonul unei persoane apropiate")]
+        [StringLength(50)]
         public string FriendPhone { get; set; }
 
         [DisplayName("Pregatire profesionala")]
@@ -50,11 +54,11 @@ namespace MRGSP.ASMS.Infra.Dto
         public string ServiceProvider { get; set; }
 
         [DisplayName("Cine a perfectat business planul")]
-        [UIHint("Lookup")]
+        [UIHint("Dropdown")]
         public object PerfecterId { get; set; }
 
         [DisplayName("Masura")]
-        [UIHint("Lookup")]
+        [UIHint("Dropdown")]
         public object MeasureId { get; set; }
 
         [DisplayName("Suma solicitata")]

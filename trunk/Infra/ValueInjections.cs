@@ -66,7 +66,7 @@ namespace MRGSP.ASMS.Infra
                     Value = o.Id.ToString(),
                     Text = o.Name + " " + o.Description,
                     Selected = o.Id == value
-                });
+                }).ToList();
         }
     }
 
@@ -97,7 +97,7 @@ namespace MRGSP.ASMS.Infra
                                      Value = o.Id.ToString(),
                                      Text = o.Name,
                                      Selected = o.Id == value
-                                 });
+                                 }).ToList();
         }
     }
 

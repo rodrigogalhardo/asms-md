@@ -12,16 +12,19 @@ namespace MRGSP.ASMS.Infra.Dto
         [LoginUnique]
         [Req]
         [DisplayName("Nume")]
+        [StringLength(20)]
         public string Name { get; set; }
 
         [Req]
         [DisplayName("Parola dorita")]
         [UIHint("Password")]
+        [StringLength(32)]
         public string Password { get; set; }
 
         [Req]
         [DisplayName("Confirmati Parola")]
         [UIHint("Password")]
+        [StringLength(32)]
         public string ConfirmPassword { get; set; }
 
         [DisplayName("Roluri")]
@@ -67,6 +70,12 @@ namespace MRGSP.ASMS.Infra.Dto
         public int Id { get; set; }
         public decimal Amount { get; set; }
     }
+    
+    public class ChangeAmountPayedInput
+    {
+        public int Id { get; set; }
+        public decimal Amount { get; set; }
+    }
 
     public class AddressInput : FarmersInput
     {
@@ -84,6 +93,7 @@ namespace MRGSP.ASMS.Infra.Dto
     public class EmailInput : FarmersInput
     {
         [Req]
+        [StringLength(50)]
         public string Address { get; set; }
 
 
@@ -92,6 +102,7 @@ namespace MRGSP.ASMS.Infra.Dto
     public class PhoneInput : FarmersInput
     {
         [Req]
+        [StringLength(15)]
         public string Number { get; set; }
 
         [UIHint("Enum")]
@@ -140,11 +151,12 @@ namespace MRGSP.ASMS.Infra.Dto
     {
         [Req]
         [DisplayName("Nume")]
+        [StringLength(30)]
         public string Name { get; set; }
 
         [Req]
         [DisplayName("Anul")]
-        [Range(2009, 2100)]
+        [MyRange(2009, 2100)]
         public int Year { get; set; }
     }
 
@@ -152,6 +164,7 @@ namespace MRGSP.ASMS.Infra.Dto
     {
         [Req]
         [DisplayName("Nume")]
+        [StringLength(100)]
         public string Name { get; set; }
 
         [Req]
@@ -170,6 +183,7 @@ namespace MRGSP.ASMS.Infra.Dto
     {
         [Req]
         [DisplayName("Nume")]
+        [StringLength(50)]
         public string Name { get; set; }
     }
 
@@ -177,10 +191,12 @@ namespace MRGSP.ASMS.Infra.Dto
     {
         [Req]
         [DisplayName("Nume")]
+        [StrLen(20)]
         public string Name { get; set; }
 
         [Req]
         [DisplayName("Abrevierea")]
+        [StrLen(2)]
         public string Code { get; set; }
 
     }
@@ -210,10 +226,12 @@ namespace MRGSP.ASMS.Infra.Dto
     {
         [Req]
         [DisplayName("Nume")]
+        [StringLength(30)]
         public string Name { get; set; }
 
         [Req]
         [DisplayName("Descrierea")]
+        [StringLength(200)]
         public string Description { get; set; }
 
         [DisplayName("Fara concurs")]
@@ -223,14 +241,18 @@ namespace MRGSP.ASMS.Infra.Dto
     public class LandOwnerInput
     {
         [Req]
+        [StringLength(20)]
         public string FirstName { get; set; }
         [Req]
+        [StringLength(20)]
         public string LastName { get; set; }
         [Req]
+        [StringLength(20)]
         public string FathersName { get; set; }
         [Req]
         public DateTime DateOfBirth { get; set; }
         [Req]
+        [StringLength(13, MinimumLength = 13)]
         public string FiscalCode { get; set; }
 
         public int FarmerId { get; set; }
@@ -239,16 +261,22 @@ namespace MRGSP.ASMS.Infra.Dto
     public class OrganizationInput
     {
         [Req]
+        [StringLength(200)]
         public string Name { get; set; }
         [Req]
+        [StringLength(13, MinimumLength = 13)]
         public string FiscalCode { get; set; }
-        [UIHint("Lookup")]
+        [UIHint("Dropdown")]
         public object OrganizationFormId { get; set; }
         [Req]
         public DateTime RegDate { get; set; }
+
         [Req]
+        [StringLength(20)]
         public string RegNr { get; set; }
+
         [Req]
+        [StringLength(20)]
         public string ActivityType { get; set; }
 
         public int FarmerId { get; set; }
@@ -269,10 +297,12 @@ namespace MRGSP.ASMS.Infra.Dto
 
         [Req]
         [DisplayName("Parola dorita")]
+        [StringLength(32)]
         public string Password { get; set; }
 
         [Req]
         [DisplayName("Confirmati parola")]
+        [StringLength(32)]
         public string ConfirmPassword { get; set; }
 
     }
@@ -281,11 +311,13 @@ namespace MRGSP.ASMS.Infra.Dto
     {
         [Req]
         [DisplayName("Nume utilizator")]
+        [StringLength(20)]
         public string Name { get; set; }
 
         [Req]
         [DisplayName("Parola")]
         [UIHint("Password")]
+        [StringLength(32)]
         public string Password { get; set; }
     }
 
@@ -295,6 +327,12 @@ namespace MRGSP.ASMS.Infra.Dto
 
         public string Title { get; set; }
 
-        public string Display { get; set; }
+        public int Width { get; set; }
+
+        public int Height { get; set; }
+
+        public string ChooseText { get; set; }
+
+        public string CancelText { get; set; }
     }
 }
