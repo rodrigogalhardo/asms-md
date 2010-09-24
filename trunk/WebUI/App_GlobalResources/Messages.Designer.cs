@@ -61,11 +61,47 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to vr.
+        /// </summary>
+        internal static string DefaultModelBinder_ValueRequired {
+            get {
+                return ResourceManager.GetString("DefaultModelBinder_ValueRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Valoarea {0} este invalida pentru {1}.
         /// </summary>
         internal static string PropertyValueInvalid {
             get {
                 return ResourceManager.GetString("PropertyValueInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to assz.
+        /// </summary>
+        internal static string PropertyValueRequired {
+            get {
+                return ResourceManager.GetString("PropertyValueRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to bla bla bla {0}.
+        /// </summary>
+        internal static string RequiredAttribute_ValidationError {
+            get {
+                return ResourceManager.GetString("RequiredAttribute_ValidationError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to aaaa{0}.
+        /// </summary>
+        internal static string ValueRequired {
+            get {
+                return ResourceManager.GetString("ValueRequired", resourceCulture);
             }
         }
     }

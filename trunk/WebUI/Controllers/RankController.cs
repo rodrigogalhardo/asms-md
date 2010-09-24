@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using System.Linq;
+using System.Web.Mvc;
+using MRGSP.ASMS.Core;
 using MRGSP.ASMS.Core.Model;
 using MRGSP.ASMS.Core.Repository;
 using MRGSP.ASMS.Core.Service;
@@ -7,7 +9,6 @@ using Omu.ValueInjecter;
 
 namespace MRGSP.ASMS.WebUI.Controllers
 {
-
     public class RankController : BaseController
     {
         private readonly IFpiService fpiService;
@@ -32,8 +33,16 @@ namespace MRGSP.ASMS.WebUI.Controllers
         {
             if (!ModelState.IsValid)
                 return View(input);
-            fpiService.ChangeAmount(input.Id, input.Amount);
-            return RedirectToAction("index", new {fpiId = input.Id});
+            try
+            {
+                fpiService.ChangeAmount(input.Id, input.Amount);
+            }
+            catch(AsmsEx e)
+            {
+                ModelState.AddModelError("amount", e.Message);
+                return View(input);
+            }
+            return Content("ok");
         }
 
         public ActionResult Index(int fpiId)
@@ -56,12 +65,15 @@ namespace MRGSP.ASMS.WebUI.Controllers
 
         public ActionResult Winners(int fpiId)
         {
-            return View("comp", competitorRepo.GetWhere(new { fpiId, StateId = DossierStates.Winner, Disqualified = false }));
+            return View("comp", competitorRepo
+                .GetWhere(new { fpiId, StateId = DossierStates.Winner, Disqualified = false })
+                .OrderByDescending(o => o.Value));
         }
 
         public ActionResult Losers(int fpiId)
         {
-            return View("comp", competitorRepo.Losers(fpiId));
+            return View("comp", competitorRepo.Losers(fpiId)
+                .OrderByDescending(o => o.Value));
         }
 
         public ActionResult Disqualified(int fpiId)

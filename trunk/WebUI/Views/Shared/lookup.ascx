@@ -6,48 +6,52 @@
         $(this).addClass('selected');
 
         $(this).click(function () {
-            choose<%=Model.For%>Click("#select-<%=Model.For%>-dialog", "#<%=Model.For%>list", '<%:Url.Action("Get", Model.For + "Lookup")%>', '#display<%=Model.For%>', '#<%=Model.For%>Id');
+            choose<%=Model.For%>Click();
         });
     }
 
-    function choose<%=Model.For%>Click(theDialog, list, url, display, input) {
-        var v = $(list + " table .selected").attr("value");
-        if (v != null)
-            $.post(url, { id: v },
-                            function (data) { $(display).val(data); $(input).val(v); $(display+"x").val(data); });
-        $(theDialog).dialog('close');
+    function choose<%=Model.For%>Click() {
+        var v = $("#<%=Model.For%>list table .selected").attr("value");
+        if (v)        {
+            $('#<%=Model.For%>').val(v);
+            load<%=Model.For %>Display();            
+        }            
+        $("#select-<%=Model.For%>-dialog").dialog('close');
+    }
+
+    function load<%=Model.For %>Display() {
+        var id = $('#<%=Model.For %>').val();
+        if(id)
+        $.get('<%=Url.Action("Get", Model.For + "Lookup") %>', {id:id},function(data){ $("#display<%=Model.For %>").val(data);});
     }
 
     $(function () { 
+        load<%=Model.For %>Display();
+
         $("#select-<%=Model.For %>-dialog").dialog({    
             resizable: true,
-            height: 400,
-            width: 700,
+            height: <%=Model.Height %>,
+            width: <%=Model.Width %>,
             modal: true,           
             buttons: {
-                'Alege': function () {
-                    choose<%=Model.For%>Click("#select-<%=Model.For%>-dialog", "#<%=Model.For%>list", '<%:Url.Action("Get", Model.For + "Lookup")%>', '#display<%=Model.For%>', '#<%=Model.For%>Id');
+                '<%=Model.ChooseText %>': function () {
+                    choose<%=Model.For%>Click();
                 },
-                'Anuleaza': function () { $(this).dialog('close'); }
+                '<%=Model.CancelText %>': function () { $(this).dialog('close'); }
             },            
             autoOpen: false
         }); // end dialog
 
-        $("#open-<%=Model.For %>").click(function () {
-            $("#create-<%=Model.For %>-dialog").remove();
-
-            $.get(
-                '<%=Url.Action("Index", Model.For + "Lookup") %>',
-                function (data) { $("#select-<%=Model.For %>-dialog").html(data).dialog('open'); }
-                );
+        $("#open-<%=Model.For %>").click(function () {           
+            $.get('<%=Url.Action("Index", Model.For + "Lookup") %>',
+                function (d) { $("#select-<%=Model.For %>-dialog").html(d).dialog('open'); });
         });        
-    });
-        
+    });        
+
 </script>
-<div id="select-<%=Model.For %>-dialog" title="<%=Model.Title %>" class="popup">
+<div id="select-<%=Model.For %>-dialog" title="<%=Model.Title %>">
 </div>
-<input type="text" id="display<%=Model.For %>x" disabled="disabled" value='<%=Model.Display %>' />
-<%=Html.Hidden("display"+Model.For) %>
-<%=Html.Hidden(Model.For+"Id") %>
+<%=Html.Hidden(Model.For) %>
+<input type="text" id="display<%=Model.For %>" disabled="disabled" />
 <a class=" abtn btn fl" id="open-<%=Model.For %>" href="#"><span class="ui-icon ui-icon-newwin">
 </span></a>

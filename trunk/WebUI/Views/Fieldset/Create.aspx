@@ -1,16 +1,7 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<FieldsetInput>" %>
+﻿<%@ Page Title="" Language="C#" Inherits="System.Web.Mvc.ViewPage<FieldsetInput>" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-    Create
-</asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <h2>
-        Create</h2>
     <form action="<%=Url.Action("Create") %>" method="post">
     <%=Html.EditorFor(o => o.Name) %>
     <%=Html.EditorFor(o => o.EndDate) %>
-    <% Html.RenderPartial("save"); %>
     </form>
     <%=Html.ClientSideValidation<FieldsetInput>() %>
-    <% Html.RenderPartial("back"); %>
-</asp:Content>

@@ -5,14 +5,16 @@
             <td>
                 nume
             </td>
-            <td>
+            <td class="ent">
                 spre plata
             </td>
-            <td>
+            <td class="ent">
                 k final
             </td>
-            <td>
+            <td class="ent">
                 stare
+            </td>
+            <td class="ent">
             </td>
         </tr>
     </thead>
@@ -24,13 +26,16 @@
                 <%:o.Name %>
             </td>
             <td>
-                <%:o.AmountPayed %>
+                <%:o.AmountPayed.Display() %>
             </td>
             <td>
-                <%:o.Value %>
+                <%:o.Value.Display() %>
             </td>
             <td>
                 <%:o.StateId %>
+            </td>
+            <td>
+                <%=Html.ActionLink("deschide","open", "dossier", new{o.Id}, null) %>
             </td>
         </tr>
         <%

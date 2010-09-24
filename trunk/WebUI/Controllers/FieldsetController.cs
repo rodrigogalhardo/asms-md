@@ -33,7 +33,7 @@ namespace MRGSP.ASMS.WebUI.Controllers
             if (!ModelState.IsValid)
                 return View(o);
             fieldsetService.Create(builder.BuilEntity(o));
-            return RedirectToAction("index");
+            return Content("ok");
         }
 
         public ActionResult ManageFields(int id)

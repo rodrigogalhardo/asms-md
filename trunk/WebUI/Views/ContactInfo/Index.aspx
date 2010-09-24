@@ -3,7 +3,7 @@
 <asp:Content runat="server" ID="Title" ContentPlaceHolderID="TitleContent">
 </asp:Content>
 <asp:Content runat="server" ID="Main" ContentPlaceHolderID="MainContent">
-<% Html.RenderPartial("confirm"); %>
+<% Html.Confirm("sunteti sigur ?"); %>
     <%
         var id = ViewData["id"]; %>
     <% Html.RenderAction("Info", "Farmer", new { id }); %>

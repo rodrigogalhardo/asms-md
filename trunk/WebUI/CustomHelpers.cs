@@ -1,114 +1,108 @@
 ﻿using System;
-using System.Text;
-using System.Web;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Web.Mvc;
-using MRGSP.ASMS.Core;
-using MRGSP.ASMS.Core.Model;
+using System.Web.Mvc.Html;
+using MRGSP.ASMS.Infra.Dto;
+using Omu.ValueInjecter;
 
 namespace MRGSP.ASMS.WebUI
 {
     public static class MyHelpers
     {
-        public static MvcHtmlString Pagination(this HtmlHelper helper)
+        public static MvcHtmlString LookupFor<T,TReturn>(this HtmlHelper<T> html, Expression<Func<T, TReturn>> expression, string title = null)
         {
-            var c = helper.ViewContext.RouteData.Values["controller"].ToString();
-            var a = helper.ViewContext.RouteData.Values["action"].ToString();
-            var pageCount = (helper.ViewData.Model as IPageableInfo).PageCount;
-            var pageIndex = (helper.ViewData.Model as IPageableInfo).PageIndex;
-            return Pagination(helper, pageCount, pageIndex, c, a);
+            return Lookup(html, ExpressionHelper.GetExpressionText(expression), title);
         }
 
-        public static MvcHtmlString Pagination(this HtmlHelper helper, int pageCount, int pageIndex, string controller, string action)
+        public static MvcHtmlString Lookup(this HtmlHelper html, string prop, string title = null, int height = 400, int width = 700, string chooseText = "Alege", string cancelText = "Anuleaza")
         {
-            var urlHelper = new UrlHelper(helper.ViewContext.RequestContext);
-
-            var sb = new StringBuilder();
-            sb.Append("<div class='pagination'>");
-
-            if (pageCount < 8)
-                sb.Append(RenderButtons(1, pageCount, pageIndex, urlHelper,controller,action));
-            else if (pageIndex < 5)
-                sb.AppendFormat("{0} ... {1}", RenderButtons(1, 5, pageIndex,urlHelper,controller,action), RenderButton(pageCount,pageIndex,urlHelper,controller,action));
-            else if (pageIndex > pageCount - 5)
-                sb.AppendFormat("{0} ... {1}", RenderButton(1, pageIndex,urlHelper,controller,action),
-                                RenderButtons(pageCount - 5, pageCount, pageIndex, urlHelper,controller,action));
-            else
-                sb.AppendFormat("{0} ... {1} ... {2}",
-                                RenderButton(1,pageIndex,urlHelper,controller,action ),
-                                RenderButtons(pageIndex - 2, pageIndex + 2, pageIndex,urlHelper,controller,action ),
-                                RenderButton(pageCount, pageIndex,urlHelper,controller,action));
-
-            sb.Append("</div>");
-
-            return MvcHtmlString.Create(sb.ToString());
+            return html.Partial("lookup", new LookupInfo {For = prop, Title = title, Height = height, Width = width, CancelText = cancelText, ChooseText = chooseText});
         }
 
-        public static MvcHtmlString AjaxPagination(this HtmlHelper htmlHelper, int pageCount, int pageIndex, string func)
+        public static MvcHtmlString PopupActionLink<T>(this HtmlHelper html, Expression<Action<T>> expression, string text, object htmlAttributes = null)
+            where T : Controller
         {
-            var sb = new StringBuilder();
-
-            sb.Append("<div class='pagination'>");
-
-            if (pageCount < 8)
-                sb.Append(RenderAjaxButtons(1, pageCount, pageIndex, func));
-            else if (pageIndex < 5)
-                sb.AppendFormat("{0} ... {1}", RenderAjaxButtons(1, 5, pageIndex, func), RenderAjaxButton(pageCount, func));
-            else if (pageIndex > pageCount - 5)
-                sb.AppendFormat("{0} ... {1}", RenderAjaxButton(1, func),
-                                RenderAjaxButtons(pageCount - 5, pageCount, pageIndex, func));
-            else
-                sb.AppendFormat("{0} ... {1} ... {2}",
-                                RenderAjaxButton(1, func),
-                                RenderAjaxButtons(pageIndex - 2, pageIndex + 2, pageIndex, func),
-                                RenderAjaxButton(pageCount, func));
-
-            sb.Append("</div>");
-
-            return MvcHtmlString.Create(sb.ToString());
+            return
+                MvcHtmlString.Create(
+                string.Format("<a href='javascript:{0}' {2} >{1}</a>", PopupAction(new UrlHelper(html.ViewContext.RequestContext), expression),
+                               text, "".InjectFrom<ToHtml>(htmlAttributes)));
         }
 
-        private static string RenderAjaxButtons(int from, int to, int index, string func)
+        static string GetValues<T>(Expression<Action<T>> expression)
         {
-            var s = new StringBuilder();
-            for (var i = from; i <= to; i++)
+            var result = string.Empty;
+            var call = expression.Body as MethodCallExpression;
+            if (call == null)
             {
-                if (index != i)
-                    s.AppendFormat("<a href='javascript:{0}({1})' class='ui-state-default'>{2}</a>",
-                                   func, i, i);
-                else
-                    s.AppendFormat("<span class='ui-state-highlight current'>{0}</span>", i);
+                throw new ArgumentException("Not a method call");
             }
-            return s.ToString();
-        }
-
-        private static string RenderButtons(int from, int to, int index, UrlHelper urlHelper, string controller, string action)
-        {
-            var s = new StringBuilder();
-            for (var i = from; i <= to; i++)
+            foreach (Expression argument in call.Arguments)
             {
-                s.Append(RenderButton(i, index, urlHelper, controller, action));
+                LambdaExpression lambda = Expression.Lambda(argument,
+                                                            expression.Parameters);
+                Delegate d = lambda.Compile();
+                object value = d.DynamicInvoke(new object[1]);
+                result += value + ",";
             }
-            return s.ToString();
+            return result.RemoveSuffix(",");
         }
 
-        private static string RenderButton(int number, int index, UrlHelper urlHelper, string controller, string action)
+        public static MvcHtmlString PopupAction<T>(this UrlHelper url, Expression<Action<T>> expression) where T : Controller
         {
-            if (index != number)
-                return string.Format("<a href='{0}'>{1}</a>",
-                                urlHelper.Action(action, controller, new { page = number }), number);
+            var body = expression.Body as MethodCallExpression;
+            if (body == null) return null;
 
-            return string.Format("<span class='current'>{0}</span>", number);
+            var action = body.Method.Name;
+
+            var controller = typeof(T).Name.RemoveSuffix("Controller");
+            return MvcHtmlString.Create("callDialog" + action + controller + "(" + GetValues(expression) + ")");
         }
 
-        private static string RenderAjaxButton(int i, string func)
+        public static MvcHtmlString MakePopup<T>(
+            this HtmlHelper html,
+            Expression<Action<T>> expression,
+            string title = null,
+            int height = 300,
+            int width = 700,
+            bool refresh = true
+            ) where T : Controller
         {
-            return string.Format("<a href='javascript:{0}({1})' class='ui-state-default'>{2}</a>",
-                                      func, i, i);
+            var action = ((MethodCallExpression)expression.Body).Method.Name;
+            var parameters = ((MethodCallExpression)expression.Body).Method.GetParameters().Select(o => o.Name).ToArray();
+            var controller = typeof(T).Name.RemoveSuffix("Controller");
+
+            return html.Partial("popup", new PopupInfo { Action = action, Controller = controller, Title = title, Height = height, Width = width, Parameters = parameters, RefreshOnSuccess = refresh, SaveText = "Salveaza", CancelText = "Anuleaza"});
+
         }
 
         public static MvcHtmlString Example(this HtmlHelper helper, string message)
         {
             return MvcHtmlString.Create(@"<div class='example'>" + message + "</div>");
         }
+
+        public static MvcHtmlString Confirm(this HtmlHelper helper, string message, string cssClass = "confirm")
+        {
+            return helper.Partial("confirm", new ConfirmDto { Message = message, CssClass = cssClass });
+        }
+    }
+
+    public class ToHtml : KnownTargetValueInjection<string>
+    {
+        protected override void Inject(object source, ref string target)
+        {
+            if (source == null) return;
+            var props = source.GetProps();
+            for (var i = 0; i < props.Count; i++)
+            {
+                target += " " + props[i].Name + "= \"" + props[i].GetValue(source) + "\"";
+            }
+        }
+    }
+
+    public class ConfirmDto
+    {
+        public string Message { get; set; }
+        public string CssClass { get; set; }
     }
 }
