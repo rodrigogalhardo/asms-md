@@ -1,6 +1,5 @@
-﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<dynamic>" %>
-
-    <script type="text/javascript">
+﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<ConfirmDto>" %>
+<script type="text/javascript">
         var currentForm;
         $(function () {
             $("#dialog-confirm").dialog({
@@ -19,14 +18,13 @@
                     }
                 }
             });
-            $(".confirm").click(function () {
+            $(".<%=Model.CssClass %>").click(function () {
                 currentForm = $(this).closest('form');
                 $("#dialog-confirm").dialog('open');
                 return false;
             });
         });
-    </script>
-
-    <div id="dialog-confirm" title="Sunteti sigur ?">
-        Aceasta actiune nu poate fi anulata, Sunteti sigur ca doriti sa efectuati aceasta actiune ?
-    </div>
+</script>
+<div id="dialog-confirm" title="Dialog de confirmare">
+    <%=Model.Message %>
+</div>

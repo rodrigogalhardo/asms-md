@@ -38,7 +38,7 @@ namespace MRGSP.ASMS.WebUI.Controllers
                 return View(createBuilder.RebuildInput(input));
 
             userService.Create(createBuilder.BuilEntity(input));
-            return RedirectToAction("Index");
+            return Content("ok");
         }
 
         public ActionResult Edit(int id)
@@ -54,7 +54,7 @@ namespace MRGSP.ASMS.WebUI.Controllers
                 return View(editBuilder.RebuildInput(input));
 
             userService.Save(editBuilder.BuilEntity(input));
-            return RedirectToAction("Index");
+            return Content("ok");
         }
 
         public ActionResult ChangePassword(int id)
@@ -69,7 +69,7 @@ namespace MRGSP.ASMS.WebUI.Controllers
                 return View(input);
 
             userService.ChangePassword(input.Id, input.Password);
-            return RedirectToAction("Index");
+            return Content("ok");
         }
     }
 }

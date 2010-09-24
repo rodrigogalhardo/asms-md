@@ -1,23 +1,14 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<MRGSP.ASMS.Infra.Dto.UserEditInput>" %>
-
-<asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-    Edit
-</asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <h2>
-        Editeaza datele utilizatorului</h2>
-    
+﻿<%@ Page Title="" Language="C#" Inherits="System.Web.Mvc.ViewPage<MRGSP.ASMS.Infra.Dto.UserEditInput>" %>
         <% using (Html.BeginForm())
            {%>
         <%= Html.ValidationSummary(true) %>
         <%=Html.ValidationMessage("roles") %>
-        <fieldset>
         <div class="efield">
             <div class="elabel">
                 <label>
                     Roluri</label>
             </div>
-            <div class="einput">
+            <div class="einput" style="float:left;">
                 <% foreach (var role in Model.Roles as IEnumerable<SelectListItem>)
                    {
                 %>
@@ -31,11 +22,4 @@
                     } %>
             </div>
         </div>
-        <br class="cbt" />
-        <% Html.RenderPartial("save"); %>
-    </fieldset>
     <% } %>
-    <div>
-        <%= Html.ActionLink("Inapoi la lista", "Index") %>
-    </div>
-</asp:Content>

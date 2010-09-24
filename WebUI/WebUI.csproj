@@ -51,6 +51,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\libs\Castle.Windsor.dll</HintPath>
     </Reference>
+    <Reference Include="HyperPropertyDescriptor">
+      <HintPath>..\libs\HyperPropertyDescriptor.dll</HintPath>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>..\libs\log4net.dll</HintPath>
     </Reference>
@@ -112,9 +115,9 @@
       <DependentUpon>Messages.resx</DependentUpon>
     </Compile>
     <Compile Include="Bootstrapper.cs" />
-    <Compile Include="ConnectionFactory.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AddressController.cs" />
+    <Compile Include="Controllers\AuthorizePaymentsController.cs" />
     <Compile Include="Controllers\ContactInfoController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BankController.cs" />
@@ -125,7 +128,7 @@
     <Compile Include="Controllers\EmailController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\FarmerController.cs" />
-    <Compile Include="Controllers\FarmerVersionLookupController.cs" />
+    <Compile Include="Controllers\FarmerVersionIdLookupController.cs" />
     <Compile Include="Controllers\FarmerRegisterController.cs" />
     <Compile Include="Controllers\FarmersCruder.cs" />
     <Compile Include="Controllers\FieldController.cs" />
@@ -142,10 +145,14 @@
     <Compile Include="Controllers\RankController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="CustomHelpers.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="FormAuths.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="JsTools.cs" />
+    <Compile Include="PaginationHelpers.cs" />
+    <Compile Include="PopupInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RouteConfigurator.cs" />
     <Compile Include="WindsorConfigurator.cs" />
@@ -163,15 +170,19 @@
     <Content Include="Views\Coefficient\Index.aspx" />
     <Content Include="Views\Coefficient\List.ascx" />
     <Content Include="Views\Coefficient\ListLite.ascx" />
+    <Content Include="Views\Dossier\ChangeAmountPayed.aspx" />
+    <Content Include="Views\Dossier\CalcItems.ascx" />
+    <Content Include="Views\Dossier\CoefficientValues.ascx" />
+    <Content Include="Views\Dossier\Values.aspx" />
     <Content Include="Views\Email\Create.aspx" />
     <Content Include="Views\Email\Index.ascx" />
     <Content Include="Views\ContactInfo\Index.aspx" />
     <Content Include="Views\FarmerRegister\Index.aspx" />
+    <Content Include="Views\FarmerVersionIdLookup\searchForm.ascx" />
     <Content Include="Views\Farmer\DisplayLandOwner.ascx" />
     <Content Include="Views\Farmer\DisplayOrganization.ascx" />
     <Content Include="Views\Farmer\Index.aspx" />
-    <Content Include="Views\FarmerVersionLookup\Page.ascx" />
-    <Content Include="Views\FarmerVersionLookup\Index.ascx" />
+    <Content Include="Views\FarmerVersionIdLookup\List.ascx" />
     <Content Include="Views\Rank\ChangeAmount.aspx" />
     <Content Include="Views\Rank\comp.ascx" />
     <Content Include="Views\Phone\Create.aspx" />
@@ -223,11 +234,12 @@
     <Content Include="Views\Shared\bcreate.ascx" />
     <Content Include="Views\Shared\Confirm.ascx" />
     <Content Include="Views\Shared\EditorTemplates\Boolean.aspx" />
+    <Content Include="Views\Shared\EditorTemplates\Lookup.aspx" />
     <Content Include="Views\Shared\EditorTemplates\Enum.aspx" />
     <Content Include="Views\Shared\EditorTemplates\DateTime.aspx" />
     <Content Include="Views\Shared\EditorTemplates\Password.aspx" />
     <Content Include="Views\Shared\EditorTemplates\Decimal.aspx" />
-    <Content Include="Views\Shared\EditorTemplates\Lookup.aspx" />
+    <Content Include="Views\Shared\EditorTemplates\Dropdown.aspx" />
     <Content Include="Views\Shared\EditorTemplates\String.aspx" />
     <Content Include="Views\InputBuilders\DisplayInline.aspx" />
     <Content Include="Views\InputBuilders\DisplayLabel.aspx" />
@@ -237,6 +249,8 @@
     <Content Include="Views\InputBuilders\RadioButtons.aspx" />
     <Content Include="Views\InputBuilders\ReadOnly.aspx" />
     <Content Include="Views\Shared\lookup.ascx" />
+    <Content Include="Views\Shared\lookupPopup.ascx" />
+    <Content Include="Views\Shared\popup.ascx" />
     <Content Include="Views\Shared\save.ascx" />
     <Content Include="Views\Shared\start.ascx" />
     <Content Include="Views\InputBuilders\Submit.aspx" />

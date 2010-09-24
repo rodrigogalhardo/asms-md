@@ -8,19 +8,19 @@ namespace MRGSP.ASMS.WebUI.Controllers
         where TInput : new()
         where TEntity : new()
     {
-        protected readonly IRepo<TEntity> repo;
+        protected readonly IRepo<TEntity> Repo;
         private readonly IBuilder<TEntity, TInput> builder;
 
 
         public Cruder(IRepo<TEntity> repo, IBuilder<TEntity, TInput> builder)
         {
-            this.repo = repo;
+            Repo = repo;
             this.builder = builder;
         }
 
         public virtual ActionResult Index(int? page)
         {
-            return View(repo.GetPageable(page ?? 1, 1));
+            return View(Repo.GetPageable(page ?? 1, 10));
         }
 
         public ActionResult Create()
@@ -33,8 +33,8 @@ namespace MRGSP.ASMS.WebUI.Controllers
         {
             if (!ModelState.IsValid)
                 return View(builder.RebuildInput(o));
-            repo.Insert(builder.BuilEntity(o));
-            return RedirectToAction("index");
+            Repo.Insert(builder.BuilEntity(o));
+            return Content("ok");
         }
     }
 }

@@ -23,7 +23,7 @@ namespace MRGSP.ASMS.WebUI.Controllers
 
         public ActionResult Open(int id)
         {
-            return View(repo.Get(id));
+            return View(Repo.Get(id));
         }
 
         public ActionResult AssignedListLite(int id)
@@ -33,12 +33,12 @@ namespace MRGSP.ASMS.WebUI.Controllers
 
         public ActionResult View(int id)
         {
-            return View(repo.Get(id));
+            return View(Repo.Get(id));
         }
 
         public ActionResult ManageMeasures(int measuresetId)
         {
-            return View(repo.Get(measuresetId));
+            return View(Repo.Get(measuresetId));
         }
 
         public ActionResult Assigned(int measuresetId)

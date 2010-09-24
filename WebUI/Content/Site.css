@@ -14,7 +14,7 @@ body
     color: #333;
     font-family: Verdana, Arial,Liberation Sans,DejaVu Sans,sans-serif;
     font-size: 80%;
-    text-align: center;
+    text-align: left;
 }
 fieldset
 {
@@ -23,13 +23,14 @@ fieldset
     margin: 1em;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
+    border-radius: 3px;
 }
 
 legend
 {
     padding: 0.3em;
     font-weight: bold;
-    }
+}
 
 
 .error
@@ -99,9 +100,13 @@ div#title
 
 .einput
 {
-    float: left;
     border: 0 none;
 }
+
+.einput span
+{
+    float: left;
+    }
 
 .einput input
 {
@@ -187,7 +192,7 @@ div#title
 .nav
 {
     float: left;
-    font-size: 120%;
+    font-size: 110%;
 }
 .nav ul
 {
@@ -197,7 +202,7 @@ div#title
 {
     display: block;
     float: left;
-    margin-right: 7px;
+    margin-right: 0px;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
     padding: 5px;
@@ -206,7 +211,6 @@ div#title
 {
     color: #fff;
     display: block;
-    font-weight: bold;
     padding: 6px 12px 6px 12px;
     text-decoration: none;
 }
@@ -282,10 +286,11 @@ html, body, .loginpage
 
 #loginbox
 {
-    width: 800px;    
+    width: 800px;
     margin: 200px auto;
     -moz-border-radius: 7px;
     -webkit-border-radius: 7px;
+    border-radius: 7px;
     padding: 20px 0;
     background: #fff;
     overflow: hidden;
@@ -293,6 +298,7 @@ html, body, .loginpage
 
 input, select
 {
+    border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     padding: 5px;
@@ -363,11 +369,6 @@ td, th
 }
 
 
-.toolbox input[type="text"]
-{
-    width: 100px;
-    margin: 1em;
-}
 
 .popup
 {
@@ -378,7 +379,7 @@ td, th
 
 p
 {
-    margin: 10px 0px;
+    margin: 15px 0px;
     padding: 2px 0;
 }
 
@@ -397,7 +398,7 @@ p
 
 .fgb
 {
-    padding: .3em 1em;
+    padding: .4em 1em;
     text-decoration: none;
     cursor: pointer;
 }
@@ -421,8 +422,25 @@ a
 .formhead
 {
     padding: 2px;
-    }
-    
-    .formz{  margin: 10px;}
+}
 
-.fr{float:right;}
+.formz
+{
+    margin: 10px;
+}
+
+.fr
+{
+    float: right;
+}
+
+.ent
+{
+    width: 170px;
+}
+
+hr
+{
+    margin: 10px 0;
+    border: 1px solid green;
+}

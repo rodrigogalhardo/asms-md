@@ -38,10 +38,10 @@
                         if (x != null)
                         {
                 %>
-                <%=x.Amount %>
+                <%=x.Amount.Display() %>
                 <%=Html.ActionLink("c","Index","Rank",new{fpiId = x.Id}, null) %>
                 <%
-}
+                }
                         else
                         {
                 %>
