@@ -1,0 +1,56 @@
+<%@ Page Title="" Language="C#" Inherits="System.Web.Mvc.ViewPage<MRGSP.ASMS.Core.Model.DossierInfo>"
+    MasterPageFile="~/Views/Shared/Site.Master" %>
+
+<%@ Import Namespace="MRGSP.ASMS.WebUI.Controllers" %>
+<asp:Content runat="server" ID="Content" ContentPlaceHolderID="TitleContent">
+</asp:Content>
+<asp:Content runat="server" ID="Content1" ContentPlaceHolderID="MainContent">
+    <h2>
+        <%:Model.Name %></h2>
+    <%=Html.Confirm("Sunteti siguri ca doriti sa autorizati spre plata acest dosar ?") %>
+    <p>
+        <%=Html.ActionLink("<- spre clasament","Index","Rank",new{Model.FpiId},new{@class="fgb"}) %>
+    </p>
+    <%=Html.ActionLink("vizualizeaza valorile dosarului", "values", new{Model.Id}, new{@class = "fgb"}) %>
+    <%if (Model.Disqualified)
+      {%>
+    acest dosar este discalificat
+    <%}
+      else
+      {%>
+    <%
+        if (Model.StateId == DossierStates.Registered)
+        {%>
+    <p>
+        <%=Html.ActionLink("indeplineste campurile", "Index", "FillFields", new {Model.Id}, new{@class = "fgb"})%>
+    </p>
+    <%
+        }
+        if (Model.StateId == DossierStates.Winner || Model.StateId == DossierStates.HasCoefficients)
+        {
+    %>
+    <%=Html.MakePopup<DossierController>(o => o.ChangeAmountPayed(0), height:200, refresh:false) %>
+    <p>
+        <%=Html.PopupActionLink<DossierController>(o => o.ChangeAmountPayed(Model.Id), "schimba suma spre plata", new{@class="fgb"}) %>
+    </p>
+    <%
+        }
+        if (Model.StateId == DossierStates.Winner)
+        {
+    %>
+    <form action="<%=Url.Action("Authorize", new{Model.Id}) %>" method="post">
+    <input type="submit" value="Autorizeaza spre plata" class="confirm" />
+    </form>
+    <%
+        }
+    %>
+    <%if (Model.StateId != DossierStates.Authorized)
+      {%>
+      <%=Html.MakePopup<DossierController>(o => o.Disqualify(0), height:200) %>
+    <p>
+        <%=Html.PopupActionLink<DossierController>(o => o.Disqualify(Model.Id), "discalifica acest dosar",new{@class = "fgb"})%>
+    </p>
+    <%}%>
+    <%
+        }%>
+</asp:Content>
