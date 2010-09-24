@@ -31,7 +31,7 @@ abbreviation nvarchar(5)
 create table farmers
 (
 id int identity primary key,
-ftype tinyint not null check(ftype in (1,2))
+ftype int not null check(ftype in (1,2))
 );
 
 create table farmerVersions
@@ -324,7 +324,7 @@ inner join farmerVersions fv on fv.id = o.farmerVersionId;
 go
 create view dossierInfos
 as
-select d.id, d.createdDate, fv.name, fv.fiscalCode, m.name as measure, d.stateId, d.disqualified
+select d.id, d.createdDate, fv.name, fv.fiscalCode, m.name as measure, d.stateId, d.disqualified, d.fpiId
 from dossiers d inner join farmerVersionInfos fv on fv.id = d.farmerVersionId
 inner join measures m on m.id = d.measureId;
 
@@ -341,6 +341,22 @@ select d.id, d.amountPayed, SUM(cv.value) value, fvi.name, d.fpiId, d.stateId, d
 left outer join coefficientvalues cv on d.id = cv.dossierId
 inner join farmerVersionInfos fvi on fvi.id = d.farmerVersionId
 group by d.id, fvi.name, d.fpiId, d.stateId, d.amountPayed, d.disqualified
+
+go
+create view FieldValueInfos
+as
+select f.name, fv.value, fv.dossierId, f.id from fieldvalues fv inner join fields f on fv.fieldId = f.id
+
+go
+create view IndicatorValueInfos
+as
+select i.name, iv.value, iv.dossierId, i.id from indicatorvalues iv inner join indicators i on iv.indicatorId = i.id
+
+go
+create view CoefficientValueInfos
+as
+select c.name, cv.value, cv.dossierId, c.id from coefficientvalues cv inner join coefficients c on cv.coefficientId = c.id
+
 
 go
 /********************************* data *******************************/
@@ -529,3 +545,4 @@ insert measuresetsmeasures(measureId, measuresetId) values(10, 1)
 --update dossiers set stateId = 2 ,value = null
 --delete from coefficientvalues
 --delete from fpis
+

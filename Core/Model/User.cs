@@ -79,10 +79,30 @@ namespace MRGSP.ASMS.Core.Model
         Fax
     }
 
+
     public class Indicator : EntityWithName
     {
         public int FieldsetId { get; set; }
         public string Formula { get; set; }
+    }
+
+    public class CalcItem : EntityWithName
+    {
+        public int DossierId { get; set; }
+        public decimal Value { get; set; }
+    }
+
+    public class FieldValueInfo : CalcItem
+    {
+
+    }
+
+    public class IndicatorValueInfo : CalcItem
+    {
+    }
+
+    public class CoefficientValueInfo : CalcItem
+    {
     }
 
     public class IndicatorValue
@@ -215,8 +235,9 @@ namespace MRGSP.ASMS.Core.Model
         public DateTime CreatedDate { get; set; }
         public string FiscalCode { get; set; }
         public string Measure { get; set; }
-        public int StateId { get; set; }
+        public DossierStates StateId { get; set; }
         public bool Disqualified { get; set; }
+        public int FpiId { get; set; }
     }
 
     public class Disqualifier : Entity

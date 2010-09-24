@@ -61,6 +61,10 @@ namespace MRGSP.ASMS.Core.Service
         void ChangeFieldValues(IEnumerable<FieldValue> fieldValues, int dossierId);
         void Recalculate(int fpiId);
         void Init(IEnumerable<FieldValue> fieldValues, int dossierId);
+        void Rank(int fpiId);
+        void Authorize(int dossierId);
+        void ChangeAmountPayed(int id, decimal amountPayed);
+        void Rerank(int fpiId);
     }
 
     public interface IFormulaValidationService

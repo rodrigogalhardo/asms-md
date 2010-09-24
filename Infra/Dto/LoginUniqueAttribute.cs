@@ -114,7 +114,23 @@ namespace MRGSP.ASMS.Infra.Dto
     {
         public ReqAttribute()
         {
-            ErrorMessage = "camp obligatoriu";
+            ErrorMessage = "acest camp este obligatoriu";
+        }
+    }
+
+    public class MyRangeAttribute : RangeAttribute
+    {
+        public MyRangeAttribute(int minimum, int maximum) : base(minimum, maximum)
+        {
+            ErrorMessage = "scriti o valoare intre {0} si {1}. ";
+        }
+    }
+
+    public sealed class StrLen : StringLengthAttribute
+    {
+        public StrLen(int maximumLength) : base(maximumLength)
+        {
+            ErrorMessage = "lungimea maxima {0} caractere";
         }
     }
 

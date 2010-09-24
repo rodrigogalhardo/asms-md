@@ -38,7 +38,7 @@ namespace MRGSP.ASMS.Data
 
         public IEnumerable<Measure> GetActives()
         {
-            return DbUtil.ExecuteReaderSp<Measure>("getMeasures", new object(), Cs);
+            return DbUtil.ExecuteReaderSp<Measure>("getMeasures", null, Cs);
         }
     }
 }

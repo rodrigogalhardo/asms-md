@@ -22,6 +22,16 @@ namespace MRGSP.ASMS.Tests
             Console.WriteLine(h.Encrypt("1"));
         }
 
+        [Test]
+        public void Eqq()
+        {
+            var o = new { Name = "asdss" };
+            var x = new { Name = 7654345678900987659 };
+            Console.WriteLine(o.GetType() == x.GetType());
+        }
+
+
+
 
 
         [Test]
@@ -50,24 +60,6 @@ namespace MRGSP.ASMS.Tests
             double r;
             Console.WriteLine(double.TryParse(null, out r));
             Console.WriteLine(r);
-
-        }
-
-        [Test]
-        public void Calc2()
-        {
-            var calc = new CalcContext<decimal>();
-            calc.Constants.Add("c1", 3);
-            calc.Constants.Add("c2", 3);
-            calc.Constants.Add("c3", 3);
-            var s = new List<int>();
-            
-            for (int i = 0; i < 100; i++)
-            {
-                s.Add(i);
-            }
-
-            s.AsParallel().ForAll(o => calc.Evaluate("c2+c3"));
         }
 
         [Test]
