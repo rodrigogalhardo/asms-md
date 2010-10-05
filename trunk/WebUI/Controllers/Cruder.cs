@@ -33,7 +33,7 @@ namespace MRGSP.ASMS.WebUI.Controllers
         {
             if (!ModelState.IsValid)
                 return View(builder.RebuildInput(o));
-            Repo.Insert(builder.BuilEntity(o));
+            Repo.Insert(builder.BuildEntity(o));
             return Content("ok");
         }
     }

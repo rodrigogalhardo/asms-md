@@ -2,6 +2,8 @@
     MasterPageFile="~/Views/Shared/Site.Master" %>
 
 <%@ Import Namespace="MRGSP.ASMS.WebUI.Controllers" %>
+
+<%@ Import Namespace="MRGSP.ASMS.WebUI.Helpers" %>
 <asp:Content runat="server" ID="Content" ContentPlaceHolderID="TitleContent">
 </asp:Content>
 <asp:Content runat="server" ID="Content1" ContentPlaceHolderID="MainContent">
@@ -29,9 +31,9 @@
         if (Model.StateId == DossierStates.Winner || Model.StateId == DossierStates.HasCoefficients)
         {
     %>
-    <%=Html.MakePopup<DossierController>(o => o.ChangeAmountPayed(0), height:200, refresh:false) %>
+    <%=Html.MakePopupForm<DossierController>(o => o.ChangeAmountPayed(0), height:200, refresh:false) %>
     <p>
-        <%=Html.PopupActionLink<DossierController>(o => o.ChangeAmountPayed(Model.Id), "schimba suma spre plata", new{@class="fgb"}) %>
+        <%=Html.PopupFormActionLink<DossierController>(o => o.ChangeAmountPayed(Model.Id), "schimba suma spre plata", new{@class="fgb"}) %>
     </p>
     <%
         }
@@ -46,9 +48,9 @@
     %>
     <%if (Model.StateId != DossierStates.Authorized)
       {%>
-      <%=Html.MakePopup<DossierController>(o => o.Disqualify(0), height:200) %>
+      <%=Html.MakePopupForm<DossierController>(o => o.Disqualify(0), height:200) %>
     <p>
-        <%=Html.PopupActionLink<DossierController>(o => o.Disqualify(Model.Id), "discalifica acest dosar",new{@class = "fgb"})%>
+        <%=Html.PopupFormActionLink<DossierController>(o => o.Disqualify(Model.Id), "discalifica acest dosar",new{@class = "fgb"})%>
     </p>
     <%}%>
     <%

@@ -74,9 +74,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\IConnectionFactory.cs" />
     <Compile Include="Repository\UserRepo.cs" />
-    <Compile Include="Security\Class1.cs" />
     <Compile Include="Security\IFormsAuthentication.cs" />
-    <Compile Include="Service\Class1.cs" />
     <Compile Include="Service\IUserService.cs" />
     <Compile Include="Tools.cs" />
   </ItemGroup>

@@ -29,11 +29,7 @@ namespace MRGSP.ASMS.Tests
             var x = new { Name = 7654345678900987659 };
             Console.WriteLine(o.GetType() == x.GetType());
         }
-
-
-
-
-
+        
         [Test]
         public void TestTrim()
         {

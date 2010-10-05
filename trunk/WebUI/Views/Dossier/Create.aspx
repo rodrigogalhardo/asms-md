@@ -1,5 +1,6 @@
 <%@ Page Title="" Language="C#" Inherits="System.Web.Mvc.ViewPage<MRGSP.ASMS.Infra.Dto.DossierCreateInput>"
     MasterPageFile="~/Views/Shared/Site.Master" %>
+<%@ Import Namespace="MRGSP.ASMS.WebUI.Helpers" %>
 
 <asp:Content runat="server" ID="Content" ContentPlaceHolderID="TitleContent">
     adauga dosar

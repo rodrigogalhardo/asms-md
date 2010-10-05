@@ -1,13 +1,15 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<IPageable<MRGSP.ASMS.Core.Model.User>>" %>
 
 <%@ Import Namespace="MRGSP.ASMS.WebUI.Controllers" %>
+
+<%@ Import Namespace="MRGSP.ASMS.WebUI.Helpers" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <h2>
         Utilizatori</h2>
-    <%=Html.MakePopup<UserController>(o => o.Create(), height:500) %>
-    <%=Html.MakePopup<UserController>(o => o.Edit(0),width:500, height:400) %>
-    <%=Html.MakePopup<UserController>(o => o.ChangePassword(0)) %>
-    <%=Html.PopupActionLink<UserController>(o => o.Create(), "Creaza") %>
+    <%=Html.MakePopupForm<UserController>(o => o.Create(), height:500) %>
+    <%=Html.MakePopupForm<UserController>(o => o.Edit(0),width:500, height:400) %>
+    <%=Html.MakePopupForm<UserController>(o => o.ChangePassword(0)) %>
+    <%=Html.PopupFormActionLink<UserController>(o => o.Create(), "Creaza") %>
     <table>
         <thead>
             <tr>
@@ -25,8 +27,8 @@
                 <%=item.Name %>
             </td>
             <td>
-                <%=Html.PopupActionLink<UserController>(o => o.ChangePassword(item.Id), "Schimba parola") %>
-                <%=Html.PopupActionLink<UserController>(o => o.Edit(item.Id), "Editeaza") %>
+                <%=Html.PopupFormActionLink<UserController>(o => o.ChangePassword(item.Id), "Schimba parola") %>
+                <%=Html.PopupFormActionLink<UserController>(o => o.Edit(item.Id), "Editeaza") %>
             </td>
         </tr>
         <% } %>

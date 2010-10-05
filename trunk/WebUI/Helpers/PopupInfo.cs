@@ -1,4 +1,4 @@
-namespace MRGSP.ASMS.WebUI
+namespace MRGSP.ASMS.WebUI.Helpers
 {
     public class PopupInfo
     {

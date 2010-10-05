@@ -3,7 +3,7 @@
     var o = ViewContext.RouteData.Values["controller"].ToString().RemoveSuffix("Lookup");
 %>
 
-<form id="<%="searchForm"+o %>" action="<%=Url.Action("List") %>" method="post">
+<form id="<%="searchForm"+o %>" action="<%=Url.Action("LookupList") %>" method="post">
 <%
     Html.RenderPartial("searchForm"); %>
 </form>

@@ -1,5 +1,6 @@
 <%@ Page Title="" Language="C#" Inherits="System.Web.Mvc.ViewPage<System.Collections.Generic.IEnumerable<MRGSP.ASMS.Core.Model.Fpi>>"
     MasterPageFile="~/Views/Shared/Site.Master" %>
+<%@ Import Namespace="MRGSP.ASMS.WebUI.Helpers" %>
 
 <asp:Content runat="server" ID="Title" ContentPlaceHolderID="TitleContent">
 </asp:Content>

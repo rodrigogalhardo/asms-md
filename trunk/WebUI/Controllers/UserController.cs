@@ -37,7 +37,7 @@ namespace MRGSP.ASMS.WebUI.Controllers
             if (!ModelState.IsValid)
                 return View(createBuilder.RebuildInput(input));
 
-            userService.Create(createBuilder.BuilEntity(input));
+            userService.Create(createBuilder.BuildEntity(input));
             return Content("ok");
         }
 
@@ -53,7 +53,7 @@ namespace MRGSP.ASMS.WebUI.Controllers
             if (!ModelState.IsValid)
                 return View(editBuilder.RebuildInput(input));
 
-            userService.Save(editBuilder.BuilEntity(input));
+            userService.Save(editBuilder.BuildEntity(input));
             return Content("ok");
         }
 

@@ -144,15 +144,22 @@
     <Compile Include="Controllers\PhoneController.cs" />
     <Compile Include="Controllers\RankController.cs" />
     <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="CustomHelpers.cs" />
-    <Compile Include="Extensions.cs" />
+    <Compile Include="Helpers\ConfirmHelpers.cs" />
+    <Compile Include="Helpers\ConfirmInfo.cs" />
+    <Compile Include="Helpers\LookupHelpers.cs" />
+    <Compile Include="Helpers\Extensions.cs" />
     <Compile Include="FormAuths.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="JsTools.cs" />
-    <Compile Include="PaginationHelpers.cs" />
-    <Compile Include="PopupInfo.cs" />
+    <Compile Include="Helpers\InputHelpers.cs" />
+    <Compile Include="Helpers\LookupInfo.cs" />
+    <Compile Include="Helpers\LookupListInfo.cs" />
+    <Compile Include="Helpers\JsTools.cs" />
+    <Compile Include="Helpers\PaginationHelpers.cs" />
+    <Compile Include="Helpers\PopupHelpers.cs" />
+    <Compile Include="Helpers\PopupInfo.cs" />
+    <Compile Include="Helpers\ToHtml.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RouteConfigurator.cs" />
     <Compile Include="WindsorConfigurator.cs" />
@@ -182,7 +189,7 @@
     <Content Include="Views\Farmer\DisplayLandOwner.ascx" />
     <Content Include="Views\Farmer\DisplayOrganization.ascx" />
     <Content Include="Views\Farmer\Index.aspx" />
-    <Content Include="Views\FarmerVersionIdLookup\List.ascx" />
+    <Content Include="Views\Shared\LookupList.ascx" />
     <Content Include="Views\Rank\ChangeAmount.aspx" />
     <Content Include="Views\Rank\comp.ascx" />
     <Content Include="Views\Phone\Create.aspx" />
@@ -248,8 +255,8 @@
     <Content Include="Views\InputBuilders\MultilineText.aspx" />
     <Content Include="Views\InputBuilders\RadioButtons.aspx" />
     <Content Include="Views\InputBuilders\ReadOnly.aspx" />
-    <Content Include="Views\Shared\lookup.ascx" />
-    <Content Include="Views\Shared\lookupPopup.ascx" />
+    <Content Include="Views\Shared\Lookup.ascx" />
+    <Content Include="Views\Shared\LookupPopup.ascx" />
     <Content Include="Views\Shared\popup.ascx" />
     <Content Include="Views\Shared\save.ascx" />
     <Content Include="Views\Shared\start.ascx" />

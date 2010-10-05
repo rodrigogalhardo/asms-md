@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<ConfirmDto>" %>
+﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<MRGSP.ASMS.WebUI.Helpers.ConfirmInfo>" %>
 <script type="text/javascript">
         var currentForm;
         $(function () {

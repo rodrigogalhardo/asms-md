@@ -32,7 +32,7 @@ namespace MRGSP.ASMS.WebUI.Controllers
             {
                 return View(builder.RebuildInput(input));
             }
-            fieldsetService.CreateCoefficient(builder.BuilEntity(input));
+            fieldsetService.CreateCoefficient(builder.BuildEntity(input));
             return View(builder.BuildInput(new Coefficient { FieldsetId = input.FieldsetId }));
         }
 

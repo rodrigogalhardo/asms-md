@@ -32,7 +32,7 @@ namespace MRGSP.ASMS.WebUI.Controllers
             {
                 return View(builder.RebuildInput(input));
             }
-            fieldsetService.CreateIndicator(builder.BuilEntity(input));
+            fieldsetService.CreateIndicator(builder.BuildEntity(input));
             return View(builder.BuildInput(new Indicator {FieldsetId = input.FieldsetId}));
         }
 

@@ -1,6 +1,7 @@
 ﻿using System;
+using System.Linq.Expressions;
 
-namespace MRGSP.ASMS.WebUI
+namespace MRGSP.ASMS.WebUI.Helpers
 {
     public static class Extensions
     {
@@ -28,6 +29,25 @@ namespace MRGSP.ASMS.WebUI
         public static string Display(this Decimal d)
         {
             return d.ToString("N2");
+        }
+
+        public static string GetValues<T>(this Expression<Action<T>> expression)
+        {
+            var result = string.Empty;
+            var call = expression.Body as MethodCallExpression;
+            if (call == null)
+            {
+                throw new ArgumentException("Not a method call");
+            }
+            foreach (Expression argument in call.Arguments)
+            {
+                LambdaExpression lambda = Expression.Lambda(argument,
+                                                            expression.Parameters);
+                Delegate d = lambda.Compile();
+                object value = d.DynamicInvoke(new object[1]);
+                result += value + ",";
+            }
+            return result.RemoveSuffix(",");
         }
     }
 }

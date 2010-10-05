@@ -34,7 +34,7 @@ namespace MRGSP.ASMS.WebUI.Controllers
         public ActionResult Create(TInput input)
         {
             if (!ModelState.IsValid) return View(builder.RebuildInput(input));
-            service.Create(builder.BuilEntity(input));
+            service.Create(builder.BuildEntity(input));
             return RedirectToAction("Index", "ContactInfo", new { input.FarmerId });
         }
 

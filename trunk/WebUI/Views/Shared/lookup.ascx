@@ -51,7 +51,7 @@
 </script>
 <div id="select-<%=Model.For %>-dialog" title="<%=Model.Title %>">
 </div>
-<%=Html.Hidden(Model.For) %>
-<input type="text" id="display<%=Model.For %>" disabled="disabled" />
+<input type="hidden" id="<%=Model.For %>" name="<%=Model.For %>" value="<%=Model.Value %>" />
+<input type="text" id="display<%=Model.For %>" disabled="disabled"/>
 <a class=" abtn btn fl" id="open-<%=Model.For %>" href="#"><span class="ui-icon ui-icon-newwin">
 </span></a>

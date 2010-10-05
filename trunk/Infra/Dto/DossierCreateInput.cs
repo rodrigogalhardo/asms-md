@@ -8,6 +8,7 @@ namespace MRGSP.ASMS.Infra.Dto
     {
         [Req]
         [UIHint("Lookup")]
+        [DisplayName("Fermier")]
         public int FarmerVersionId { get; set; }
         
         [Req]
