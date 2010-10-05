@@ -1,4 +1,5 @@
-﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<PopupInfo>" %>
+﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<MRGSP.ASMS.WebUI.Helpers.PopupInfo>" %>
+<%@ Import Namespace="MRGSP.ASMS.WebUI.Helpers" %>
 <%
     var o = Model.Div;
 %>

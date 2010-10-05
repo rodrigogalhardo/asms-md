@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<IPageable<FieldsetDisplay>>" %>
 <%@ Import Namespace="MRGSP.ASMS.WebUI.Controllers" %>
+<%@ Import Namespace="MRGSP.ASMS.WebUI.Helpers" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
     Index
@@ -7,8 +8,8 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <h2>
         Seturi de campuri</h2>
-        <%=Html.MakePopup<FieldsetController>(o => o.Create()) %>
-        <%=Html.PopupActionLink<FieldsetController>(o => o.Create(), "Creaza") %>
+        <%=Html.MakePopupForm<FieldsetController>(o => o.Create()) %>
+        <%=Html.PopupFormActionLink<FieldsetController>(o => o.Create(), "Creaza") %>
     <table>
         <thead>
             <tr>

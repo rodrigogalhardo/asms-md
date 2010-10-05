@@ -1,4 +1,5 @@
 <%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<System.Collections.Generic.IEnumerable<MRGSP.ASMS.Core.Model.CalcItem>>" %>
+<%@ Import Namespace="MRGSP.ASMS.WebUI.Helpers" %>
 
 <table>
     <thead>

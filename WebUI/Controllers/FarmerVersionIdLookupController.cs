@@ -2,10 +2,11 @@
 using System.Web.Mvc;
 using MRGSP.ASMS.Core.Model;
 using MRGSP.ASMS.Core.Repository;
+using MRGSP.ASMS.WebUI.Helpers;
 
 namespace MRGSP.ASMS.WebUI.Controllers
 {
-    public  class FarmerVersionIdLookupController : BaseController
+    public class FarmerVersionIdLookupController : BaseController
     {
         private readonly IFarmerInfoRepo farmerInfoRepo;
         private readonly IRepo<FarmerVersionInfo> farmerVersionInfoRepo;
@@ -17,10 +18,16 @@ namespace MRGSP.ASMS.WebUI.Controllers
         }
 
         [HttpPost]
-        public ActionResult List(string name, string code)
+        public ActionResult LookupList(string name, string code)
         {
-            if (code.Length == 13) 
-            return View(farmerInfoRepo.Seek(null, code));
+            ViewData["structure"] = new LookupListInfo
+            {
+                Key = "FarmerVersionId",
+                Columns = new[] { "Name", "FiscalCode" }
+            };
+
+            if (code.Length == 13)
+                return View(farmerInfoRepo.Seek(null, code));
 
             if (name.Trim().Length > 2)
                 return View(farmerInfoRepo.Seek(name, null));
@@ -29,12 +36,12 @@ namespace MRGSP.ASMS.WebUI.Controllers
 
         public ActionResult Index()
         {
-            return View("lookupPopup");
+            return View("LookupPopup");
         }
 
         public ActionResult Get(int id)
         {
-            return Content(farmerVersionInfoRepo.Get(id).Name);
+            return Content(id == 0 ? "" : farmerVersionInfoRepo.Get(id).Name);
         }
     }
 }

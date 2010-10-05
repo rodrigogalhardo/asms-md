@@ -11,7 +11,7 @@ namespace MRGSP.ASMS.Infra
             return MakeInput(input, entity);
         }
 
-        public TEntity BuilEntity(TInput input)
+        public TEntity BuildEntity(TInput input)
         {
             var entity = new TEntity();
             entity.InjectFrom(input);
@@ -20,7 +20,7 @@ namespace MRGSP.ASMS.Infra
        
         public TInput RebuildInput(TInput input)
         {
-            return BuildInput(BuilEntity(input));
+            return BuildInput(BuildEntity(input));
         }
 
         protected virtual TInput MakeInput(TInput input, TEntity entity)

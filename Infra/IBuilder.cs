@@ -3,7 +3,7 @@
     public interface IBuilder<TEntity, TInput>
     {
         TInput BuildInput(TEntity entity);
-        TEntity BuilEntity(TInput input);
+        TEntity BuildEntity(TInput input);
         TInput RebuildInput(TInput input);
     }
 }

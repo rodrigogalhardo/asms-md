@@ -104,7 +104,7 @@
     <Compile Include="Dto\LoginUniqueAttribute.cs" />
     <Compile Include="Dto\PropertiesMustMatchAttribute.cs" />
     <Compile Include="Dto\UserCreateInput.cs" />
-    <Compile Include="IInputBuilder.cs" />
+    <Compile Include="IBuilder.cs" />
     <Compile Include="IoC.cs" />
     <Compile Include="OrganizationBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

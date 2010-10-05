@@ -2,7 +2,7 @@
 using System.Web.Mvc;
 using MRGSP.ASMS.Core;
 
-namespace MRGSP.ASMS.WebUI
+namespace MRGSP.ASMS.WebUI.Helpers
 {
     public static class PaginationHelpers
     {

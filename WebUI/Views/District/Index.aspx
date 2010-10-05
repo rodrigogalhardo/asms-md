@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<IPageable<District>>" %>
 <%@ Import Namespace="MRGSP.ASMS.WebUI.Controllers" %>
+<%@ Import Namespace="MRGSP.ASMS.WebUI.Helpers" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
     Index
@@ -7,9 +8,9 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <h2>
         Raioane</h2>
-    <%=Html.MakePopup<DistrictController>(o => o.Create()) %>
+    <%=Html.MakePopupForm<DistrictController>(o => o.Create()) %>
     
-    <%=Html.PopupActionLink<DistrictController>(o => o.Create(), "Creaza") %>
+    <%=Html.PopupFormActionLink<DistrictController>(o => o.Create(), "Creaza") %>
     
     <table>
         <thead>

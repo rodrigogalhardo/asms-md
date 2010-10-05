@@ -51,7 +51,7 @@ namespace MRGSP.ASMS.WebUI.Controllers
         public ActionResult EditOrganization(OrganizationInput input)
         {
             if (!ModelState.IsValid) return View("CreateOrganization", organizationBuilder.RebuildInput(input));
-            farmerRepo.AddOrganization(organizationBuilder.BuilEntity(input), input.FarmerId);
+            farmerRepo.AddOrganization(organizationBuilder.BuildEntity(input), input.FarmerId);
             return RedirectToAction("open", new { id = input.FarmerId });
         }
 
@@ -64,7 +64,7 @@ namespace MRGSP.ASMS.WebUI.Controllers
         public ActionResult EditLandOwner(LandOwnerInput input)
         {
             if (!ModelState.IsValid) return View("CreateLandOwner", landOwnerBuilder.RebuildInput(input));
-            farmerRepo.AddLandOwner(landOwnerBuilder.BuilEntity(input), input.FarmerId);
+            farmerRepo.AddLandOwner(landOwnerBuilder.BuildEntity(input), input.FarmerId);
             return RedirectToAction("open", new {id = input.FarmerId});
         }
 
@@ -84,7 +84,7 @@ namespace MRGSP.ASMS.WebUI.Controllers
             return !ModelState.IsValid
                        ? (ActionResult)View(landOwnerBuilder.RebuildInput(input))
                        : RedirectToAction("open",
-                                          new { id = farmerRepo.CreateLandOwner(landOwnerBuilder.BuilEntity(input)) });
+                                          new { id = farmerRepo.CreateLandOwner(landOwnerBuilder.BuildEntity(input)) });
         }
 
         [HttpPost]
@@ -93,7 +93,7 @@ namespace MRGSP.ASMS.WebUI.Controllers
             return !ModelState.IsValid
                        ? (ActionResult)View(organizationBuilder.RebuildInput(input))
                        : RedirectToAction("open",
-                                          new { id = farmerRepo.CreateOrganization(organizationBuilder.BuilEntity(input)) });
+                                          new { id = farmerRepo.CreateOrganization(organizationBuilder.BuildEntity(input)) });
         }
 
         public ActionResult Open(int id)

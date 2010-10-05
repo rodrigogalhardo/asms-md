@@ -1,4 +1,5 @@
 <%@ Page Title="" Language="C#" Inherits="System.Web.Mvc.ViewPage" MasterPageFile="~/Views/Shared/Site.Master" %>
+<%@ Import Namespace="MRGSP.ASMS.WebUI.Helpers" %>
 
 <asp:Content runat="server" ID="Title" ContentPlaceHolderID="TitleContent">
 </asp:Content>

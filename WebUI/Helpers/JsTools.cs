@@ -3,7 +3,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Web.Mvc;
 
-namespace MRGSP.ASMS.WebUI
+namespace MRGSP.ASMS.WebUI.Helpers
 {
     public static class JsTools
     {

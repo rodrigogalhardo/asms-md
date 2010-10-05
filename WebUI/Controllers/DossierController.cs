@@ -87,7 +87,7 @@ namespace MRGSP.ASMS.WebUI.Controllers
             if (!ModelState.IsValid)
                 return View(createBuilder.RebuildInput(input));
 
-            var id = dossierService.Create(createBuilder.BuilEntity(input));
+            var id = dossierService.Create(createBuilder.BuildEntity(input));
 
             return dossierService.IsNoContest(id) ?
                 RedirectToAction("Index") :

@@ -32,7 +32,7 @@ namespace MRGSP.ASMS.WebUI.Controllers
         {
             if (!ModelState.IsValid)
                 return View(o);
-            fieldsetService.Create(builder.BuilEntity(o));
+            fieldsetService.Create(builder.BuildEntity(o));
             return Content("ok");
         }
 
