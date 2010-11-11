@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using MRGSP.ASMS.Core.Model;
+using Omu.Awesome.Core;
 
 namespace MRGSP.ASMS.Core.Repository
 {
@@ -73,10 +74,20 @@ namespace MRGSP.ASMS.Core.Repository
         IEnumerable<Bank> GetPage(int page, int pageSize, string name, string code);
         Bank Get(long id);
     }
+    public interface IDossierRulesService
+    {
+        void MustBe(int id, params DossierStates[] states);
+        void MustNotBe(int id, DossierStates state);
+    }
 
     public interface IFarmerInfoRepo : IRepo<FarmerInfo>
     {
         IEnumerable<FarmerInfo> Seek(string name, string fiscalCode);
+    }
+
+    public interface IUberRepo
+    {
+        IEnumerable<CrossDistrictMeasure> GetCrossDistrictMeasure(DateTime date, int measuresetId);
     }
 
     public interface IFarmerRepo

@@ -9,6 +9,13 @@ namespace MRGSP.ASMS.WebUI.Controllers
     {
         public ActionResult Index(Exception error)
         {
+            if (Request.IsAjaxRequest())
+            {
+                if (error is AsmsEx)
+                    return PartialView("Expectedp", new ErrorDisplay { Message = error.Message });
+                return PartialView("Errorp", new ErrorDisplay { Message = error.Message });
+            }
+
             if (error is AsmsEx)
                 return View("Expected", new ErrorDisplay { Message = error.Message });
             return View("Error");

@@ -11,13 +11,13 @@
     <p>
         <%=Html.ActionLink("Inapoi", "Open", "Farmer", new{id}, null) %></p>
         <br />
-    <%=Html.ActionLink("adauga adresa", "Create", "Address", new { farmerId = id }, new { @class = "fgb" })%>
+    <%=Html.ActionLink("adauga adresa", "Create", "Address", new { farmerId = id }, new { @class = "abtn" })%>
     <%
        Html.RenderAction("Index", "Address", new {farmerId = id}); %>
-    <%=Html.ActionLink("adauga telefon", "Create", "Phone", new { farmerId = id }, new { @class = "fgb" })%>
+    <%=Html.ActionLink("adauga telefon", "Create", "Phone", new { farmerId = id }, new { @class = "abtn" })%>
     <%
        Html.RenderAction("Index", "Phone", new {farmerId = id}); %>
-    <%=Html.ActionLink("adauga email", "Create", "Email", new { farmerId = id }, new { @class = "fgb" })%>
+    <%=Html.ActionLink("adauga email", "Create", "Email", new { farmerId = id }, new { @class = "abtn" })%>
     <%
        Html.RenderAction("Index", "Email", new {farmerId = id});%>
 </asp:Content>

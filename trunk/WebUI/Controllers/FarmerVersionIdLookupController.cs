@@ -2,11 +2,12 @@
 using System.Web.Mvc;
 using MRGSP.ASMS.Core.Model;
 using MRGSP.ASMS.Core.Repository;
-using MRGSP.ASMS.WebUI.Helpers;
+using Omu.Awesome.Mvc;
+using Omu.Awesome.Mvc.Helpers;
 
 namespace MRGSP.ASMS.WebUI.Controllers
 {
-    public class FarmerVersionIdLookupController : BaseController
+    public class FarmerVersionIdLookupController : LookupController
     {
         private readonly IFarmerInfoRepo farmerInfoRepo;
         private readonly IRepo<FarmerVersionInfo> farmerVersionInfoRepo;
@@ -15,6 +16,11 @@ namespace MRGSP.ASMS.WebUI.Controllers
         {
             this.farmerInfoRepo = farmerInfoRepo;
             this.farmerVersionInfoRepo = farmerVersionInfoRepo;
+        }
+
+        public override ActionResult SearchForm()
+        {
+            return View();
         }
 
         [HttpPost]
@@ -27,16 +33,11 @@ namespace MRGSP.ASMS.WebUI.Controllers
             };
 
             if (code.Length == 13)
-                return View(farmerInfoRepo.Seek(null, code));
+                return View(@"Awesome\LookupList",farmerInfoRepo.Seek(null, code));
 
             if (name.Trim().Length > 2)
-                return View(farmerInfoRepo.Seek(name, null));
-            return View(Enumerable.Empty<FarmerInfo>());
-        }
-
-        public ActionResult Index()
-        {
-            return View("LookupPopup");
+                return View(@"Awesome\LookupList", farmerInfoRepo.Seek(name, null));
+            return View(@"Awesome\LookupList", Enumerable.Empty<FarmerInfo>());
         }
 
         public ActionResult Get(int id)

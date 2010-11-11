@@ -1,5 +1,5 @@
 <%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<System.Collections.Generic.IEnumerable<MRGSP.ASMS.Core.Model.LandOwnerInfo>>" %>
-<%= Html.ActionLink("Editeaza","EditLandOwner",new{Model.First().FarmerId}, new{@class="fgb"}) %>
+<%= Html.ActionLink("Editeaza","EditLandOwner",new{Model.First().FarmerId}, new{@class="abtn"}) %>
 <table>
     <thead>
         <tr>

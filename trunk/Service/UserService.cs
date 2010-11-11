@@ -4,6 +4,7 @@ using MRGSP.ASMS.Core;
 using MRGSP.ASMS.Core.Model;
 using MRGSP.ASMS.Core.Repository;
 using MRGSP.ASMS.Core.Service;
+using Omu.Awesome.Core;
 using Omu.Encrypto;
 
 namespace MRGSP.ASMS.Service

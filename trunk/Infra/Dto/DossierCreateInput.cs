@@ -62,7 +62,19 @@ namespace MRGSP.ASMS.Infra.Dto
         [UIHint("Dropdown")]
         public object MeasureId { get; set; }
 
+        [DisplayName("Valoarea Investitiei")]
+        public decimal InvestmentValue { get; set; }
+
         [DisplayName("Suma solicitata")]
         public decimal AmountRequested { get; set; }
+
+        [DisplayName("Raion")]
+        [UIHint("Lookup")]
+        public int DistrictId { get; set; }
+        
+        [DisplayName("Localitate")]
+        [StringLength(30)]
+        [Req]
+        public string Locality { get; set; }
     }
 }

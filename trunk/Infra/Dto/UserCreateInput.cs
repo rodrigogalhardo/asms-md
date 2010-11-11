@@ -79,8 +79,8 @@ namespace MRGSP.ASMS.Infra.Dto
 
     public class AddressInput : FarmersInput
     {
-        [UIHint("lookup")]
-        public object DistrictId { get; set; }
+        [UIHint("Lookup")]
+        public int DistrictId { get; set; }
         [Req]
         public string Locality { get; set; }
         public string Zip { get; set; }
@@ -95,10 +95,9 @@ namespace MRGSP.ASMS.Infra.Dto
         [Req]
         [StringLength(50)]
         public string Address { get; set; }
-
-
     }
 
+    
     public class PhoneInput : FarmersInput
     {
         [Req]
@@ -146,6 +145,20 @@ namespace MRGSP.ASMS.Infra.Dto
         [Req]
         public string Formula { get; set; }
     }
+
+     public class CrossDistrictMeasureInput
+     {
+         public CrossDistrictMeasureInput()
+         {
+             Date = DateTime.Now;
+         }
+
+         public int MeasuresetId { get; set; }
+         
+         [Req]
+         [DisplayName("Pana la")]
+         public DateTime Date { get; set; }
+     }
 
     public class MeasuresetInput
     {
@@ -243,14 +256,18 @@ namespace MRGSP.ASMS.Infra.Dto
         [Req]
         [StringLength(20)]
         public string FirstName { get; set; }
+
         [Req]
         [StringLength(20)]
         public string LastName { get; set; }
+
         [Req]
         [StringLength(20)]
         public string FathersName { get; set; }
+
         [Req]
-        public DateTime DateOfBirth { get; set; }
+        public DateTime? DateOfBirth { get; set; }
+
         [Req]
         [StringLength(13, MinimumLength = 13)]
         public string FiscalCode { get; set; }
@@ -263,13 +280,16 @@ namespace MRGSP.ASMS.Infra.Dto
         [Req]
         [StringLength(200)]
         public string Name { get; set; }
+
         [Req]
         [StringLength(13, MinimumLength = 13)]
         public string FiscalCode { get; set; }
+
         [UIHint("Dropdown")]
         public object OrganizationFormId { get; set; }
+
         [Req]
-        public DateTime RegDate { get; set; }
+        public DateTime? RegDate { get; set; }
 
         [Req]
         [StringLength(20)]
@@ -321,5 +341,36 @@ namespace MRGSP.ASMS.Infra.Dto
         public string Password { get; set; }
     }
 
-    
+    public class EntityInput
+    {
+        public int Id { get; set; }
+    }
+
+    public class ContractInput : EntityInput
+    {
+        public DateTime? Date { get; set; }
+        
+        [Req]
+        [DisplayName("Cont de decontare")]
+        [StringLength(15)]
+        public string Account { get; set; }
+
+        [Req]
+        [DisplayName("Cod bancar")]
+        [StringLength(10)]
+        public string BankCode { get; set; }
+
+        [Req]
+        [DisplayName("Denumirea bancii/filialei")]
+        [StringLength(100)]
+        public string BankName { get; set; }
+        
+       
+        public int DossierId { get; set; }
+        
+        [Req]
+        [DisplayName("Nr Sprijin")]
+        [StringLength(10)]
+        public string SupportNr { get; set; }
+    }
 }

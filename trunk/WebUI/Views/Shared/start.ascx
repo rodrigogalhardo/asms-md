@@ -1,11 +1,12 @@
 ﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<dynamic>" %>
 <%
-    var errmsg = (string) ViewData["errmsg"];
-     %>
+    var errmsg = (string)ViewData["errmsg"];
+%>
 <script type="text/javascript">
         $(function () {
             setFocusOnFirst();
-            dob();
+            applyjqcolors();
+
             <%if(errmsg != null){%>
              $("#errmsg").dialog({
                 resizable: false,
@@ -21,41 +22,33 @@
             <%} %>
         });
 
-        function dob() {
-        $("thead").addClass("ui-state-default");
-            <%if (ViewData["painttables"] == null)
-              {%>
+         function styleup() {
+            $("hr").addClass("ui-state-default");
+            $("select").addClass("ui-corner-all");
+            $("input:text").addClass("ui-corner-all");
+            $("input[type=submit]").addClass("abtn");
+            $("thead").addClass("ui-state-default");
             $("tbody tr:even").addClass("ui-widget-content");
             $("tbody tr:odd").addClass("ui-state-highlight");
-            <%
-              }%>
-            $("input[type=submit]").addClass("abtn");
-            $("tbody a").addClass("fgb");
-            $("a:contains('napoi')").addClass("fgb");
-            $("a:contains('reaza')").addClass("fgb");
-            $(".pagination a").addClass("fgb");
-            $(".pagination span").addClass("ui-state-highlight");
+            $("tbody a").addClass("abtn");
+            $('.ui-state-highlight a').css('color', $('.ui-state-default').css('color'));
+            mybutton(".abtn");
+            $(".field-validation-error").addClass('ui-state-error ui-corner-all');
+            $(".input-validation-error").addClass('ui-state-error');
+        }
 
-            $(".formz").addClass("ui-state-highlight");
-            $(".formhead").addClass("ui-state-default");
+        function applyjqcolors() {
+            $.fx.speeds._default = 300;
+            $("pre").addClass("ui-state-highlight");
+            $(window).bind("resize", function (e) { $("#main-container").css("min-height", ($(window).height() - 120) + "px"); });
+            $("#main-container").css("min-height", ($(window).height() - 120) + "px");
+            $("#main-container").addClass("ui-widget-content");
 
-            $("td form").addClass("fr");
-        
-            $(".fgb").addClass("abtn");
-            $(".abtn").hover(
-	            function () {
-	                $(this).addClass("ui-state-hover");
-	            },
-	            function () {
-	                $(this).removeClass("ui-state-hover");
-	            }).bind({
+            styleup();
 
-	                'mousedown mouseup': function () {
-	                    $(this).toggleClass('ui-state-active');
-	                }
-
-	            }).addClass("ui-state-default").addClass("ui-corner-all")
-                .bind('mouseleave', function(){$(this).removeClass('ui-state-active')});
+            $("body").ajaxComplete(function () {
+                styleup();
+            });
         }
 
         function setFocusOnFirst() {
@@ -66,13 +59,11 @@
             $(id + " form input:text:visible:first").focus();
         }       
 </script>
-
 <div id="errmsg" class="hidden">
     <%=ViewData["errmsg"] %>
 </div>
-
 <noscript>
-    <div id="nos" >
-    acest sait lucreaza mai bine cu javascript permis
+    <div id="nos">
+        acest sait lucreaza mai bine cu javascript permis
     </div>
 </noscript>

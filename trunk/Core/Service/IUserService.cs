@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using MRGSP.ASMS.Core.Model;
+using Omu.Awesome.Core;
 
 namespace MRGSP.ASMS.Core.Service
 {
@@ -108,6 +109,26 @@ namespace MRGSP.ASMS.Core.Service
         IPageable<FarmerInfo> GetPageableInfo(int page, int pageSize);
         IEnumerable<LandOwnerInfo> GetLandOwners(int farmerId);
         IEnumerable<OrganizationInfo> GetOrganizations(int farmerId);
+    }
+
+    public interface IContractService : ICrudService<Contract>
+    {
+        bool Exists(int dossierid);
+        Contract GetByDossier(int dossierId);
+    }
+
+    public interface ICrudService<T>
+    {
+        int Create(T o);
+        T Get(int id);
+        void Save(T o);
+    }
+  
+
+    public interface IReportDataService
+    {
+        object Contract(int id);
+        IEnumerable<CrossDistrictMeasure> CrossDistrictMeasure(DateTime date, int measuresetId);
     }
 
     public interface IFarmersEntityService<T> where T : FarmersEntity, new()

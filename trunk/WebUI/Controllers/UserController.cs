@@ -9,10 +9,10 @@ namespace MRGSP.ASMS.WebUI.Controllers
     public class UserController : BaseController
     {
         private readonly IUserService userService;
-        private readonly IBuilder<User, UserCreateInput> createBuilder;
-        private readonly IBuilder<User, UserEditInput> editBuilder;
+        private readonly ICreateBuilder<User, UserCreateInput> createBuilder;
+        private readonly ICreateBuilder<User, UserEditInput> editBuilder;
 
-        public UserController(IUserService userService, IBuilder<User, UserCreateInput> createBuilder, IBuilder<User, UserEditInput> editBuilder)
+        public UserController(IUserService userService, ICreateBuilder<User, UserCreateInput> createBuilder, ICreateBuilder<User, UserEditInput> editBuilder)
         {
             this.userService = userService;
             this.editBuilder = editBuilder;

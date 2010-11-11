@@ -4,7 +4,7 @@ using Omu.ValueInjecter;
 
 namespace MRGSP.ASMS.Infra
 {
-    public class OrganizationBuilder : BaseBuilder<Organization, OrganizationInput>
+    public class OrganizationBuilder : CreateBuilder<Organization, OrganizationInput>
     {
         protected override OrganizationInput MakeInput(OrganizationInput input, Organization entity)
         {

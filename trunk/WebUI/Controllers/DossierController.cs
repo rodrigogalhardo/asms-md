@@ -9,7 +9,7 @@ namespace MRGSP.ASMS.WebUI.Controllers
 {
     public class DossierController : BaseController
     {
-        private readonly IBuilder<Dossier, DossierCreateInput> createBuilder;
+        private readonly ICreateBuilder<Dossier, DossierCreateInput> createBuilder;
         private readonly IDossierService dossierService;
         private readonly ISystemStateServcie systemStateServcie;
         private readonly IRepo<DossierInfo> dossierInfoRepo;
@@ -18,7 +18,7 @@ namespace MRGSP.ASMS.WebUI.Controllers
         private readonly IRepo<CoefficientValueInfo> coefficientValueInfoRepo;
 
         public DossierController(
-            IBuilder<Dossier, DossierCreateInput> createBuilder,
+            ICreateBuilder<Dossier, DossierCreateInput> createBuilder,
             IDossierService dossierService,
             ISystemStateServcie systemStateServcie,
             IRepo<DossierInfo> dossierInfoRepo, IRepo<FieldValueInfo> fieldValueInfoRepo, IRepo<IndicatorValueInfo> indicatorValueInfoRepo, IRepo<CoefficientValueInfo> coefficientValueInfoRepo)

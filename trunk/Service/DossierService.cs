@@ -6,6 +6,7 @@ using MRGSP.ASMS.Core;
 using MRGSP.ASMS.Core.Model;
 using MRGSP.ASMS.Core.Repository;
 using MRGSP.ASMS.Core.Service;
+using Omu.Awesome.Core;
 
 namespace MRGSP.ASMS.Service
 {
@@ -23,40 +24,30 @@ namespace MRGSP.ASMS.Service
         private readonly IRepo<Disqualifier> disqualifierRepo;
         private readonly IRepo<Coefficient> coefficientRepo;
         private readonly IRepo<Indicator> indicatorRepo;
+        private readonly IDossierRulesService rules;
+        private IRepo<District> districtRepo;
 
-        public DossierService(
-            IDossierRepo dossierRepo,
-            IFieldsetService fieldsetService,
-            IMeasureRepo measureRepo,
-            IEcoCalc ecoCalc,
-            IIndicatorValueRepo ivRepo,
-            IRepo<FieldValue> fvRepo,
-            IRepo<CoefficientValue> cvRepo,
-            IMeasuresetService measuresetService,
-            IFpiRepo fpiRepo,
-            IRepo<Disqualifier> disqualifierRepo,
-            IRepo<Coefficient> coefficientRepo,
-            IRepo<Indicator> indicatorRepo)
+        public DossierService(IDossierRepo dossierRepo, IFieldsetService fieldsetService, IEcoCalc ecoCalc, IIndicatorValueRepo ivRepo, IMeasureRepo measureRepo, IRepo<FieldValue> fvRepo, IRepo<CoefficientValue> cvRepo, IMeasuresetService measuresetService, IFpiRepo fpiRepo, IRepo<Disqualifier> disqualifierRepo, IRepo<Coefficient> coefficientRepo, IRepo<Indicator> indicatorRepo, IDossierRulesService rules, IRepo<FarmerVersionInfo> fviRepo, IRepo<AddressInfo> addressInfoRepo, IRepo<District> districtRepo)
         {
             this.dossierRepo = dossierRepo;
-            this.indicatorRepo = indicatorRepo;
-            this.coefficientRepo = coefficientRepo;
-            this.disqualifierRepo = disqualifierRepo;
-            this.fpiRepo = fpiRepo;
-            this.measuresetService = measuresetService;
-            this.cvRepo = cvRepo;
-            this.fvRepo = fvRepo;
-            this.ivRepo = ivRepo;
-            this.ecoCalc = ecoCalc;
-            this.measureRepo = measureRepo;
+            this.districtRepo = districtRepo;
             this.fieldsetService = fieldsetService;
+            this.ecoCalc = ecoCalc;
+            this.ivRepo = ivRepo;
+            this.measureRepo = measureRepo;
+            this.fvRepo = fvRepo;
+            this.cvRepo = cvRepo;
+            this.measuresetService = measuresetService;
+            this.fpiRepo = fpiRepo;
+            this.disqualifierRepo = disqualifierRepo;
+            this.coefficientRepo = coefficientRepo;
+            this.indicatorRepo = indicatorRepo;
+            this.rules = rules;
         }
 
         public void Disqualify(int id, string reason)
         {
-            var d = dossierRepo.Get(id);
-            if(d.StateId == DossierStates.Authorized)
-                throw new AsmsEx("acest dosar nu mai poate fi discalificat");
+            rules.MustNotBe(id, DossierStates.Authorized);
 
             using (var scope = new TransactionScope())
             {
@@ -75,9 +66,8 @@ namespace MRGSP.ASMS.Service
 
         public void ChangeAmountPayed(int id, decimal amountPayed)
         {
+            rules.MustBe(id, DossierStates.Winner, DossierStates.HasCoefficients);
             var dossier = dossierRepo.Get(id);
-            if (dossier.StateId != DossierStates.Winner && dossier.StateId != DossierStates.HasCoefficients)
-                throw new AsmsEx("la moment pentru acest dosar nu poate fi schimbata suma platita");
 
             using (var scope = new TransactionScope())
             {
@@ -91,10 +81,9 @@ namespace MRGSP.ASMS.Service
 
         public void Authorize(int dossierId)
         {
-            var dossier = dossierRepo.Get(dossierId);
-            if (dossier.StateId != DossierStates.Winner)
-                throw new AsmsEx("acest dosar nu este castigator");
+            rules.MustBe(dossierId, DossierStates.Winner);
 
+            var dossier = dossierRepo.Get(dossierId);
             var fpi = fpiRepo.Get(dossier.FpiId);
 
             using (var scope = new TransactionScope())
@@ -170,7 +159,7 @@ namespace MRGSP.ASMS.Service
                 foreach (var d in dossiers)
                 {
                     fpi.Amount -= d.AmountPayed;
-                    if (fpi.Amount <= 0) break;
+                    if (fpi.Amount < 0) break;
                     dossierRepo.UpdateWhatWhere(new { d.Value, StateId = DossierStates.Winner }, new { d.Id });
                 }
 
@@ -251,7 +240,17 @@ namespace MRGSP.ASMS.Service
             var fpi = fpis.Single();
             o.FpiId = fpi.Id;
 
-            return dossierRepo.Insert(o);
+            int id;
+            using (var scope = new TransactionScope())
+            {
+                id = dossierRepo.Insert(o);
+                var d = dossierRepo.Get(id);
+
+                d.Code = d.CreatedDate.AddYears(-2000).Year + d.CreatedDate.Month.ToString("00") + districtRepo.Get(d.DistrictId).Code + d.Id;
+                dossierRepo.UpdateWhatWhere(new {d.Code}, new {d.Id});
+                scope.Complete();
+            }
+            return id;
         }
 
         /// <summary>

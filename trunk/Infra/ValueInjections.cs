@@ -9,39 +9,32 @@ using Omu.ValueInjecter;
 
 namespace MRGSP.ASMS.Infra
 {
+    //public class NormalToNullables : LoopValueInjection
+    //{
+    //    protected override bool TypesMatch(Type sourceType, Type targetType)
+    //    {
+    //        var type = Nullable.GetUnderlyingType(targetType);
+    //        if (type == null) return false;
+    //        return sourceType == type;
+    //    }
+    //}
+
+    ////e.g. from int? to int, bool? to bool, DateTime? to DateTime
+    //public class NullablesToNormal : LoopValueInjection
+    //{
+    //    protected override bool TypesMatch(Type sourceType, Type targetType)
+    //    {
+    //        var type = Nullable.GetUnderlyingType(sourceType);
+    //        if (type == null) return false;
+    //        return targetType == type;
+    //    }
+    //}   
+
     public class LookupToInt : LoopValueInjection<object, int>
     {
         protected override int SetValue(object sourcePropertyValue)
         {
             return Utils.ReadInt32(sourcePropertyValue);
-        }
-    }
-
-    public class IdToDisplay<T> : ExactValueInjection where T : EntityWithName, new()
-    {
-        public override string SourceName()
-        {
-            return typeof(T).Name.RemoveSuffix("Info") + "Id";
-        }
-
-        public override string TargetName()
-        {
-            return "Display" + typeof(T).Name.RemoveSuffix("Info");
-        }
-
-        protected override bool TypesMatch(Type sourceType, Type targetType)
-        {
-            return sourceType == typeof(int) && targetType == typeof(string);
-        }
-
-        protected override bool AllowSetValue(object value)
-        {
-            return (int)value != 0;
-        }
-
-        protected override object SetValue(object sourcePropertyValue)
-        {
-            return IoC.Resolve<IRepo<T>>().Get((int)sourcePropertyValue).Name;
         }
     }
 
