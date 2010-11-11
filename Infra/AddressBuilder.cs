@@ -4,7 +4,7 @@ using Omu.ValueInjecter;
 
 namespace MRGSP.ASMS.Infra
 {
-    public class AddressBuilder : BaseBuilder<Address, AddressInput>
+    public class AddressBuilder : CreateBuilder<Address, AddressInput>
     {
         protected override Address MakeEntity(Address entity, AddressInput input)
         {

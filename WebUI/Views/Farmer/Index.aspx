@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" Inherits="System.Web.Mvc.ViewPage<MRGSP.ASMS.Core.IPageable<MRGSP.ASMS.Core.Model.FarmerInfo>>"
+<%@ Page Title="" Language="C#" Inherits="System.Web.Mvc.ViewPage<IPageable<FarmerInfo>>"
     MasterPageFile="~/Views/Shared/Site.Master" %>
 
 <asp:Content runat="server" ID="Title" ContentPlaceHolderID="TitleContent">

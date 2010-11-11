@@ -10,7 +10,7 @@ namespace MRGSP.ASMS.WebUI.Controllers
     public class MeasuresetController : Cruder<Measureset, MeasuresetInput>
     {
         private readonly IMeasuresetService service;
-        public MeasuresetController(IRepo<Measureset> repo, IBuilder<Measureset, MeasuresetInput> builder, IMeasuresetService service)
+        public MeasuresetController(IRepo<Measureset> repo, ICreateBuilder<Measureset, MeasuresetInput> builder, IMeasuresetService service)
             : base(repo, builder)
         {
             this.service = service;
@@ -77,6 +77,18 @@ namespace MRGSP.ASMS.WebUI.Controllers
         {
             service.Deactivate(id);
             return RedirectToAction("open", new{id});
+        }
+
+        public ActionResult CrossDistrictMeasure(int id)
+        {
+            return View(new CrossDistrictMeasureInput{ MeasuresetId = id});
+        }
+
+        [HttpPost]
+        public ActionResult CrossDistrictMeasure(CrossDistrictMeasureInput input)
+        {
+            if (!ModelState.IsValid) return View(input);
+            return Content("ok|measuresetId=" +input.MeasuresetId+"&date="+input.Date.ToShortDateString());
         }
     }
 }

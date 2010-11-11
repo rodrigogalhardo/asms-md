@@ -9,10 +9,10 @@ namespace MRGSP.ASMS.WebUI.Controllers
         where TEntity : new()
     {
         protected readonly IRepo<TEntity> Repo;
-        private readonly IBuilder<TEntity, TInput> builder;
+        private readonly ICreateBuilder<TEntity, TInput> builder;
 
 
-        public Cruder(IRepo<TEntity> repo, IBuilder<TEntity, TInput> builder)
+        public Cruder(IRepo<TEntity> repo, ICreateBuilder<TEntity, TInput> builder)
         {
             Repo = repo;
             this.builder = builder;

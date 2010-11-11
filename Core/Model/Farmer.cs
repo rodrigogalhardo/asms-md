@@ -50,7 +50,7 @@ namespace MRGSP.ASMS.Core.Model
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string FathersName { get; set; }
-        public DateTime DateOfBirth { get; set; }
+        public DateTime? DateOfBirth { get; set; }
         public string FiscalCode { get; set; }
     }
 
@@ -67,7 +67,7 @@ namespace MRGSP.ASMS.Core.Model
         public string Name { get; set; }
         public string FiscalCode { get; set; }
         public int OrganizationFormId { get; set; }
-        public DateTime RegDate { get; set; }
+        public DateTime? RegDate { get; set; }
         public string RegNr { get; set; }
         public string ActivityType { get; set; }
     }
@@ -93,6 +93,7 @@ namespace MRGSP.ASMS.Core.Model
     public class AddressInfo : Address
     {
         public string District { get; set; }
+        public string DistrictCode { get; set; }
     }
 
     public class Phone : FarmersEntity
@@ -104,6 +105,16 @@ namespace MRGSP.ASMS.Core.Model
     public class Email : FarmersEntity
     {
         public string Address { get; set; }
+    }
+
+    public class Contract : Entity
+    {
+        public DateTime? Date { get; set; }
+        public string Account { get; set; }
+        public string BankCode { get; set; }
+        public string BankName { get; set; }
+        public int DossierId { get; set; }
+        public string SupportNr { get; set; }
     }
 
 

@@ -4,9 +4,16 @@
     Home Page
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <ul class="bl">
+    <li>
+     <%=Html.ActionLink("Adauga Dosar","Create", "Dossier", null, new {@class="abtn"}) %>
+     </li>
     <%if (ViewData["msid"] != null)
       {%>
-    <p>
-        <%=Html.ActionLink("planul financiar","Index","Fpi",new{measuresetId = (int)ViewData["msid"]}, new{@class="fgb"} ) %></p>
+    <li>
+        <%=Html.ActionLink("planul financiar","Index","Fpi",new{measuresetId = (int)ViewData["msid"]}, new{@class="abtn"} ) %></li>
     <%} %>
+    </ul>
+
+
 </asp:Content>

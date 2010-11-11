@@ -203,8 +203,6 @@ div#title
     display: block;
     float: left;
     margin-right: 0px;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
     padding: 5px;
 }
 .nav a
@@ -239,8 +237,6 @@ div#title
 {
     padding: 5px 10px 3px 10px;
     text-decoration: none;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
     margin: 3px;
 }
 
@@ -251,8 +247,6 @@ div#title
 
 .pagination span.current
 {
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
     padding: 5px 10px 3px 10px;
 }
 
@@ -288,9 +282,6 @@ html, body, .loginpage
 {
     width: 800px;
     margin: 200px auto;
-    -moz-border-radius: 7px;
-    -webkit-border-radius: 7px;
-    border-radius: 7px;
     padding: 20px 0;
     background: #fff;
     overflow: hidden;
@@ -298,9 +289,6 @@ html, body, .loginpage
 
 input, select
 {
-    border-radius: 5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
     padding: 5px;
 }
 
@@ -410,13 +398,13 @@ tbody td
 
 .abtn
 {
+    font-size:100%;
 }
 
-a
+a.abtn
 {
-    font-family: Verdana, Tahoma, sans-serif;
-    color: navy;
-    padding: 5px;
+    padding: 0.5em 1.1em;
+    text-decoration: none;
 }
 
 .formhead
@@ -442,5 +430,30 @@ a
 hr
 {
     margin: 10px 0;
-    border: 1px solid green;
+}
+
+h3
+{
+    margin-bottom: 0.7em;    
+}
+
+.bl 
+{
+    width: 25em;
+}
+.bl li
+{
+    display: block;
+    margin: 3px;
+}
+.bl a
+{
+    display: block;
+    text-align: center;
+}
+
+.bl form, .bl input
+{
+    width: 100%;
+    display: block;
 }

@@ -62,9 +62,26 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\libs\MvcContrib.Castle.dll</HintPath>
     </Reference>
+    <Reference Include="Omu.Awesome.Core">
+      <HintPath>..\libs\Omu.Awesome.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Omu.Awesome.Mvc">
+      <HintPath>..\libs\Omu.Awesome.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="Omu.ValueInjecter, Version=1.9.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\libs\Omu.ValueInjecter.dll</HintPath>
+    </Reference>
+    <Reference Include="Stimulsoft.Base, Version=2010.2.800.0, Culture=neutral, PublicKeyToken=ebe6666cba19647a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Stimulsoft Reports.Ultimate 2010.2 Trial\Bin\Stimulsoft.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Stimulsoft.Report, Version=2010.2.800.0, Culture=neutral, PublicKeyToken=ebe6666cba19647a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Stimulsoft Reports.Ultimate 2010.2 Trial\Bin\Stimulsoft.Report.dll</HintPath>
+    </Reference>
+    <Reference Include="Stimulsoft.Report.WebFx, Version=2010.2.800.0, Culture=neutral, PublicKeyToken=ebe6666cba19647a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -123,7 +140,10 @@
     <Compile Include="Controllers\BankController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CoefficientController.cs" />
+    <Compile Include="Controllers\ContractController.cs" />
     <Compile Include="Controllers\Cruder.cs" />
+    <Compile Include="Controllers\Cruders.cs" />
+    <Compile Include="Controllers\DistrictIdLookupController.cs" />
     <Compile Include="Controllers\DossierController.cs" />
     <Compile Include="Controllers\EmailController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
@@ -144,29 +164,57 @@
     <Compile Include="Controllers\PhoneController.cs" />
     <Compile Include="Controllers\RankController.cs" />
     <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="Helpers\ConfirmHelpers.cs" />
-    <Compile Include="Helpers\ConfirmInfo.cs" />
-    <Compile Include="Helpers\LookupHelpers.cs" />
     <Compile Include="Helpers\Extensions.cs" />
     <Compile Include="FormAuths.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\InputHelpers.cs" />
-    <Compile Include="Helpers\LookupInfo.cs" />
-    <Compile Include="Helpers\LookupListInfo.cs" />
-    <Compile Include="Helpers\JsTools.cs" />
     <Compile Include="Helpers\PaginationHelpers.cs" />
-    <Compile Include="Helpers\PopupHelpers.cs" />
-    <Compile Include="Helpers\PopupInfo.cs" />
-    <Compile Include="Helpers\ToHtml.cs" />
+    <Compile Include="Helpers\PopupFormHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repor.aspx.cs">
+      <DependentUpon>Repor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Repor.aspx.designer.cs">
+      <DependentUpon>Repor.aspx</DependentUpon>
+    </Compile>
     <Compile Include="RouteConfigurator.cs" />
     <Compile Include="WindsorConfigurator.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Awesome.css" />
     <Content Include="Content\error-lolcat-problemz.jpg" />
     <Content Include="Global.asax" />
+    <Content Include="Localization\ar.xml" />
+    <Content Include="Localization\be.xml" />
+    <Content Include="Localization\bg.xml" />
+    <Content Include="Localization\cro.xml" />
+    <Content Include="Localization\cz.xml" />
+    <Content Include="Localization\de.xml" />
+    <Content Include="Localization\en.xml" />
+    <Content Include="Localization\es.xml" />
+    <Content Include="Localization\fa.xml" />
+    <Content Include="Localization\fr.xml" />
+    <Content Include="Localization\hu.xml" />
+    <Content Include="Localization\it.xml" />
+    <Content Include="Localization\ka.xml" />
+    <Content Include="Localization\lt.xml" />
+    <Content Include="Localization\nl.xml" />
+    <Content Include="Localization\pl.xml" />
+    <Content Include="Localization\pt-BR.xml" />
+    <Content Include="Localization\ro.xml" />
+    <Content Include="Localization\ru.xml" />
+    <Content Include="Localization\ser.xml" />
+    <Content Include="Localization\sk.xml" />
+    <Content Include="Localization\sv.xml" />
+    <Content Include="Localization\tr.xml" />
+    <Content Include="Localization\ua.xml" />
+    <Content Include="Localization\zh-CHS.xml" />
+    <Content Include="Localization\zh-CHT.xml" />
+    <Content Include="Repor.aspx" />
+    <Content Include="Scripts\Awesome.js" />
     <Content Include="Scripts\dp.ro.js" />
     <Content Include="Scripts\xVal.jquery.validate.js" />
     <Content Include="Views\Address\Create.aspx" />
@@ -177,6 +225,9 @@
     <Content Include="Views\Coefficient\Index.aspx" />
     <Content Include="Views\Coefficient\List.ascx" />
     <Content Include="Views\Coefficient\ListLite.ascx" />
+    <Content Include="Views\Contract\Create.ascx" />
+    <Content Include="Views\Contract\Index.ascx" />
+    <Content Include="Views\Contract\view.ascx" />
     <Content Include="Views\Dossier\ChangeAmountPayed.aspx" />
     <Content Include="Views\Dossier\CalcItems.ascx" />
     <Content Include="Views\Dossier\CoefficientValues.ascx" />
@@ -184,12 +235,14 @@
     <Content Include="Views\Email\Create.aspx" />
     <Content Include="Views\Email\Index.ascx" />
     <Content Include="Views\ContactInfo\Index.aspx" />
+    <Content Include="Views\Error\Errorp.ascx" />
+    <Content Include="Views\Error\Expectedp.ascx" />
     <Content Include="Views\FarmerRegister\Index.aspx" />
     <Content Include="Views\FarmerVersionIdLookup\searchForm.ascx" />
     <Content Include="Views\Farmer\DisplayLandOwner.ascx" />
     <Content Include="Views\Farmer\DisplayOrganization.ascx" />
     <Content Include="Views\Farmer\Index.aspx" />
-    <Content Include="Views\Shared\LookupList.ascx" />
+    <Content Include="Views\Measureset\CrossDistrictMeasure.ascx" />
     <Content Include="Views\Rank\ChangeAmount.aspx" />
     <Content Include="Views\Rank\comp.ascx" />
     <Content Include="Views\Phone\Create.aspx" />
@@ -238,8 +291,15 @@
     <Content Include="Views\InputBuilders\Array.aspx" />
     <Content Include="Views\InputBuilders\ArrayAddButton.aspx" />
     <Content Include="Views\InputBuilders\ArrayRemoveButton.aspx" />
+    <Content Include="Views\Shared\Awesome\AjaxDropdown.ascx" />
+    <Content Include="Views\Shared\Awesome\Confirm.ascx" />
+    <Content Include="Views\Shared\Awesome\PopupFormx.ascx" />
+    <Content Include="Views\Shared\Awesome\Lookup.ascx" />
+    <Content Include="Views\Shared\Awesome\LookupList.ascx" />
+    <Content Include="Views\Shared\Awesome\LookupPopup.ascx" />
+    <Content Include="Views\Shared\Awesome\PopupForm.ascx" />
+    <Content Include="Views\Shared\Awesome\SearchForm.ascx" />
     <Content Include="Views\Shared\bcreate.ascx" />
-    <Content Include="Views\Shared\Confirm.ascx" />
     <Content Include="Views\Shared\EditorTemplates\Boolean.aspx" />
     <Content Include="Views\Shared\EditorTemplates\Lookup.aspx" />
     <Content Include="Views\Shared\EditorTemplates\Enum.aspx" />
@@ -255,9 +315,6 @@
     <Content Include="Views\InputBuilders\MultilineText.aspx" />
     <Content Include="Views\InputBuilders\RadioButtons.aspx" />
     <Content Include="Views\InputBuilders\ReadOnly.aspx" />
-    <Content Include="Views\Shared\Lookup.ascx" />
-    <Content Include="Views\Shared\LookupPopup.ascx" />
-    <Content Include="Views\Shared\popup.ascx" />
     <Content Include="Views\Shared\save.ascx" />
     <Content Include="Views\Shared\start.ascx" />
     <Content Include="Views\InputBuilders\Submit.aspx" />
@@ -283,8 +340,6 @@
     <Content Include="Scripts\MicrosoftMvcAjax.debug.js" />
     <Content Include="Scripts\MicrosoftMvcValidation.js" />
     <Content Include="Scripts\MicrosoftMvcValidation.debug.js" />
-    <Content Include="Views\Account\LogOn.aspx" />
-    <Content Include="Views\Account\Register.aspx" />
     <Content Include="Views\Home\About.aspx" />
     <Content Include="Views\Home\Index.aspx" />
     <Content Include="Views\Error\Error.aspx" />
@@ -339,7 +394,6 @@
     <Content Include="Views\Dossier\Create.aspx" />
     <Content Include="Views\Nav\Index.ascx" />
     <Content Include="Views\Shared\back.ascx" />
-    <Content Include="Views\Shared\ConfirmDelete.ascx" />
     <Content Include="Views\Shared\Login.Master" />
     <Content Include="Views\Shared\submit.ascx" />
   </ItemGroup>

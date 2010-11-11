@@ -10,10 +10,10 @@ namespace MRGSP.ASMS.WebUI.Controllers
         where TEntity : FarmersEntity, new()
         where TInput : FarmersInput, new()
     {
-        private readonly IBuilder<TEntity, TInput> builder;
+        private readonly ICreateBuilder<TEntity, TInput> builder;
         private readonly IFarmersEntityService<TEntity> service;
 
-        public FarmersCruder(IBuilder<TEntity, TInput> builder, IFarmersEntityService<TEntity> service)
+        public FarmersCruder(ICreateBuilder<TEntity, TInput> builder, IFarmersEntityService<TEntity> service)
         {
             this.builder = builder;
             this.service = service;

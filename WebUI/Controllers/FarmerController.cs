@@ -9,21 +9,19 @@ namespace MRGSP.ASMS.WebUI.Controllers
 {
     public class FarmerController : BaseController
     {
-        private readonly IBuilder<Organization, OrganizationInput> organizationBuilder;
-        private readonly IBuilder<LandOwner, LandOwnerInput> landOwnerBuilder;
+        private readonly ICreateBuilder<Organization, OrganizationInput> organizationBuilder;
+        private readonly ICreateBuilder<LandOwner, LandOwnerInput> landOwnerBuilder;
         private readonly IFarmerService farmerService;
         private readonly IFarmerRepo farmerRepo;
 
-        public FarmerController(
-            IBuilder<Organization, OrganizationInput> organizationBuilder,
-            IBuilder<LandOwner, LandOwnerInput> landOwnerBuilder,
-            IFarmerService farmerService, IFarmerRepo farmerRepo)
+        public FarmerController(ICreateBuilder<Organization, OrganizationInput> organizationBuilder, ICreateBuilder<LandOwner, LandOwnerInput> landOwnerBuilder, IFarmerService farmerService, IFarmerRepo farmerRepo)
         {
             this.organizationBuilder = organizationBuilder;
-            this.farmerRepo = farmerRepo;
-            this.farmerService = farmerService;
             this.landOwnerBuilder = landOwnerBuilder;
+            this.farmerService = farmerService;
+            this.farmerRepo = farmerRepo;
         }
+
 
         public ActionResult Index(int? page)
         {
@@ -68,14 +66,14 @@ namespace MRGSP.ASMS.WebUI.Controllers
             return RedirectToAction("open", new {id = input.FarmerId});
         }
 
-        public ActionResult CreateLandOwner()
-        {
-            return View(landOwnerBuilder.BuildInput(new LandOwner()));
-        }
-
         public ActionResult CreateOrganization()
         {
             return View(organizationBuilder.BuildInput(new Organization()));
+        }
+
+        public ActionResult CreateLandOwner()
+        {
+            return View(landOwnerBuilder.BuildInput(new LandOwner()));
         }
 
         [HttpPost]

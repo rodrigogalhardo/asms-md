@@ -23,6 +23,13 @@ namespace MRGSP.ASMS.Tests
         }
 
         [Test]
+        public void Tesasdft()
+        {
+            decimal d = 23424242424242;
+            Console.WriteLine(d.ToString("0.00"));
+        }
+
+        [Test]
         public void Eqq()
         {
             var o = new { Name = "asdss" };

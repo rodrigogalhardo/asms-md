@@ -6,7 +6,7 @@ using Omu.ValueInjecter;
 
 namespace MRGSP.ASMS.Infra
 {
-    public class DossierBuilder : BaseBuilder<Dossier, DossierCreateInput>
+    public class DossierBuilder : CreateBuilder<Dossier, DossierCreateInput>
     {
         private readonly IUserService userService;
 

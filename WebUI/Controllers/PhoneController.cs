@@ -7,7 +7,7 @@ namespace MRGSP.ASMS.WebUI.Controllers
 {
     public class PhoneController : FarmersCruder<Phone, PhoneInput>
     {
-        public PhoneController(IBuilder<Phone, PhoneInput> builder, IFarmersEntityService<Phone> service) : base(builder, service)
+        public PhoneController(ICreateBuilder<Phone, PhoneInput> builder, IFarmersEntityService<Phone> service) : base(builder, service)
         {
         }
     }

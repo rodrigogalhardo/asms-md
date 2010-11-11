@@ -194,7 +194,7 @@ namespace MRGSP.ASMS.Core.Model
     }
 
     public class Dossier : Entity
-    {  
+    {
         public string AdminFirstName { get; set; }
         public string AdminLastName { get; set; }
         public string RepresentativeFirstName { get; set; }
@@ -226,8 +226,12 @@ namespace MRGSP.ASMS.Core.Model
         public decimal Value { get; set; }
         public bool Disqualified { get; set; }
         public int FarmerVersionId { get; set; }
+        public decimal InvestmentValue { get; set; }
 
         public int FpiId { get; set; }
+        public int DistrictId { get; set; }
+        public string Locality { get; set; }
+        public string Code { get; set; }
     }
 
     public class DossierInfo : EntityWithName

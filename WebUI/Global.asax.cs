@@ -52,6 +52,7 @@ namespace MRGSP.ASMS.WebUI
 
         protected void Application_Error(object sender, EventArgs e)
         {
+            return;
             var exception = Server.GetLastError();
             // Log the exception.
             log.Error(exception.Message, exception);
@@ -79,8 +80,8 @@ namespace MRGSP.ASMS.WebUI
                         routeData.Values.Add("action", "HttpError505");
                         break;
 
-                    // Here you can handle Views to other error codes.
-                    // I choose a General error template  
+                        // Here you can handle Views to other error codes.
+                        // I choose a General error template  
                     default:
                         routeData.Values.Add("action", "Index");
                         break;
@@ -96,7 +97,7 @@ namespace MRGSP.ASMS.WebUI
             // Call target Controller and pass the routeData.
             IController errorController = new ErrorController();
             errorController.Execute(new RequestContext(
-                 new HttpContextWrapper(Context), routeData));
+                                        new HttpContextWrapper(Context), routeData));
         }
     }
 }

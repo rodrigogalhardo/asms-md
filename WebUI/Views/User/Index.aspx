@@ -1,8 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<IPageable<MRGSP.ASMS.Core.Model.User>>" %>
 
 <%@ Import Namespace="MRGSP.ASMS.WebUI.Controllers" %>
-
-<%@ Import Namespace="MRGSP.ASMS.WebUI.Helpers" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <h2>
         Utilizatori</h2>

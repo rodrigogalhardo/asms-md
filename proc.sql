@@ -1,4 +1,4 @@
-use asms
+ use asms
 
 go
 drop proc getRolesByUserId
@@ -309,3 +309,17 @@ where @fpiId = fpiId
 and stateId = 6
 
 go
+drop proc crossDistricMeasure --'01/11/2010', 1
+go
+create proc crossDistricMeasure  
+@date Date,
+@measuresetId int
+as
+select case when d.id is null then 0 else 1 end as value,
+dis.name district, m.name measure
+from districts dis 
+cross join measures m
+left outer join dossiers d on d.districtid = dis.id and d.measureId = m.id and d.createdDate <= @date
+where m.id in (select msm.measureId from measuresetsmeasures msm where msm.measuresetId = @measuresetId)
+
+

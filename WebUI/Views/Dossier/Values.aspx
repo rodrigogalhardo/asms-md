@@ -4,7 +4,7 @@
 <asp:Content runat="server" ID="Title" ContentPlaceHolderID="TitleContent">
 </asp:Content>
 <asp:Content runat="server" ID="Main" ContentPlaceHolderID="MainContent">
-    <%=Html.ActionLink("inapoi", "open", new{Model.Id}) %>
+    <%=Html.ActionLink("inapoi", "open", new{Model.Id}, new{@class="abtn"}) %>
     <h2>
         valorile campurilor
     </h2>

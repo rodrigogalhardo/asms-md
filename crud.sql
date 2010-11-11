@@ -219,6 +219,7 @@ serviceProvider nvarchar(max),
 consultantId int,
 amountRequested money not null,
 amountPayed money not null,
+investmentValue money not null,
 value money,
 disqualified bit default(0) not null,
 createdBy int, --references users(id),
@@ -228,7 +229,10 @@ perfecterId int references perfecters(id) not null,
 fieldsetId int references fieldsets(id) not null,
 stateId int references dossierStates(id) not null,
 measuresetId int references measuresets(id) not null,
-fpiId int references fpis(id)
+fpiId int references fpis(id),
+code nvarchar(20),
+districtId int references districts(id) not null,
+locality nvarchar(30) not null
 );
 
 create table fieldvalues 
@@ -278,6 +282,17 @@ dossierId int references dossiers(id),
 reason nvarchar(max)
 );
 
+create table contracts
+(
+id int identity primary key,
+date Date not null,
+account char(15) not null,
+bankcode varchar(10) not null,	
+bankname nvarchar(100) not null,
+dossierId int references dossiers(id) unique not null,
+supportNr nvarchar(10) not null
+);
+
 /********************************* views ***************************/
 go
 create view farmerInfos
@@ -309,10 +324,12 @@ from farmers f
 inner join farmerVersions fv on fv.farmerid = f.id
 inner join landowners l on l.farmerVersionId = fv.id;
 
+
+
 go
 create view addressInfos
 as
-select a.*, d.name as district from addresses a inner join districts d on a.districtId = d.id;
+select a.*, d.name as district, d.code as DistrictCode from addresses a inner join districts d on a.districtId = d.id;
 
 go
 create view organizationInfos
@@ -356,6 +373,7 @@ go
 create view CoefficientValueInfos
 as
 select c.name, cv.value, cv.dossierId, c.id from coefficientvalues cv inner join coefficients c on cv.coefficientId = c.id
+
 
 
 go
@@ -410,7 +428,7 @@ insert districts(name, code) values('Rascani','RS');
 insert districts(name, code) values('Sangerei','SN');
 insert districts(name, code) values('Soroca','BL');
 insert districts(name, code) values('Anenii Noi','AN');
-insert districts(name, code) values('Calarasi','cL');
+insert districts(name, code) values('Calarasi','CL');
 insert districts(name, code) values('Criuleni','CR');
 insert districts(name, code) values('Ialoveni','IL');
 insert districts(name, code) values('Nisporeni','NS');
@@ -429,6 +447,7 @@ insert districts(name, code) values('Leova','LV');
 insert districts(name, code) values('Stefan Voda','SV');
 insert districts(name, code) values('Taraclia','TR');
 insert districts(name, code) values('UTA Gagauzia','GE');
+insert districts(name, code) values('Mun. Chisinau', 'C');
 
 
 insert perfecters(name) values('ACSA');
@@ -545,4 +564,6 @@ insert measuresetsmeasures(measureId, measuresetId) values(10, 1)
 --update dossiers set stateId = 2 ,value = null
 --delete from coefficientvalues
 --delete from fpis
+
+
 

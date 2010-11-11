@@ -1,9 +1,8 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
-using Hyper.ComponentModel;
 using MRGSP.ASMS.Infra;
 using MvcContrib.Castle;
-using Omu.ValueInjecter;
+using Omu.Awesome.Mvc;
 
 namespace MRGSP.ASMS.WebUI
 {
@@ -15,7 +14,12 @@ namespace MRGSP.ASMS.WebUI
             RouteConfigurator.RegisterRoutes(RouteTable.Routes);
             ControllerBuilder.Current.SetControllerFactory(new WindsorControllerFactory(IoC.Container));
             WindsorConfigurator.Configure();
-            PropertyInfosStorage.RegisterActionForEachType(HyperTypeDescriptionProvider.Add);
+            //PropertyInfosStorage.RegisterActionForEachType(HyperTypeDescriptionProvider.Add);
+
+            Settings.PopupForm.RefreshOnSuccess = true;
+            Settings.Confirm.Width = 700;
+            Settings.PopupForm.OkText = "OK";
+            Settings.PopupForm.CancelText = "Anuleaza";
         }
     }
 }

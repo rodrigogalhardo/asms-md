@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using MRGSP.ASMS.Core;
 using MRGSP.ASMS.Core.Repository;
+using Omu.Awesome.Core;
 
 namespace MRGSP.ASMS.Data
 {
