@@ -15,14 +15,18 @@ namespace MRGSP.ASMS.Service
         private readonly IRepo<Measure> measureRepo;
         private readonly IRepo<Contract> contractRepo;
         private readonly IUberRepo uberRepo;
+        private readonly IRepo<District> districtRepo;
+
         public ReportDataService(
             IDossierRepo dossierRepo, 
             IRepo<FarmerVersionInfo> fviRepo, 
             IRepo<AddressInfo> aiRepo, 
             IRepo<Measure> measureRepo, 
-            IRepo<Contract> contractRepo, IUberRepo uberRepo)
+            IRepo<Contract> contractRepo, 
+            IUberRepo uberRepo, IRepo<District> districtRepo)
         {
             this.dossierRepo = dossierRepo;
+            this.districtRepo = districtRepo;
             this.uberRepo = uberRepo;
             this.fviRepo = fviRepo;
             this.aiRepo = aiRepo;
@@ -30,17 +34,31 @@ namespace MRGSP.ASMS.Service
             this.contractRepo = contractRepo;
         }
 
+        public string GetDistrictName(int districtId)
+        {
+            return districtRepo.Get(districtId).Name;
+        }
+
+        public IEnumerable<DossiersByDistrictReport> DossiersByDistrictReport(int year, int districtId)
+        {
+            return uberRepo.DossiersByDistrictReport(year, districtId);
+        }
+
         public IEnumerable<CrossDistrictMeasure> CrossDistrictMeasure(DateTime date, int measuresetId)
         {
             return uberRepo.GetCrossDistrictMeasure(date, measuresetId);
         }
 
+        public IEnumerable<CrossDistrictMeasureAmountPayed> CrossDistrictMeasureAmountPayed(DateTime date, int measuresetId)
+        {
+            return uberRepo.GetCrossDistrictMeasureAmountPayed(date, measuresetId);
+        }
+
         public object Contract(int id)
         {
-
             var c = contractRepo.Get(id);
             var dossier = dossierRepo.Get(c.DossierId);
-            var fvi = fviRepo.Get(dossier.FarmerVersionId);
+            var fvi = fviRepo.Get(dossier.FarmerVersionId.Value);
             var measure = measureRepo.Get(dossier.Id);
             var a = aiRepo.GetWhere(new { fvi.FarmerId, EndDate = DBNull.Value }).FirstOrDefault();
 
@@ -61,7 +79,9 @@ namespace MRGSP.ASMS.Service
                            CodBancar = c.BankCode,
                            Cf = fvi.FiscalCode,
                            Sprijin = dossier.AmountPayed.ToString("0.00"),
+                           Sprijinw = NumberToWords.Do(dossier.AmountPayed),
                            Invest = dossier.InvestmentValue.ToString("0.00"),
+                           Investw = NumberToWords.Do(dossier.InvestmentValue),
                            Functia = !string.IsNullOrWhiteSpace(dossier.AdminFirstName) ? "Director" : "Reprezentant legal",
                            SprijinNr = c.SupportNr,
                            Filiala = c.BankName,

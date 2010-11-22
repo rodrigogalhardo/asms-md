@@ -19,7 +19,7 @@ namespace MRGSP.ASMS.Service
 
         public Contract GetByDossier(int dossierId)
         {
-            return contractRepo.GetWhere(new {dossierId}).SingleOrDefault();
+            return contractRepo.GetWhere(new { dossierId }).SingleOrDefault();
         }
 
         public bool Exists(int dossierId)

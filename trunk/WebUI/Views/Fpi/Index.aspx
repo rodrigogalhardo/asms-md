@@ -1,6 +1,5 @@
 <%@ Page Title="" Language="C#" Inherits="System.Web.Mvc.ViewPage<System.Collections.Generic.IEnumerable<MRGSP.ASMS.Core.Model.Fpi>>"
     MasterPageFile="~/Views/Shared/Site.Master" %>
-<%@ Import Namespace="MRGSP.ASMS.WebUI.Helpers" %>
 
 <asp:Content runat="server" ID="Title" ContentPlaceHolderID="TitleContent">
 </asp:Content>
@@ -9,6 +8,7 @@
         var measures = ViewData["measures"] as IEnumerable<Measure>;
         var measuresetId = (int)ViewData["measuresetId"];
     %>
+    <%=Html.MakePopupForm("Create", new[]{"measuresetId", "measureId","month"},height:250) %>
     <table>
         <thead>
             <tr>
@@ -42,11 +42,11 @@
                 <%=x.Amount.Display() %>
                 <%=Html.ActionLink("c","Index","Rank",new{fpiId = x.Id}, null) %>
                 <%
-                }
+}
                         else
                         {
                 %>
-                <%=Html.ActionLink("+", "Create", new{ measuresetId, measureId = measure.Id, month = i}) %>
+                <%=Html.PopupFormActionLink("Create","+", new object[]{ measuresetId, measure.Id, i}) %>
                 <%
                     }
                         Response.Write("</td>");

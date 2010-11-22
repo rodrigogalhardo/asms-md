@@ -7,7 +7,7 @@
     <%=Html.MakePopupForm<UserController>(o => o.Create(), height:500) %>
     <%=Html.MakePopupForm<UserController>(o => o.Edit(0),width:500, height:400) %>
     <%=Html.MakePopupForm<UserController>(o => o.ChangePassword(0)) %>
-    <%=Html.PopupFormActionLink<UserController>(o => o.Create(), "Creaza") %>
+    <%=Html.PopupFormActionLink<UserController>(o => o.Create(), "Creaza", new{@class = "abtn"}) %>
     <table>
         <thead>
             <tr>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using MRGSP.ASMS.Core.Model;
+using MRGSP.ASMS.Core.Repository;
 using Omu.Awesome.Core;
 
 namespace MRGSP.ASMS.Core.Service
@@ -47,7 +48,7 @@ namespace MRGSP.ASMS.Core.Service
     }
     public interface IFpiService
     {
-        void ChangeAmount(int id, decimal amount);
+        void ChangeAmount(int id, decimal amount, decimal amountm);
         Fpi Get(int id);
     }
 
@@ -93,6 +94,10 @@ namespace MRGSP.ASMS.Core.Service
         User Get(string name);
         bool Validate(string name, string password);
     }
+    public interface ILocalityService : IRepo<Locality>
+    {
+        int? Resolve(int? id, string name);
+    }
 
     public interface IBankService
     {
@@ -129,6 +134,9 @@ namespace MRGSP.ASMS.Core.Service
     {
         object Contract(int id);
         IEnumerable<CrossDistrictMeasure> CrossDistrictMeasure(DateTime date, int measuresetId);
+        IEnumerable<DossiersByDistrictReport> DossiersByDistrictReport(int year, int districtId);
+        string GetDistrictName(int districtId);
+        IEnumerable<CrossDistrictMeasureAmountPayed> CrossDistrictMeasureAmountPayed(DateTime date, int measuresetId);
     }
 
     public interface IFarmersEntityService<T> where T : FarmersEntity, new()

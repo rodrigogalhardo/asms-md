@@ -9,14 +9,14 @@ namespace MRGSP.ASMS.WebUI.Controllers
     public class UserController : BaseController
     {
         private readonly IUserService userService;
-        private readonly ICreateBuilder<User, UserCreateInput> createBuilder;
-        private readonly ICreateBuilder<User, UserEditInput> editBuilder;
+        private readonly IBuilder<User, UserCreateInput> cv;
+        private readonly IBuilder<User, UserEditInput> ev;
 
-        public UserController(IUserService userService, ICreateBuilder<User, UserCreateInput> createBuilder, ICreateBuilder<User, UserEditInput> editBuilder)
+        public UserController(IUserService userService, IBuilder<User, UserCreateInput> cv, IBuilder<User, UserEditInput> ev)
         {
             this.userService = userService;
-            this.editBuilder = editBuilder;
-            this.createBuilder = createBuilder;
+            this.cv = cv;
+            this.ev = ev;
         }
 
         public ActionResult Index(int? page)
@@ -26,7 +26,7 @@ namespace MRGSP.ASMS.WebUI.Controllers
 
         public ActionResult Create()
         {
-            return View(createBuilder.BuildInput(new User()));
+            return View(cv.BuildInput(new User()));
         }
 
         [HttpPost]
@@ -35,15 +35,15 @@ namespace MRGSP.ASMS.WebUI.Controllers
             if (input.Roles == null) ModelState.AddModelError("roles", "selectati macar un rol");
 
             if (!ModelState.IsValid)
-                return View(createBuilder.RebuildInput(input));
+                return View(cv.RebuildInput(input));
 
-            userService.Create(createBuilder.BuildEntity(input));
+            userService.Create(cv.BuildEntity(input));
             return Content("ok");
         }
 
         public ActionResult Edit(int id)
         {
-            return View(editBuilder.BuildInput(userService.GetFull(id)));
+            return View(ev.BuildInput(userService.GetFull(id)));
         }
 
         [HttpPost]
@@ -51,9 +51,9 @@ namespace MRGSP.ASMS.WebUI.Controllers
         {
             if (input.Roles == null) ModelState.AddModelError("roles", "selectati macar un rol");
             if (!ModelState.IsValid)
-                return View(editBuilder.RebuildInput(input));
+                return View(ev.RebuildInput(input, input.Id));
 
-            userService.Save(editBuilder.BuildEntity(input));
+            userService.Save(ev.BuildEntity(input, input.Id));
             return Content("ok");
         }
 

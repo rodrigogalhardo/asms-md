@@ -30,6 +30,7 @@ namespace MRGSP.ASMS.Core.Repository
         int Update(T o);
         int UpdateWhatWhere(object what, object where);
         int DeleteWhere(object where);
+        IEnumerable<T> GetWhereStartsWith(string prop, string with, int max);
     }
 
     public interface IMeasureRepo : IRepo<Measure>
@@ -88,6 +89,8 @@ namespace MRGSP.ASMS.Core.Repository
     public interface IUberRepo
     {
         IEnumerable<CrossDistrictMeasure> GetCrossDistrictMeasure(DateTime date, int measuresetId);
+        IEnumerable<DossiersByDistrictReport> DossiersByDistrictReport(int year, int districtId);
+        IEnumerable<CrossDistrictMeasureAmountPayed> GetCrossDistrictMeasureAmountPayed(DateTime date, int measuresetId);
     }
 
     public interface IFarmerRepo

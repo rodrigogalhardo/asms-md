@@ -11,7 +11,7 @@ namespace MRGSP.ASMS.WebUI.Controllers
     {
         private readonly IRepo<AddressInfo> addressInfoRepo;
 
-        public AddressController(ICreateBuilder<Address, AddressInput> builder, IFarmersEntityService<Address> service, IRepo<AddressInfo> addressInfoRepo) : base(builder, service)
+        public AddressController(IBuilder<Address, AddressInput> v, IFarmersEntityService<Address> service, IRepo<AddressInfo> addressInfoRepo) : base(v, service)
         {
             this.addressInfoRepo = addressInfoRepo;
         }

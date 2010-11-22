@@ -9,7 +9,7 @@ namespace MRGSP.ASMS.WebUI.Controllers
 {
     public class DossierController : BaseController
     {
-        private readonly ICreateBuilder<Dossier, DossierCreateInput> createBuilder;
+        private readonly IBuilder<Dossier, DossierCreateInput> v;
         private readonly IDossierService dossierService;
         private readonly ISystemStateServcie systemStateServcie;
         private readonly IRepo<DossierInfo> dossierInfoRepo;
@@ -17,19 +17,15 @@ namespace MRGSP.ASMS.WebUI.Controllers
         private readonly IRepo<IndicatorValueInfo> indicatorValueInfoRepo;
         private readonly IRepo<CoefficientValueInfo> coefficientValueInfoRepo;
 
-        public DossierController(
-            ICreateBuilder<Dossier, DossierCreateInput> createBuilder,
-            IDossierService dossierService,
-            ISystemStateServcie systemStateServcie,
-            IRepo<DossierInfo> dossierInfoRepo, IRepo<FieldValueInfo> fieldValueInfoRepo, IRepo<IndicatorValueInfo> indicatorValueInfoRepo, IRepo<CoefficientValueInfo> coefficientValueInfoRepo)
+        public DossierController(IBuilder<Dossier, DossierCreateInput> v, IDossierService dossierService, ISystemStateServcie systemStateServcie, IRepo<DossierInfo> dossierInfoRepo, IRepo<FieldValueInfo> fieldValueInfoRepo, IRepo<IndicatorValueInfo> indicatorValueInfoRepo, IRepo<CoefficientValueInfo> coefficientValueInfoRepo)
         {
-            this.createBuilder = createBuilder;
-            this.coefficientValueInfoRepo = coefficientValueInfoRepo;
-            this.indicatorValueInfoRepo = indicatorValueInfoRepo;
-            this.fieldValueInfoRepo = fieldValueInfoRepo;
-            this.dossierInfoRepo = dossierInfoRepo;
-            this.systemStateServcie = systemStateServcie;
+            this.v = v;
             this.dossierService = dossierService;
+            this.systemStateServcie = systemStateServcie;
+            this.dossierInfoRepo = dossierInfoRepo;
+            this.fieldValueInfoRepo = fieldValueInfoRepo;
+            this.indicatorValueInfoRepo = indicatorValueInfoRepo;
+            this.coefficientValueInfoRepo = coefficientValueInfoRepo;
         }
 
         public ActionResult Values(int id)
@@ -78,16 +74,16 @@ namespace MRGSP.ASMS.WebUI.Controllers
         public ActionResult Create()
         {
             systemStateServcie.AssureAbilityToCreateDossier();
-            return View(createBuilder.BuildInput(new Dossier()));
+            return View(v.BuildInput(new Dossier()));
         }
 
         [HttpPost]
         public ActionResult Create(DossierCreateInput input)
         {
             if (!ModelState.IsValid)
-                return View(createBuilder.RebuildInput(input));
+                return View(v.RebuildInput(input));
 
-            var id = dossierService.Create(createBuilder.BuildEntity(input));
+            var id = dossierService.Create(v.BuildEntity(input));
 
             return dossierService.IsNoContest(id) ?
                 RedirectToAction("Index") :

@@ -40,13 +40,13 @@
     <%}%>
     <li>
     <script type="text/javascript">
-        function openReport(a) {
-            window.open('<%=Url.Content(@"~\Repor.aspx") %>' + '?report=crossDistrictMeasure&' + a, 'newtaborsomething');
+        function openReport(o) {
+            window.open('<%=Url.Content(@"~\Repor.aspx") %>' + '?report=crossDistrictMeasure&measuresetId=' + o.MeasuresetId + '&date='+o.Date, 'newtaborsomething');
         }
     </script>
 
-    <%=Html.MakePopupFormx<MeasuresetController>(o => o.CrossDistrictMeasure(0), successFunction:"openReport", width:500, height:200) %>
-    <%=Html.PopupFormActionLinkx<MeasuresetController>(o => o.CrossDistrictMeasure(Model.Id),"raport raioane x masuri", new{@class="abtn"}) %>
+    <%=Html.MakePopupForm<ReportController>(o => o.CrossDistrictMeasure(0), successFunction:"openReport", width:500, height:200) %>
+    <%=Html.PopupFormActionLink<ReportController>(o => o.CrossDistrictMeasure(Model.Id),"raport raioane x masuri", new{@class="abtn"}) %>
     </li>
     </ul>
 </asp:Content>

@@ -1,21 +1,33 @@
 ﻿using MRGSP.ASMS.Core.Model;
+using MRGSP.ASMS.Core.Repository;
+using MRGSP.ASMS.Core.Service;
 using MRGSP.ASMS.Infra.Dto;
-using Omu.ValueInjecter;
 
 namespace MRGSP.ASMS.Infra
 {
-    public class AddressBuilder : CreateBuilder<Address, AddressInput>
+    public class AddressBuilder : Builder<Address, AddressInput>
     {
-        protected override Address MakeEntity(Address entity, AddressInput input)
+        private ILocalityService s;
+        public AddressBuilder(IRepo<Address> repo, ILocalityService s) : base(repo)
         {
-            entity.InjectFrom<LookupToInt>(input);
-            return entity;
+            this.s = s;
         }
 
-        protected override AddressInput MakeInput(AddressInput input, Address entity)
+        protected override void MakeEntity(ref Address e, AddressInput input)
         {
-            input.InjectFrom<IdToLookup<District>>(entity);
-            return input;
+            e.LocalityId = s.Resolve(input.LocalityId, input.Locality);
+
+            
+        }
+
+        protected override void MakeInput(Address e, ref AddressInput input)
+        {
+            input.LocalityId = e.LocalityId;
+
+            if (!input.LocalityId.HasValue) return;
+            var o = s.Get(input.LocalityId.Value);
+            if (o != null) input.Locality = o.Name;
+            
         }
     }
 }

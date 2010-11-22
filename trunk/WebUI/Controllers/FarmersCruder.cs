@@ -10,12 +10,12 @@ namespace MRGSP.ASMS.WebUI.Controllers
         where TEntity : FarmersEntity, new()
         where TInput : FarmersInput, new()
     {
-        private readonly ICreateBuilder<TEntity, TInput> builder;
+        private readonly IBuilder<TEntity, TInput> v;
         private readonly IFarmersEntityService<TEntity> service;
 
-        public FarmersCruder(ICreateBuilder<TEntity, TInput> builder, IFarmersEntityService<TEntity> service)
+        public FarmersCruder(IBuilder<TEntity, TInput> v, IFarmersEntityService<TEntity> service)
         {
-            this.builder = builder;
+            this.v = v;
             this.service = service;
         }
 
@@ -27,14 +27,14 @@ namespace MRGSP.ASMS.WebUI.Controllers
 
         public ActionResult Create(int farmerId)
         {
-            return View(builder.BuildInput(new TEntity { FarmerId = farmerId }));
+            return View(v.BuildInput(new TEntity { FarmerId = farmerId }));
         }
 
         [HttpPost]
         public ActionResult Create(TInput input)
         {
-            if (!ModelState.IsValid) return View(builder.RebuildInput(input));
-            service.Create(builder.BuildEntity(input));
+            if (!ModelState.IsValid) return View(v.RebuildInput(input));
+            service.Create(v.BuildEntity(input));
             return RedirectToAction("Index", "ContactInfo", new { input.FarmerId });
         }
 

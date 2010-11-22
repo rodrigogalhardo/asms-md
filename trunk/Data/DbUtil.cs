@@ -2,12 +2,37 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq.Expressions;
 using Omu.ValueInjecter;
 
 namespace MRGSP.ASMS.Data
 {
     public static class DbUtil
     {
+        public static IEnumerable<T> GetWhereStartsWith<T>(string prop, string with, int max, string cs) where T: new()
+        {
+            using (var conn = new SqlConnection(cs))
+            {
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = "select top "+ max +" * from "
+                        + TableConvention.Resolve(typeof(T)) + string.Format(" where {0} like '{1}%' ", prop, with);
+                    conn.Open();
+
+                    using (var dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            var o = new T();
+                            o.InjectFrom<ReaderInjection>(dr);
+                            yield return o;
+                        }
+                    }
+                }
+            }
+        }
+
         public static IEnumerable<T> GetWhere<T>(object where, string cs) where T : new()
         {
             using (var conn = new SqlConnection(cs))

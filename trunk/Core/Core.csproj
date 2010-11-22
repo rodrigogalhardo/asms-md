@@ -72,6 +72,7 @@
   <ItemGroup>
     <Compile Include="AsmsEx.cs" />
     <Compile Include="Model\CrossDistrictMeasure.cs" />
+    <Compile Include="Model\CrossDistrictMeasureAmountPayed.cs" />
     <Compile Include="Model\Farmer.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

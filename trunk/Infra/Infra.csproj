@@ -65,9 +65,13 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\libs\Castle.Windsor.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="MvcContrib.Castle, Version=2.0.36.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\libs\MvcContrib.Castle.dll</HintPath>
+    </Reference>
+    <Reference Include="Omu.Awesome.Mvc">
+      <HintPath>..\libs\Omu.Awesome.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="Omu.ValueInjecter, Version=1.9.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

@@ -10,7 +10,7 @@ namespace MRGSP.ASMS.WebUI.Controllers
     {
         private readonly IContractService contractService;
 
-        public ContractController(ICrudService<Contract> s, ICreateBuilder<Contract, ContractInput> builder, IEditBuilder<Contract, ContractInput> editBuilder, IContractService contractService) : base(s, builder, editBuilder)
+        public ContractController(IContractService contractService)
         {
             this.contractService = contractService;
         }

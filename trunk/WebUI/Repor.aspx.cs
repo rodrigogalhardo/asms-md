@@ -28,6 +28,16 @@ namespace MRGSP.ASMS.WebUI
 
             switch (name)
             {
+                case "dossiersByDistrict":
+                    {
+                        var year = Convert.ToInt32(Request["year"]);
+                        var district = Convert.ToInt32(Request["district"]);
+                        var data = rds.DossiersByDistrictReport(year, district);
+                        report.Load(@"c:\DossiersByDistrict.mrt");
+                        report.RegData("o", data);
+                        report.RegBusinessObject("v", new { Name = rds.GetDistrictName(district) });
+                    }
+                    break;
                 case "crossDistrictMeasure":
                     {
                         var measuresetId = Convert.ToInt32(Request["measuresetId"]);
@@ -35,7 +45,17 @@ namespace MRGSP.ASMS.WebUI
                         var data = rds.CrossDistrictMeasure(date, measuresetId);
                         report.Load(@"c:\crossDistrictMeasure.mrt");
                         report.RegData("o", data);
-                        report.RegBusinessObject("opt",new{Data=date});
+                        report.RegBusinessObject("opt", new { Data = date });
+                    }
+                    break; 
+                case "crossDistrictMeasureAmountPayed":
+                    {
+                        var measuresetId = Convert.ToInt32(Request["measuresetId"]);
+                        var date = Convert.ToDateTime(Request["date"]);
+                        var data = rds.CrossDistrictMeasureAmountPayed(date, measuresetId);
+                        report.Load(@"c:\crossDistrictMeasureAmountPayed.mrt");
+                        report.RegData("o", data);
+                        report.RegBusinessObject("opt", new { Data = date });
                     }
                     break;
                 case "contract":

@@ -226,7 +226,7 @@ namespace MRGSP.ASMS.Service
             var ms = measuresetService.GetActive();
             if (fs == null) throw new AsmsEx("la moment nu exista nici un set de campuri activ");
             if (ms == null) throw new AsmsEx("la moment nu exista nici un se de masuri activ");
-            var measure = measureRepo.Get(o.MeasureId);
+            var measure = measureRepo.Get(o.MeasureId.Value);
 
             o.FieldsetId = fs.Id;
             o.MeasuresetId = ms.Id;
@@ -246,7 +246,7 @@ namespace MRGSP.ASMS.Service
                 id = dossierRepo.Insert(o);
                 var d = dossierRepo.Get(id);
 
-                d.Code = d.CreatedDate.AddYears(-2000).Year + d.CreatedDate.Month.ToString("00") + districtRepo.Get(d.DistrictId).Code + d.Id;
+                d.Code = d.CreatedDate.AddYears(-2000).Year + d.CreatedDate.Month.ToString("00") + districtRepo.Get(d.DistrictId.Value).Code + d.Id;
                 dossierRepo.UpdateWhatWhere(new {d.Code}, new {d.Id});
                 scope.Complete();
             }
@@ -259,7 +259,7 @@ namespace MRGSP.ASMS.Service
         public bool IsNoContest(int id)
         {
             var d = dossierRepo.Get(id);
-            return measureRepo.Get(d.MeasureId).NoContest;
+            return measureRepo.Get(d.MeasureId.Value).NoContest;
         }
 
         public IPageable<Dossier> GetPageable(int page, int pageSize)

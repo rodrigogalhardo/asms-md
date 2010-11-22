@@ -16,10 +16,13 @@ namespace MRGSP.ASMS.WebUI
             WindsorConfigurator.Configure();
             //PropertyInfosStorage.RegisterActionForEachType(HyperTypeDescriptionProvider.Add);
 
+            ModelMetadataProviders.Current = new AwesomeModelMetadataProvider();
+
             Settings.PopupForm.RefreshOnSuccess = true;
             Settings.Confirm.Width = 700;
             Settings.PopupForm.OkText = "OK";
             Settings.PopupForm.CancelText = "Anuleaza";
+            Settings.PopupForm.ClientSideValidation = true;
         }
     }
 }

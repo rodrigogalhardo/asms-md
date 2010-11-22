@@ -143,6 +143,7 @@
     <Compile Include="Controllers\ContractController.cs" />
     <Compile Include="Controllers\Cruder.cs" />
     <Compile Include="Controllers\Cruders.cs" />
+    <Compile Include="Controllers\DistrictAjaxDropdownController.cs" />
     <Compile Include="Controllers\DistrictIdLookupController.cs" />
     <Compile Include="Controllers\DossierController.cs" />
     <Compile Include="Controllers\EmailController.cs" />
@@ -158,11 +159,15 @@
     <Compile Include="Controllers\FpiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IndicatorController.cs" />
+    <Compile Include="Controllers\LocalityAutocompleteController.cs" />
+    <Compile Include="Controllers\MeasureAjaxDropDownController.cs" />
     <Compile Include="Controllers\MeasuresetController.cs" />
     <Compile Include="Controllers\ModelStateExtensions.cs" />
     <Compile Include="Controllers\NavController.cs" />
+    <Compile Include="Controllers\PerfecterIdAjaxDropdownController.cs" />
     <Compile Include="Controllers\PhoneController.cs" />
     <Compile Include="Controllers\RankController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Helpers\Extensions.cs" />
     <Compile Include="FormAuths.cs" />
@@ -171,7 +176,6 @@
     </Compile>
     <Compile Include="Helpers\InputHelpers.cs" />
     <Compile Include="Helpers\PaginationHelpers.cs" />
-    <Compile Include="Helpers\PopupFormHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repor.aspx.cs">
       <DependentUpon>Repor.aspx</DependentUpon>
@@ -232,6 +236,7 @@
     <Content Include="Views\Dossier\CalcItems.ascx" />
     <Content Include="Views\Dossier\CoefficientValues.ascx" />
     <Content Include="Views\Dossier\Values.aspx" />
+    <Content Include="Views\Shared\ed.ascx" />
     <Content Include="Views\Email\Create.aspx" />
     <Content Include="Views\Email\Index.ascx" />
     <Content Include="Views\ContactInfo\Index.aspx" />
@@ -242,7 +247,9 @@
     <Content Include="Views\Farmer\DisplayLandOwner.ascx" />
     <Content Include="Views\Farmer\DisplayOrganization.ascx" />
     <Content Include="Views\Farmer\Index.aspx" />
-    <Content Include="Views\Measureset\CrossDistrictMeasure.ascx" />
+    <Content Include="Views\Locality\Create.aspx" />
+    <Content Include="Views\Locality\Index.aspx" />
+    <Content Include="Views\Report\CrossDistrictMeasure.ascx" />
     <Content Include="Views\Rank\ChangeAmount.aspx" />
     <Content Include="Views\Rank\comp.ascx" />
     <Content Include="Views\Phone\Create.aspx" />
@@ -291,16 +298,21 @@
     <Content Include="Views\InputBuilders\Array.aspx" />
     <Content Include="Views\InputBuilders\ArrayAddButton.aspx" />
     <Content Include="Views\InputBuilders\ArrayRemoveButton.aspx" />
+    <Content Include="Views\Report\CrossDistrictMeasureAmountPayed.ascx" />
+    <Content Include="Views\Report\DossiersByDistrict.ascx" />
     <Content Include="Views\Shared\Awesome\AjaxDropdown.ascx" />
+    <Content Include="Views\Shared\Awesome\Autocomplete.ascx" />
     <Content Include="Views\Shared\Awesome\Confirm.ascx" />
-    <Content Include="Views\Shared\Awesome\PopupFormx.ascx" />
     <Content Include="Views\Shared\Awesome\Lookup.ascx" />
     <Content Include="Views\Shared\Awesome\LookupList.ascx" />
     <Content Include="Views\Shared\Awesome\LookupPopup.ascx" />
     <Content Include="Views\Shared\Awesome\PopupForm.ascx" />
     <Content Include="Views\Shared\Awesome\SearchForm.ascx" />
     <Content Include="Views\Shared\bcreate.ascx" />
+    <Content Include="Views\Shared\EditorTemplates\AjaxDropdown.aspx" />
+    <Content Include="Views\Shared\EditorTemplates\Autocomplete.aspx" />
     <Content Include="Views\Shared\EditorTemplates\Boolean.aspx" />
+    <Content Include="Views\Shared\EditorTemplates\Text.aspx" />
     <Content Include="Views\Shared\EditorTemplates\Lookup.aspx" />
     <Content Include="Views\Shared\EditorTemplates\Enum.aspx" />
     <Content Include="Views\Shared\EditorTemplates\DateTime.aspx" />

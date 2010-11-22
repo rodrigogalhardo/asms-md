@@ -22,14 +22,14 @@ namespace MRGSP.ASMS.Service
             return fpiRepo.Get(id);
         }
 
-        public void ChangeAmount(int id, decimal amount)
+        public void ChangeAmount(int id, decimal amount, decimal amountm)
         {
             using (var scope = new TransactionScope())
             {
                 var payed = fpiRepo.GetAmountPayed(id);
                 if (amount < payed)
                     throw new AsmsEx("suma introdusa este mai mica decat suma deja autorizata spre plata");
-                fpiRepo.UpdateWhatWhere(new { amount }, new { id });
+                fpiRepo.UpdateWhatWhere(new { amount, amountm }, new { id });
                 dossierService.Rerank(id);
                 scope.Complete();
             }

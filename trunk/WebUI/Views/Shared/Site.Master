@@ -41,14 +41,10 @@
             </div>
         </div>
     </div>
-    <div id="topline">
-    </div>
     <div id="main-container">
         <div id="main" class="maindiv ">
             <asp:ContentPlaceHolder ID="MainContent" runat="server" />
         </div>
-    </div>
-    <div id="bottomline">
     </div>
     <div id="footer" class="ui-state-default">
     </div>
