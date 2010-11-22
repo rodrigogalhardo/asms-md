@@ -20,22 +20,14 @@ namespace MRGSP.ASMS.WebUI
             WindsorRegistrar.RegisterControllers(typeof(HomeController).Assembly);
             WindsorRegistrar.Register("forms", typeof(IFormsAuthentication), typeof(FormAuthService));
             WindsorRegistrar.Register("s1", typeof(IFarmersEntityService<>), typeof(FarmersEntityService<>));
-            WindsorRegistrar.Register("q1", typeof(ICreateBuilder<User, UserCreateInput>), typeof(UserCreateBuilder<UserCreateInput>));
-            WindsorRegistrar.Register("q2", typeof(ICreateBuilder<User, UserEditInput>), typeof(UserCreateBuilder<UserEditInput>));
-            WindsorRegistrar.Register("q3", typeof(ICreateBuilder<Dossier, DossierCreateInput>), typeof(DossierBuilder));
-            WindsorRegistrar.Register("q4", typeof(ICreateBuilder<Organization, OrganizationInput>), typeof(OrganizationBuilder));
-            WindsorRegistrar.Register("q5", typeof(ICreateBuilder<Address, AddressInput>), typeof(AddressBuilder));
-            WindsorRegistrar.Register("qg", typeof(ICreateBuilder<,>), typeof(CreateBuilder<,>));
+            WindsorRegistrar.Register("q1", typeof(IBuilder<User, UserCreateInput>), typeof(UserCreateBuilder<UserCreateInput>));
+            WindsorRegistrar.Register("q2", typeof(IBuilder<User, UserEditInput>), typeof(UserCreateBuilder<UserEditInput>));
+            WindsorRegistrar.Register("q3", typeof(IBuilder<Dossier, DossierCreateInput>), typeof(DossierBuilder));
+            WindsorRegistrar.Register("q4", typeof(IBuilder<Organization, OrganizationInput>), typeof(OrganizationBuilder));
+            WindsorRegistrar.Register("q5", typeof(IBuilder<Address, AddressInput>), typeof(AddressBuilder));
+            WindsorRegistrar.Register("qg", typeof(IBuilder<,>), typeof(Builder<,>));
             WindsorRegistrar.Register("ur", typeof(IRepo<>), typeof(Repo<>));
             WindsorRegistrar.Register("cns", typeof(ICrudService<Contract>), typeof(ContractService));
-            WindsorRegistrar.Register("edb", typeof(IEditBuilder<,>), typeof(EditBuilder<,>));
-
-
-
-
-            //WindsorRegistrar.Register("cs", typeof(IConnectionFactory), typeof(ConnectionFactory));
-            //WindsorRegistrar.Register("smtpsn", typeof(ISmtpServerConfig), typeof(SmtpServerConfig));
-            //WindsorRegistrar.Register("forms", typeof(IFormsAuthentication), typeof(FormAuths));
         }
     }
 }

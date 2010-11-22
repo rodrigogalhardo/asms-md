@@ -1,4 +1,5 @@
 ﻿using System;
+using MRGSP.ASMS.Core;
 
 namespace MRGSP.ASMS.Data
 {
@@ -8,6 +9,8 @@ namespace MRGSP.ASMS.Data
         {
             var name = t.Name;
             if (name.EndsWith("s")) return t.Name + "es";
+            if (name.EndsWith("y")) return t.Name.RemoveSuffix("y") + "ies";
+
             return t.Name + "s";
         }
 

@@ -2,8 +2,8 @@
 using MRGSP.ASMS.Core.Model;
 using MRGSP.ASMS.Core.Repository;
 using MRGSP.ASMS.Core.Service;
+using MRGSP.ASMS.Infra;
 using MRGSP.ASMS.Infra.Dto;
-using Omu.ValueInjecter;
 
 namespace MRGSP.ASMS.WebUI.Controllers
 {
@@ -11,10 +11,11 @@ namespace MRGSP.ASMS.WebUI.Controllers
     {
         private readonly IRepo<Fpi> repo;
         private readonly IMeasuresetService mss;
-
-        public FpiController(IRepo<Fpi> repo, IMeasuresetService mss)
+        private readonly IBuilder<Fpi, FpiInput> v;
+        public FpiController(IRepo<Fpi> repo, IMeasuresetService mss, IBuilder<Fpi, FpiInput> v)
         {
             this.repo = repo;
+            this.v = v;
             this.mss = mss;
         }
 
@@ -27,15 +28,15 @@ namespace MRGSP.ASMS.WebUI.Controllers
 
         public ActionResult Create(int measuresetId, int measureId, int month)
         {
-            return View(new FpiInput { MeasureId = measureId, MeasuresetId = measuresetId, Month = month });
+            return View(v.BuildInput(new Fpi { MeasureId = measureId, MeasuresetId = measuresetId, Month = month }));
         }
 
         [HttpPost]
         public ActionResult Create(FpiInput input)
         {
-            if (!ModelState.IsValid) return View(input);
-            repo.InsertNoIdentity((Fpi)new Fpi().InjectFrom(input));
-            return RedirectToAction("index", new { input.MeasuresetId });
+            if (!ModelState.IsValid) return View(v.RebuildInput(input));
+            repo.InsertNoIdentity(v.BuildEntity(input));
+            return Content("ok");
         }
     }
 }

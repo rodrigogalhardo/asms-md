@@ -24,9 +24,11 @@
 
          function styleup() {
             $("hr").addClass("ui-state-default");
+            $("fieldset").addClass("ui-corner-all");
             $("select").addClass("ui-corner-all");
             $("input:text").addClass("ui-corner-all");
             $("input[type=submit]").addClass("abtn");
+            $("textarea").addClass("ui-corner-all");
             $("thead").addClass("ui-state-default");
             $("tbody tr:even").addClass("ui-widget-content");
             $("tbody tr:odd").addClass("ui-state-highlight");
@@ -35,15 +37,16 @@
             mybutton(".abtn");
             $(".field-validation-error").addClass('ui-state-error ui-corner-all');
             $(".input-validation-error").addClass('ui-state-error');
+
         }
 
         function applyjqcolors() {
             $.fx.speeds._default = 300;
             $("pre").addClass("ui-state-highlight");
-            $(window).bind("resize", function (e) { $("#main-container").css("min-height", ($(window).height() - 120) + "px"); });
-            $("#main-container").css("min-height", ($(window).height() - 120) + "px");
+            $(window).bind("resize", function (e) { $("#main-container").css("min-height", ($(window).height() - 160) + "px"); });
+            $("#main-container").css("min-height", ($(window).height() - 160) + "px");
             $("#main-container").addClass("ui-widget-content");
-
+            $("h2").addClass("ui-state-default").addClass("ui-corner-all");
             styleup();
 
             $("body").ajaxComplete(function () {

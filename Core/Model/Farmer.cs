@@ -2,6 +2,15 @@
 
 namespace MRGSP.ASMS.Core.Model
 {
+    public class DossiersByDistrictReport
+    {
+        public string Measure { get; set; }
+        public string Farmer { get; set; }
+        public string Locality { get; set; }
+        public decimal AmountRequested { get; set; }
+        public decimal AmountPayed { get; set; }
+    }
+
     public class Farmer : Entity
     {
         public FarmerType FType { get; set; }
@@ -9,6 +18,7 @@ namespace MRGSP.ASMS.Core.Model
 
     public class Competitor : EntityWithName
     {
+        public string Code { get; set; }
         public decimal AmountPayed { get; set; }
         public decimal Value { get; set; }
         public int FpiId { get; set; }
@@ -82,8 +92,8 @@ namespace MRGSP.ASMS.Core.Model
 
     public class Address : FarmersEntity
     {
-        public int DistrictId { get; set; }
-        public string Locality { get; set; }
+        public int? DistrictId { get; set; }
+        public int? LocalityId { get; set; }
         public string Zip { get; set; }
         public string Street { get; set; }
         public string House { get; set; }
@@ -92,6 +102,7 @@ namespace MRGSP.ASMS.Core.Model
 
     public class AddressInfo : Address
     {
+        public string Locality { get; set; }
         public string District { get; set; }
         public string DistrictCode { get; set; }
     }

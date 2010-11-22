@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using MRGSP.ASMS.Core.Model;
+using Omu.Awesome.Mvc;
 
 namespace MRGSP.ASMS.Infra.Dto
 {
@@ -44,6 +45,8 @@ namespace MRGSP.ASMS.Infra.Dto
 
         [Req]
         public decimal Amount { get; set; }
+        [Req]
+        public decimal Amountm { get; set; }
     }
 
     public class DisqualifyInput
@@ -68,7 +71,10 @@ namespace MRGSP.ASMS.Infra.Dto
     public class ChangeAmountInput
     {
         public int Id { get; set; }
+        [Req]
         public decimal Amount { get; set; }
+        [Req]
+        public decimal Amountm { get; set; }
     }
     
     public class ChangeAmountPayedInput
@@ -80,14 +86,32 @@ namespace MRGSP.ASMS.Infra.Dto
     public class AddressInput : FarmersInput
     {
         [UIHint("Lookup")]
-        public int DistrictId { get; set; }
+        [DisplayName("Raion")]
+        public int? DistrictId { get; set; }
+
+        [DisplayName("Localitate")]
+        [StringLength(30)]
         [Req]
+        [UIHint("Autocomplete")]
         public string Locality { get; set; }
+
+        public int? LocalityId { get; set; }
+
         public string Zip { get; set; }
         public string Street { get; set; }
         public string House { get; set; }
         public string Apartment { get; set; }
 
+    }
+
+    public class DossiersByDistrictInput
+    {
+        [Req]
+        public int? Year { get; set; }
+
+        [Req]
+        [UIHint("AjaxDropdown")]
+        public int? District { get; set; }
     }
 
     public class EmailInput : FarmersInput
@@ -160,7 +184,7 @@ namespace MRGSP.ASMS.Infra.Dto
          public DateTime Date { get; set; }
      }
 
-    public class MeasuresetInput
+    public class MeasuresetInput : IdInput
     {
         [Req]
         [DisplayName("Nume")]
@@ -192,15 +216,23 @@ namespace MRGSP.ASMS.Infra.Dto
         public IEnumerable<Field> Fields { get; set; }
     }
 
-    public class PerfecterInput
+    public class PerfecterInput : IdInput
     {
         [Req]
         [DisplayName("Nume")]
         [StringLength(50)]
         public string Name { get; set; }
     }
+    
+    public class LocalityInput : IdInput
+    {
+        [Req]
+        [DisplayName("Denumire")]
+        [StringLength(30)]
+        public string Name { get; set; }
+    }
 
-    public class DistrictInput
+    public class DistrictInput : IdInput
     {
         [Req]
         [DisplayName("Nume")]
@@ -214,7 +246,7 @@ namespace MRGSP.ASMS.Infra.Dto
 
     }
 
-    public class FieldInput
+    public class FieldInput : IdInput
     {
         [Req]
         [DisplayName("Nume")]
@@ -222,6 +254,7 @@ namespace MRGSP.ASMS.Infra.Dto
 
         [Req]
         [DisplayName("Descrierea")]
+        [UIHint("Text")]
         public string Description { get; set; }
     }
 
@@ -235,7 +268,7 @@ namespace MRGSP.ASMS.Infra.Dto
         public bool HasError { get { return !string.IsNullOrEmpty(ErrorMessage); } }
     }
 
-    public class MeasureInput
+    public class MeasureInput : IdInput
     {
         [Req]
         [DisplayName("Nume")]
@@ -341,12 +374,12 @@ namespace MRGSP.ASMS.Infra.Dto
         public string Password { get; set; }
     }
 
-    public class EntityInput
+    public class IdInput
     {
         public int Id { get; set; }
     }
 
-    public class ContractInput : EntityInput
+    public class ContractInput : IdInput
     {
         public DateTime? Date { get; set; }
         

@@ -1,25 +1,25 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<IPageable<District>>" %>
-<%@ Import Namespace="MRGSP.ASMS.WebUI.Controllers" %>
-<%@ Import Namespace="MRGSP.ASMS.WebUI.Helpers" %>
-
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
     Index
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <h2>
-        Raioane</h2>
-    <%=Html.MakePopupForm<DistrictController>(o => o.Create()) %>
-    
-    <%=Html.PopupFormActionLink<DistrictController>(o => o.Create(), "Creaza") %>
-    
+    <h2>Raioane</h2>
+    <%=Html.MakePopupForm("Create") %>
+    <%=Html.MakePopupForm("Edit",new[]{"Id"}) %>
+    <%=Html.Confirm("Sunteti sigur ?") %>
+    <%=Html.PopupFormActionLink("Create", "Creaza", htmlAttributes:new{@class = "abtn"}) %>
     <table>
         <thead>
             <tr>
-                <td>
+                <td style="width: 100%;">
                     nume
                 </td>
                 <td>
                     abrevierea
+                </td>
+                <td>
+                </td>
+                <td>
                 </td>
             </tr>
         </thead>
@@ -32,6 +32,7 @@
             <td>
                 <%:o.Code %>
             </td>
+            <%=Html.Partial("ed",o.Id) %>
         </tr>
         <%
             }%>

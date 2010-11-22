@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<Omu.Awesome.Mvc.Helpers.PopupInfo>" %>
+﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<Omu.Awesome.Mvc.Helpers.PopupFormInfo>" %>
 <%
     var o = Model.Div;
 %>
@@ -14,8 +14,8 @@
                 autoOpen: false,
                 close: function () { $("#<%=o %>").html(""); },
                 buttons: {
-                    '<%=Model.CancelText %>': function () { $(this).dialog('close'); }, 
-                    '<%=Model.OkText %>': function () { $("#<%=o %> form").submit(); } 
+                    "<%=Model.CancelText %>": function () { $(this).dialog('close'); }, 
+                    "<%=Model.OkText %>": function () { $("#<%=o %> form").submit(); } 
                 }
             }); 
         });
@@ -36,11 +36,18 @@
                 <%if(Model.RefreshOnSuccess){%>
                     location.reload(true);
                 <%} %>
+            }            
+            <% if(Model.SuccessFunction != null){%>
+            else
+            if(typeof(result) == 'object'){
+            $("#<%=o %>").dialog('close');
+             <%=Model.SuccessFunction %>(result);
             }
+            <%} %>
             else {
                 update<%=o %>(result);
             }
-        }
+        }        
 
         function update<%=o %>(data) {
             lockpopup<%=o %> = null;

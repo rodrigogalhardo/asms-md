@@ -157,6 +157,8 @@ namespace MRGSP.ASMS.Core.Model
         public string Code { get; set; }
     }
 
+    public class Locality : EntityWithName{}
+
     public class Perfecter : EntityWithName { }
 
     public class Area : EntityWithName { }
@@ -209,13 +211,13 @@ namespace MRGSP.ASMS.Core.Model
         public string ContractNumber { get; set; }
         public DateTime? ContractDate { get; set; }
         public string ServiceProvider { get; set; }
-        public int PerfecterId { get; set; }
+        public int? PerfecterId { get; set; }
 
         public DateTime CreatedDate { get; set; }
-        public int CreatedBy { get; set; }
+        public int? CreatedBy { get; set; }
 
 
-        public int MeasureId { get; set; }
+        public int? MeasureId { get; set; }
         public int FieldsetId { get; set; }
         public int MeasuresetId { get; set; }
 
@@ -225,12 +227,12 @@ namespace MRGSP.ASMS.Core.Model
         public decimal AmountPayed { get; set; }
         public decimal Value { get; set; }
         public bool Disqualified { get; set; }
-        public int FarmerVersionId { get; set; }
+        public int? FarmerVersionId { get; set; }
         public decimal InvestmentValue { get; set; }
 
         public int FpiId { get; set; }
-        public int DistrictId { get; set; }
-        public string Locality { get; set; }
+        public int? DistrictId { get; set; }
+        public int? LocalityId { get; set; }
         public string Code { get; set; }
     }
 
@@ -254,13 +256,13 @@ namespace MRGSP.ASMS.Core.Model
     /// <summary>
     /// Financial Plan Item
     /// </summary>
-    public class Fpi
+    public class Fpi : Entity
     {
-        public int Id { get; set; }
         public int MeasuresetId { get; set; }
         public int MeasureId { get; set; }
         public int Month { get; set; }
         public decimal Amount { get; set; }
+        public decimal Amountm { get; set; }
         public bool Closed { get; set; }
     }
 

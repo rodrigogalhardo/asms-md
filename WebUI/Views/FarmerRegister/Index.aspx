@@ -21,6 +21,9 @@
         <legend>Multimi</legend>
         <p>
             <%=Html.ActionLink("Raioane", "Index", "District") %>
+        </p>        
+        <p>
+            <%=Html.ActionLink("Localitati", "Index", "Locality") %>
         </p>
     </fieldset>
 </asp:Content>

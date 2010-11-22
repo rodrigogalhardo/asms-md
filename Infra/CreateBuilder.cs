@@ -1,80 +1,75 @@
-﻿using MRGSP.ASMS.Core;
+﻿using System;
+using MRGSP.ASMS.Core;
 using MRGSP.ASMS.Core.Model;
 using MRGSP.ASMS.Core.Repository;
-using MRGSP.ASMS.Infra.Dto;
 using Omu.ValueInjecter;
 
 namespace MRGSP.ASMS.Infra
 {
-    public class EditBuilder<TEntity, TInput> : IEditBuilder<TEntity, TInput> 
-        where TEntity : Entity, new()
-        where TInput : EntityInput, new()
+    public class Builder<TEntity, TInput> : IBuilder<TEntity, TInput>
+        where TEntity : class, new()
+        where TInput : new()
     {
         private readonly IRepo<TEntity> repo;
 
-        public EditBuilder(IRepo<TEntity> repo)
+        public Builder(IRepo<TEntity> repo)
         {
             this.repo = repo;
         }
 
         public TInput BuildInput(TEntity entity)
         {
-            var o = new TInput();
-            o.InjectFrom(entity);
-            return o;
-        }
-
-        public TEntity BuildEntity(TInput input)
-        {
-            var o = repo.Get(input.Id);
-            if(o == null) throw new AsmsEx("aceasta entitate nu exista");
-            o.InjectFrom(input);
-            return o;
-        }
-
-        public TInput RebuildInput(TInput input)
-        {
-            return BuildInput(BuildEntity(input));
-        }
-    }
-
-    public interface IEditBuilder<TEntity, TInput> : IBuilder<TEntity, TInput>
-    {
-    }
-
-    public interface ICreateBuilder<TEntity, TInput> : IBuilder<TEntity, TInput>{}
-
-    public class CreateBuilder<TEntity, TInput> : ICreateBuilder<TEntity, TInput>
-        where TInput : new()
-        where TEntity : new()
-    {
-        public TInput BuildInput(TEntity entity)
-        {
             var input = new TInput();
-            input.InjectFrom(entity);
-            return MakeInput(input, entity);
-        }
-
-        public TEntity BuildEntity(TInput input)
-        {
-            var entity = new TEntity();
-            entity.InjectFrom(input);
-            return MakeEntity(entity, input);
-        }
-       
-        public TInput RebuildInput(TInput input)
-        {
-            return BuildInput(BuildEntity(input));
-        }
-
-        protected virtual TInput MakeInput(TInput input, TEntity entity)
-        {
+            input.InjectFrom(entity)
+                .InjectFrom<NormalToNullables>(entity);
+            MakeInput(entity, ref input);
             return input;
         }
 
-        protected virtual TEntity MakeEntity(TEntity entity, TInput input)
+        protected virtual void MakeInput(TEntity entity, ref TInput input)
         {
-            return entity;
+        }
+
+        public TEntity BuildEntity(TInput input, int? id)
+        {
+            var e = id.HasValue ? repo.Get(id.Value) : new TEntity();
+            if (e == null)
+                throw new AsmsEx("this entity doesn't exist anymore");
+
+            e.InjectFrom(input)
+               .InjectFrom<NullablesToNormal>(input);
+            MakeEntity(ref e, input);
+            return e;
+        }
+
+        protected virtual void MakeEntity(ref TEntity e, TInput input)
+        {
+        }
+
+        public TInput RebuildInput(TInput input, int? id)
+        {
+            return BuildInput(BuildEntity(input, id));
         }
     }
+
+    public class NormalToNullables : LoopValueInjection
+    {
+        protected override bool TypesMatch(Type sourceType, Type targetType)
+        {
+            var type = Nullable.GetUnderlyingType(targetType);
+            if (type == null) return false;
+            return sourceType == type;
+        }
+    }
+
+    //e.g. from int? to int, bool? to bool, DateTime? to DateTime
+    public class NullablesToNormal : LoopValueInjection
+    {
+        protected override bool TypesMatch(Type sourceType, Type targetType)
+        {
+            var type = Nullable.GetUnderlyingType(sourceType);
+            if (type == null) return false;
+            return targetType == type;
+        }
+    } 
 }

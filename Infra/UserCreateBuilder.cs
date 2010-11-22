@@ -1,20 +1,23 @@
 ﻿using MRGSP.ASMS.Core.Model;
+using MRGSP.ASMS.Core.Repository;
 using Omu.ValueInjecter;
 
 namespace MRGSP.ASMS.Infra
 {
-    public class UserCreateBuilder<TInput> : CreateBuilder<User, TInput> where TInput : new()
+    public class UserCreateBuilder<TInput> : Builder<User, TInput> where TInput : new()
     {
-        protected override User MakeEntity(User entity, TInput input)
+        public UserCreateBuilder(IRepo<User> repo) : base(repo)
         {
-            entity.InjectFrom<LookupToRoles>(input);
-            return entity;
         }
 
-        protected override TInput MakeInput(TInput input, User entity)
+        protected override void MakeEntity(ref User e, TInput input)
+        {
+            e.InjectFrom<LookupToRoles>(input);
+        }
+
+        protected override void MakeInput(User entity, ref TInput input)
         {
             input.InjectFrom<RolesToLookup>(entity);
-            return input;
         }
     }
 }

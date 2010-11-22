@@ -1,6 +1,4 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<IPageable<Field>>" %>
-<%@ Import Namespace="MRGSP.ASMS.WebUI.Controllers" %>
-
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
     Index
@@ -8,8 +6,10 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <h2>
         Campuri</h2>
-        <%=Html.MakePopupForm<FieldController>(o => o.Create(), height:250) %>
-        <%=Html.PopupFormActionLink<FieldController>(o => o.Create(), "Creaza") %>
+        <%=Html.MakePopupForm("Create", height:300) %>
+        <%=Html.PopupFormActionLink("Create", "Creaza", htmlAttributes: new { @class="abtn" })%>
+        <%=Html.MakePopupForm("Edit", new []{"id"}, height:300) %>
+        <%=Html.Confirm("sunteti sigur ?") %>
     <table>
         <thead>
             <tr>
@@ -18,6 +18,10 @@
                 </td>
                 <td>
                     descriere
+                </td>
+                <td>
+                </td>
+                <td>
                 </td>
             </tr>
         </thead>
@@ -30,6 +34,7 @@
             <td>
                 <%:o.Description %>
             </td>
+            <%=Html.Partial("ed", o.Id) %>
         </tr>
         <%
             }%>

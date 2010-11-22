@@ -2,7 +2,6 @@
 
     <% using (Html.BeginForm())
        {%>
-    <%: Html.ValidationSummary(true) %>
 
         <%=Html.EditorFor(o => o.Name) %>
         <%=Html.EditorFor(o => o.Description) %> 

@@ -11,6 +11,7 @@
     <%=Html.EditorFor(o => o.MeasureId) %>
     <%=Html.EditorFor(o => o.DistrictId) %>
     <%=Html.EditorFor(o => o.Locality) %>
+    <%=Html.HiddenFor(o => o.LocalityId) %>
     <%=Html.EditorFor(o => o.AdminFirstName) %>
     <%=Html.Example("ex: Vasile")%>
     <%=Html.EditorFor(o => o.AdminLastName) %>

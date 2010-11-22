@@ -14,6 +14,11 @@ namespace MRGSP.ASMS.Data
             Cs = connFactory.GetConnectionString();
         }
 
+        public IEnumerable<T> GetWhereStartsWith(string prop, string with, int max)
+        {
+            return DbUtil.GetWhereStartsWith<T>(prop, with, max, Cs);
+        }
+
         public T Get(int id)
         {
             return DbUtil.Get<T>(id, Cs);

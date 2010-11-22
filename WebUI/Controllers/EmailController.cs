@@ -7,7 +7,7 @@ namespace MRGSP.ASMS.WebUI.Controllers
 {
     public class EmailController : FarmersCruder<Email, EmailInput>
     {
-        public EmailController(ICreateBuilder<Email, EmailInput> builder, IFarmersEntityService<Email> service) : base(builder, service)
+        public EmailController(IBuilder<Email, EmailInput> v, IFarmersEntityService<Email> service) : base(v, service)
         {
         }
     }

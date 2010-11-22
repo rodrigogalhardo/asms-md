@@ -35,7 +35,7 @@ namespace MRGSP.ASMS.WebUI.Controllers
                 return View(input);
             try
             {
-                fpiService.ChangeAmount(input.Id, input.Amount);
+                fpiService.ChangeAmount(input.Id, input.Amount, input.Amountm);
             }
             catch(AsmsEx e)
             {

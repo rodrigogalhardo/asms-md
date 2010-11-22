@@ -297,7 +297,6 @@ d.stateId = 3
 and d.fpiId = @fpiId
 and d.disqualified = 0
 
-
 go
 drop proc getAmountPayed
 go
@@ -322,4 +321,31 @@ cross join measures m
 left outer join dossiers d on d.districtid = dis.id and d.measureId = m.id and d.createdDate <= @date
 where m.id in (select msm.measureId from measuresetsmeasures msm where msm.measuresetId = @measuresetId)
 
+go
+drop proc crossDistricMeasureAmountPayed --'01/11/2010', 1
+go
+create proc crossDistricMeasureAmountPayed  
+@date Date,
+@measuresetId int
+as
+select case when d.id is null then 0 else d.amountPayed end as value,
+dis.name district, m.name measure
+from districts dis 
+cross join measures m
+left outer join dossiers d on d.districtid = dis.id and d.measureId = m.id and d.createdDate <= @date and d.stateId = 6
+where m.id in (select msm.measureId from measuresetsmeasures msm where msm.measuresetId = @measuresetId)
 
+
+go
+drop proc DossiersByDistrictReport
+go
+create proc DossiersByDistrictReport
+@year int,
+@districtId int
+as
+select m.name measure, fvi.name as farmer, l.name locality, d.amountRequested,
+case when d.stateId = 6 then d.amountPayed else 0 end  amountPayed
+from dossiers d inner join measures m on d.measureId = m.id
+inner join farmerVersionInfos fvi on d.farmerVersionId = fvi.id
+inner join localities l on l.id = d.localityId 
+where @year = year(d.createdDate) and d.districtId = @districtId

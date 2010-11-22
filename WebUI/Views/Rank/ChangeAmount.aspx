@@ -3,6 +3,7 @@
        {%>
     <%=Html.HiddenFor(o => o.Id) %>
     <%=Html.EditorFor(o => o.Amount) %>
+    <%=Html.EditorFor(o => o.Amountm) %>
     <%} %>
     
 

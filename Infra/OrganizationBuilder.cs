@@ -1,21 +1,24 @@
 ﻿using MRGSP.ASMS.Core.Model;
+using MRGSP.ASMS.Core.Repository;
 using MRGSP.ASMS.Infra.Dto;
 using Omu.ValueInjecter;
 
 namespace MRGSP.ASMS.Infra
 {
-    public class OrganizationBuilder : CreateBuilder<Organization, OrganizationInput>
+    public class OrganizationBuilder : Builder<Organization, OrganizationInput>
     {
-        protected override OrganizationInput MakeInput(OrganizationInput input, Organization entity)
+        public OrganizationBuilder(IRepo<Organization> repo) : base(repo)
         {
-            input.InjectFrom<IdToLookup<OrganizationForm>>(entity);
-            return input;
         }
 
-        protected override Organization MakeEntity(Organization entity, OrganizationInput input)
+        protected override void MakeInput(Organization entity, ref OrganizationInput input)
         {
-            entity.InjectFrom<LookupToInt>(input);
-            return entity;
+            input.InjectFrom<IdToLookup<OrganizationForm>>(entity);
+        }
+
+        protected override void MakeEntity(ref Organization e, OrganizationInput input)
+        {
+            e.InjectFrom<LookupToInt>(input);
         }
     }
 }

@@ -5,8 +5,9 @@
 %>
 <script type="text/javascript">
     function grow<%=o %>Click() {
-        $(".<%=sel %>", $(this).parent()).removeClass('<%=sel %>').unbind('click').click(grow<%=o %>Click);
-        $(this).addClass('<%=sel %>').click(function(){ choose<%=o%>Click(); });
+        $(".<%=sel %>", $(this).parent()).removeClass('<%=sel %>').unbind('click').click(grow<%=o %>Click);        
+        $(this).addClass('<%=sel %>');
+        $(this).click(function(){ choose<%=o%>Click(); });
     }
 
     function choose<%=o%>Click() {        
@@ -25,6 +26,7 @@
     }
 
     $(function () { 
+        $("#display<%=o %>").addClass("lookupTextbox");
         load<%=o %>Display();
         $(".<%=o %>ie8").remove();
 
@@ -66,7 +68,7 @@
 </script>
 <div id='select<%=o %>window'></div>
 <input type="hidden" id="<%=o %>" name="<%=o %>" value="<%=Model.Value %>" />
-<input type="text" id="display<%=o %>" disabled="disabled" class="lookupTextbox" />
+<input type="text" id="display<%=o %>" disabled="disabled" <%=Model.HtmlAttributes %> />
 <a class="lookupButton" id="open<%=o %>" href="#"></a>
 <%if (Model.ClearButton)
   {%>

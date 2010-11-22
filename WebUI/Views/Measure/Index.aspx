@@ -1,15 +1,16 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<IPageable<Measure>>" %>
 <%@ Import Namespace="MRGSP.ASMS.WebUI.Controllers" %>
-<%@ Import Namespace="MRGSP.ASMS.WebUI.Helpers" %>
-
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
     Index
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <h2>
         Masuri</h2>
-        <%=Html.MakePopupForm<MeasureController>(o => o.Create()) %>
-        <%=Html.PopupFormActionLink<MeasureController>(o => o.Create(), "Creaza") %>
+
+        <%=Html.MakePopupForm("Create", height:300) %>
+        <%=Html.PopupFormActionLink("Create", "Creaza", htmlAttributes: new { @class="abtn" })%>
+        <%=Html.MakePopupForm("Edit", new []{"id"}, height:300) %>
+        <%=Html.Confirm("sunteti sigur ?") %>
     <table>
         <thead>
             <tr>
@@ -21,7 +22,7 @@
                 </td>
                 <td>
                     fara concurs
-                </td>
+                </td><td></td><td></td>
             </tr>
         </thead>
         <tbody>
@@ -37,6 +38,7 @@
             <td>
                 <%:o.NoContest ? "da" : "nu" %>
             </td>
+            <%=Html.Partial("ed",o.Id) %>
         </tr>
         <%
             }%>
