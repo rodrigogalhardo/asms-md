@@ -1,0 +1,218 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<StiSerializer version="1.0" application="StiReport">
+  <Dictionary Ref="1" type="Dictionary" isKey="true">
+    <BusinessObjects isList="true" count="0" />
+    <Databases isList="true" count="0" />
+    <DataSources isList="true" count="1">
+      <o Ref="2" type="Stimulsoft.Report.Dictionary.StiBusinessObjectSource" isKey="true">
+        <Alias>o</Alias>
+        <Columns isList="true" count="14">
+          <value>Nr,System.String</value>
+          <value>Beneficiar,System.String</value>
+          <value>Adresa,System.String</value>
+          <value>Reprezentant,System.String</value>
+          <value>FunctiaDe,System.String</value>
+          <value>SprijinNr,System.String</value>
+          <value>Sprijin,System.String</value>
+          <value>Sprijinw,System.String</value>
+          <value>Data,System.String</value>
+          <value>Cf,System.String</value>
+          <value>Cd,System.String</value>
+          <value>CodBancar,System.String</value>
+          <value>Filiala,System.String</value>
+          <value>Functia,System.String</value>
+        </Columns>
+        <Dictionary isRef="1" />
+        <Name>o</Name>
+        <NameInSource>o</NameInSource>
+      </o>
+    </DataSources>
+    <Relations isList="true" count="0" />
+    <Report isRef="0" />
+    <Variables isList="true" count="0" />
+  </Dictionary>
+  <EngineVersion>EngineV2</EngineVersion>
+  <GlobalizationStrings isList="true" count="0" />
+  <MetaTags isList="true" count="0" />
+  <Pages isList="true" count="1">
+    <Page1 Ref="3" type="Page" isKey="true">
+      <Border>None;Black;2;Solid;False;4;Black</Border>
+      <Brush>Transparent</Brush>
+      <Components isList="true" count="9">
+        <RichText1 Ref="4" type="Stimulsoft.Report.Components.StiRichText" isKey="true">
+          <BackColor>Transparent</BackColor>
+          <ClientRectangle>0.2,2.2,16.2,11.4</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <DataColumn />
+          <Margins>0,0,0,0</Margins>
+          <Name>RichText1</Name>
+          <Page isRef="3" />
+          <Parent isRef="3" />
+          <Text>__LP___x005C_rtf1_x005C_ansi_x005C_ansicpg1251_x005C_deff0_x005C_deflang1049__LP___x005C_fonttbl__LP___x005C_f0_x005C_fnil_x005C_fcharset204_x0020_Calibri_x003B___RP____LP___x005C_f1_x005C_fnil_x005C_fcharset238_x0020_Calibri_x003B___RP____LP___x005C_f2_x005C_fnil_x005C_fcharset0_x0020_Calibri_x003B___RP____RP___x000D__x000A___LP___x005C_colortbl_x0020__x003B__x005C_red255_x005C_green0_x005C_blue0_x003B__x005C_red0_x005C_green0_x005C_blue0_x003B___RP___x000D__x000A__x005C_viewkind4_x005C_uc1_x005C_pard_x005C_fi708_x005C_qj_x005C_lang1048_x005C_f0_x005C_fs24_x0020_1._x0020_Prin_x0020_prezentul_x0020_acord_x005C_f1_x0020_-adi_x005C__x0027_feional_x0020__x005C_b_x0020_Agen_x005C__x0027_feia_x0020_de_x0020_Interven_x005C__x0027_feie_x0020__x005C__x0027_bai_x0020_Pl_x005C__x0027_e3ti_x0020_pentru_x0020_Agricultur_x005C__x0027_e3_x005C_b0_x005C_i_x005C_f0_x0020__x002C__x005C_i0_x005C_f1_x0020__x0020_cu_x0020_sediul_x0020__x005C__x0027_een_x0020_mun._x0020_Chi_x005C__x0027_bain_x005C__x0027_e3u_x002C__x0020_bd._x0020__x005C__x0027_aatefan_x0020_cel_x0020_Mare_x0020__x005C__x0027_bai_x0020_Sf_x005C__x0027_eent_x002C__x0020_162_x002C__x0020_reprezentat_x005C__x0027_e3_x0020_legal_x0020_de_x0020__x005C_b_x005C_f0_x0020_Petru_x0020_MALERU_x005C_b0_x005C_f1_x0020__x002C__x0020__x005C__x0027_een_x0020_func_x005C__x0027_feia_x0020_de_x0020_Director_x0020__x005C_f0_x0020_general_x0020__x005C_f1_x0020_interimar_x002C__x0020__x005C__x0027_een_x0020_calitate_x0020_de_x0020__x005C_b_x0020_Autoritate_x0020_Contractant_x005C__x0027_e3_x002C__x0020__x005C_b0_x0020_pe_x0020_de_x0020_o_x0020_parte_x002C__x0020__x005C__x0027_bai_x0020__x005C_cf1_x005C_lang1033_x005C_b_x005C_f2_x007B_o.Beneficiar_x007D__x005C_cf0_x005C_lang1048_x005C_b0_x005C_f0_x0020__x002C__x0020_cu_x0020_sediul_x005C_i_x0020__x0020__x005C_i0_x005C_f1_x005C__x0027_ee_x005C_f0_x0020_n_x0020__x005C_cf1_x005C_lang1033_x005C_f2_x007B_o.Adresa_x007D__x005C_cf0_x005C_lang1048_x005C_f1_x0020__x002C__x0020_reprezentat_x005C__x0027_e3_x0020_prin_x005C_b_x005C_f0_x0020__x0020__x005C_cf1_x005C_lang1033_x005C_f2_x007B_o.Reprezentant_x007D__x005C_cf0_x005C_lang1048_x005C_b0_x005C_f1_x0020__x002C__x005C_lang1033_x005C_f2_x0020__x0020__x007B_o.FunctiaDe_x007D__x005C_lang1048_x005C_f1_x0020__x0028_calitatea_x0020_de_x0020_reprezentare_x0020_potrivit_x0020_actului_x0020_normativ_x0020_privind_x0020_organizarea_x0020__x005C__x0027_bai_x0020_func_x005C__x0027_feionarea_x0020_entit_x005C__x0027_e3_x005C__x0027_feii_x0020_juridice_x0020_respective_x0020__x005C__x0027_bai_x0020_conform_x0020_statutului_x002F_actului_x0020_constitutiv_x0020_al_x0020_entit_x005C__x0027_e3_x005C__x0027_feii_x0020_juridice_x0020_respective_x0029__x002C__x0020__x005C__x0027_een_x0020_calitate_x0020_de_x0020__x005C_b_x005C_f0_x0020_Beneficiar_x0020__x005C_b0_x005C_f1_x0020_pe_x0020_de_x0020_alt_x005C__x0027_e3_x0020_parte_x002C__x0020__x005C_f0_x0020_au_x005C_f1_x0020__x0020__x005C__x0027_een_x005C_f0_x0020_cheiat_x0020_prezentul_x0020_acord-_x005C_f1_x0020_adi_x005C__x0027_feional_x0020_privind_x0020_modificarea_x0020__x005C_f0_x0020_punctului_x0020_3.2_x0020_al_x0020_contractului_x0020_de_x0020_acordare_x0020_a_x0020_sprijinului_x0020_financiar_x002C__x0020__x005C_cf1_x0020_nr._x005C_lang1033_x005C_f2_x0020__x0020__x007B_o.SprijinNr_x007D__x005C_cf0_x005C_lang1048_x005C_f0_x0020__x002C__x0020__x005C_f1_x0020_dup_x005C__x0027_e3_x0020_cum_x0020_urmeaz_x005C__x0027_e3:_x005C_par_x000D__x000A__x005C_pard_x005C_qj_x005C_f0_x005C_tab_x0020_-_x0020_punctul_x0020_3.2_x0020_al_x0020_contractului_x0020_de_x0020_acordare_x0020_a_x0020_sprijinului_x0020_financiar_x002C__x0020__x005C_cf1_x0020_nr._x0020__x005C_lang1033_x005C_f2_x007B_o.SprijinNr_x007D__x005C_cf0_x005C_lang1048_x005C_f0_x0020__x002C__x005C_fs22_x0020__x0020__x005C_f1_x005C_fs24_x0020_s_x005C__x0027_e3_x0020_fie_x0020_expus_x0020__x005C__x0027_een_x0020_urm_x005C__x0027_e3toarea_x0020_redac_x005C__x0027_feie_x005C_f0_x005C_fs28_x0020_:_x005C_f1_x005C_fs24_x0020__x0020__x005C__x0027_843.2._x0020_Autoritatea_x0020_Contractant_x005C__x0027_e3_x0020_se_x0020_angajeaz_x005C__x0027_e3_x0020_s_x005C__x0027_e3_x0020_acorde_x0020_sprijin_x0020_financiar_x0020__x005C__x0027_een_x0020_m_x005C__x0027_e3rime_x0020_de_x0020__x005C_cf1_x005C_lang1033_x005C_b_x005C_f2_x007B_o.Sprijin_x007D__x005C_lang1048_x005C_f0_x0020__x0020__x005C_b0_x0020__x0028__x005C_lang1033_x005C_f2_x007B_o.Sprijinw_x007D__x005C_lang1048_x005C_f0_x0020__x0029__x005C_cf0_x005C_f1_x0020__x0020__x002C__x0020_din_x0020_momentul_x0020__x005C__x0027_eencheierii_x0020_prezentului_x0020_cont_x005C_f0_x0020_ract_x005C_rdblquote_x0020_._x0020__x005C_par_x000D__x000A__x005C_pard_x005C_fi709_x005C_qj_x0020_2._x0020_Acordul-_x005C_f1_x0020_adi_x005C__x0027_feional_x0020_este_x0020_parte_x0020_integrant_x005C__x0027_e3_x0020_a_x0020_contractului_x0020_de_x0020_baz_x005C__x0027_e3._x0020__x005C_f0_x005C_par_x000D__x000A__x005C_cf2_x005C_expndtw1_x005C_f1_x0020_3._x0020_Prezentul_x0020_acord_x0020_se_x0020_consider_x005C__x0027_e3_x0020__x005C__x0027_eencheiat_x0020_la_x0020_data_x0020_semn_x005C__x0027_e3rii_x0020_de_x0020_c_x005C__x0027_e3tre_x0020_p_x005C__x0027_e3r_x005C__x0027_fei._x005C_cf0_x005C_expndtw0_x005C_f0_x005C_par_x000D__x000A__x005C_f1_x0020_4._x0020_Prezentul_x0020_acord_x0020_este_x0020__x005C__x0027_eentocmit_x0020__x005C__x0027_een_x0020_limba_x0020_se_x0020_stat_x002C__x0020__x005C__x0027_een_x0020_num_x005C__x0027_e3r_x0020_de_x0020_2_x0020__x0028_dou_x005C__x0027_e3_x0029__x0020_exemplare_x002C__x0020_cu_x0020_aceea_x005C__x0027_bai_x0020_putere_x0020_juridic_x005C__x0027_e3_x0020_pentru_x0020_fiecare_x0020_din_x0020_p_x005C__x0027_e3r_x005C__x0027_fei._x005C_f0_x005C_par_x000D__x000A__x005C_pard_x005C_lang1049_x005C_fs16_x005C_par_x000D__x000A___RP___x000D__x000A_</Text>
+        </RichText1>
+        <RichText5 Ref="5" type="Stimulsoft.Report.Components.StiRichText" isKey="true">
+          <BackColor>Transparent</BackColor>
+          <ClientRectangle>0.2,15,7,4.8</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <DataColumn />
+          <FullConvertExpression>True</FullConvertExpression>
+          <Guid>a05583ead4474500836a728faef8d746</Guid>
+          <Margins>0,0,0,0</Margins>
+          <Name>RichText5</Name>
+          <Page isRef="3" />
+          <Parent isRef="3" />
+          <Text>__LP___x005C_rtf1_x005C_ansi_x005C_ansicpg1250_x005C_deff0_x005C_deflang1048__LP___x005C_fonttbl__LP___x005C_f0_x005C_fnil_x005C_fcharset238_x0020_Calibri_x003B___RP____LP___x005C_f1_x005C_fnil_x005C_fcharset0_x0020_Calibri_x003B___RP____RP___x000D__x000A___LP___x005C_colortbl_x0020__x003B__x005C_red0_x005C_green0_x005C_blue0_x003B__x005C_red255_x005C_green0_x005C_blue0_x003B___RP___x000D__x000A__x005C_viewkind4_x005C_uc1_x005C_pard_x005C_b_x005C_f0_x005C_fs24_x0020_Beneficiar:_x005C_par_x000D__x000A__x005C_lang1033_x005C_f1_x007B_o.Beneficiar_x007D__x005C_par_x000D__x000A_Adresa:_x0020__x005C_b0_x007B_o.Adresa_x007D__x005C_lang1048_x005C_b_x005C_f0_x005C_par_x000D__x000A__x005C_pard_x005C_fi-540_x005C_li540_x005C_cf1_x005C_lang1033_x005C_f1_x0020_C_x002F_f:_x005C_b0_x0020__x0020__x007B_o.Cf_x007D__x005C_par_x000D__x000A__x005C_b_x0020_C_x002F_d:_x005C_b0_x0020__x0020__x007B_o.Cd_x007D__x005C_lang1040_x005C_f0_x0020__x0020__x0020__x0020__x0020__x0020__x0020__x0020__x005C_par_x000D__x000A__x005C_pard_x005C_fi-540_x005C_li540_x005C_tx4253_x005C_lang1048_x005C_b_x0020_Cod_x0020_bancar_x005C_cf2_x005C_b0_x0020_:_x0020__x007B__x005C_lang1033_x005C_f1_x0020_o_x005C_lang1048_x005C_f0_x0020_.CodBancar_x007D__x005C_par_x000D__x000A__x005C_cf1_x005C_lang1033_x005C_b_x005C_f1_x0020_Filiala:_x005C_cf2_x005C_b0_x0020__x0020__x007B_o.Filiala_x007D__x005C_cf1_x005C_lang1048_x005C_f0_x005C_par_x000D__x000A__x005C_pard_x005C_cf0_x005C_fs16_x005C_par_x000D__x000A___RP___x000D__x000A_</Text>
+        </RichText5>
+        <RichText6 Ref="6" type="Stimulsoft.Report.Components.StiRichText" isKey="true">
+          <BackColor>Transparent</BackColor>
+          <ClientRectangle>7.6,15,8.8,4.8</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <DataColumn />
+          <Guid>6991d0f1c61b414c9e7067b95a37a73b</Guid>
+          <Margins>0,0,0,0</Margins>
+          <Name>RichText6</Name>
+          <Page isRef="3" />
+          <Parent isRef="3" />
+          <Text>__LP___x005C_rtf1_x005C_ansi_x005C_ansicpg1250_x005C_deff0_x005C_deflang1048__LP___x005C_fonttbl__LP___x005C_f0_x005C_fnil_x005C_fcharset238_x0020_Calibri_x003B___RP____RP___x000D__x000A___LP___x005C_colortbl_x0020__x003B__x005C_red0_x005C_green0_x005C_blue0_x003B___RP___x000D__x000A__x005C_viewkind4_x005C_uc1_x005C_pard_x005C_qj_x005C_b_x005C_f0_x005C_fs24_x0020_Autoritatea_x0020_Contractant_x005C__x0027_e3:_x005C_par_x000D__x000A__x005C_pard_x005C_fi-540_x005C_li540_x005C_qj_x005C_cf1_x0020_Agen_x005C__x0027_feia_x0020_de_x0020_Interven_x005C__x0027_feie_x0020__x005C__x0027_bai_x0020_Pl_x005C__x0027_e3_x005C__x0027_fei_x0020_pentru_x0020_Agricultur_x005C__x0027_e3_x0020__x005C_b0_x005C_par_x000D__x000A__x005C_b_x0020_Adresa:_x005C_b0_x0020__x0020__x005C_lang1040_x0020_MD-20_x005C_lang1048_x0020_04_x005C_lang1040_x0020__x002C__x0020_mun._x0020_Chi_x005C__x0027_bain_x005C__x0027_e3u_x002C__x005C_par_x000D__x000A__x005C_pard_x005C_fi-540_x005C_li540_x005C_qj_x005C_tx4253_x0020_bl._x0020__x005C__x0027_aatefan_x0020_cel_x0020_Mare_x0020__x005C__x0027_bai_x0020_Sf_x005C__x0027_eent_x002C__x0020_162_x005C_lang1048_x005C_par_x000D__x000A__x005C_pard_x005C_fi-540_x005C_li540_x005C_qj_x005C_lang1040_x005C_b_x0020_C_x002F_f:_x005C_b0_x0020__x0020__x005C_lang1048_x0020_1010601000092_x005C_lang1040_x005C_par_x000D__x000A__x005C_b_x0020_C_x002F_b:_x005C_b0_x0020__x0020__x005C_lang1048_x0020_226301_x005C_lang1040_x005C_par_x000D__x000A__x005C_pard_x005C_fi-540_x005C_li540_x005C_qj_x005C_tx4253_x005C_lang1048_x005C_b_x0020_C_x002F_t:_x005C_b0_x0020__x0020_210111029113766_x005C_par_x000D__x000A__x005C_lang1040_x005C_b_x005C__x0027_een_x0020_trezoria_x0020_de_x0020_stat_x0020_c_x002F_b_x005C_b0_x0020_:_x005C_lang1048_x005C_b_x005C_fs32_x0020__x0020__x005C_b0_x005C_fs24_x0020_TREZMD2X_x005C_lang1040_x005C_par_x000D__x000A__x005C_pard_x005C_cf0_x005C_lang1048_x005C_b_x005C_par_x000D__x000A___RP___x000D__x000A_</Text>
+        </RichText6>
+        <RichText7 Ref="7" type="Stimulsoft.Report.Components.StiRichText" isKey="true">
+          <BackColor>Transparent</BackColor>
+          <ClientRectangle>0.2,20,6.8,5.2</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <DataColumn />
+          <Guid>b4d150c85d2443dcb93b326f08b4de15</Guid>
+          <Margins>0,0,0,0</Margins>
+          <Name>RichText7</Name>
+          <Page isRef="3" />
+          <Parent isRef="3" />
+          <Text>__LP___x005C_rtf1_x005C_ansi_x005C_ansicpg1250_x005C_deff0_x005C_deflang1048__LP___x005C_fonttbl__LP___x005C_f0_x005C_fnil_x005C_fcharset0_x0020_Calibri_x003B___RP____LP___x005C_f1_x005C_fnil_x005C_fcharset238_x0020_Calibri_x003B___RP____RP___x000D__x000A__x005C_viewkind4_x005C_uc1_x005C_pard_x005C_lang1033_x005C_b_x005C_f0_x005C_fs24_x007B_o.Functia_x007D__x005C_par_x000D__x000A__x005C_par_x000D__x000A__x007B_o.Reprezentant_x007D__x005C_par_x000D__x000A__x005C_lang1040_x005C_b0_x005C_par_x000D__x000A__x005C_f1_x0020_________________________x005C_par_x000D__x000A__x005C_pard_x005C_qc_x005C_par_x000D__x000A__x005C_pard_x005C_ldblquote_x0020______x005C_rdblquote_x0020__x0020________________x0020_2010_x005C_par_x000D__x000A__x005C_lang1048_x005C_f0_x005C_fs16_x005C_par_x000D__x000A___RP___x000D__x000A_</Text>
+        </RichText7>
+        <RichText8 Ref="8" type="Stimulsoft.Report.Components.StiRichText" isKey="true">
+          <BackColor>Transparent</BackColor>
+          <ClientRectangle>8,20,7.6,5.2</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <DataColumn />
+          <Guid>a2293b562a4c4c6b8eeb0e0c53b262d6</Guid>
+          <Margins>0,0,0,0</Margins>
+          <Name>RichText8</Name>
+          <Page isRef="3" />
+          <Parent isRef="3" />
+          <Text>__LP___x005C_rtf1_x005C_ansi_x005C_ansicpg1250_x005C_deff0_x005C_deflang1048__LP___x005C_fonttbl__LP___x005C_f0_x005C_fnil_x005C_fcharset238_x0020_Calibri_x003B___RP____RP___x000D__x000A__x005C_viewkind4_x005C_uc1_x005C_pard_x005C_lang1040_x005C_b_x005C_f0_x005C_fs24_x0020_Director_x0020_interimar_x005C_b0_x005C_par_x000D__x000A__x005C_par_x000D__x000A__x005C_b_x0020_Petru_x0020_MALERU_x005C_par_x000D__x000A__x005C_b0_x005C_par_x000D__x000A_________________________x005C_par_x000D__x000A__x005C_pard_x005C_qc_x005C_par_x000D__x000A__x005C_pard_x005C_ldblquote_x0020______x005C_rdblquote_x0020__x0020________________x0020_2010_x005C_par_x000D__x000A__x005C_lang1048_x005C_fs16_x005C_par_x000D__x000A___RP___x000D__x000A_</Text>
+        </RichText8>
+        <Text1 Ref="9" type="Text" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0.2,13.6,16.2,0.6</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>Calibri,12,Bold</Font>
+          <HorAlignment>Center</HorAlignment>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text1</Name>
+          <Page isRef="3" />
+          <Parent isRef="3" />
+          <Text>5. ADRESELE ŞI RECHIZITELE PĂRŢILOR</Text>
+          <TextBrush>Black</TextBrush>
+          <Type>Expression</Type>
+        </Text1>
+        <Text2 Ref="10" type="Text" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0.2,0,16.2,1</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>Calibri,12,Bold</Font>
+          <HorAlignment>Center</HorAlignment>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text2</Name>
+          <Page isRef="3" />
+          <Parent isRef="3" />
+          <Text>Acord-adiţional nr. {o.Nr}
+ de modificare a contractului de acordare a sprijinului financiar nr. {o.SprijinNr}</Text>
+          <TextBrush>Black</TextBrush>
+          <Type>Expression</Type>
+        </Text2>
+        <Text3 Ref="11" type="Text" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>11.2,1.4,5.2,0.6</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>Calibri,12,Bold</Font>
+          <HorAlignment>Right</HorAlignment>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text3</Name>
+          <Page isRef="3" />
+          <Parent isRef="3" />
+          <Text>{o.Data}</Text>
+          <TextBrush>Black</TextBrush>
+          <Type>Expression</Type>
+        </Text3>
+        <Text4 Ref="12" type="Text" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0.2,1.4,5.2,0.6</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>Calibri,12,Bold</Font>
+          <Guid>f123ca7b8f704faf9cd960819c4031dd</Guid>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text4</Name>
+          <Page isRef="3" />
+          <Parent isRef="3" />
+          <Text>mun. Chişinău </Text>
+          <TextBrush>Black</TextBrush>
+          <Type>Expression</Type>
+        </Text4>
+      </Components>
+      <Conditions isList="true" count="0" />
+      <Guid>afd131678c11481398449ff7275b6d62</Guid>
+      <Margins>3,1.5,2,2</Margins>
+      <Name>Page1</Name>
+      <PageHeight>29.7</PageHeight>
+      <PageWidth>21</PageWidth>
+      <Report isRef="0" />
+      <Watermark Ref="13" type="Stimulsoft.Report.Components.StiWatermark" isKey="true">
+        <Font>Arial,100</Font>
+        <TextBrush>[50:0:0:0]</TextBrush>
+      </Watermark>
+    </Page1>
+  </Pages>
+  <PrinterSettings Ref="14" type="Stimulsoft.Report.Print.StiPrinterSettings" isKey="true" />
+  <ReferencedAssemblies isList="true" count="8">
+    <value>System.Dll</value>
+    <value>System.Drawing.Dll</value>
+    <value>System.Windows.Forms.Dll</value>
+    <value>System.Data.Dll</value>
+    <value>System.Xml.Dll</value>
+    <value>Stimulsoft.Controls.Dll</value>
+    <value>Stimulsoft.Base.Dll</value>
+    <value>Stimulsoft.Report.Dll</value>
+  </ReferencedAssemblies>
+  <ReportAlias>Report</ReportAlias>
+  <ReportChanged>11/26/2010 9:35:28 AM</ReportChanged>
+  <ReportCreated>11/25/2010 11:10:46 AM</ReportCreated>
+  <ReportFile>C:\agreement.mrt</ReportFile>
+  <ReportGuid>1d6204bd59a347cfbef7a7a17388cec7</ReportGuid>
+  <ReportName>Report</ReportName>
+  <ReportUnit>Centimeters</ReportUnit>
+  <ReportVersion>2010.2.800</ReportVersion>
+  <Script>using System;
+using System.Drawing;
+using System.Windows.Forms;
+using System.Data;
+using Stimulsoft.Controls;
+using Stimulsoft.Base.Drawing;
+using Stimulsoft.Report;
+using Stimulsoft.Report.Dialogs;
+using Stimulsoft.Report.Components;
+
+namespace Reports
+{
+    
+    public class Report : Stimulsoft.Report.StiReport
+    {
+        
+        public Report()
+        {
+            this.InitializeComponent();
+        }
+        #region StiReport Designer generated code - do not modify#endregion StiReport Designer generated code - do not modify
+    }
+}
+</Script>
+  <ScriptLanguage>CSharp</ScriptLanguage>
+  <Styles isList="true" count="0" />
+</StiSerializer>
