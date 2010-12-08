@@ -44,8 +44,10 @@ namespace MRGSP.ASMS.Infra.Dto
         public int Month { get; set; }
 
         [Req]
+        [DisplayName("Suma AIPA")]
         public decimal Amount { get; set; }
         [Req]
+        [DisplayName("Suma Minister")]
         public decimal Amountm { get; set; }
     }
 
@@ -76,7 +78,7 @@ namespace MRGSP.ASMS.Infra.Dto
         [Req]
         public decimal Amountm { get; set; }
     }
-    
+
     public class ChangeAmountPayedInput
     {
         public int Id { get; set; }
@@ -103,7 +105,7 @@ namespace MRGSP.ASMS.Infra.Dto
         public DateTime EndDate { get; set; }
 
         [UIHint("AjaxDropdown")]
-        [AjaxDropdown(Controller="PoStatesAjaxDropdown")]
+        [AjaxDropdown(Controller = "PoStatesAjaxDropdown")]
         [DisplayName("Stare")]
         public int? PoState { get; set; }
     }
@@ -112,6 +114,7 @@ namespace MRGSP.ASMS.Infra.Dto
     {
         [UIHint("Lookup")]
         [DisplayName("Raion")]
+        [Req]
         public int? DistrictId { get; set; }
 
         [DisplayName("Localitate")]
@@ -122,9 +125,16 @@ namespace MRGSP.ASMS.Infra.Dto
 
         public int? LocalityId { get; set; }
 
+        [DisplayName("Cod postal")]
         public string Zip { get; set; }
+
+        [DisplayName("Strada")]
         public string Street { get; set; }
+
+        [DisplayName("Bloc")]
         public string House { get; set; }
+
+        [DisplayName("Apartament")]
         public string Apartment { get; set; }
 
     }
@@ -143,17 +153,20 @@ namespace MRGSP.ASMS.Infra.Dto
     {
         [Req]
         [StringLength(50)]
+        [DisplayName("Adresa")]
         public string Address { get; set; }
     }
 
-    
+
     public class PhoneInput : FarmersInput
     {
         [Req]
         [StringLength(15)]
+        [DisplayName("Numar")]
         public string Number { get; set; }
 
         [UIHint("Enum")]
+        [DisplayName("Tip")]
         public PhoneType Type { get; set; }
     }
 
@@ -195,19 +208,19 @@ namespace MRGSP.ASMS.Infra.Dto
         public string Formula { get; set; }
     }
 
-     public class CrossDistrictMeasureInput
-     {
-         public CrossDistrictMeasureInput()
-         {
-             Date = DateTime.Now;
-         }
+    public class CrossDistrictMeasureInput
+    {
+        public CrossDistrictMeasureInput()
+        {
+            Date = DateTime.Now;
+        }
 
-         public int MeasuresetId { get; set; }
-         
-         [Req]
-         [DisplayName("Pana la")]
-         public DateTime Date { get; set; }
-     }
+        public int MeasuresetId { get; set; }
+
+        [Req]
+        [DisplayName("Pana la")]
+        public DateTime Date { get; set; }
+    }
 
     public class MeasuresetInput : IdInput
     {
@@ -220,8 +233,8 @@ namespace MRGSP.ASMS.Infra.Dto
         [DisplayName("Anul")]
         [MyRange(2009, 2100)]
         public int Year { get; set; }
-    }    
-    
+    }
+
     public class MeasuresetEditInput : IdInput
     {
         [Req]
@@ -242,7 +255,7 @@ namespace MRGSP.ASMS.Infra.Dto
         public int Year { get; set; }
 
     }
-    
+
     public class FieldsetEditInput : IdInput
     {
         [Req]
@@ -264,7 +277,7 @@ namespace MRGSP.ASMS.Infra.Dto
         [StringLength(50)]
         public string Name { get; set; }
     }
-    
+
     public class LocalityInput : IdInput
     {
         [Req]
@@ -427,12 +440,12 @@ namespace MRGSP.ASMS.Infra.Dto
         public int? ContractId { get; set; }
         public int? AgreementId { get; set; }
     }
-    
+
     public class PaymentOrderEditInput : IdInput
     {
         public int Nr { get; set; }
         public DateTime Date { get; set; }
-        
+
         [UIHint("AjaxDropdown")]
         [AjaxDropdown(Controller = "PoStateAjaxDropdown")]
         public int State { get; set; }
@@ -441,15 +454,21 @@ namespace MRGSP.ASMS.Infra.Dto
     public class AgreementInput : IdInput
     {
         public int? ContractId { get; set; }
+        
+        [DisplayName("Suma")]
         public decimal Amount { get; set; }
+
+        [Req]
+        [DisplayName("Data")]
         public DateTime? Date { get; set; }
 
     }
 
     public class ContractInput : IdInput
     {
+        [DisplayName("Data")]
         public DateTime? Date { get; set; }
-        
+
         [Req]
         [DisplayName("Cont de decontare")]
         [StringLength(15)]
@@ -464,10 +483,10 @@ namespace MRGSP.ASMS.Infra.Dto
         [DisplayName("Denumirea bancii/filialei")]
         [StringLength(100)]
         public string BankName { get; set; }
-        
-       
+
+
         public int DossierId { get; set; }
-        
+
         [Req]
         [DisplayName("Nr Sprijin")]
         [StringLength(10)]

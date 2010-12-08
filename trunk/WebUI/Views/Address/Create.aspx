@@ -10,7 +10,7 @@
        {%>
     <%=Html.EditorFor(o => o.DistrictId) %>
     <%=Html.EditorFor(o => o.Locality) %>
-    <%=Html.EditorFor(o => o.LocalityId) %>
+    <%=Html.HiddenFor(o => o.LocalityId) %>
     <%=Html.EditorFor(o => o.Street) %>
     <%=Html.EditorFor(o => o.House) %>
     <%=Html.EditorFor(o => o.Apartment) %>

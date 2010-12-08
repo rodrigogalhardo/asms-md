@@ -30,11 +30,14 @@
     <ul class="bl">
         <li>
             <%=Html.PopupFormActionLink<ReportController>(o => o.DossiersByDistrict(), "Raport dosare dupa raion", new{@class = "abtn"}) %></li>
+        <% if (ViewData["msid"] != null)
+           {%>
         <li><a href='javascript:operInfo(({MeasuresetId: <%=ViewData["msid"] %>}))' class="abtn">
             informatie operativa</a></li>
         <li>
             <%=Html.PopupFormActionLink<ReportController>(o => o.CrossDistrictMeasure((int) ViewData["msid"]), "număr de dosare depuse la sediul AIPA din fiecare raion pentru fiecare măsură în parte", new { @class = "abtn" })%></li>
         <li>
             <%=Html.PopupFormActionLink<ReportController>(o => o.CrossDistrictMeasureAmountPayed((int) ViewData["msid"]), "sumele totale achitate de către AIPA solicitanților din fiecare raion pentru fiecare măsură în parte", new { @class = "abtn" })%></li>
+        <%} %>
     </ul>
 </asp:Content>

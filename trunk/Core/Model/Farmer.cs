@@ -141,7 +141,7 @@ namespace MRGSP.ASMS.Core.Model
         public string BankName { get; set; }
         public int DossierId { get; set; }
         public string SupportNr { get; set; }
-        public int PaymentOrderId { get; set; }
+        public int? PaymentOrderId { get; set; }
     }
 
     public class Agreement : Entity
