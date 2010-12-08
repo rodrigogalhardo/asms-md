@@ -48,7 +48,8 @@
         if (Model.StateId == DossierStates.Authorized)
         {
     %>
-    <%=Html.Action("index","contract", new{dossierId = Model.Id}) %>
+    <%
+            Html.RenderAction("index", "contract", new {dossierId = Model.Id});%>
     <%
         }
     %>

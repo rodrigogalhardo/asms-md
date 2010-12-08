@@ -25,32 +25,27 @@ namespace MRGSP.ASMS.WebUI
             var name = Request["report"];
             if (string.IsNullOrWhiteSpace(name)) return;
             var report = new StiReport();
-
+            report.Load(Server.MapPath("reports") +"\\"+ name + ".mrt");
+            var data = new object();
             switch (name)
             {
                 case "operInfo":
                     {
                         var id = Convert.ToInt32(Request["MeasuresetId"]);
-                        var data = rds.GetOperInfoReport(id);
-                        report.Load(@"c:\operInfo.mrt");
-                        report.RegData("o", data);
+                        data = rds.GetOperInfoReport(id);
                     }
                     break;
                 case "agreement":
                     {
                         var id = Convert.ToInt32(Request["id"]);
-                        var data = rds.Agreement(id);
-                        report.Load(@"c:\agreement.mrt");
-                        report.RegData("o", data);
+                        data = rds.Agreement(id);
                     }
                     break;
                 case "dossiersByDistrict":
                     {
                         var year = Convert.ToInt32(Request["year"]);
                         var district = Convert.ToInt32(Request["district"]);
-                        var data = rds.DossiersByDistrictReport(year, district);
-                        report.Load(@"c:\DossiersByDistrict.mrt");
-                        report.RegData("o", data);
+                        data = rds.DossiersByDistrictReport(year, district);
                         report.RegBusinessObject("v", new { Name = rds.GetDistrictName(district) });
                     }
                     break;
@@ -58,9 +53,7 @@ namespace MRGSP.ASMS.WebUI
                     {
                         var measuresetId = Convert.ToInt32(Request["measuresetId"]);
                         var date = Convert.ToDateTime(Request["date"]);
-                        var data = rds.CrossDistrictMeasure(date, measuresetId);
-                        report.Load(@"c:\crossDistrictMeasure.mrt");
-                        report.RegData("o", data);
+                        data = rds.CrossDistrictMeasure(date, measuresetId);
                         report.RegBusinessObject("opt", new { Data = date });
                     }
                     break;
@@ -68,38 +61,30 @@ namespace MRGSP.ASMS.WebUI
                     {
                         var measuresetId = Convert.ToInt32(Request["measuresetId"]);
                         var date = Convert.ToDateTime(Request["date"]);
-                        var data = rds.CrossDistrictMeasureAmountPayed(date, measuresetId);
-                        report.Load(@"c:\crossDistrictMeasureAmountPayed.mrt");
-                        report.RegData("o", data);
+                        data = rds.CrossDistrictMeasureAmountPayed(date, measuresetId);
                         report.RegBusinessObject("opt", new { Data = date });
                     }
                     break;
                 case "contract":
                     {
                         var id = Convert.ToInt32(Request["id"]);
-                        var data = rds.Contract(id);
-                        report.Load(@"c:\contract.mrt");
-                        report.RegData("contract", data);
+                        data = rds.Contract(id);
                     }
                     break;
                 case "auth":
                     {
                         var fpiId = Convert.ToInt32(Request["fpiId"]);
-                        report.Load(@"c:\auth.mrt");
-                        var data = competitorRepo.GetWhere(new { fpiId, StateId = DossierStates.Authorized, Disqualified = false }).ToList();
-                        report.RegData("farmers", data);
+                        data = competitorRepo.GetWhere(new { fpiId, StateId = DossierStates.Authorized, Disqualified = false }).ToList();
                     }
                     break;
                 case "losers":
                     {
                         var fpiId = Convert.ToInt32(Request["fpiId"]);
-                        report.Load(@"c:\losers.mrt");
-                        var data = competitorRepo.Losers(fpiId).OrderByDescending(o => o.Value);
-                        report.RegData("farmers", data);
+                        data = competitorRepo.Losers(fpiId).OrderByDescending(o => o.Value);
                     }
                     break;
             }
-
+            report.RegData("o", data);
             StiWebViewerFx1.Report = report;
         }
 

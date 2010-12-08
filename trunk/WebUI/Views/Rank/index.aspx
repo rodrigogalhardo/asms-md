@@ -29,6 +29,7 @@
     </table>
     <%=Html.Action("state","fpi",new{Model.Id}) %>
     <%=Html.MakePopupForm<FpiController>(o => o.ChangeAmount(0),height:250) %>
+    <br />
     <%=Html.PopupFormActionLink<FpiController>(o => o.ChangeAmount(Model.Id), "schimba suma", new{@class = "abtn"}) %>
     <%=Html.Confirm("Toate valorile coeficientilor vor fi sterse si recalculate din nou, sunteti sigur ?") %>
     <br />

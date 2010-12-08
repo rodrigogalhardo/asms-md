@@ -8,7 +8,7 @@ using Omu.ValueInjecter;
 
 namespace MRGSP.ASMS.WebUI.Controllers
 {
-    public class FpiController : BaseController
+    public class FpiController : Controller
     {
         private readonly IFpiService s;
         private readonly IMeasuresetService mss;
