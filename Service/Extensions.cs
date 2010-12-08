@@ -7,6 +7,7 @@ namespace MRGSP.ASMS.Service
     {
         public static string Display(this AddressInfo o)
         {
+            if (o == null) return "";
             var dist = o.District.Contains("Chi") ? "" : "r.";
             var r = string.Format("{2} {0} loc. {1}", o.District, o.Locality, dist);
             if (!string.IsNullOrWhiteSpace(o.Street)) r += " str. " + o.Street;

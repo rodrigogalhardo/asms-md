@@ -49,7 +49,7 @@ namespace MRGSP.ASMS.WebUI
 
         protected void Application_Error(object sender, EventArgs e)
         {
-            return;
+            //return;
             var exception = Server.GetLastError();
             // Log the exception.
             log.Error(exception.Message, exception);

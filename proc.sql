@@ -441,3 +441,4 @@ select d.measureId, po.id, d.amountPayed amount from paymentOrders po inner join
 where po.state = 2) x group by measureId) wait on payed.measureId = m.id
 
 where m.id in (select mm.measureId from measuresetsmeasures mm where mm.measuresetId = @measuresetId )
+
