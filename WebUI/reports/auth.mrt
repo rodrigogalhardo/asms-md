@@ -4,8 +4,8 @@
     <BusinessObjects isList="true" count="0" />
     <Databases isList="true" count="0" />
     <DataSources isList="true" count="1">
-      <_x0020_farmers Ref="2" type="Stimulsoft.Report.Dictionary.StiBusinessObjectSource" isKey="true">
-        <Alias> farmers</Alias>
+      <o Ref="2" type="Stimulsoft.Report.Dictionary.StiBusinessObjectSource" isKey="true">
+        <Alias>o</Alias>
         <Columns isList="true" count="5">
           <value>Id,System.Int32</value>
           <value>Name,System.String</value>
@@ -14,9 +14,9 @@
           <value>Code,System.String</value>
         </Columns>
         <Dictionary isRef="1" />
-        <Name> farmers</Name>
-        <NameInSource>asms</NameInSource>
-      </_x0020_farmers>
+        <Name>o</Name>
+        <NameInSource>o</NameInSource>
+      </o>
     </DataSources>
     <Relations isList="true" count="0" />
     <Report isRef="0" />
@@ -222,10 +222,10 @@ cu cererile autorizate pentru obţinerea sprijinului financiar
               <Name>Data_farmers_Id</Name>
               <Page isRef="3" />
               <Parent isRef="16" />
-              <Text>{_farmers.Code}</Text>
+              <Text>{o.Code}</Text>
               <TextBrush>Black</TextBrush>
               <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
-              <Type>DataColumn</Type>
+              <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Data_farmers_Id>
             <Data_farmers_Name Ref="18" type="Text" isKey="true">
@@ -239,9 +239,10 @@ cu cererile autorizate pentru obţinerea sprijinului financiar
               <Name>Data_farmers_Name</Name>
               <Page isRef="3" />
               <Parent isRef="16" />
-              <Text>{_farmers.Name}</Text>
+              <Text>{o.Name}</Text>
               <TextBrush>Black</TextBrush>
               <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Data_farmers_Name>
             <Text1 Ref="19" type="Text" isKey="true">
@@ -272,7 +273,7 @@ cu cererile autorizate pentru obţinerea sprijinului financiar
               <Name>Data_farmers_Value</Name>
               <Page isRef="3" />
               <Parent isRef="16" />
-              <Text>{_farmers.Value}</Text>
+              <Text>{o.Value}</Text>
               <TextBrush>Black</TextBrush>
               <TextFormat Ref="21" type="NumberFormat" isKey="true">
                 <DecimalSeparator>,</DecimalSeparator>
@@ -282,6 +283,7 @@ cu cererile autorizate pentru obţinerea sprijinului financiar
                 <UseLocalSetting>False</UseLocalSetting>
               </TextFormat>
               <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Data_farmers_Value>
             <Data_farmers_AmountPayed Ref="22" type="Text" isKey="true">
@@ -295,7 +297,7 @@ cu cererile autorizate pentru obţinerea sprijinului financiar
               <Name>Data_farmers_AmountPayed</Name>
               <Page isRef="3" />
               <Parent isRef="16" />
-              <Text>{_farmers.AmountPayed}</Text>
+              <Text>{o.AmountPayed}</Text>
               <TextBrush>Black</TextBrush>
               <TextFormat Ref="23" type="NumberFormat" isKey="true">
                 <DecimalSeparator>,</DecimalSeparator>
@@ -305,12 +307,13 @@ cu cererile autorizate pentru obţinerea sprijinului financiar
                 <UseLocalSetting>False</UseLocalSetting>
               </TextFormat>
               <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Data_farmers_AmountPayed>
           </Components>
           <Conditions isList="true" count="0" />
           <DataRelationName isNull="true" />
-          <DataSourceName> farmers</DataSourceName>
+          <DataSourceName>o</DataSourceName>
           <Filters isList="true" count="0" />
           <Name>Data farmers</Name>
           <Page isRef="3" />
@@ -344,13 +347,13 @@ cu cererile autorizate pentru obţinerea sprijinului financiar
     <value>Stimulsoft.Report.Dll</value>
   </ReferencedAssemblies>
   <ReportAlias>Report</ReportAlias>
-  <ReportChanged>11/17/2010 1:44:38 PM</ReportChanged>
+  <ReportChanged>12/8/2010 10:25:17 AM</ReportChanged>
   <ReportCreated>10/19/2010 9:13:33 AM</ReportCreated>
-  <ReportFile>C:\auth.mrt</ReportFile>
-  <ReportGuid>66f2bef48d954b2aafbcae60e9e3cdf7</ReportGuid>
+  <ReportFile>D:\asms\WebUI\reports\auth.mrt</ReportFile>
+  <ReportGuid>2c807bf71efd425a9f765831e3728fa9</ReportGuid>
   <ReportName>Report</ReportName>
   <ReportUnit>Centimeters</ReportUnit>
-  <ReportVersion>2010.2.800</ReportVersion>
+  <ReportVersion>2010.3.900</ReportVersion>
   <Script>using System;
 using System.Drawing;
 using System.Windows.Forms;

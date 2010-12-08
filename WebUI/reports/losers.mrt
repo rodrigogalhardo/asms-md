@@ -4,8 +4,8 @@
     <BusinessObjects isList="true" count="0" />
     <Databases isList="true" count="0" />
     <DataSources isList="true" count="1">
-      <_x0020_farmers Ref="2" type="Stimulsoft.Report.Dictionary.StiBusinessObjectSource" isKey="true">
-        <Alias> farmers</Alias>
+      <_x0020_o Ref="2" type="Stimulsoft.Report.Dictionary.StiBusinessObjectSource" isKey="true">
+        <Alias> o</Alias>
         <Columns isList="true" count="4">
           <value>Id,System.Int32</value>
           <value>Name,System.String</value>
@@ -13,9 +13,9 @@
           <value>Value,System.Decimal</value>
         </Columns>
         <Dictionary isRef="1" />
-        <Name> farmers</Name>
-        <NameInSource>asms</NameInSource>
-      </_x0020_farmers>
+        <Name> o</Name>
+        <NameInSource>o</NameInSource>
+      </_x0020_o>
     </DataSources>
     <Relations isList="true" count="0" />
     <Report isRef="0" />
@@ -218,9 +218,10 @@ care nu au trecut concursul de selectare
               <Name>Data_farmers_Id</Name>
               <Page isRef="3" />
               <Parent isRef="16" />
-              <Text>{_farmers.Id}</Text>
+              <Text>{o.Id}</Text>
               <TextBrush>Black</TextBrush>
               <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Data_farmers_Id>
             <Data_farmers_Name Ref="18" type="Text" isKey="true">
@@ -234,9 +235,10 @@ care nu au trecut concursul de selectare
               <Name>Data_farmers_Name</Name>
               <Page isRef="3" />
               <Parent isRef="16" />
-              <Text>{_farmers.Name}</Text>
+              <Text>{o.Name}</Text>
               <TextBrush>Black</TextBrush>
               <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Data_farmers_Name>
             <Text1 Ref="19" type="Text" isKey="true">
@@ -267,9 +269,10 @@ care nu au trecut concursul de selectare
               <Name>Data_farmers_Value</Name>
               <Page isRef="3" />
               <Parent isRef="16" />
-              <Text>{_farmers.Value}</Text>
+              <Text>{o.Value}</Text>
               <TextBrush>Black</TextBrush>
               <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Data_farmers_Value>
             <Data_farmers_AmountPayed Ref="21" type="Text" isKey="true">
@@ -283,15 +286,16 @@ care nu au trecut concursul de selectare
               <Name>Data_farmers_AmountPayed</Name>
               <Page isRef="3" />
               <Parent isRef="16" />
-              <Text>{_farmers.AmountPayed}</Text>
+              <Text>{o.AmountPayed}</Text>
               <TextBrush>Black</TextBrush>
               <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Data_farmers_AmountPayed>
           </Components>
           <Conditions isList="true" count="0" />
           <DataRelationName isNull="true" />
-          <DataSourceName> farmers</DataSourceName>
+          <DataSourceName> o</DataSourceName>
           <Filters isList="true" count="0" />
           <Name>Data farmers</Name>
           <Page isRef="3" />
@@ -325,13 +329,13 @@ care nu au trecut concursul de selectare
     <value>Stimulsoft.Report.Dll</value>
   </ReferencedAssemblies>
   <ReportAlias>Report</ReportAlias>
-  <ReportChanged>11/5/2010 11:43:06 AM</ReportChanged>
+  <ReportChanged>12/8/2010 10:27:55 AM</ReportChanged>
   <ReportCreated>10/19/2010 9:13:33 AM</ReportCreated>
-  <ReportFile>C:\losers.mrt</ReportFile>
-  <ReportGuid>1b47e2c300e14669b91dfe7bbe901369</ReportGuid>
+  <ReportFile>D:\asms\WebUI\reports\losers.mrt</ReportFile>
+  <ReportGuid>2421d8de5e174941af2a7e986599746a</ReportGuid>
   <ReportName>Report</ReportName>
   <ReportUnit>Centimeters</ReportUnit>
-  <ReportVersion>2010.2.800</ReportVersion>
+  <ReportVersion>2010.3.900</ReportVersion>
   <Script>using System;
 using System.Drawing;
 using System.Windows.Forms;

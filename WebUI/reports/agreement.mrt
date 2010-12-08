@@ -44,6 +44,8 @@
           <ClientRectangle>0.2,2.2,16.2,11.4</ClientRectangle>
           <Conditions isList="true" count="0" />
           <DataColumn />
+          <DetectUrls>False</DetectUrls>
+          <FullConvertExpression>True</FullConvertExpression>
           <Margins>0,0,0,0</Margins>
           <Name>RichText1</Name>
           <Page isRef="3" />
@@ -184,11 +186,11 @@
   <ReportAlias>Report</ReportAlias>
   <ReportChanged>11/26/2010 9:35:28 AM</ReportChanged>
   <ReportCreated>11/25/2010 11:10:46 AM</ReportCreated>
-  <ReportFile>C:\agreement.mrt</ReportFile>
-  <ReportGuid>1d6204bd59a347cfbef7a7a17388cec7</ReportGuid>
+  <ReportFile>D:\asms\WebUI\reports\agreement.mrt</ReportFile>
+  <ReportGuid>1a1882f5f6f047a3b23314c86f4a8772</ReportGuid>
   <ReportName>Report</ReportName>
   <ReportUnit>Centimeters</ReportUnit>
-  <ReportVersion>2010.2.800</ReportVersion>
+  <ReportVersion>2010.3.900</ReportVersion>
   <Script>using System;
 using System.Drawing;
 using System.Windows.Forms;
