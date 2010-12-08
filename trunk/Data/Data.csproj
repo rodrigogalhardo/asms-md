@@ -95,6 +95,7 @@
     <Compile Include="Repo.cs" />
     <Compile Include="TableConvention.cs" />
     <Compile Include="UberRepo.cs" />
+    <Compile Include="UniRepo.cs" />
     <Compile Include="UserRepo.cs" />
   </ItemGroup>
   <ItemGroup>

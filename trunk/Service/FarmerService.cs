@@ -7,7 +7,6 @@ using Omu.Awesome.Core;
 
 namespace MRGSP.ASMS.Service
 {
-    
     public class FarmerService : IFarmerService
     {
         private readonly IRepo<FarmerInfo> farmerInfoRepo;

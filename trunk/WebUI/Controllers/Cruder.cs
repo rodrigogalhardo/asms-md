@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using MRGSP.ASMS.Core;
 using MRGSP.ASMS.Core.Model;
-using MRGSP.ASMS.Core.Repository;
+using MRGSP.ASMS.Core.Service;
 using MRGSP.ASMS.Infra;
 using MRGSP.ASMS.Infra.Dto;
 
@@ -11,19 +11,19 @@ namespace MRGSP.ASMS.WebUI.Controllers
         where TInput : IdInput, new()
         where TEntity : Entity, new()
     {
-        protected readonly IRepo<TEntity> Repo;
+        protected readonly ICrudService<TEntity> s;
         private readonly IBuilder<TEntity, TInput> v;
 
 
-        public Cruder(IRepo<TEntity> repo, IBuilder<TEntity, TInput> v)
+        public Cruder(ICrudService<TEntity> s, IBuilder<TEntity, TInput> v)
         {
-            Repo = repo;
+            this.s = s;
             this.v = v;
         }
 
         public virtual ActionResult Index(int? page)
         {
-            return View(Repo.GetPageable(page ?? 1, 10));
+            return View(s.GetPageable(page ?? 1, 10));
         }
 
         public ActionResult Create()
@@ -36,13 +36,13 @@ namespace MRGSP.ASMS.WebUI.Controllers
         {
             if (!ModelState.IsValid)
                 return View(v.RebuildInput(o));
-            Repo.Insert(v.BuildEntity(o));
+            s.Create(v.BuildEntity(o));
             return Content("ok");
         }
 
         public ActionResult Edit(int id)
         {
-            var o = Repo.Get(id);
+            var o = s.Get(id);
             if (o == null) throw new AsmsEx("this entity doesn't exist anymore");
             return View("create", v.BuildInput(o));
         }
@@ -54,7 +54,7 @@ namespace MRGSP.ASMS.WebUI.Controllers
             {
                 if (!ModelState.IsValid)
                     return View("create", v.RebuildInput(input, input.Id));
-                Repo.Update(v.BuildEntity(input, input.Id));
+                s.Save(v.BuildEntity(input, input.Id));
             }
             catch (AsmsEx ex)
             {
@@ -66,7 +66,7 @@ namespace MRGSP.ASMS.WebUI.Controllers
         [HttpPost]
         public ActionResult Delete(int id)
         {
-            Repo.Delete(id);
+            s.Delete(id);
             return RedirectToAction("Index");
         }
     }

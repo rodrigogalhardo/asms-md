@@ -11,28 +11,32 @@
     </h2>
     <table>
         <tr>
-            <td> Suma:
+            <td>
+                Suma:
             </td>
-            <td>   <%= Model.Amount.Display() %>
+            <td>
+                <%= Model.Amount.Display() %>
             </td>
-        </tr>        <tr>
-            <td>Suma minister:
+        </tr>
+        <tr>
+            <td>
+                Suma minister:
             </td>
-            <td><%=Model.Amountm %>
+            <td>
+                <%=Model.Amountm %>
             </td>
         </tr>
     </table>
-
-    <%=Html.MakePopupForm<RankController>(o => o.ChangeAmount(0),height:250) %>
-    <%=Html.PopupFormActionLink<RankController>(o => o.ChangeAmount(Model.Id), "schimba suma", new{@class = "abtn"}) %>
-    
+    <%=Html.Action("state","fpi",new{Model.Id}) %>
+    <%=Html.MakePopupForm<FpiController>(o => o.ChangeAmount(0),height:250) %>
+    <%=Html.PopupFormActionLink<FpiController>(o => o.ChangeAmount(Model.Id), "schimba suma", new{@class = "abtn"}) %>
     <%=Html.Confirm("Toate valorile coeficientilor vor fi sterse si recalculate din nou, sunteti sigur ?") %>
-    <br /><br />    
-  <form method="post" action='<%=Url.Action("recalculate", new{FpiId = Model.Id}) %>'>
+    <br />
+    <br />
+    <form method="post" action='<%=Url.Action("recalculate", new{FpiId = Model.Id}) %>'>
     <input type="submit" value="recalcul" class="confirm" />
     </form>
-
-    <br />    
+    <br />
     <h3>
         autorizat spre plata</h3>
     <a target="_blank" href="Repor.aspx?report=auth&fpiId=<%=Model.Id %>" class="abtn">raport</a>

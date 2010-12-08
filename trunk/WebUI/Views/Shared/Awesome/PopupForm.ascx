@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<Omu.Awesome.Mvc.Helpers.PopupFormInfo>" %>
 <%
-    var o = Model.Div;
+    var o = "pf" + (Model.Action + Model.Controller).ToLower();
 %>
 <script type="text/javascript">
         $(function () {
@@ -20,10 +20,10 @@
             }); 
         });
 
-        var lockpopup<%=o %> = null;
+        var l<%=o %> = null;
         function call<%=o %>(<%=JsTools.MakeParameters(Model.Parameters) %>) { 
-            if(lockpopup<%=o %> != null) return;
-            lockpopup<%=o %> = true;
+            if(l<%=o %> != null) return;
+            l<%=o %> = true;
             $.get('<%=Url.Action(Model.Action, Model.Controller) %>',
             <%=JsTools.JsonParam(Model.Parameters) %>
             update<%=o %>
@@ -50,7 +50,7 @@
         }        
 
         function update<%=o %>(data) {
-            lockpopup<%=o %> = null;
+            l<%=o %> = null;
             $("#<%=o %>").html(data);
             $("#<%=o %> form").ajaxForm({
             
@@ -58,7 +58,7 @@
                 beforeSubmit: function () { return $("#<%=o %> form").validate().valid(); },
             <%} %>
                 success: OnSuccess<%=o %>
-            }); //ajaxForm
+            }); 
             $("#<%=o %>").dialog('open');
             $("#<%=o %> form input:visible:first").focus();
         }

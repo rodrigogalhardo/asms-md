@@ -27,7 +27,9 @@ namespace MRGSP.ASMS.WebUI
             WindsorRegistrar.Register("q5", typeof(IBuilder<Address, AddressInput>), typeof(AddressBuilder));
             WindsorRegistrar.Register("qg", typeof(IBuilder<,>), typeof(Builder<,>));
             WindsorRegistrar.Register("ur", typeof(IRepo<>), typeof(Repo<>));
-            WindsorRegistrar.Register("cns", typeof(ICrudService<Contract>), typeof(ContractService));
+            WindsorRegistrar.Register("oO", typeof(ICrudService<>), typeof(CrudService<>));
+
+            //WindsorRegistrar.Register("cns", typeof(ICrudService<Contract>), typeof(ContractService));
         }
     }
 }

@@ -16,31 +16,28 @@
     <%} %>
     </ul>
 
+    <h2>
+    Rapoarte</h2>
+
     <%=Html.MakePopupForm<ReportController>(o => o.DossiersByDistrict(), successFunction: "dossiersByDistrict")%>
-    <%=Html.PopupFormActionLink<ReportController>(o => o.DossiersByDistrict(),"Raport dosare dupa raion", new{@class = "abtn"}) %>
-    <script type="text/javascript">
-        function dossiersByDistrict(o) {
-            window.open('<%=Url.Content(@"~\Repor.aspx") %>' + '?report=dossiersByDistrict&district=' + o.District + '&year=' + o.Year, 'newtaborsomething');
-        }
-    </script>
-
-
-    <script type="text/javascript">
-        function crossDistrictMeasure(o) {
-                window.open('<%=Url.Content(@"~\Repor.aspx") %>' + '?report=crossDistrictMeasure&measuresetId=' + o.MeasuresetId + '&date=' + o.Date, 'newtaborsomething');
-            }
-    </script>
-
     <%=Html.MakePopupForm<ReportController>(o => o.CrossDistrictMeasure(0), successFunction: "crossDistrictMeasure", width: 500, height: 200)%>
-    <%=Html.PopupFormActionLink<ReportController>(o => o.CrossDistrictMeasure((int) ViewData["msid"]), "raport raioane x masuri", new { @class = "abtn" })%>
-
- <script type="text/javascript">
-        function crossDistrictMeasureAmountPayed(o) {
-                window.open('<%=Url.Content(@"~\Repor.aspx") %>' + '?report=crossDistrictMeasureAmountPayed&measuresetId=' + o.MeasuresetId + '&date=' + o.Date, 'newtaborsomething');
-            }
-    </script>
-
     <%=Html.MakePopupForm<ReportController>(o => o.CrossDistrictMeasureAmountPayed(0), successFunction: "crossDistrictMeasureAmountPayed", width: 500, height: 200)%>
-    <%=Html.PopupFormActionLink<ReportController>(o => o.CrossDistrictMeasureAmountPayed((int) ViewData["msid"]), "raport raioane x masuri sume", new { @class = "abtn" })%>
+    <%=Html.Report("dossiersByDistrict", "District", "Year")%>
+    <%=Html.Report("crossDistrictMeasure","MeasuresetId","Date")%>
+    <%=Html.Report("crossDistrictMeasureAmountPayed", "MeasuresetId", "Date")%>
+    <%=Html.Report("operInfo", "MeasuresetId") %>
 
+    <%=Html.PopupFormActionLink<ReportController>(o => o.DossiersByDistrict(), "Raport dosare dupa raion", new{@class = "abtn"}) %>
+    <br />
+    <br />
+    <a href='javascript:operInfo(({MeasuresetId: <%=ViewData["msid"] %>}))' class="abtn">informatie operativa</a>
+    <br />
+    <br />
+    <%=Html.PopupFormActionLink<ReportController>(o => o.CrossDistrictMeasure((int) ViewData["msid"]), "raport raioane x masuri", new { @class = "abtn" })%>
+    <br />
+    <br />
+    <%=Html.PopupFormActionLink<ReportController>(o => o.CrossDistrictMeasureAmountPayed((int) ViewData["msid"]), "raport raioane x masuri sume", new { @class = "abtn" })%>
+    <br />
+    <br />
+    <%=Html.ActionLink("ordinele de plata pentru contracte si acorduri aditionale", "index", "capo",null, new{@class="abtn"})%> 
 </asp:Content>

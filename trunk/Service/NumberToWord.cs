@@ -65,12 +65,12 @@ namespace MRGSP.ASMS.Service
 
                 var n2 = Word(Convert.ToInt32(number[0].ToString()) * 10);
                 var n1 = Word(Convert.ToInt32(number[1].ToString()));
-                return n2 + (n1 == string.Empty ? string.Empty : " si " + n1) + " " + singular;
+                return n2 + (n1 == string.Empty ? string.Empty : " și " + n1) + " " + singular;
             }
             else
             {
                 var n1 = string.Empty;
-                var n2 = words[Convert.ToInt32(number.Substring(1, 2))];
+                var n2 = Word(Convert.ToInt32(number.Substring(1, 2)));
 
                 if (string.IsNullOrEmpty(n2))
                 {
@@ -103,28 +103,28 @@ namespace MRGSP.ASMS.Service
                 { 3, "trei"},
                 { 4, "patru"},
                 { 5, "cinci"},
-                { 6, "sase"},
-                { 7, "sapte"},
+                { 6, "șase"},
+                { 7, "șapte"},
                 { 8, "opt"},
-                { 9, "noua"},
+                { 9, "nouă"},
                 { 10, "zece"},
                 { 11, "unsprezece"},
                 { 12, "doisprezece"},
                 { 13, "treisprezece"},
                 { 14, "patrusprezece"},
                 { 15, "cincisprezece"},
-                { 16, "sasesprezece"},
-                { 17, "saptesprezece"},
+                { 16, "șasesprezece"},
+                { 17, "șaptesprezece"},
                 { 18, "optsprezece"},
-                { 19, "nouasprezece"},
-                { 20, "douazeci"},
+                { 19, "nouăsprezece"},
+                { 20, "douăzeci"},
                 { 30, "treizeci"},
                 { 40, "patruzeci"},
                 { 50, "cincizeci"},
-                { 60, "sasezeci"},
-                { 70, "saptezeci"},
+                { 60, "șasezeci"},
+                { 70, "șaptezeci"},
                 { 80, "optzeci"},
-                { 90, "nouazeci"},
+                { 90, "nouăzeci"},
     };
 
     }

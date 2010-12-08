@@ -6,22 +6,22 @@
     <title>
         <asp:ContentPlaceHolder ID="TitleContent" runat="server" />
     </title>
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
-        <link id="siteThemeLink" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/themes/redmond/jquery-ui.css" rel="stylesheet" type="text/css" />
-            <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js" type="text/javascript"></script>
-
+    <link rel="shortcut icon" href="<%=Url.Content("~/favicon.ico") %>" type="image/x-icon" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
+    <link id="siteThemeLink" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/themes/<% Html.RenderAction("CurrentTheme", "ChangeTheme"); %>/jquery-ui.css"
+        rel="stylesheet" type="text/css" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js"
+        type="text/javascript"></script>
     <link href="<%= Url.Content("~/Content/Site.css")%>" rel="stylesheet" type="text/css" />
     <link href="<%= Url.Content("~/Content/awesome.css")%>" rel="stylesheet" type="text/css" />
-
     <script src="<%= Url.Content("~/Scripts/jquery.form.js")%>" type="text/javascript"></script>
     <script src="<%= Url.Content("~/Scripts/awesome.js")%>" type="text/javascript"></script>
     <script src="<%= Url.Content("~/Scripts/jquery.validate.min.js")%>" type="text/javascript"></script>
     <script src="<%= Url.Content("~/Scripts/xVal.jquery.validate.js")%>" type="text/javascript"></script>
     <script src="<%= Url.Content("~/Scripts/dp.ro.js")%>" type="text/javascript"></script>
-
 </head>
 <body>
-<% Html.RenderPartial("start"); %>
+    <% Html.RenderPartial("start"); %>
     <div id="top-wrapper" class="ui-state-default">
         <div id="header" class="container">
             <div id="topbar">
@@ -47,6 +47,9 @@
         </div>
     </div>
     <div id="footer" class="ui-state-default">
+        <div class="maindiv">
+            <% Html.RenderAction("Index", "ChangeTheme"); %>
+        </div>
     </div>
 </body>
 </html>

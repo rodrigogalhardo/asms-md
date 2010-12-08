@@ -6,56 +6,41 @@ using MRGSP.ASMS.Infra.Dto;
 
 namespace MRGSP.ASMS.WebUI.Controllers
 {
-    public class FieldsetController : BaseController
+    public class FieldsetController : Crudere<Fieldset, FieldsetInput, FieldsetEditInput>
     {
-        private readonly IBuilder<Fieldset, FieldsetInput> builder;
-        private readonly IFieldsetService fieldsetService;
+        private new readonly IFieldsetService s;
 
-        public FieldsetController(IBuilder<Fieldset, FieldsetInput> builder, IFieldsetService fieldsetService)
+        public FieldsetController(IFieldsetService s, IBuilder<Fieldset, FieldsetInput> v, IBuilder<Fieldset, FieldsetEditInput> ve)
+            : base(s, v, ve)
         {
-            this.fieldsetService = fieldsetService;
-            this.builder = builder;
+            this.s = s;
         }
 
-        public ActionResult Index(int? page)
+        public override ActionResult Index(int? page)
         {
-            return View(fieldsetService.GetPageable(page ?? 1, 5));
-        }
-
-        public ActionResult Create()
-        {
-            return View(builder.BuildInput(new Fieldset()));
-        }
-
-        [HttpPost]
-        public ActionResult Create(FieldsetInput o)
-        {
-            if (!ModelState.IsValid)
-                return View(o);
-            fieldsetService.Create(builder.BuildEntity(o));
-            return Content("ok");
+            return View(s.GetDisplayPageable(page ?? 1, 5));
         }
 
         public ActionResult ManageFields(int id)
         {
-            return View(fieldsetService.Get(id));
+            return View(s.Get(id));
         }
 
         public ActionResult Open(int id)
         {
-            return View(fieldsetService.Get(id));
+            return View(s.Get(id));
         }
 
         public ActionResult View(int id)
         {
-            return View(fieldsetService.Get(id));
+            return View(s.Get(id));
         }
 
         public ActionResult Assigned(int id)
         {
             var o = new FieldsInput
                         {
-                            Fields = fieldsetService.GetAssignedFields(id),
+                            Fields = s.GetAssignedFields(id),
                             FieldsetId = id
                         };
             return View(o);
@@ -63,14 +48,14 @@ namespace MRGSP.ASMS.WebUI.Controllers
 
         public ActionResult AssignedListLite(int fieldsetId)
         {
-            return View(fieldsetService.GetAssignedFields(fieldsetId));
+            return View(s.GetAssignedFields(fieldsetId));
         }
 
         public ActionResult Unassigned(int id)
         {
             var o = new FieldsInput
             {
-                Fields = fieldsetService.GetUnassignedFields(id),
+                Fields = s.GetUnassignedFields(id),
                 FieldsetId = id
             };
             return View(o);
@@ -79,49 +64,49 @@ namespace MRGSP.ASMS.WebUI.Controllers
         [HttpPost]
         public ActionResult Assign(int fieldId, int fieldsetId)
         {
-            fieldsetService.Assign(fieldId, fieldsetId);
+            s.Assign(fieldId, fieldsetId);
             return RedirectToAction("ManageFields", new { id = fieldsetId });
         }
 
         [HttpPost]
         public ActionResult Unassign(int fieldId, int fieldsetId)
         {
-            fieldsetService.Unassign(fieldId, fieldsetId);
+            s.Unassign(fieldId, fieldsetId);
             return RedirectToAction("ManageFields", new { id = fieldsetId });
         }
 
         [HttpPost]
         public ActionResult HasFields(int fieldsetId)
         {
-            fieldsetService.HasFields(fieldsetId);
+            s.HasFields(fieldsetId);
             return RedirectToAction("Open", new { id = fieldsetId });
-        }   
-        
+        }
+
         [HttpPost]
         public ActionResult HasIndicators(int fieldsetId)
         {
-            fieldsetService.HasIndicators(fieldsetId);
+            s.HasIndicators(fieldsetId);
             return RedirectToAction("Open", new { id = fieldsetId });
-        }        
-        
+        }
+
         [HttpPost]
         public ActionResult HasCoefficients(int fieldsetId)
         {
-            fieldsetService.HasCoefficients(fieldsetId);
+            s.HasCoefficients(fieldsetId);
             return RedirectToAction("Open", new { id = fieldsetId });
         }
 
         [HttpPost]
         public ActionResult Activate(int fieldsetId)
         {
-            fieldsetService.Activate(fieldsetId);
+            s.Activate(fieldsetId);
             return RedirectToAction("Open", new { id = fieldsetId });
-        } 
-        
+        }
+
         [HttpPost]
         public ActionResult Deactivate(int fieldsetId)
         {
-            fieldsetService.Deactivate(fieldsetId);
+            s.Deactivate(fieldsetId);
             return RedirectToAction("Open", new { id = fieldsetId });
         }
     }

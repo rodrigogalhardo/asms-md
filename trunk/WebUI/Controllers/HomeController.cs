@@ -23,7 +23,5 @@ namespace MRGSP.ASMS.WebUI.Controllers
         {
             return View();
         }
-
-        
     }
 }

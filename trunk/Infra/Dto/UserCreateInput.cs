@@ -83,6 +83,31 @@ namespace MRGSP.ASMS.Infra.Dto
         public decimal Amount { get; set; }
     }
 
+    public class CapoViewModel
+    {
+        public CapoSearchInput SearchForm { get; set; }
+        public IEnumerable<Capo> List { get; set; }
+    }
+
+    public class CapoSearchInput
+    {
+        [UIHint("AjaxDropdown")]
+        [AjaxDropdown(Controller = "MeasureAjaxDropdown")]
+        [DisplayName("Masura")]
+        public int? MeasureId { get; set; }
+
+        [DisplayName("Data inceput")]
+        public DateTime StartDate { get; set; }
+
+        [DisplayName("Data sfarsit")]
+        public DateTime EndDate { get; set; }
+
+        [UIHint("AjaxDropdown")]
+        [AjaxDropdown(Controller="PoStatesAjaxDropdown")]
+        [DisplayName("Stare")]
+        public int? PoState { get; set; }
+    }
+
     public class AddressInput : FarmersInput
     {
         [UIHint("Lookup")]
@@ -195,9 +220,17 @@ namespace MRGSP.ASMS.Infra.Dto
         [DisplayName("Anul")]
         [MyRange(2009, 2100)]
         public int Year { get; set; }
+    }    
+    
+    public class MeasuresetEditInput : IdInput
+    {
+        [Req]
+        [DisplayName("Nume")]
+        [StringLength(30)]
+        public string Name { get; set; }
     }
 
-    public class FieldsetInput
+    public class FieldsetInput : IdInput
     {
         [Req]
         [DisplayName("Nume")]
@@ -205,9 +238,17 @@ namespace MRGSP.ASMS.Infra.Dto
         public string Name { get; set; }
 
         [Req]
-        [DisplayName("Data de sfarsit")]
-        public DateTime EndDate { get; set; }
+        [DisplayName("Anul")]
+        public int Year { get; set; }
 
+    }
+    
+    public class FieldsetEditInput : IdInput
+    {
+        [Req]
+        [DisplayName("Nume")]
+        [StringLength(100)]
+        public string Name { get; set; }
     }
 
     public class FieldsInput
@@ -377,6 +418,32 @@ namespace MRGSP.ASMS.Infra.Dto
     public class IdInput
     {
         public int Id { get; set; }
+    }
+
+    public class PaymentOrderCreateInput : IdInput
+    {
+        public int Nr { get; set; }
+        public DateTime Date { get; set; }
+        public int? ContractId { get; set; }
+        public int? AgreementId { get; set; }
+    }
+    
+    public class PaymentOrderEditInput : IdInput
+    {
+        public int Nr { get; set; }
+        public DateTime Date { get; set; }
+        
+        [UIHint("AjaxDropdown")]
+        [AjaxDropdown(Controller = "PoStateAjaxDropdown")]
+        public int State { get; set; }
+    }
+
+    public class AgreementInput : IdInput
+    {
+        public int? ContractId { get; set; }
+        public decimal Amount { get; set; }
+        public DateTime? Date { get; set; }
+
     }
 
     public class ContractInput : IdInput

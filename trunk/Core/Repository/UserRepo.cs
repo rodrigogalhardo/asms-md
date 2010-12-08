@@ -91,6 +91,21 @@ namespace MRGSP.ASMS.Core.Repository
         IEnumerable<CrossDistrictMeasure> GetCrossDistrictMeasure(DateTime date, int measuresetId);
         IEnumerable<DossiersByDistrictReport> DossiersByDistrictReport(int year, int districtId);
         IEnumerable<CrossDistrictMeasureAmountPayed> GetCrossDistrictMeasureAmountPayed(DateTime date, int measuresetId);
+        IEnumerable<Capo> GetCapo(int? measureId, DateTime startDate, DateTime endDate, int? poState);
+        IEnumerable<OperInfoReport> GetOperInfoReport(int measuresetId);
+    }
+
+    public interface IUniRepo
+    {
+        T Get<T>(int id) where T : new();
+        IEnumerable<T> GetWhere<T>(object where) where T : new();
+        int InsertNoIdentity(object o);
+        int DeleteWhere<T>(object where);
+        int Insert(object o);
+        int Delete<T>(int id) where T : new();
+        IEnumerable<T> GetAll<T>() where T : new();
+        IPageable<T> GetPageable<T>(int page, int pageSize) where T : new();
+        int UpdateWhatWhere<T>(object what, object where);
     }
 
     public interface IFarmerRepo
@@ -110,19 +125,39 @@ namespace MRGSP.ASMS.Core.Repository
 
     public interface IFpiRepo: IRepo<Fpi>
     {
+        /// <summary>
+        /// get amount payed for authorized dossiers from this fpi
+        /// </summary>
+        /// <param name="fpiId">the fpi</param>
+        /// <returns>amount payed</returns>
         decimal GetAmountPayed(int fpiId);
+
+        Fpi GetPrevious(Fpi o);
     }
 
     public interface IDossierRepo : IRepo<Dossier>
     {
         int ChangeState(int id, DossierStates stateId);
         IEnumerable<Dossier> GetBy(int measuresetId, int measureId, int month, int? stateId);
+
+        /// <summary>
+        /// get dossiers with the sum of their coef values (in state has coef)
+        /// </summary>
+        /// <param name="measuresetId"></param>
+        /// <param name="measureId"></param>
+        /// <param name="month"></param>
+        /// <returns>list of dossiers ready for ranking</returns>
         IEnumerable<RankedDossier> GetForRanking(int measuresetId, int measureId, int month);
         int RollbackWinners(int fpiId);
         void RollbackToIndicators(int fpiId);
-        void UpdateToFpi(int fpiId);
-        void CloseFpis(int fpiId);
+
+        /// <summary>
+        /// moves dossiers from previous months (same month/measure/measureset) in state has coefficients to this one
+        /// </summary>
+        /// <param name="fpiId">fpi to move to</param>
+        void MoveToFpi(int fpiId);
     }
+
     public interface IIndicatorValueRepo : IRepo<IndicatorValue>
     {
         IEnumerable<IndicatorValue> GetBy(int fpiId);

@@ -72,15 +72,13 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\libs\Omu.ValueInjecter.dll</HintPath>
     </Reference>
-    <Reference Include="Stimulsoft.Base, Version=2010.2.800.0, Culture=neutral, PublicKeyToken=ebe6666cba19647a, processorArchitecture=MSIL">
+    <Reference Include="Stimulsoft.Base, Version=2010.3.900.0, Culture=neutral, PublicKeyToken=ebe6666cba19647a, processorArchitecture=MSIL" />
+    <Reference Include="Stimulsoft.Report, Version=2010.3.900.0, Culture=neutral, PublicKeyToken=ebe6666cba19647a, processorArchitecture=MSIL" />
+    <Reference Include="Stimulsoft.Report.Web, Version=2010.3.900.0, Culture=neutral, PublicKeyToken=ebe6666cba19647a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\Stimulsoft Reports.Ultimate 2010.2 Trial\Bin\Stimulsoft.Base.dll</HintPath>
     </Reference>
-    <Reference Include="Stimulsoft.Report, Version=2010.2.800.0, Culture=neutral, PublicKeyToken=ebe6666cba19647a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\Stimulsoft Reports.Ultimate 2010.2 Trial\Bin\Stimulsoft.Report.dll</HintPath>
-    </Reference>
-    <Reference Include="Stimulsoft.Report.WebFx, Version=2010.2.800.0, Culture=neutral, PublicKeyToken=ebe6666cba19647a, processorArchitecture=MSIL">
+    <Reference Include="Stimulsoft.Report.WebFx, Version=2010.3.900.0, Culture=neutral, PublicKeyToken=ebe6666cba19647a, processorArchitecture=MSIL" />
+    <Reference Include="Stimulsoft.Report.WebSL, Version=2010.3.900.0, Culture=neutral, PublicKeyToken=ebe6666cba19647a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System" />
@@ -134,7 +132,10 @@
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AddressController.cs" />
+    <Compile Include="Controllers\AgreementController.cs" />
     <Compile Include="Controllers\AuthorizePaymentsController.cs" />
+    <Compile Include="Controllers\CapoController.cs" />
+    <Compile Include="Controllers\ChangeThemeController.cs" />
     <Compile Include="Controllers\ContactInfoController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BankController.cs" />
@@ -142,6 +143,7 @@
     <Compile Include="Controllers\CoefficientController.cs" />
     <Compile Include="Controllers\ContractController.cs" />
     <Compile Include="Controllers\Cruder.cs" />
+    <Compile Include="Controllers\Crudere.cs" />
     <Compile Include="Controllers\Cruders.cs" />
     <Compile Include="Controllers\DistrictAjaxDropdownController.cs" />
     <Compile Include="Controllers\DistrictIdLookupController.cs" />
@@ -164,8 +166,10 @@
     <Compile Include="Controllers\MeasuresetController.cs" />
     <Compile Include="Controllers\ModelStateExtensions.cs" />
     <Compile Include="Controllers\NavController.cs" />
+    <Compile Include="Controllers\PaymentOrderController.cs" />
     <Compile Include="Controllers\PerfecterIdAjaxDropdownController.cs" />
     <Compile Include="Controllers\PhoneController.cs" />
+    <Compile Include="Controllers\PoStateAjaxDropdownController.cs" />
     <Compile Include="Controllers\RankController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -185,11 +189,13 @@
       <DependentUpon>Repor.aspx</DependentUpon>
     </Compile>
     <Compile Include="RouteConfigurator.cs" />
+    <Compile Include="WhitespaceModule.cs" />
     <Compile Include="WindsorConfigurator.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Awesome.css" />
     <Content Include="Content\error-lolcat-problemz.jpg" />
+    <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Localization\ar.xml" />
     <Content Include="Localization\be.xml" />
@@ -224,8 +230,13 @@
     <Content Include="Views\Address\Create.aspx" />
     <Content Include="Views\Address\Index.ascx" />
     <Content Include="Views\Admin\Index.aspx" />
+    <Content Include="Views\Agreement\Create.ascx" />
+    <Content Include="Views\Agreement\ForContract.ascx" />
     <Content Include="Views\Calculations\Index.aspx" />
     <Content Include="Views\Calculations\success.aspx" />
+    <Content Include="Views\Capo\Index.aspx" />
+    <Content Include="Views\Capo\SearchForm.ascx" />
+    <Content Include="Views\ChangeTheme\Index.ascx" />
     <Content Include="Views\Coefficient\Index.aspx" />
     <Content Include="Views\Coefficient\List.ascx" />
     <Content Include="Views\Coefficient\ListLite.ascx" />
@@ -236,6 +247,11 @@
     <Content Include="Views\Dossier\CalcItems.ascx" />
     <Content Include="Views\Dossier\CoefficientValues.ascx" />
     <Content Include="Views\Dossier\Values.aspx" />
+    <Content Include="Views\Fieldset\Edit.aspx" />
+    <Content Include="Views\Fpi\State.ascx" />
+    <Content Include="Views\Measureset\Edit.aspx" />
+    <Content Include="Views\PaymentOrder\Create.ascx" />
+    <Content Include="Views\PaymentOrder\Edit.ascx" />
     <Content Include="Views\Shared\ed.ascx" />
     <Content Include="Views\Email\Create.aspx" />
     <Content Include="Views\Email\Index.ascx" />
@@ -250,7 +266,7 @@
     <Content Include="Views\Locality\Create.aspx" />
     <Content Include="Views\Locality\Index.aspx" />
     <Content Include="Views\Report\CrossDistrictMeasure.ascx" />
-    <Content Include="Views\Rank\ChangeAmount.aspx" />
+    <Content Include="Views\Fpi\ChangeAmount.aspx" />
     <Content Include="Views\Rank\comp.ascx" />
     <Content Include="Views\Phone\Create.aspx" />
     <Content Include="Views\Phone\Index.ascx" />
@@ -357,7 +373,9 @@
     <Content Include="Views\Error\Error.aspx" />
     <Content Include="Views\Shared\LogOnUserControl.ascx" />
     <Content Include="Views\Shared\Site.Master" />
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">

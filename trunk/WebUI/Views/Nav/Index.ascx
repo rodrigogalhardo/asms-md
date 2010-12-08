@@ -4,7 +4,6 @@
         <%= Html.ActionLink("Acasa", "Index", "Home")%></li>
     <li>
         <%= Html.ActionLink("Dosare", "Index", "Dossier")%></li>
-
     <li>
         <%=Html.ActionLink("Administrare Subventii", "Index", "Admin") %></li>
     <li>

@@ -8,16 +8,16 @@ namespace MRGSP.ASMS.WebUI.Controllers
 {
     public class ContractController : Cruders<Contract, ContractInput>
     {
-        private readonly IContractService contractService;
+        private new readonly IContractService s;
 
-        public ContractController(IContractService contractService)
+        public ContractController(IBuilder<Contract, ContractInput> v, IContractService s) : base(s, v)
         {
-            this.contractService = contractService;
+            this.s = s;
         }
 
         public ActionResult Index(int dossierId)
         {
-            var c = contractService.GetByDossier(dossierId);
+            var c = s.GetByDossier(dossierId);
             return c != null ? View("view", c.Id) : View(dossierId);
         }
 

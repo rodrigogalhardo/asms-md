@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using Ciloci.Flee;
 using ILCalc;
+using MRGSP.ASMS.Core.Model;
 using NUnit.Framework;
 using System.Collections.Generic;
 using Omu.Encrypto;
@@ -14,6 +15,14 @@ namespace MRGSP.ASMS.Tests
     [TestFixture]
     public class SimpleTests
     {
+        [Test]
+        public void DtT()
+        {
+            object d = "13.07.2011";
+            DateTime dt = DateTime.Parse(d.ToString());
+            Console.Out.WriteLine(dt.Day);
+        }
+
         [Test]
         public void Test()
         {
@@ -25,8 +34,15 @@ namespace MRGSP.ASMS.Tests
         [Test]
         public void Tesasdft()
         {
-            decimal d = 23424242424242;
-            Console.WriteLine(d.ToString("0.00"));
+            var xx = new[] {
+                new Agreement {Nr = 3},
+                new Agreement {Nr = 2},
+                new Agreement {Nr = 7},
+            };
+
+            var x = new Agreement[] {};
+
+            Console.WriteLine(x.Max(o => o.Nr));
         }
 
         [Test]

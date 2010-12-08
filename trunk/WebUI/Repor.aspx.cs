@@ -28,6 +28,22 @@ namespace MRGSP.ASMS.WebUI
 
             switch (name)
             {
+                case "operInfo":
+                    {
+                        var id = Convert.ToInt32(Request["MeasuresetId"]);
+                        var data = rds.GetOperInfoReport(id);
+                        report.Load(@"c:\operInfo.mrt");
+                        report.RegData("o", data);
+                    }
+                    break;
+                case "agreement":
+                    {
+                        var id = Convert.ToInt32(Request["id"]);
+                        var data = rds.Agreement(id);
+                        report.Load(@"c:\agreement.mrt");
+                        report.RegData("o", data);
+                    }
+                    break;
                 case "dossiersByDistrict":
                     {
                         var year = Convert.ToInt32(Request["year"]);
@@ -47,7 +63,7 @@ namespace MRGSP.ASMS.WebUI
                         report.RegData("o", data);
                         report.RegBusinessObject("opt", new { Data = date });
                     }
-                    break; 
+                    break;
                 case "crossDistrictMeasureAmountPayed":
                     {
                         var measuresetId = Convert.ToInt32(Request["measuresetId"]);
@@ -90,7 +106,7 @@ namespace MRGSP.ASMS.WebUI
         protected override void OnPreInit(EventArgs e)
         {
             base.OnPreInit(e);
-
+            
             StiWebViewerFx1.ShowExportToMetafile = false;
             StiWebViewerFx1.ShowExportToPcx = false;
 

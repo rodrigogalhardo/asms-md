@@ -5,7 +5,7 @@
  
         if (ViewData.ModelMetadata.HideSurroundingHtml) {
             TablePlaceholder.Visible = false;
-        }
+        }       
         else {
             Controls.Remove(Data);
             DataPlaceholder.Controls.Add(Data);
@@ -19,7 +19,7 @@
             <asp:ContentPlaceHolder runat="server" id="Label">
                
                 <%= ViewData.ModelMetadata.GetDisplayName() %>
-                 <%= ViewData.ModelMetadata.IsRequired ? "*" : "" %>
+                 <%= ViewData.ModelMetadata.IsRequired ? "&nbsp;*" : "" %>
                  :
             </asp:ContentPlaceHolder>
         </div>

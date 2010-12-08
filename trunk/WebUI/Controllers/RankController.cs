@@ -1,48 +1,20 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
-using MRGSP.ASMS.Core;
 using MRGSP.ASMS.Core.Model;
 using MRGSP.ASMS.Core.Repository;
 using MRGSP.ASMS.Core.Service;
-using MRGSP.ASMS.Infra.Dto;
-using Omu.ValueInjecter;
 
 namespace MRGSP.ASMS.WebUI.Controllers
 {
     public class RankController : BaseController
     {
         private readonly IFpiService fpiService;
-        private readonly IDossierService dossierService;
         private readonly ICompetitorRepo competitorRepo;
 
         public RankController(IFpiService fpiService, IDossierService dossierService, ICompetitorRepo competitorRepo)
         {
             this.fpiService = fpiService;
-            this.dossierService = dossierService;
             this.competitorRepo = competitorRepo;
-        }
-
-        public ActionResult ChangeAmount(int fpiId)
-        {
-            var fpi = fpiService.Get(fpiId);
-            return View(new ChangeAmountInput().InjectFrom(fpi));
-        }
-
-        [HttpPost]
-        public ActionResult ChangeAmount(ChangeAmountInput input)
-        {
-            if (!ModelState.IsValid)
-                return View(input);
-            try
-            {
-                fpiService.ChangeAmount(input.Id, input.Amount, input.Amountm);
-            }
-            catch(AsmsEx e)
-            {
-                ModelState.AddModelError("amount", e.Message);
-                return View(input);
-            }
-            return Content("ok");
         }
 
         public ActionResult Index(int fpiId)
@@ -54,7 +26,7 @@ namespace MRGSP.ASMS.WebUI.Controllers
         [HttpPost]
         public ActionResult Recalculate(int fpiId)
         {
-            dossierService.Recalculate(fpiId);
+            fpiService.Recalculate(fpiId);
             return RedirectToAction("index", new { fpiId });
         }
 
