@@ -10,7 +10,7 @@
       {%>
     <%:Html.ActionLink("alege campuri", "ManageFields", new {id = Model.Id})%>
     <form method="post" action="<%:Url.Action("HasFields") %>">
-    <input type="hidden" name="fieldsetId" value="<%:Model.Id %>" />
+    <input type="hidden" name="fieldsetId" value="<%:Model.Id %>" class="confirm" />
     <% Html.RenderPartial("save"); %>
     </form>
     <%
@@ -20,7 +20,7 @@
     %>
     <%:Html.ActionLink("indicatori", "Index", "Indicator", new { fieldsetId = Model.Id }, null)%>
     <form method="post" action="<%:Url.Action("HasIndicators") %>">
-    <input type="hidden" name="fieldsetId" value="<%:Model.Id %>" />
+    <input type="hidden" name="fieldsetId" value="<%:Model.Id %>" class="confirm"/>
     <% Html.RenderPartial("save"); %>
     </form>
     <%
@@ -31,7 +31,7 @@
     %>
     <%:Html.ActionLink("coeficienti", "Index", "Coefficient", new{fieldsetId = Model.Id}, null) %>
     <form method="post" action="<%:Url.Action("HasCoefficients") %>">
-    <input type="hidden" name="fieldsetId" value="<%:Model.Id %>" />
+    <input type="hidden" name="fieldsetId" value="<%:Model.Id %>" class="confirm" />
     <% Html.RenderPartial("save"); %>
     </form>
     <%
@@ -42,16 +42,17 @@
     %>
     <form method="post" action="<%:Url.Action("Activate") %>">
     <input type="hidden" name="fieldsetId" value="<%:Model.Id %>" />
-    <input type="submit" value="Activeaza" />
+    <input type="submit" value="Activeaza" class="confirm"/>
     </form>
     <%
         }
         else if (FieldsetStates.Active.IsEqual(Model.StateId))
       {
     %>
+
     <form method="post" action="<%:Url.Action("Deactivate") %>">
     <input type="hidden" name="fieldsetId" value="<%:Model.Id %>" />
-    <input type="submit" value="Dezactiveaza" />
+    <input type="submit" value="Dezactiveaza" class="confirm"/>
     </form><p>
     acest set este activ
     </p>
@@ -60,5 +61,6 @@
         else
         {%><p>acest set este inactiv</p><%}
         %>
+            <%=Html.Confirm("Sunteti sigur ?") %>
     <% Html.RenderPartial("back"); %>
 </asp:Content>

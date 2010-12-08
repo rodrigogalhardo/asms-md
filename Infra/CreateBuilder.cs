@@ -1,6 +1,5 @@
 ﻿using System;
 using MRGSP.ASMS.Core;
-using MRGSP.ASMS.Core.Model;
 using MRGSP.ASMS.Core.Repository;
 using Omu.ValueInjecter;
 
@@ -21,7 +20,8 @@ namespace MRGSP.ASMS.Infra
         {
             var input = new TInput();
             input.InjectFrom(entity)
-                .InjectFrom<NormalToNullables>(entity);
+                .InjectFrom<NormalToNullables>(entity)
+                .InjectFrom<EnumToInt>(entity);
             MakeInput(entity, ref input);
             return input;
         }
@@ -37,7 +37,8 @@ namespace MRGSP.ASMS.Infra
                 throw new AsmsEx("this entity doesn't exist anymore");
 
             e.InjectFrom(input)
-               .InjectFrom<NullablesToNormal>(input);
+               .InjectFrom<NullablesToNormal>(input)
+               .InjectFrom<IntToEnum>(input);
             MakeEntity(ref e, input);
             return e;
         }
@@ -71,5 +72,22 @@ namespace MRGSP.ASMS.Infra
             if (type == null) return false;
             return targetType == type;
         }
-    } 
+    }
+
+    public class EnumToInt : LoopValueInjection
+    {
+        protected override bool TypesMatch(Type sourceType, Type targetType)
+        {
+            return sourceType.IsSubclassOf(typeof(Enum)) && targetType == typeof(int);
+        }
+    }
+
+    public class IntToEnum : LoopValueInjection
+    {
+        protected override bool TypesMatch(Type sourceType, Type targetType)
+        {
+            return sourceType == typeof(int) && targetType.IsSubclassOf(typeof(Enum));
+        }
+    }
+
 }

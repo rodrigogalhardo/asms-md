@@ -11,8 +11,14 @@ namespace MRGSP.ASMS.WebUI.Controllers
         where TEntity : Entity, new()
     {
         protected readonly ICrudService<TEntity> s;
-        private readonly IBuilder<TEntity, TInput> v;
-        
+        protected readonly IBuilder<TEntity, TInput> v;
+
+        public Cruders(ICrudService<TEntity> s, IBuilder<TEntity, TInput> v)
+        {
+            this.s = s;
+            this.v = v;
+        }
+
 
         [HttpPost]
         public ActionResult Create(TInput o)

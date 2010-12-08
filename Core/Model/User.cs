@@ -6,7 +6,7 @@ namespace MRGSP.ASMS.Core.Model
 {
     public class FieldsetDisplay : EntityWithName
     {
-        public DateTime EndDate { get; set; }
+        public int Year { get; set; }
         public string State { get; set; }
     }
 
@@ -35,8 +35,15 @@ namespace MRGSP.ASMS.Core.Model
 
     public class Fieldset : EntityWithName
     {
-        public DateTime EndDate { get; set; }
+        public int Year { get; set; }
         public int StateId { get; set; }
+    }
+
+    public enum PoState
+    {
+        Registered = 1,
+        Waiting,
+        Payed
     }
 
     public enum FieldsetStates
@@ -57,6 +64,13 @@ namespace MRGSP.ASMS.Core.Model
         HasCoefficients,
         Winner,
         Authorized,
+    }
+
+    public enum FpiState
+    {
+        Contest = 1,
+        Agreement,
+        Sealed
     }
 
     public enum States
@@ -157,7 +171,7 @@ namespace MRGSP.ASMS.Core.Model
         public string Code { get; set; }
     }
 
-    public class Locality : EntityWithName{}
+    public class Locality : EntityWithName { }
 
     public class Perfecter : EntityWithName { }
 
@@ -217,7 +231,7 @@ namespace MRGSP.ASMS.Core.Model
         public int? CreatedBy { get; set; }
 
 
-        public int? MeasureId { get; set; }
+        public int MeasureId { get; set; }
         public int FieldsetId { get; set; }
         public int MeasuresetId { get; set; }
 
@@ -227,7 +241,7 @@ namespace MRGSP.ASMS.Core.Model
         public decimal AmountPayed { get; set; }
         public decimal Value { get; set; }
         public bool Disqualified { get; set; }
-        public int? FarmerVersionId { get; set; }
+        public int FarmerVersionId { get; set; }
         public decimal InvestmentValue { get; set; }
 
         public int FpiId { get; set; }
@@ -263,7 +277,7 @@ namespace MRGSP.ASMS.Core.Model
         public int Month { get; set; }
         public decimal Amount { get; set; }
         public decimal Amountm { get; set; }
-        public bool Closed { get; set; }
+        public FpiState State { get; set; }
     }
 
     public class Department : EntityWithName

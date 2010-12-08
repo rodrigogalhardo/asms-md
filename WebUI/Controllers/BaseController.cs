@@ -1,14 +1,11 @@
 ﻿using System.Web.Mvc;
+using Omu.Awesome.Mvc;
 
 namespace MRGSP.ASMS.WebUI.Controllers
 {
+    [WhiteSpaceFilter]
     public class BaseController : Controller
     {
-        public BaseController()
-        {
-            
-        }
-
         protected void PaintTables()
         {
             ViewData["painttables"] = true;

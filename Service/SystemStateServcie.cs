@@ -18,12 +18,12 @@ namespace MRGSP.ASMS.Service
         public void AssureAbilityToCreateDossier()
         {
             var fs = fsService.GetActive();
-            if (fs == null) throw new AsmsEx("la moment nu exista nici un set de campuri activ");
-            if(fs.EndDate < DateTime.Now.AddDays(-1)) throw new AsmsEx("termenul setului de campuri activ a expirat");
+            fs.IsNull().B("la moment nu exista nici un set de campuri activ");
+            (fs.Year != DateTime.Now.Year).B("setul de campuri activ nu este pentru anul curent");
 
             var m = mService.GetActive();
-            if (m == null) throw new AsmsEx("la moment nu exista nici un set de masuri activ");
-            if (m.Year != DateTime.Now.Year) throw new AsmsEx("setului de masuri activ nu este pentru anul curent");
+            m.IsNull().B("la moment nu exista nici un set de masuri activ");
+            (m.Year != DateTime.Now.Year).B("setului de masuri activ nu este pentru anul curent");
         }
     }
 }

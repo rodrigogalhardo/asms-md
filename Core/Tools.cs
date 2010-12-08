@@ -41,5 +41,15 @@ namespace MRGSP.ASMS.Core
             if (suffix == null) return o;
             return !o.EndsWith(suffix) ? o : o.Remove(o.Length - suffix.Length, suffix.Length);
         }
+
+        public static bool IsNull(this object o)
+        {
+            return o == null;
+        }
+        
+        public static bool IsNotNull(this object o)
+        {
+            return o != null;
+        }
     }
 }

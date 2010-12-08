@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<IPageable<FieldsetDisplay>>" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
     Index
 </asp:Content>
@@ -6,6 +7,8 @@
     <h2>
         Seturi de campuri</h2>
     <%=Html.MakePopupForm("Create") %>
+    <%=Html.MakePopupForm("Edit", new[]{"Id"}) %>
+    <%=Html.Confirm("Sunteti sigur ?") %>
     <%=Html.PopupFormActionLink("Create", "Creaza", htmlAttributes:new{@class="abtn"}) %>
     <table>
         <thead>
@@ -14,10 +17,14 @@
                     Nume
                 </td>
                 <td>
-                    Data sfarsit
+                    An
                 </td>
                 <td>
                     Stare
+                </td>
+                <td>
+                </td>
+                <td>
                 </td>
                 <td>
                 </td>
@@ -33,7 +40,7 @@
                     <%:o.Name %>
                 </td>
                 <td>
-                    <%:o.EndDate.ToShortDateString() %>
+                    <%:o.Year %>
                 </td>
                 <td>
                     <%:o.State %>
@@ -44,6 +51,7 @@
                 <td>
                     <%:Html.ActionLink("vizualizeaza","view",new{id = o.Id}) %>
                 </td>
+                <% Html.RenderPartial("ed", o.Id); %>
             </tr>
             <%} %>
         </tbody>

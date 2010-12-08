@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using MRGSP.ASMS.Core.Model;
 using Omu.ValueInjecter;
 
 namespace MRGSP.ASMS.Data
@@ -15,7 +16,9 @@ namespace MRGSP.ASMS.Data
 
                 var value = source.GetValue(i);
                 if (value == DBNull.Value) continue;
-
+                if(activeTarget.PropertyType == typeof(PoState?))
+                    activeTarget.SetValue(target, Enum.Parse(typeof(PoState),value.ToString()));
+                else
                 activeTarget.SetValue(target, value);
             }
         }

@@ -12,6 +12,16 @@ namespace MRGSP.ASMS.Data
         {
         }
 
+        public IEnumerable<OperInfoReport> GetOperInfoReport(int measuresetId)
+        {
+            return DbUtil.ExecuteReaderSp<OperInfoReport>("operInfo", new {measuresetId}, Cs);
+        }
+
+        public IEnumerable<Capo> GetCapo(int? measureId, DateTime startDate, DateTime endDate, int? poState)
+        {
+            return DbUtil.ExecuteReaderSp<Capo>("capo", new{measureId, startDate, endDate, poState}, Cs);
+        }
+
         public IEnumerable<CrossDistrictMeasure> GetCrossDistrictMeasure(DateTime date, int measuresetId)
         {
             return DbUtil.ExecuteReaderSp<CrossDistrictMeasure>("crossDistricMeasure", new { date, measuresetId }, Cs);

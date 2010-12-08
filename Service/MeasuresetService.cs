@@ -10,22 +10,18 @@ using Omu.ValueInjecter;
 
 namespace MRGSP.ASMS.Service
 {
-    public class MeasuresetService : IMeasuresetService
+    public class MeasuresetService : CrudService<Measureset>, IMeasuresetService
     {
         private readonly IMeasureRepo mRepo;
         private readonly IRepo<State> sRepo;
         private readonly IMeasuresetRepo msRepo;
 
-        public MeasuresetService(IMeasureRepo mRepo, IMeasuresetRepo msRepo, IRepo<State> sRepo)
+
+        public MeasuresetService(IRepo<Measureset> repo, IMeasureRepo mRepo, IRepo<State> sRepo, IMeasuresetRepo msRepo) : base(repo)
         {
             this.mRepo = mRepo;
             this.sRepo = sRepo;
             this.msRepo = msRepo;
-        }
-
-        public Measureset Get(int id)
-        {
-            return msRepo.Get(id);
         }
 
         public void Activate(int id)
@@ -61,14 +57,11 @@ namespace MRGSP.ASMS.Service
         private void Do(Action a, States state, int measuresetId)
         {
             var ms = msRepo.Get(measuresetId);
-
-            if (state.IsEqual(ms.StateId))
-                a();
-            else
-                throw new AsmsEx("Invalid operation");
+            (!state.IsEqual(ms.StateId)).B("Invalid operation");
+            a();
         }
 
-        public IPageable<MeasuresetDisplay> GetPageable(int page, int pageSize)
+        public IPageable<MeasuresetDisplay> GetDisplayPageable(int page, int pageSize)
         {
             var ms = msRepo.GetPageable(page, pageSize);
             var ss = sRepo.GetAll();

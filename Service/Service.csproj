@@ -82,12 +82,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AgreementService.cs" />
     <Compile Include="BankService.cs" />
     <Compile Include="ContractService.cs" />
+    <Compile Include="CrudService.cs" />
     <Compile Include="DossierRulesService.cs" />
     <Compile Include="DossierService.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="EcoCalc.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="FarmersEntityService.cs" />
     <Compile Include="FarmerService.cs" />
     <Compile Include="FieldsetService.cs" />
@@ -95,6 +98,7 @@
     <Compile Include="FpiService.cs" />
     <Compile Include="LocalityService.cs" />
     <Compile Include="MeasuresetService.cs" />
+    <Compile Include="PaymentOrderService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReportDataService.cs" />
     <Compile Include="ServiceUtils.cs" />

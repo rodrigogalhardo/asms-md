@@ -6,24 +6,20 @@ using Omu.Awesome.Core;
 
 namespace MRGSP.ASMS.Core.Service
 {
-    public interface IMeasuresetService
+    public interface IMeasuresetService : ICrudService<Measureset>
     {
         IEnumerable<Measure> GetAssignedMeasures(int measuresetId);
         IEnumerable<Measure> GetUnassignedMeasures(int measuresetId);
         void Assign(int measureId, int measuresetId);
         void Unassign(int measureId, int measuresetId);
-        IPageable<MeasuresetDisplay> GetPageable(int page, int pageSize);
+        IPageable<MeasuresetDisplay> GetDisplayPageable(int page, int pageSize);
         void Activate(int id);
         void Deactivate(int id);
         Measureset GetActive();
-        Measureset Get(int id);
     }
 
-    public interface IFieldsetService
+    public interface IFieldsetService : ICrudService<Fieldset>
     {
-        IPageable<FieldsetDisplay> GetPageable(int page, int pageSize);
-        int Create(Fieldset o);
-        Fieldset Get(int id);
         IEnumerable<Field> GetAssignedFields(int fieldsetId);
         IEnumerable<Field> GetUnassignedFields(int fieldsetId);
         void Assign(int fieldId, int fieldsetId);
@@ -39,6 +35,7 @@ namespace MRGSP.ASMS.Core.Service
         void Deactivate(int id);
         Fieldset GetActive();
         IEnumerable<Field> GetFieldsByDossier(int dossierId);
+        IPageable<FieldsetDisplay> GetDisplayPageable(int page, int pageSize);
     }
 
     public interface IEcoCalc
@@ -46,10 +43,21 @@ namespace MRGSP.ASMS.Core.Service
         IEnumerable<CoefficientValue> CalculateCoefficientValues(IEnumerable<IndicatorValue> indicatorValues, IEnumerable<Dossier> dossiers, IEnumerable<Coefficient> coefficients);
         IEnumerable<IndicatorValue> CalculateIndicatorValues(Dossier dossier, IEnumerable<FieldValue> fieldValues, IEnumerable<Indicator> indicators);
     }
-    public interface IFpiService
+    public interface IFpiService : IRepo<Fpi>
     {
         void ChangeAmount(int id, decimal amount, decimal amountm);
-        Fpi Get(int id);
+        void Create(Fpi o);
+        void GoAgreement(int id);
+        void Seal(int id);
+        void PreviousGoAgreement(int id);
+        /// <summary>
+        /// closes previous fpis and moves their eligible (state = has_coeffiecients) dossiers to this one
+        /// ranks the dossiers according to their value and changes the state to the winners
+        /// </summary>
+        /// <param name="fpiId">the fpi</param>
+        void Rank(int fpiId);
+        void Rerank(int fpiId);
+        void Recalculate(int fpiId);
     }
 
     public interface IDossierService
@@ -61,12 +69,14 @@ namespace MRGSP.ASMS.Core.Service
         IEnumerable<Dossier> GetForTop(int measuresetId, int measureId, int month);
         void Disqualify(int id, string reason);
         void ChangeFieldValues(IEnumerable<FieldValue> fieldValues, int dossierId);
-        void Recalculate(int fpiId);
+
         void Init(IEnumerable<FieldValue> fieldValues, int dossierId);
-        void Rank(int fpiId);
+        
+
+
         void Authorize(int dossierId);
         void ChangeAmountPayed(int id, decimal amountPayed);
-        void Rerank(int fpiId);
+
     }
 
     public interface IFormulaValidationService
@@ -108,6 +118,11 @@ namespace MRGSP.ASMS.Core.Service
         Bank Get(long id);
     }
 
+    public interface IAgreementService : ICrudService<Agreement>
+    {
+        IEnumerable<Agreement> GetByContractId(int contractId);
+    }
+
     public interface IFarmerService
     {
         FarmerInfo GetInfo(int id);
@@ -122,11 +137,19 @@ namespace MRGSP.ASMS.Core.Service
         Contract GetByDossier(int dossierId);
     }
 
-    public interface ICrudService<T>
+    public interface IPaymentOrderService : ICrudService<PaymentOrder>
     {
-        int Create(T o);
+        void CreateForContract(PaymentOrder o, int id);
+        void CreateForAgreement(PaymentOrder o, int id);
+    }
+    
+    public interface ICrudService<T> where T : Entity, new()
+    {
+        void Create(T e);
+        void Save(T e);
+        IPageable<T> GetPageable(int page, int pageSize);
+        void Delete(int id);
         T Get(int id);
-        void Save(T o);
     }
   
 
@@ -137,6 +160,8 @@ namespace MRGSP.ASMS.Core.Service
         IEnumerable<DossiersByDistrictReport> DossiersByDistrictReport(int year, int districtId);
         string GetDistrictName(int districtId);
         IEnumerable<CrossDistrictMeasureAmountPayed> CrossDistrictMeasureAmountPayed(DateTime date, int measuresetId);
+        object Agreement(int id);
+        IEnumerable<OperInfoReport> GetOperInfoReport(int measuresetId);
     }
 
     public interface IFarmersEntityService<T> where T : FarmersEntity, new()

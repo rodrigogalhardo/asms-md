@@ -2,6 +2,21 @@
 
 namespace MRGSP.ASMS.Core.Model
 {
+    public class OperInfoReport
+    {
+        public string Measure { get; set; }
+        public decimal? Amountm { get; set; }
+        public decimal? Amount { get; set; }
+        public int? NrDos { get; set; }
+        public decimal? SumaSol { get; set; }
+        public int? NrCon { get; set; }
+        public decimal? SumaCon { get; set; }
+        public int? PayedNr { get; set; }
+        public decimal? PayedAmount { get; set; }
+        public int? WaitNr { get; set; }
+        public decimal? WaitAmount { get; set; }
+    }
+
     public class DossiersByDistrictReport
     {
         public string Measure { get; set; }
@@ -126,7 +141,42 @@ namespace MRGSP.ASMS.Core.Model
         public string BankName { get; set; }
         public int DossierId { get; set; }
         public string SupportNr { get; set; }
+        public int PaymentOrderId { get; set; }
     }
 
+    public class Agreement : Entity
+    {
+        public int ContractId { get; set; }
+        public decimal Amount { get; set; }
+        public byte Nr { get; set; }
+        public int? FpiId { get; set; }
+        public DateTime? Date { get; set; }
+        public int PaymentOrderId { get; set; }
+    }
 
+    public class PaymentOrder : Entity
+    {
+        public int Nr { get; set; }
+        public DateTime Date { get; set; }
+        public PoState State { get; set; }
+    }
+
+    /// <summary>
+    /// Contract Agreement Payment Order
+    /// </summary>
+    public class Capo
+    {
+        public string Name { get; set; }
+        public string FiscalCode { get; set; }
+        public int ContractNr { get; set; }
+        public DateTime ContractDate { get; set; }
+        public byte? AgreementNr { get; set; }
+        public int? AgreementId { get; set; }
+        public DateTime? AgreementDate { get; set; }
+        public decimal Amount { get; set; }
+        public int? PoNr { get; set; }
+        public DateTime? PoDate { get; set; }
+        public PoState? PoState { get; set; }
+        public int? PoId { get; set; }
+    }
 }

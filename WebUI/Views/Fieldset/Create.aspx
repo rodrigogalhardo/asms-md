@@ -2,6 +2,6 @@
 
     <form action="<%=Url.Action("Create") %>" method="post">
     <%=Html.EditorFor(o => o.Name) %>
-    <%=Html.EditorFor(o => o.EndDate) %>
+    <%=Html.EditorFor(o => o.Year) %>
     </form>
     <%=Html.ClientSideValidation<FieldsetInput>() %>

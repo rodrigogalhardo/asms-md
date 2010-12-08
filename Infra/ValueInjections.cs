@@ -9,28 +9,7 @@ using Omu.ValueInjecter;
 
 namespace MRGSP.ASMS.Infra
 {
-    //public class NormalToNullables : LoopValueInjection
-    //{
-    //    protected override bool TypesMatch(Type sourceType, Type targetType)
-    //    {
-    //        var type = Nullable.GetUnderlyingType(targetType);
-    //        if (type == null) return false;
-    //        return sourceType == type;
-    //    }
-    //}
-
-    ////e.g. from int? to int, bool? to bool, DateTime? to DateTime
-    //public class NullablesToNormal : LoopValueInjection
-    //{
-    //    protected override bool TypesMatch(Type sourceType, Type targetType)
-    //    {
-    //        var type = Nullable.GetUnderlyingType(sourceType);
-    //        if (type == null) return false;
-    //        return targetType == type;
-    //    }
-    //}   
-
-    public class LookupToInt : LoopValueInjection<object, int>
+   public class LookupToInt : LoopValueInjection<object, int>
     {
         protected override int SetValue(object sourcePropertyValue)
         {

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq.Expressions;
 using Omu.ValueInjecter;
 
 namespace MRGSP.ASMS.Data
@@ -212,7 +211,7 @@ namespace MRGSP.ASMS.Data
             }
         }
 
-        public static object ExecuteScalarSp(string sp, string cs, object parameters)
+        public static object ExecuteScalarSp(string sp, object parameters, string cs)
         {
             using (var conn = new SqlConnection(cs))
             {

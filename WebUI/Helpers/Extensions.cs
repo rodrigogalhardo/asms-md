@@ -1,4 +1,5 @@
 ﻿using System;
+using MRGSP.ASMS.Core.Model;
 
 namespace MRGSP.ASMS.WebUI.Helpers
 {
@@ -17,6 +18,15 @@ namespace MRGSP.ASMS.WebUI.Helpers
         public static string Display(this Decimal d)
         {
             return d.ToString("N2");
+        }
+
+        public static string Display(this PoState? o)
+        {
+            return !o.HasValue
+                       ? ""
+                       : o.Value == PoState.Registered
+                             ? "Înregistrat"
+                             : o.Value == PoState.Waiting ? "În așteptare" : "Plătit";
         }
     }
 }

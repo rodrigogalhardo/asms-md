@@ -10,9 +10,6 @@ using MRGSP.ASMS.WebUI.Controllers;
 
 namespace MRGSP.ASMS.WebUI
 {
-    // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
-    // visit http://go.microsoft.com/?LinkId=9394801
-
     public class MvcApplication : HttpApplication
     {
         private readonly ILog log = LogManager.GetLogger(string.Empty);

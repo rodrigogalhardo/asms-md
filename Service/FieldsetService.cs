@@ -10,27 +10,20 @@ using Omu.ValueInjecter;
 
 namespace MRGSP.ASMS.Service
 {
-    public class FieldsetService : IFieldsetService
+    public class FieldsetService : CrudService<Fieldset>, IFieldsetService
     {
         private readonly IFieldsetRepo fieldsetRepo;
-        private readonly IRepo<FieldsetState> stateRepo;
-        private readonly IRepo<Indicator> indicatorRepo;
-        private readonly IRepo<Coefficient> cRepo;
+        private readonly IUniRepo u;
         private readonly IFieldRepo fieldRepo;
         private readonly IDossierRepo dRepo;
 
-        public FieldsetService(IFieldsetRepo fieldsetRepo,
-            IRepo<FieldsetState> stateRepo,
-            IRepo<Indicator> indicatorRepo,
-            IFieldRepo fieldRepo,
-            IRepo<Coefficient> cRepo, IDossierRepo dRepo)
+
+        public FieldsetService(IRepo<Fieldset> repo, IFieldsetRepo fieldsetRepo, IUniRepo u, IFieldRepo fieldRepo, IDossierRepo dRepo) : base(repo)
         {
             this.fieldsetRepo = fieldsetRepo;
-            this.dRepo = dRepo;
-            this.cRepo = cRepo;
+            this.u = u;
             this.fieldRepo = fieldRepo;
-            this.indicatorRepo = indicatorRepo;
-            this.stateRepo = stateRepo;
+            this.dRepo = dRepo;
         }
 
         public IEnumerable<Field> GetAssignedFields(int fieldsetId)
@@ -89,38 +82,33 @@ namespace MRGSP.ASMS.Service
             Do(() => fieldsetRepo.ChangeState(id, (int)FieldsetStates.HasCoefficients), FieldsetStates.HasIndicators, id);
         }
 
-        public Fieldset Get(int id)
-        {
-            return fieldsetRepo.Get(id);
-        }
-
-        public int Create(Fieldset o)
+        public override void Create(Fieldset o)
         {
             o.StateId = 1;
-            return fieldsetRepo.Insert(o);
+            fieldsetRepo.Insert(o);
         }
 
         public void CreateIndicator(Indicator o)
         {
-            Do(() => indicatorRepo.Insert(o), FieldsetStates.HasFields, o.FieldsetId);
+            Do(() => u.Insert(o), FieldsetStates.HasFields, o.FieldsetId);
         }
 
         public void DeleteIndicator(int id)
         {
-            var o = indicatorRepo.Get(id);
-            Do(() => indicatorRepo.Delete(id), FieldsetStates.HasFields, o.FieldsetId);
+            var o = u.Get<Indicator>(id);
+            Do(() => u.Delete<Indicator>(id), FieldsetStates.HasFields, o.FieldsetId);
         }
 
         public void CreateCoefficient(Coefficient o)
         {
             o.Formula = o.Formula.Replace(" ", "");
-            Do(() => cRepo.Insert(o), FieldsetStates.HasIndicators, o.FieldsetId);
+            Do(() => u.Insert(o), FieldsetStates.HasIndicators, o.FieldsetId);
         }
 
         public void DeleteCoefficient(int id)
         {
-            var o = cRepo.Get(id);
-            Do(() => cRepo.Delete(id), FieldsetStates.HasIndicators, o.FieldsetId);
+            var o = u.Get<Coefficient>(id);
+            Do(() => u.Delete<Coefficient>(id), FieldsetStates.HasIndicators, o.FieldsetId);
         }
 
         public void Do(Action a, FieldsetStates state, int fieldsetId)
@@ -131,17 +119,17 @@ namespace MRGSP.ASMS.Service
                 Invalid();
         }
 
-        public IPageable<FieldsetDisplay> GetPageable(int page, int pageSize)
+        public IPageable<FieldsetDisplay> GetDisplayPageable(int page, int pageSize)
         {
-            var pageable = fieldsetRepo.GetPageable(page, pageSize);
-            var states = stateRepo.GetAll();
+            var pageable = u.GetPageable<Fieldset>(page, pageSize);
+            var states = u.GetAll<FieldsetState>();
             var displays = new Pageable<FieldsetDisplay>();
             displays.InjectFrom(pageable);
             displays.Page = pageable.Page.Join(states, fs => fs.StateId, s => s.Id, (fs, s) =>
                                                                                new FieldsetDisplay
                                                                                    {
                                                                                        Id = fs.Id,
-                                                                                       EndDate = fs.EndDate,
+                                                                                       Year = fs.Year,
                                                                                        Name = fs.Name,
                                                                                        State = s.Name
                                                                                    }).ToArray();
@@ -151,14 +139,14 @@ namespace MRGSP.ASMS.Service
 
         public Fieldset GetActive()
         {
-            return fieldsetRepo.GetWhere(new { stateId = (int)FieldsetStates.Active }).FirstOrDefault();
+            return u.GetWhere<Fieldset>(new { stateId = (int)FieldsetStates.Active }).FirstOrDefault();
         }
 
         public IEnumerable<Field> GetFieldsByDossier(int dossierId)
         {
             var d = dRepo.Get(dossierId);
-            if (d == null) throw new AsmsEx("acest dosar nu exista");
-            var fs = fieldsetRepo.Get(d.FieldsetId);
+            d.IsNull().B("acest dosar nu exista");
+            var fs = u.Get<Fieldset>(d.FieldsetId);
             return fieldRepo.GetAssigned(fs.Id);
         }
     }

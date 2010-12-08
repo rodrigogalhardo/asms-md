@@ -25,25 +25,20 @@ namespace MRGSP.ASMS.Data
         {
             return DbUtil.ExecuteReaderSp<RankedDossier>("getDossiersForRanking", new { measuresetId, measureId, month }, Cs);
         }
-        
+
         public int RollbackWinners(int fpiId)
         {
-            return DbUtil.ExecuteNonQuerySp("rollbackWinners", new {fpiId}, Cs);
+            return DbUtil.ExecuteNonQuerySp("rollbackWinners", new { fpiId }, Cs);
         }
 
         public void RollbackToIndicators(int fpiId)
         {
-            DbUtil.ExecuteNonQuerySp("rollbackToIndicators", new {fpiId}, Cs);
+            DbUtil.ExecuteNonQuerySp("rollbackToIndicators", new { fpiId }, Cs);
         }
 
-        public void UpdateToFpi(int fpiId)
+        public void MoveToFpi(int fpiId)
         {
-            DbUtil.ExecuteNonQuerySp("updateToFpi", new {fpiId}, Cs);
-        }
-
-        public void CloseFpis(int fpiId)
-        {
-            DbUtil.ExecuteNonQuerySp("closeFpis", new {fpiId}, Cs);
+            DbUtil.ExecuteNonQuerySp("updateToFpi", new { fpiId }, Cs);
         }
     }
 }
