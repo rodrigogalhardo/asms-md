@@ -9,7 +9,7 @@
         var measuresetId = (int)ViewData["measuresetId"];
     %>
     <%=Html.MakePopupForm("Create", new[]{"measuresetId", "measureId","month"},height:250) %>
-    <table>
+    <table class="shrt">
         <thead>
             <tr>
                 <td>
@@ -42,7 +42,7 @@
                 <%=x.Amount.Display() %>
                 <%=Html.ActionLink("c","Index","Rank",new{fpiId = x.Id}, null) %>
                 <%
-}
+                        }
                         else
                         {
                 %>

@@ -151,8 +151,7 @@ div#title
 
 #main
 {
-    padding: 15px 30px 15px 30px;    
-    overflow: hidden;
+    padding: 15px 30px 15px 30px;
 }
 
 #footer
@@ -196,11 +195,12 @@ div#title
 }
 
 .maindiv
-{    
+{
     padding-top: 20px;
     margin: auto;
     text-align: left;
-    width: 77%;
+    width: 95%;
+    overflow: hidden;
 }
 
 
@@ -387,6 +387,12 @@ a.abtn
     text-decoration: none;
 }
 
+.sbtn
+{
+    padding: 0.1em 0.3em;
+    text-decoration: none;
+}
+
 .formhead
 {
     padding: 2px;
@@ -406,7 +412,10 @@ a.abtn
 {
     width: 170px;
 }
-.bcol{width:55px;}
+.bcol
+{
+    width: 55px;
+}
 
 hr
 {
@@ -420,7 +429,7 @@ h3
 .bl
 {
     padding: 0;
-    width:100%;
+    width: 100%;
 }
 
 .bl li
@@ -441,5 +450,7 @@ h3
 }
 
 .w1
-{ width:100%;}
+{
+    width: 100%;
+}
 

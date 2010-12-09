@@ -17,7 +17,7 @@ namespace MRGSP.ASMS.WebUI.Controllers
 
         public ActionResult GetItems(int? key)
         {
-            var list = new List<SelectListItem> { new SelectListItem { Text = "not selected", Value = "" } };
+            var list = new List<SelectListItem> { new SelectListItem { Text = "nu este selectat", Value = "" } };
 
             list.AddRange(repo.GetAll().Select(o => new SelectListItem
                                                         {

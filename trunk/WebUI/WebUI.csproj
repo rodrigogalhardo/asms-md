@@ -51,6 +51,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\libs\Castle.Windsor.dll</HintPath>
     </Reference>
+    <Reference Include="Elmah">
+      <HintPath>..\packages\elmah.1.1\lib\Elmah.dll</HintPath>
+    </Reference>
     <Reference Include="HyperPropertyDescriptor">
       <HintPath>..\libs\HyperPropertyDescriptor.dll</HintPath>
     </Reference>
@@ -68,10 +71,7 @@
     <Reference Include="Omu.Awesome.Mvc">
       <HintPath>..\libs\Omu.Awesome.Mvc.dll</HintPath>
     </Reference>
-    <Reference Include="Omu.ValueInjecter, Version=1.9.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\libs\Omu.ValueInjecter.dll</HintPath>
-    </Reference>
+    <Reference Include="Omu.ValueInjecter, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="Stimulsoft.Base, Version=2010.3.900.0, Culture=neutral, PublicKeyToken=ebe6666cba19647a, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
@@ -451,6 +451,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\EditorTemplates\Template.Master" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
