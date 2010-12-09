@@ -33,8 +33,10 @@
             $("tbody tr:even").addClass("ui-widget-content");
             $("tbody tr:odd").addClass("ui-state-highlight");
             $("tbody a").addClass("abtn");
+            $(".shrt tbody a").removeClass("abtn").addClass("sbtn");
             $('.ui-state-highlight a').css('color', $('.ui-state-default').css('color'));
             mybutton(".abtn");
+            mybutton(".sbtn");
             $(".field-validation-error").addClass('ui-state-error ui-corner-all');
             $(".input-validation-error").addClass('ui-state-error');
 

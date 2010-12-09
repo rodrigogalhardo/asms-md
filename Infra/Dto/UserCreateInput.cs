@@ -142,10 +142,12 @@ namespace MRGSP.ASMS.Infra.Dto
     public class DossiersByDistrictInput
     {
         [Req]
+        [DisplayName("An")]
         public int? Year { get; set; }
 
         [Req]
         [UIHint("AjaxDropdown")]
+        [DisplayName("Raion")]
         public int? District { get; set; }
     }
 
