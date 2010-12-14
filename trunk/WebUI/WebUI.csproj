@@ -153,6 +153,7 @@
     <Compile Include="Controllers\Cruder.cs" />
     <Compile Include="Controllers\Crudere.cs" />
     <Compile Include="Controllers\Cruders.cs" />
+    <Compile Include="Controllers\CurrentCultureDateTimeBinder.cs" />
     <Compile Include="Controllers\DistrictAjaxDropdownController.cs" />
     <Compile Include="Controllers\DistrictIdLookupController.cs" />
     <Compile Include="Controllers\DossierController.cs" />
@@ -243,6 +244,8 @@
     <Content Include="Views\Calculations\Index.aspx" />
     <Content Include="Views\Calculations\success.aspx" />
     <Content Include="Views\Capo\Index.aspx" />
+    <Content Include="Views\Capo\Item.ascx" />
+    <Content Include="Views\Capo\Search.ascx" />
     <Content Include="Views\Capo\SearchForm.ascx" />
     <Content Include="Views\ChangeTheme\Index.ascx" />
     <Content Include="Views\Coefficient\Index.aspx" />

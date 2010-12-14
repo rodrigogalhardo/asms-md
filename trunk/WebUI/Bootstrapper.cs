@@ -12,13 +12,11 @@ namespace MRGSP.ASMS.WebUI
     {
         public static void Bootstrap()
         {
-            ModelBinders.Binders.Add(typeof(DateTime),
-   new CurrentCultureDateTimeBinder());
+            ModelBinders.Binders.Add(typeof(DateTime), new CurrentCultureDateTimeBinder());
             log4net.Config.XmlConfigurator.Configure();
             RouteConfigurator.RegisterRoutes(RouteTable.Routes);
             ControllerBuilder.Current.SetControllerFactory(new WindsorControllerFactory(IoC.Container));
             WindsorConfigurator.Configure();
-            //PropertyInfosStorage.RegisterActionForEachType(HyperTypeDescriptionProvider.Add);
 
             ModelMetadataProviders.Current = new AwesomeModelMetadataProvider();
 

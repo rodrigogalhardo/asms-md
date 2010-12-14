@@ -93,6 +93,7 @@ namespace MRGSP.ASMS.Core.Repository
         IEnumerable<CrossDistrictMeasureAmountPayed> GetCrossDistrictMeasureAmountPayed(DateTime date, int measuresetId);
         IEnumerable<Capo> GetCapo(int? measureId, DateTime startDate, DateTime endDate, int? poState);
         IEnumerable<OperInfoReport> GetOperInfoReport(int measuresetId);
+        Capo GetCapo(int id);
     }
 
     public interface IUniRepo

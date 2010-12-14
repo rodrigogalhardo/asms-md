@@ -3,7 +3,6 @@ using NUnit.Framework;
 
 namespace MRGSP.ASMS.Tests
 {
-    [TestFixture]
     public class BaseRepoTests
     {
         private TransactionScope scope;

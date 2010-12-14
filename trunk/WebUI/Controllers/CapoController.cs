@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Web.Mvc;
 using MRGSP.ASMS.Core.Model;
@@ -10,10 +11,12 @@ namespace MRGSP.ASMS.WebUI.Controllers
     public class CapoController : BaseController
     {
         private readonly IUberRepo ur;
+        private IUniRepo u;
 
-        public CapoController(IUberRepo ur)
+        public CapoController(IUberRepo ur, IUniRepo u)
         {
             this.ur = ur;
+            this.u = u;
         }
 
         public ActionResult Index()
@@ -33,7 +36,27 @@ namespace MRGSP.ASMS.WebUI.Controllers
         public ActionResult Search(CapoSearchInput input)
         {
             var list = ur.GetCapo(input.MeasureId, input.StartDate, input.EndDate, input.PoState);
-            return View("index", new CapoViewModel { List = list, SearchForm = input }) ;
+            return View(list) ;
+        }
+
+        public ActionResult Item(Capo o)
+        {
+            return View(o);
+        }
+
+        public ActionResult ItemByContract(int id)
+        {
+            return View("item", u.GetWhere<Capo>(new {ContractNr = id}).SingleOrDefault());
+        } 
+        
+        public ActionResult ItemByAgreement(int id)
+        {
+            return View("item", u.GetWhere<Capo>(new {AgreementId = id}).SingleOrDefault());
+        }
+
+        public ActionResult ItemByPaymentOrder(int id)
+        {
+            return View("item",u.GetWhere<Capo>(new {PoId = id}).SingleOrDefault());
         }
 
         public ActionResult SearchForm(CapoSearchInput input)
@@ -42,31 +65,30 @@ namespace MRGSP.ASMS.WebUI.Controllers
         }
     }
 
-    public class CurrentCultureDateTimeBinder : IModelBinder
+    public static class ExtensionMethods
     {
-        private const string PARSE_ERROR = "\"{0}\" is not a valid date";
-        public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
+        public static string RenderViewToString<T>(this ControllerBase controller,
+                                string viewName, T model)
         {
-            ValueProviderResult valueProviderResult = bindingContext.ValueProvider.GetValue(bindingContext.ModelName);
-
-            if (valueProviderResult == null) return null;
-
-            var date = bindingContext.ValueProvider.GetValue(bindingContext.ModelName).AttemptedValue;
-
-            if (String.IsNullOrEmpty(date))
-                return null;
-
-            bindingContext.ModelState.SetModelValue(bindingContext.ModelName, bindingContext.ValueProvider.GetValue(bindingContext.ModelName));
-
-            try
+            using (var writer = new StringWriter())
             {
-                return DateTime.Parse(date);
-            }
-            catch (Exception)
-            {
-                bindingContext.ModelState.AddModelError(bindingContext.ModelName, String.Format(PARSE_ERROR, bindingContext.ModelName));
-                return null;
+                ViewEngineResult result = ViewEngines
+                          .Engines
+                          .FindView(controller.ControllerContext,
+                                    viewName, null);
+
+                var viewPath = ((WebFormView)result.View).ViewPath;
+                var view = new WebFormView(viewPath);
+                var vdd = new ViewDataDictionary<T>(model);
+                var viewCxt = new ViewContext(
+                                    controller.ControllerContext,
+                                    view,
+                                    vdd,
+                                    new TempDataDictionary(), writer);
+                viewCxt.View.Render(viewCxt, writer);
+                return writer.ToString();
             }
         }
     }
+
 }

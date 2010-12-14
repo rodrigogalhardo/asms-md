@@ -377,7 +377,6 @@ select * from fpis where measuresetId = @measuresetId and measureId = @measureId
 )
 select * from xx  x where x."month" = (select max("month") from xx)
 
-
 go
 drop proc capo
 go

@@ -14,7 +14,7 @@
         <li>
             <%=Html.ActionLink("planul financiar","Index","Fpi",new{measuresetId = (int)ViewData["msid"]}, new{@class="abtn"} ) %></li>
         <li>
-            <%=Html.ActionLink("ordinele de plata pentru contracte si acorduri aditionale", "index", "capo",null, new{@class="abtn"})%>
+            <%=Html.ActionLink("ordinele de plata pentru contracte si acorduri aditionale", "index", "capo", null, new{@class="abtn"})%>
         </li>
         <%} %>
     </ul>

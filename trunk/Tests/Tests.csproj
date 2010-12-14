@@ -53,8 +53,15 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Castle.Core, Version=2.5.1.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Castle.Core.2.5.1\lib\NET35\Castle.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Ciloci.Flee">
       <HintPath>..\libs\Ciloci.Flee.dll</HintPath>
+    </Reference>
+    <Reference Include="FakeItEasy">
+      <HintPath>..\packages\FakeItEasy.1.5.3970.199\lib\FakeItEasy.dll</HintPath>
     </Reference>
     <Reference Include="ILCalc">
       <HintPath>..\libs\ILCalc.dll</HintPath>
@@ -71,6 +78,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\libs\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="nunit.mocks, Version=2.5.7.10213, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL" />
+    <Reference Include="Omu.Awesome.Core, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="Omu.Encrypto">
       <HintPath>..\libs\Omu.Encrypto.dll</HintPath>
     </Reference>
@@ -78,12 +87,18 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\libs\Omu.ValueInjecter.dll</HintPath>
     </Reference>
+    <Reference Include="pnunit.framework">
+      <HintPath>..\packages\NUnit.2.5.7.10213\lib\pnunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -95,9 +110,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseRepoTests.cs" />
+    <Compile Include="CruderControllerTests.cs" />
+    <Compile Include="CrudServiceTests.cs" />
     <Compile Include="DossierRepoTests.cs" />
+    <Compile Include="EcoCalcTests.cs" />
     <Compile Include="FarmerInfoRepoTests.cs" />
-    <Compile Include="FarmerRepoTests.cs" />
     <Compile Include="InsertInjectionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FillObjectInjection.cs" />
@@ -116,6 +133,10 @@
       <Project>{B2C0FD04-EE1C-42FD-B509-900D942ADC94}</Project>
       <Name>Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Infra\Infra.csproj">
+      <Project>{C857A14B-9C6F-43B2-A720-1B8599978039}</Project>
+      <Name>Infra</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Service\Service.csproj">
       <Project>{00460587-4779-4B26-93B1-943EC5B32A3B}</Project>
       <Name>Service</Name>
@@ -127,6 +148,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

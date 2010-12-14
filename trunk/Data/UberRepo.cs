@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using MRGSP.ASMS.Core.Model;
 using MRGSP.ASMS.Core.Repository;
 
@@ -15,6 +16,11 @@ namespace MRGSP.ASMS.Data
         public IEnumerable<OperInfoReport> GetOperInfoReport(int measuresetId)
         {
             return DbUtil.ExecuteReaderSp<OperInfoReport>("operInfo", new {measuresetId}, Cs);
+        }
+
+        public Capo GetCapo(int id)
+        {
+            return DbUtil.ExecuteReaderSp<Capo>("getCapo", new {id}, Cs).SingleOrDefault();
         }
 
         public IEnumerable<Capo> GetCapo(int? measureId, DateTime startDate, DateTime endDate, int? poState)
