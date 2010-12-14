@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Globalization;
-using System.Linq;
 using System.Text.RegularExpressions;
 using Ciloci.Flee;
 using ILCalc;
-using MRGSP.ASMS.Core.Model;
 using NUnit.Framework;
-using System.Collections.Generic;
 using Omu.Encrypto;
+using Match = System.Text.RegularExpressions.Match;
 
 namespace MRGSP.ASMS.Tests
 {
@@ -32,27 +30,13 @@ namespace MRGSP.ASMS.Tests
         }
 
         [Test]
-        public void Tesasdft()
-        {
-            var xx = new[] {
-                new Agreement {Nr = 3},
-                new Agreement {Nr = 2},
-                new Agreement {Nr = 7},
-            };
-
-            var x = new Agreement[] {};
-
-            Console.WriteLine(x.Max(o => o.Nr));
-        }
-
-        [Test]
         public void Eqq()
         {
             var o = new { Name = "asdss" };
             var x = new { Name = 7654345678900987659 };
             Console.WriteLine(o.GetType() == x.GetType());
         }
-        
+
         [Test]
         public void TestTrim()
         {

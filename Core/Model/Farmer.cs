@@ -151,7 +151,7 @@ namespace MRGSP.ASMS.Core.Model
         public byte Nr { get; set; }
         public int? FpiId { get; set; }
         public DateTime? Date { get; set; }
-        public int PaymentOrderId { get; set; }
+        public int? PaymentOrderId { get; set; }
     }
 
     public class PaymentOrder : Entity

@@ -20,7 +20,7 @@ namespace MRGSP.ASMS.Tests
         [Test]
         public void Get()
         {
-            drepo.Get(0).IsEqualTo(null);
+            drepo.Get(0).ShouldEqual(null);
         }
 
         [Test]
@@ -29,7 +29,7 @@ namespace MRGSP.ASMS.Tests
             frepo.Insert(new Field() { Name = "asdf" });
             frepo.Insert(new Field() { Name = "zxcvz" });
 
-            frepo.GetPage(1, 2).Count().IsEqualTo(2);
+            frepo.GetPage(1, 2).Count().ShouldEqual(2);
         }
     }
 }

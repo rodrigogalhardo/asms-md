@@ -27,6 +27,7 @@
             $("fieldset").addClass("ui-corner-all");
             $("select").addClass("ui-corner-all");
             $("input:text").addClass("ui-corner-all");
+            $("input:password").addClass("ui-corner-all");
             $("input[type=submit]").addClass("abtn");
             $("textarea").addClass("ui-corner-all");
             $("thead").addClass("ui-state-default");

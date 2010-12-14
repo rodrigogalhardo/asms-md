@@ -34,10 +34,16 @@ namespace MRGSP.ASMS.WebUI.Controllers
         public ActionResult Create(PaymentOrderCreateInput input)
         {
             if (!ModelState.IsValid) return View(input);
-            if (input.AgreementId.HasValue) s.CreateForAgreement(v.BuildEntity(input), input.AgreementId.Value);
-            else if (input.ContractId.HasValue) s.CreateForContract(v.BuildEntity(input), input.ContractId.Value);
-            else throw new InvalidOperationException("imposibil de creat ordin de plata");
-            return Content("ok");
+            if (input.AgreementId.HasValue)
+            {
+                s.CreateForAgreement(v.BuildEntity(input), input.AgreementId.Value);
+                return Json(new{Id = input.AgreementId.Value, type = 'a' });
+            }
+            if (input.ContractId.HasValue) {
+                s.CreateForContract(v.BuildEntity(input), input.ContractId.Value);
+                return Json(new {Id = input.ContractId.Value, type = 'c'});
+            }
+            throw new InvalidOperationException("imposibil de creat ordin de plata");
         }
 
         public ActionResult Edit(int? id)
@@ -50,7 +56,7 @@ namespace MRGSP.ASMS.WebUI.Controllers
         {
             if (!ModelState.IsValid) return View(input);
             s.Save(ve.BuildEntity(input, input.Id));
-            return Content("ok");
+            return Json(new{input.Id});
         }
     }
 }

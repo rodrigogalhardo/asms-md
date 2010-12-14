@@ -246,23 +246,11 @@ div#title
     width: 77%;
 }
 
-html, body, .loginpage
-{
-    height: 100%;
-}
-
-.loginpage
-{
-    background: green;
-    padding: 1px;
-}
-
 #loginbox
 {
     width: 800px;
     margin: 200px auto;
     padding: 20px 0;
-    background: #fff;
     overflow: hidden;
 }
 

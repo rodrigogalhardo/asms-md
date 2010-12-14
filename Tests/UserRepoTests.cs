@@ -21,19 +21,19 @@ namespace MRGSP.ASMS.Tests
         public void Insert()
         {
             var id = repo.Insert("jora".AsUser());
-            repo.Get(id).Name.IsEqualTo("jora");
-            repo.GetRoles(id).Count().IsEqualTo(2);
+            repo.Get(id).Name.ShouldEqual("jora");
+            repo.GetRoles(id).Count().ShouldEqual(2);
         }
 
         [Test]
         public void Update()
         {
             var id = repo.Insert("jora".AsUser());
-            repo.GetRoles(id).Count().IsEqualTo(2);
+            repo.GetRoles(id).Count().ShouldEqual(2);
             var user = repo.Get(id);
             user.Roles = new[] { new Role() { Id = 3 } };
             repo.ChangeRoles(user);
-            repo.GetRoles(id).Count().IsEqualTo(1);
+            repo.GetRoles(id).Count().ShouldEqual(1);
         }
 
         [Test]
@@ -44,7 +44,7 @@ namespace MRGSP.ASMS.Tests
             repo.Insert(new User { Name = "j2", Password = "a" });
             var w = new Stopwatch();
             w.Start();
-            repo.GetPage(1, 3).Count().IsEqualTo(3);
+            repo.GetPage(1, 3).Count().ShouldEqual(3);
             w.Stop();
             System.Console.Out.WriteLine(w.Elapsed);
             (repo.Count() > 3).IsTrue();
@@ -54,9 +54,9 @@ namespace MRGSP.ASMS.Tests
         public void GetRolesByUser()
         {
             var roles = repo.GetRoles(1).ToArray();
-            roles.Count().IsEqualTo(2);
-            roles[0].Name.IsEqualTo("admin");
-            roles[1].Name.IsEqualTo("superuser");
+            roles.Count().ShouldEqual(2);
+            roles[0].Name.ShouldEqual("admin");
+            roles[1].Name.ShouldEqual("superuser");
         }
 
         [Test]
@@ -69,7 +69,7 @@ namespace MRGSP.ASMS.Tests
             w.Stop();
             System.Console.Out.WriteLine(w.Elapsed);
             user.IsNotNull();
-            user.Name.IsEqualTo("j");
+            user.Name.ShouldEqual("j");
         }
     }
 }

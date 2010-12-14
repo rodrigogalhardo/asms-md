@@ -67,7 +67,7 @@ namespace MRGSP.ASMS.WebUI.Controllers
         public ActionResult Delete(int id)
         {
             s.Delete(id);
-            return RedirectToAction("Index");
+            return RedirectToAction("index");
         }
     }
 }

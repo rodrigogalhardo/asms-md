@@ -1,131 +1,92 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Linq;
-using Moq;
+using FakeItEasy;
+using MRGSP.ASMS.Core;
 using MRGSP.ASMS.Core.Model;
-using MRGSP.ASMS.Core.Repository;
+using MRGSP.ASMS.Core.Service;
 using MRGSP.ASMS.Service;
 using NUnit.Framework;
 
 namespace MRGSP.ASMS.Tests
 {
-    [TestFixture]
     public class EcoCalcTests
     {
-        private EcoCalc ec;
-        private Mock<IDossierRepo> dRepo;
-        private Mock<IRepo<Indicator>> iRepo;
-        private Mock<IIndicatorValueRepo> ivRepo;
-        private Mock<IRepo<Coefficient>> cRepo;
+        private IEcoCalc c;
 
         [SetUp]
         public void SetUp()
         {
-            dRepo = new Mock<IDossierRepo>();
-            iRepo = new Mock<IRepo<Indicator>>();
-            ivRepo = new Mock<IIndicatorValueRepo>();
-            cRepo = new Mock<IRepo<Coefficient>>();
-
-            ec = new EcoCalc(iRepo.Object, ivRepo.Object, cRepo.Object);
+            c = new EcoCalc();
         }
 
         [Test]
-        public void CalculateCoefficientValuesShouldReturnThem()
+        public void ShouldCalculateIndicatorValues()
         {
-            var dt = new DateTime(2010, 3, 1);
-
-            ivRepo.Setup(o => o.GetBy(3, dt)).Returns(
+            var ivs = c.CalculateIndicatorValues(
+                new Dossier { Id = 3 },
                 new[]
                     {
-                        new IndicatorValue { DossierId = 1, IndicatorId = 1, Value = 7 },
-                        new IndicatorValue { DossierId = 1, IndicatorId = 2, Value = 3 },
-                        new IndicatorValue { DossierId = 1, IndicatorId = 3, Value = 4 },
-                        new IndicatorValue { DossierId = 4, IndicatorId = 4, Value = 9 },
-                        new IndicatorValue { DossierId = 4, IndicatorId = 5, Value = 1 },
-                        new IndicatorValue { DossierId = 5, IndicatorId = 4, Value = 2 },
-                        new IndicatorValue { DossierId = 5, IndicatorId = 5, Value = 3 },
-                    });
-
-
-
-            cRepo.Setup(o => o.GetWhere(
-                It.Is<object>(x => (int)x.GetType().GetProperty("FieldsetId").GetValue(x, null) == 3)))
-                .Returns(new[]
-                            {
-                                new Coefficient {Id = 1, Formula = "i1+i2"},
-                                new Coefficient {Id = 2, Formula = "i1+i2+i3"},
-                                new Coefficient {Id = 3, Formula = "i3*i2-i1"},
-                            });
-            
-            cRepo.Setup(o => o.GetWhere(
-                It.Is<object>(x => (int)x.GetType().GetProperty("FieldsetId").GetValue(x, null) == 7)))
-                .Returns(new[]
-                            {
-                                new Coefficient {Id = 4, Formula = "i4*i5"},
-                                new Coefficient {Id = 5, Formula = "i4+i5"},
-                            });
-
-
-            var result = ec.CalculateCoefficientValues(3, dt, new[]
-                                                         {
-                                                             new Dossier { Id = 1, FieldsetId = 3},
-                                                             new Dossier { Id = 4, FieldsetId = 7},
-                                                             new Dossier { Id = 5, FieldsetId = 7},
-                                                         });
-
-            result.Count().IsEqualTo(7);
-            result.Where(o => o.CoefficientId == 1).Single().Value.IsEqualTo(10);
-            result.Where(o => o.CoefficientId == 2).Single().Value.IsEqualTo(14);
-            result.Where(o => o.CoefficientId == 3).Single().Value.IsEqualTo(5);
-            result.Where(o => o.CoefficientId == 4 && o.DossierId == 4).Single().Value.IsEqualTo(9);
-            result.Where(o => o.CoefficientId == 5 && o.DossierId == 4).Single().Value.IsEqualTo(10);
-            result.Where(o => o.CoefficientId == 4 && o.DossierId == 5).Single().Value.IsEqualTo(6);
-            result.Where(o => o.CoefficientId == 5 && o.DossierId == 5).Single().Value.IsEqualTo(5);
-
-        }
-
-        [Test]
-        public void CalculateIndicatorValuesShouldCalculateIndicatorsFromFieldValues()
-        {
-            iRepo.Setup(o => o.GetWhere(It.IsAny<object>())).Returns(
-                new[]
-                    {
-                        new Indicator{Id = 1, Formula = "c1 + c2"},
-                        new Indicator{Id = 2, Formula = "c2 + c3"},
-                        new Indicator{Id = 3, Formula = "c3 + c4"},
-                    }).Verifiable();
-
-            var result = ec.CalculateIndicatorValues(
+                        new FieldValue {FieldId = 1, Value = 10},
+                        new FieldValue {FieldId = 2, Value = 5}
+                    },
                 new[] {
-                    new FieldValue { FieldId = 1, Value = 3},
-                    new FieldValue { FieldId = 2, Value = 1},
-                    new FieldValue { FieldId = 3, Value = 2},
-                    new FieldValue { FieldId = 4, Value = 5},
-                },
-                new Dossier { Id = 3, FieldsetId = 7 }).ToList();
-
-            result.Where(o => o.IndicatorId == 1).Single().Value.IsEqualTo(4);
-            result.Where(o => o.IndicatorId == 2).Single().Value.IsEqualTo(3);
-            result.Where(o => o.IndicatorId == 3).Single().Value.IsEqualTo(7);
-
-            iRepo.VerifyAll();
+                          new Indicator {Id = 4, Formula = "c1+c2"},
+                          new Indicator{Id = 5, Formula = "c1*c2"}
+                      }
+                );
+            ivs.Count().ShouldEqual(2);
+            ivs.Where(o => o.IndicatorId == 4).Single().Value.ShouldEqual(15);
+            ivs.Where(o => o.IndicatorId == 5).Single().Value.ShouldEqual(50);
         }
 
         [Test]
-        public void EvalSumsShouldReplaceSumFunctionsWithItsValues()
+        public void ShouldCalculateCoefficientsValues()
         {
-            var c = new Coefficient { FieldsetId = 1, Formula = "i3/suma(i3)+i7+suma(i3)+suma(i9)", Id = 1 };
-            EcoCalc.EvalSums(c,
-                new[]
-                    {
-                        new IndicatorValue {IndicatorId = 9, Value = 5},
-                        new IndicatorValue {IndicatorId = 9, Value = 5},
-                        new IndicatorValue {IndicatorId = 3, Value = 1},
-                        new IndicatorValue {IndicatorId = 5, Value = 5},
-                        new IndicatorValue {IndicatorId = 3, Value = 2},
-                        new IndicatorValue {IndicatorId = 3, Value = 4},
-                    });
+            var cvs = c.CalculateCoefficientValues(
+                new[] { 
+                    new IndicatorValue { DossierId = 1, IndicatorId = 11, Value = 3 },
+                    new IndicatorValue { DossierId = 1, IndicatorId = 12, Value = 4 },
+                    new IndicatorValue { DossierId = 1, IndicatorId = 13, Value = 5 },
+                    new IndicatorValue { DossierId = 2, IndicatorId = 11, Value = 1 },
+                    new IndicatorValue { DossierId = 2, IndicatorId = 12, Value = 2 },
+                    new IndicatorValue { DossierId = 2, IndicatorId = 13, Value = 3 },
+                },
+                new[] {
+                        new Dossier { Id = 1 },
+                        new Dossier { Id = 2 },
+                    },
+                new[] { 
+                    new Coefficient { Id = 1, Formula = "suma(i11)+i12+i13"}, 
+                    new Coefficient { Id = 2, Formula = "suma(i13)-i13"}, 
+                });
 
-            c.Formula.IsEqualTo("i3/7+i7+7+10");
+            cvs.Count().ShouldEqual(4);
+            cvs.Where(o => o.CoefficientId == 1 && o.DossierId == 1).Single().Value.ShouldEqual(13);
+            cvs.Where(o => o.CoefficientId == 2 && o.DossierId == 1).Single().Value.ShouldEqual(3);
+            cvs.Where(o => o.CoefficientId == 1 && o.DossierId == 2).Single().Value.ShouldEqual(9);
+            cvs.Where(o => o.CoefficientId == 2 && o.DossierId == 2).Single().Value.ShouldEqual(5);
+        }
+
+        [Test]
+        public void ShouldNotAllowDossiersFromMultipleFieldsets()
+        {
+            Assert.Throws<AsmsEx>(() => c.CalculateCoefficientValues(A.Fake<IEnumerable<IndicatorValue>>(),
+                                                               new[] {
+                                                                   new Dossier {FieldsetId = 1},
+                                                                   new Dossier {FieldsetId = 2},
+                                                               },
+                                                               A.Fake<IEnumerable<Coefficient>>()));
+        } 
+        
+        [Test]
+        public void ShouldNotAllowDossiersFromMultipleMeasuresets()
+        {
+            Assert.Throws<AsmsEx>(() => c.CalculateCoefficientValues(A.Fake<IEnumerable<IndicatorValue>>(),
+                                                               new[] {
+                                                                   new Dossier {MeasuresetId = 1},
+                                                                   new Dossier {MeasuresetId = 2},
+                                                               },
+                                                               A.Fake<IEnumerable<Coefficient>>()));
         }
     }
 }

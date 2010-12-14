@@ -1,11 +1,13 @@
-﻿using MRGSP.ASMS.Core.Model;
+﻿using System;
+using System.Web.Mvc;
+using MRGSP.ASMS.Core.Model;
 using NUnit.Framework;
 
 namespace MRGSP.ASMS.Tests
 {
     public static class TestingTools
     {
-        public static void IsEqualTo(this object o, object to)
+        public static void ShouldEqual(this object o, object to)
         {
             Assert.AreEqual(to, o);
         }
@@ -37,6 +39,40 @@ namespace MRGSP.ASMS.Tests
         public static void IsNull(this object o)
         {
             Assert.IsNull(o);
+        }
+
+        public static ViewResult ShouldBeViewResult(this ActionResult o)
+        {
+            Assert.IsNotNull(o);
+            Assert.IsTrue(o.GetType() == typeof(ViewResult));
+            return o as ViewResult;
+        }
+
+        public static ViewResult ShouldBeCreate(this ViewResult o)
+        {
+            Assert.AreEqual("create", o.ViewName);
+            return o;
+        }
+
+        public static void ShouldBeContentOk(this ActionResult o)
+        {
+            Assert.IsNotNull(o);
+            Assert.IsTrue(o.GetType() == typeof(ContentResult));
+            Assert.IsTrue((o as ContentResult).Content == "ok");
+        }
+
+        public static ContentResult ShouldBeContent(this ActionResult o)
+        {
+            Assert.IsNotNull(o);
+            Assert.IsTrue(o.GetType() == typeof(ContentResult));
+            return o as ContentResult;
+        }
+
+        public static void ShouldRedirectToAction(this ActionResult o, string action)
+        {
+            Assert.IsNotNull(o);
+            Assert.IsTrue(o.GetType() == typeof(RedirectToRouteResult));
+            Assert.AreEqual(action, (o as RedirectToRouteResult).RouteValues["action"].ToString());
         }
     }
 }

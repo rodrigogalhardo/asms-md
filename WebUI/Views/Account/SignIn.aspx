@@ -4,7 +4,7 @@
     SignIn
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <div id="loginbox">
+    <div id="loginbox" class="ui-state-default ui-corner-all">
         <% using (Html.BeginForm())
            {%>
         <%= Html.ValidationSummary(true) %>
