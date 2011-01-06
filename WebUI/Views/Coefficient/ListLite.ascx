@@ -1,6 +1,6 @@
 <%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<System.Collections.Generic.IEnumerable<MRGSP.ASMS.Core.Model.Coefficient>>" %>
 <h2>Coeficienti</h2>
-<table>
+<table class='atbl'>
 <thead><tr><td>Nume</td><td>Formula</td></tr></thead>
 <% foreach (var o in Model)
    {

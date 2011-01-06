@@ -7,5 +7,3 @@
         <%=Html.EditorFor(o => o.Name) %>
         <%=Html.EditorFor(o => o.Code) %>    
     <% } %>
-
-    <%=Html.ClientSideValidation<DistrictInput>() %>

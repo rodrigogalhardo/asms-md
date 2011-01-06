@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<IEnumerable<Indicator>>" %>
 <h2>Indicatori</h2>
-<table>
+<table class='atbl'>
 <thead>
 <tr><td>Nume</td><td>Formula</td><td>Cod</td></tr>
 </thead>

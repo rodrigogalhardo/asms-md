@@ -5,5 +5,4 @@
         <%=Html.EditorFor(o => o.Name) %>
         <%=Html.EditorFor(o => o.Year) %>   
     <% } %>
-    <%=Html.ClientSideValidation<MeasuresetInput>() %>
     

@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.Globalization;
 using System.Text.RegularExpressions;
-using Ciloci.Flee;
 using ILCalc;
 using NUnit.Framework;
 using Omu.Encrypto;
@@ -17,7 +16,7 @@ namespace MRGSP.ASMS.Tests
         public void DtT()
         {
             object d = "13.07.2011";
-            DateTime dt = DateTime.Parse(d.ToString());
+            var dt = DateTime.Parse(d.ToString());
             Console.Out.WriteLine(dt.Day);
         }
 
@@ -103,23 +102,6 @@ namespace MRGSP.ASMS.Tests
             Console.WriteLine(calc.Evaluate("j"));
             Console.WriteLine(calc.Evaluate("j+j12"));
             Console.WriteLine(calc.Evaluate("j+j1/2+j"));
-            w.Stop();
-            Console.WriteLine(w.Elapsed);
-        }
-
-        [Test]
-        public void Ciloci()
-        {
-            var w = new Stopwatch();
-            w.Start();
-            var context = new ExpressionContext();
-
-            // Define an int variable
-            context.Variables["a"] = 5;
-            context.Variables["a1"] = 2;
-            context.Variables["a12"] = 3;
-
-            Console.WriteLine(context.CompileGeneric<decimal>("a+a1+a12").Evaluate());
             w.Stop();
             Console.WriteLine(w.Elapsed);
         }

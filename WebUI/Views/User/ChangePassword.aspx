@@ -7,4 +7,3 @@
         <%=Html.EditorFor(o => o.Password) %>
         <%=Html.EditorFor(o => o.ConfirmPassword) %>        
     <% } %>
-    <%=Html.ClientSideValidation<ChangePasswordInput>() %>

@@ -82,10 +82,10 @@ namespace MRGSP.ASMS.Service
             Do(() => fieldsetRepo.ChangeState(id, (int)FieldsetStates.HasCoefficients), FieldsetStates.HasIndicators, id);
         }
 
-        public override void Create(Fieldset o)
+        public override int Create(Fieldset o)
         {
             o.StateId = 1;
-            fieldsetRepo.Insert(o);
+            return fieldsetRepo.Insert(o);
         }
 
         public void CreateIndicator(Indicator o)
@@ -117,6 +117,16 @@ namespace MRGSP.ASMS.Service
                 a();
             else
                 Invalid();
+        }
+
+        public FieldsetDisplay GetDisplay(int id)
+        {
+            var o = u.Get<Fieldset>(id);
+            var state = u.Get<FieldsetState>(o.StateId);
+            var display = new FieldsetDisplay();
+            display.InjectFrom(o);
+            display.State = state.Name;
+            return display;
         }
 
         public IPageable<FieldsetDisplay> GetDisplayPageable(int page, int pageSize)

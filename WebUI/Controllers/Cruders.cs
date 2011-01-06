@@ -7,7 +7,7 @@ using MRGSP.ASMS.Infra.Dto;
 namespace MRGSP.ASMS.WebUI.Controllers
 {
     public class Cruders<TEntity, TInput> : BaseController
-        where TInput : IdInput, new()
+        where TInput : EntityEditInput, new()
         where TEntity : Entity, new()
     {
         protected readonly ICrudService<TEntity> s;

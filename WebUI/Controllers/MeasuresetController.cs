@@ -3,6 +3,7 @@ using MRGSP.ASMS.Core.Model;
 using MRGSP.ASMS.Core.Service;
 using MRGSP.ASMS.Infra;
 using MRGSP.ASMS.Infra.Dto;
+using Omu.Awesome.Mvc;
 
 namespace MRGSP.ASMS.WebUI.Controllers
 {
@@ -16,9 +17,18 @@ namespace MRGSP.ASMS.WebUI.Controllers
             this.s = s;
         }
 
-        public override ActionResult Index(int? page)
+        public override ActionResult Search(int page = 1, int ps = 5)
         {
-            return View(s.GetDisplayPageable(page ?? 1, 5));
+            var src = s.GetDisplayPageable(page, ps).Page;
+
+            var rows = this.RenderView("rows", src);
+
+            return Json(new { rows, more = s.Count() > page * ps });
+        }
+
+        public override ActionResult Row(int id)
+        {
+            return View("rows", new[] { s.GetDisplay(id) });
         }
 
         public ActionResult Open(int id)

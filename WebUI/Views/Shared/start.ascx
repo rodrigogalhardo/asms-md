@@ -22,39 +22,36 @@
             <%} %>
         });
 
-         function styleup() {
-            $("hr").addClass("ui-state-default");
-            $("fieldset").addClass("ui-corner-all");
-            $("select").addClass("ui-corner-all");
-            $("input:text").addClass("ui-corner-all");
-            $("input:password").addClass("ui-corner-all");
+ function styleup() {
+            $("select,fieldset,input:text,.ae-multi-lookup").addClass("ui-corner-all");
+            $("input:text,.ae-multi-lookup").addClass('ui-widget-content');
             $("input[type=submit]").addClass("abtn");
-            $("textarea").addClass("ui-corner-all");
-            $("thead").addClass("ui-state-default");
-            $("tbody tr:even").addClass("ui-widget-content");
-            $("tbody tr:odd").addClass("ui-state-highlight");
-            $("tbody a").addClass("abtn");
-            $(".shrt tbody a").removeClass("abtn").addClass("sbtn");
+            $("table thead").addClass("ui-state-default");
+
+            $(".ae-lookup-list li:even, .ae-lookup-list li:odd").removeClass('ui-widget-content ui-state-highlight');
+            $(".ae-lookup-list li:even").addClass("ui-widget-content"); 
+            $(".ae-lookup-list li:odd").addClass("ui-state-highlight");
+
+            $("table tbody tr:even, tbody tr:odd").removeClass("ui-widget-content ui-state-highlight");
+            $("table tbody tr:even").addClass("ui-widget-content");
+            $("table tbody tr:odd").addClass("ui-state-highlight");            
+            $("table tbody tr a").addClass("abtn");            
+            
             $('.ui-state-highlight a').css('color', $('.ui-state-default').css('color'));
             mybutton(".abtn");
-            mybutton(".sbtn");
+            
             $(".field-validation-error").addClass('ui-state-error ui-corner-all');
-            $(".input-validation-error").addClass('ui-state-error');
-
+            $(".input-validation-error").addClass('ui-state-error');            
         }
 
         function applyjqcolors() {
-            $.fx.speeds._default = 300;
-            $("pre").addClass("ui-state-highlight");
-            $(window).bind("resize", function (e) { $("#main-container").css("min-height", ($(window).height() - 160) + "px"); });
-            $("#main-container").css("min-height", ($(window).height() - 160) + "px");
-            $("#main-container").addClass("ui-widget-content");
-            $("h2").addClass("ui-state-default").addClass("ui-corner-all");
-            styleup();
+            $.fx.speeds._default = 300;            
+            $(window).bind("resize", function (e) { $("#main-container").css("min-height", ($(window).height() - 120) + "px"); });
+            $("#main-container").css("min-height", ($(window).height() - 120) + "px").addClass("ui-widget-content");
 
-            $("body").ajaxComplete(function () {
-                styleup();
-            });
+            styleup();
+            $("body").ajaxComplete(styleup);
+            $(document).bind("awesome", styleup);
         }
 
         function setFocusOnFirst() {

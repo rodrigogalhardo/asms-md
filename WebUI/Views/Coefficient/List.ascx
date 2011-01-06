@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<IEnumerable<Coefficient>>" %>
 
-<table>
+<table class='atbl'>
 <% foreach (var o in Model)
    {
 %>

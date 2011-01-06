@@ -40,3 +40,13 @@
 {
     cursor:pointer;
 }
+
+.lookupList
+{    
+    overflow: scroll !important;
+}
+
+.lookupSelected
+{
+    overflow: scroll !important;
+}

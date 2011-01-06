@@ -1,52 +1,20 @@
 ﻿using System;
-using System.Reflection;
 using Castle.MicroKernel.Registration;
-using MvcContrib.Castle;
 
 namespace MRGSP.ASMS.Infra
 {
     public class WindsorRegistrar
     {
-
-        private static WindsorRegistrar instance = new WindsorRegistrar();
-        private static readonly object LockObj = new object();
-
-        private WindsorRegistrar()
+        public static void Register(Type interfaceType, Type implementationType)
         {
+            IoC.Container.Register(Component.For(interfaceType).ImplementedBy(implementationType).LifeStyle.PerWebRequest);
         }
 
-        public static WindsorRegistrar Instance
+        public static void RegisterAllFromAssemblies(string a)
         {
-            get
-            {
-                if (instance == null)
-                {
-                    lock (LockObj)
-                    {
-                        if (instance == null)
-                        {
-                            instance = new WindsorRegistrar();
-                        }
-                    }
-                }
-                return instance;
-            }
-
-        }
-
-        public static void Register(string key, Type interfaceType, Type implementationType)
-        {
-            IoC.Container.AddComponent(key, interfaceType, implementationType);
-        }
-
-        public static void RegisterControllers(params Assembly[] assemblies)
-        {
-            IoC.Container.RegisterControllers(assemblies);
-        }
-
-        public static void RegisterAllFromAssemblies(string baseAssembly, string relatedAssembly)
-        {
-            IoC.Container.Register(AllTypes.Pick().FromAssemblyNamed(baseAssembly).WithService.FirstNonGenericCoreInterface(relatedAssembly));
+            IoC.Container.Register(AllTypes.FromAssemblyNamed(a).Pick()
+                                  .WithService.DefaultInterface()
+                                  .Configure(c => c.LifeStyle.PerWebRequest));
         }
     }
 }

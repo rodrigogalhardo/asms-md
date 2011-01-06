@@ -27,11 +27,11 @@ namespace MRGSP.ASMS.Service
             return contractRepo.GetWhere(new { dossierId }).Count() > 0;
         }
 
-        public override void Create(Contract o)
+        public override int Create(Contract o)
         {
             rules.MustBe(o.DossierId, DossierStates.Authorized);
             if (Exists(o.DossierId)) throw new AsmsEx("acest dosar deja are contract creat");
-            contractRepo.Insert(o);
+            return contractRepo.Insert(o);
         }
     }
 }

@@ -3,7 +3,6 @@ using System.Web.Mvc;
 using MRGSP.ASMS.Core.Model;
 using MRGSP.ASMS.Core.Repository;
 using Omu.Awesome.Mvc;
-using Omu.Awesome.Mvc.Helpers;
 
 namespace MRGSP.ASMS.WebUI.Controllers
 {
@@ -24,16 +23,10 @@ namespace MRGSP.ASMS.WebUI.Controllers
         }
 
         [HttpPost]
-        public ActionResult LookupList(string name, string code)
+        public ActionResult Search(string name, string code)
         {
-            ViewData["structure"] = new LookupListInfo
-            {
-                Key = "FarmerVersionId",
-                Columns = new[] { "Name", "FiscalCode" }
-            };
-
             if (code.Length == 13)
-                return View(@"Awesome\LookupList",farmerInfoRepo.Seek(null, code));
+                return View(@"Awesome\LookupList", farmerInfoRepo.Seek(null, code));
 
             if (name.Trim().Length > 2)
                 return View(@"Awesome\LookupList", farmerInfoRepo.Seek(name, null));

@@ -1,6 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" Inherits="System.Web.Mvc.ViewPage<MRGSP.ASMS.Infra.Dto.BankCreateInput>" %>
 
-<%@ Import Namespace="xVal.Html" %>
 <% using (Html.BeginForm())
    {%>
    <div class="short">
@@ -25,4 +24,3 @@
 </div>
 <button type="submit" class="hidden" />
 <% } %>
-<%=Html.ClientSideValidation<BankCreateInput>() %>

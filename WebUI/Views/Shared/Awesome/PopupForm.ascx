@@ -3,12 +3,13 @@
     var o = "pf" + (Model.Action + Model.Controller).ToLower();
 %>
 <script type="text/javascript">
-        $(function () {
+        $(function() {
             $("#<%=o %>").dialog({
                 show: "fade",			    
                 width: <%=Model.Width %>,
                 height: <%=Model.Height %>,
                 title: '<%=Model.Title %>',
+                <%=Model.Position %>
                 modal: true,
                 resizable: true,
                 autoOpen: false,
@@ -31,29 +32,23 @@
         }
 
         function OnSuccess<%=o %>(result) {
-            if (result == 'ok') {
+            if (result == 'ok' || typeof(result) == 'object') {
                 $("#<%=o %>").dialog('close');
                 <%if(Model.RefreshOnSuccess){%>
                     location.reload(true);
                 <%} %>
-            }            
-            <% if(Model.SuccessFunction != null){%>
-            else
-            if(typeof(result) == 'object'){
-            $("#<%=o %>").dialog('close');
-             <%=Model.SuccessFunction %>(result);
+                <% if(Model.SuccessFunction != null)
+                   {%>
+                   <%=Model.SuccessFunction %>(result);
+                <%}%>
             }
-            <%} %>
-            else {
-                update<%=o %>(result);
-            }
+            else update<%=o %>(result);            
         }        
 
         function update<%=o %>(data) {
             l<%=o %> = null;
             $("#<%=o %>").html(data);
-            $("#<%=o %> form").ajaxForm({
-            
+            $("#<%=o %> form").ajaxForm({            
             <% if(Model.ClientSideValidation){%>
                 beforeSubmit: function () { return $("#<%=o %> form").validate().valid(); },
             <%} %>
@@ -63,5 +58,5 @@
             $("#<%=o %> form input:visible:first").focus();
         }
 </script>
-<div id="<%=o %>" class="short">
+<div id="<%=o %>">
 </div>

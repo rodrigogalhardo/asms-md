@@ -241,7 +241,7 @@ namespace MRGSP.ASMS.Core.Model
         public decimal AmountPayed { get; set; }
         public decimal Value { get; set; }
         public bool Disqualified { get; set; }
-        public int FarmerVersionId { get; set; }
+        public int? FarmerVersionId { get; set; }
         public decimal InvestmentValue { get; set; }
 
         public int FpiId { get; set; }

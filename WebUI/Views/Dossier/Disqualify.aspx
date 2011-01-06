@@ -4,5 +4,3 @@
 <%=Html.HiddenFor(o => o.DossierId) %>
 <%=Html.EditorFor(o => o.Reason) %>
 <%} %>
-
-<%=Html.ClientSideValidation<DisqualifyInput>() %>

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using MRGSP.ASMS.Core;
 using MRGSP.ASMS.Core.Model;
 using MRGSP.ASMS.Core.Repository;
 using MRGSP.ASMS.Core.Service;
@@ -9,12 +8,12 @@ using Omu.Encrypto;
 
 namespace MRGSP.ASMS.Service
 {
-    public class UserService : IUserService
+    public class UserService : CrudService<User>, IUserService
     {
-        private readonly IUserRepo repo;
+        private new readonly IUserRepo repo;
         private readonly IHasher hasher = new Hasher();
 
-        public UserService(IUserRepo repo)
+        public UserService(IUserRepo repo) : base(repo)
         {
             this.repo = repo;
         }
@@ -24,9 +23,11 @@ namespace MRGSP.ASMS.Service
             return repo.Insert(user);
         }
 
-        public User Get(int id)
+        public override User Get(int id)
         {
-            return repo.Get(id);
+            var o = repo.Get(id);
+            o.Roles = repo.GetRoles(id);
+            return o;
         }
 
         public User Get(string name)
@@ -57,13 +58,13 @@ namespace MRGSP.ASMS.Service
             };
         }
 
-        public long Create(User user)
+        public override int Create(User user)
         {
             user.Password = hasher.Encrypt(user.Password);
-            return repo.Insert(user);
+            return base.Create(user);
         }
 
-        public void Save(User user)
+        public override void Save(User user)
         {
             repo.ChangeRoles(user);
         }

@@ -13,8 +13,8 @@ namespace MRGSP.ASMS.Tests
     {
         MeasureController c;
 
-#pragma warning disable 649
         [Fake]
+#pragma warning disable 649
         IBuilder<Measure, MeasureInput> v;
         [Fake]
         ICrudService<Measure> s;
@@ -28,10 +28,9 @@ namespace MRGSP.ASMS.Tests
         }
 
         [Test]
-        public void IndexShouldCallGetPageable()
+        public void IndexShouldReturnViewCruds()
         {
-            c.Index(null);
-            A.CallTo(() => s.GetPageable(1, 10)).MustHaveHappened();
+            c.Index().ShouldBeViewResult().ViewName.ShouldEqual("cruds");
         }
 
         [Test]
@@ -49,9 +48,9 @@ namespace MRGSP.ASMS.Tests
         }
 
         [Test]
-        public void CreateShouldReturnContentOk()
+        public void CreateShouldReturnJson()
         {
-            c.Create(A.Fake<MeasureInput>()).ShouldBeContentOk();
+            c.Create(A.Fake<MeasureInput>()).ShouldBeJson();
         }
 
         [Test]
@@ -71,9 +70,9 @@ namespace MRGSP.ASMS.Tests
         }
 
         [Test]
-        public void EditShouldReturnContentOk()
+        public void EditShouldReturnJson()
         {
-            c.Edit(A.Fake<MeasureInput>()).ShouldBeContentOk();
+            c.Edit(A.Fake<MeasureInput>()).ShouldBeJson();
             A.CallTo(() => v.BuildEntity(A<MeasureInput>.Ignored, A<int>.Ignored)).MustHaveHappened();
             A.CallTo(() => s.Save(A<Measure>.Ignored)).MustHaveHappened();
         }
@@ -96,7 +95,7 @@ namespace MRGSP.ASMS.Tests
         [Test]
         public void DeleteShouldRedirectToIndex()
         {
-            c.Delete(1).ShouldRedirectToAction("index");
+            c.Delete(1).ShouldBeJson();
             A.CallTo(() => s.Delete(1)).MustHaveHappened();
         }
     }

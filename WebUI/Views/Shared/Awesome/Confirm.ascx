@@ -22,7 +22,7 @@
                     }
                 }
             });
-            $(".<%=o %>").click(function () {
+            $(".<%=o %>").live('click', function () {
                 currentForm<%=o %> = $(this).closest('form');
                 $("#dialog-confirm-<%=o %>").dialog('open');
                 return false;

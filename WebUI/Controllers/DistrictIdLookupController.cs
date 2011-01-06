@@ -4,7 +4,6 @@ using System.Web.Mvc;
 using MRGSP.ASMS.Core.Model;
 using MRGSP.ASMS.Core.Repository;
 using Omu.Awesome.Mvc;
-using Omu.Awesome.Mvc.Helpers;
 
 namespace MRGSP.ASMS.WebUI.Controllers
 {
@@ -18,13 +17,9 @@ namespace MRGSP.ASMS.WebUI.Controllers
         }
 
         [HttpPost]
-        public ActionResult LookupList(string search)
+        public ActionResult Search(string search)
         {
-            ViewData["structure"] = new LookupListInfo
-            {
-                Key = "Id",
-                Columns = new[] { "Name", "Code" }
-            };
+            //TODO: optimize
             return View(@"Awesome\LookupList", repo.GetAll().Where(o => o.Name.StartsWith(search, StringComparison.InvariantCultureIgnoreCase)));
         }
 

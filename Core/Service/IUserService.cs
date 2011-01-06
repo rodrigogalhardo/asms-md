@@ -16,6 +16,7 @@ namespace MRGSP.ASMS.Core.Service
         void Activate(int id);
         void Deactivate(int id);
         Measureset GetActive();
+        MeasuresetDisplay GetDisplay(int id);
     }
 
     public interface IFieldsetService : ICrudService<Fieldset>
@@ -36,6 +37,7 @@ namespace MRGSP.ASMS.Core.Service
         Fieldset GetActive();
         IEnumerable<Field> GetFieldsByDossier(int dossierId);
         IPageable<FieldsetDisplay> GetDisplayPageable(int page, int pageSize);
+        FieldsetDisplay GetDisplay(int id);
     }
 
     public interface IEcoCalc
@@ -89,17 +91,14 @@ namespace MRGSP.ASMS.Core.Service
         void AssureAbilityToCreateDossier();
     }
 
-    public interface IUserService
+    public interface IUserService : ICrudService<User>
     {
         long Insert(User user);
-        User Get(int id);
         IPageable<User> GetPage(int page, int pageSize);
-        long Create(User user);
         IEnumerable<string> GetRoles(int id);
         bool Exists(string name);
         IEnumerable<Role> GetRoles();
         bool ChangePassword(int id, string password);
-        void Save(User user);
         User GetFull(int id);
         User Get(string name);
         bool Validate(string name, string password);
@@ -145,11 +144,12 @@ namespace MRGSP.ASMS.Core.Service
     
     public interface ICrudService<T> where T : Entity, new()
     {
-        void Create(T e);
+        int Create(T e);
         void Save(T e);
         IPageable<T> GetPageable(int page, int pageSize);
         void Delete(int id);
         T Get(int id);
+        int Count();
     }
   
 
