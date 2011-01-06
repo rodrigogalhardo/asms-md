@@ -5,6 +5,7 @@ using MRGSP.ASMS.Core.Repository;
 using MRGSP.ASMS.Core.Service;
 using MRGSP.ASMS.Infra;
 using Stimulsoft.Report;
+using Stimulsoft.Report.WebFx;
 
 namespace MRGSP.ASMS.WebUI
 {
@@ -96,6 +97,7 @@ namespace MRGSP.ASMS.WebUI
             StiWebViewerFx1.ShowExportToPcx = false;
 
             StiWebViewerFx1.ShowExportToSvg = false;
+            StiWebViewerFxOptions.Connection.RelativeUrls = true;
 
         }
     }

@@ -4,17 +4,37 @@ using MRGSP.ASMS.Core.Model;
 using MRGSP.ASMS.Core.Service;
 using MRGSP.ASMS.Infra;
 using MRGSP.ASMS.Infra.Dto;
+using Omu.Awesome.Mvc;
 
 namespace MRGSP.ASMS.WebUI.Controllers
 {
-    public class Crudere<TEntity, TCreateInput, TEditInput> : Controller
+    /// <summary>
+    /// generic crud controller for entities where there is difference between the edit and create view
+    /// </summary>
+    /// <typeparam name="TEntity"> the entity</typeparam>
+    /// <typeparam name="TCreateInput">create viewmodel</typeparam>
+    /// <typeparam name="TEditInput">edit viewmodel</typeparam>
+    public class Crudere<TEntity, TCreateInput, TEditInput> : BaseController
         where TCreateInput : new()
-        where TEditInput : IdInput, new()
+        where TEditInput : EntityEditInput, new()
         where TEntity : Entity, new()
     {
         protected readonly ICrudService<TEntity> s;
-        protected readonly IBuilder<TEntity, TCreateInput> v;
+        private readonly IBuilder<TEntity, TCreateInput> v;
         private readonly IBuilder<TEntity, TEditInput> ve;
+
+        protected virtual string EditView
+        {
+            get { return "edit"; }
+        }
+
+        public virtual ActionResult Search(int page = 1, int ps = 5)
+        {
+            var src = s.GetPageable(page, ps).Page;
+            var rows = this.RenderView("rows", src);
+
+            return Json(new { rows, more = s.Count() > page * ps });
+        }
 
         public Crudere(ICrudService<TEntity> s, IBuilder<TEntity, TCreateInput> v, IBuilder<TEntity, TEditInput> ve)
         {
@@ -23,9 +43,14 @@ namespace MRGSP.ASMS.WebUI.Controllers
             this.ve = ve;
         }
 
-        public virtual ActionResult Index(int? page)
+        public virtual ActionResult Index()
         {
-            return View(s.GetPageable(page ?? 1, 5));
+            return View("cruds");
+        }
+
+        public virtual ActionResult Row(int id)
+        {
+            return View("rows", new[] { s.Get(id) });
         }
 
         public ActionResult Create()
@@ -34,19 +59,18 @@ namespace MRGSP.ASMS.WebUI.Controllers
         }
 
         [HttpPost]
-        public virtual ActionResult Create(TCreateInput o)
+        public ActionResult Create(TCreateInput o)
         {
             if (!ModelState.IsValid)
                 return View(v.RebuildInput(o));
-            s.Create(v.BuildEntity(o));
-            return Content("ok");
+            return Json(new { Id = s.Create(v.BuildEntity(o)) });
         }
 
         public ActionResult Edit(int id)
         {
             var o = s.Get(id);
             if (o == null) throw new AsmsEx("this entity doesn't exist anymore");
-            return View(ve.BuildInput(o));
+            return View(EditView, ve.BuildInput(o));
         }
 
         [HttpPost]
@@ -55,21 +79,21 @@ namespace MRGSP.ASMS.WebUI.Controllers
             try
             {
                 if (!ModelState.IsValid)
-                    return View(ve.RebuildInput(input, input.Id));
+                    return View(EditView, ve.RebuildInput(input, input.Id));
                 s.Save(ve.BuildEntity(input, input.Id));
             }
             catch (AsmsEx ex)
             {
                 return Content(ex.Message);
             }
-            return Content("ok");
+            return Json(new { input.Id });
         }
 
         [HttpPost]
         public ActionResult Delete(int id)
         {
             s.Delete(id);
-            return RedirectToAction("Index");
+            return Json(new { Id = id });
         }
     }
 }

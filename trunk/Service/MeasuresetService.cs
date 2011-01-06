@@ -61,6 +61,16 @@ namespace MRGSP.ASMS.Service
             a();
         }
 
+        public MeasuresetDisplay GetDisplay(int id)
+        {
+            var o = msRepo.Get(id);
+            var state = sRepo.Get(o.StateId);
+            var display = new MeasuresetDisplay();
+            display.InjectFrom(o);
+            display.State = state.Name;
+            return display;
+        }
+
         public IPageable<MeasuresetDisplay> GetDisplayPageable(int page, int pageSize)
         {
             var ms = msRepo.GetPageable(page, pageSize);

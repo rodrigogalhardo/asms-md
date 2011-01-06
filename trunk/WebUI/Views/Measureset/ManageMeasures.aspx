@@ -6,7 +6,6 @@
 
     <%:Html.ActionLink("Inapoi", "Open", new {id=Model.Id } ) %><br />
 
-
     <h2>
         Masuri asignate</h2>
     <% Html.RenderAction("Assigned", new { id = Model.Id }); %>

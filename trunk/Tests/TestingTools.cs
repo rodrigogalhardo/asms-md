@@ -1,5 +1,4 @@
-﻿using System;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using MRGSP.ASMS.Core.Model;
 using NUnit.Framework;
 
@@ -19,7 +18,7 @@ namespace MRGSP.ASMS.Tests
 
         public static User AsUser(this string name)
         {
-            return new User()
+            return new User
                        {
                            Name = name,
                            Password = name + "pass",
@@ -73,6 +72,17 @@ namespace MRGSP.ASMS.Tests
             Assert.IsNotNull(o);
             Assert.IsTrue(o.GetType() == typeof(RedirectToRouteResult));
             Assert.AreEqual(action, (o as RedirectToRouteResult).RouteValues["action"].ToString());
+        }
+
+        public static void ShouldBeTrue(this bool o)
+        {
+            Assert.IsTrue(o);
+        }
+
+        public static void ShouldBeJson(this ActionResult o)
+        {
+            Assert.IsNotNull(o);
+            Assert.IsTrue(o.GetType() == typeof(JsonResult));
         }
     }
 }

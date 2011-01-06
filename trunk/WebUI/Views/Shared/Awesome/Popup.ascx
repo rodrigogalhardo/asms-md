@@ -10,8 +10,8 @@
                 height: <%=Model.Height %>,
                 title: '<%=Model.Title %>',
                 modal: <%=Model.Modal.ToString().ToLower() %>,
-                resizable: <%=Model.Resizable.ToString().ToLower() %>,
-                autoOpen: false,  
+                <%=Model.Position %>
+                resizable: <%=Model.Resizable.ToString().ToLower() %>,                
                 <%if(Model.Buttons.Count > 0)
                 {%>
                 buttons: {
@@ -24,8 +24,8 @@
                      "<%=button.Key %>" : <%=button.Value %><%=i == Model.Buttons.Count ? "": "," %>
                     <%} %>                    
                 },
-                <%} %>              
-                close: function () { $("#<%=o %>").html(""); }
+                <%} %>     
+                autoOpen: false,
             }); 
         });
 
@@ -33,13 +33,22 @@
         function call<%=o %>(<%=JsTools.MakeParameters(Model.Parameters) %>) { 
             if(l<%=o %> != null) return;
             l<%=o %> = true;
+            <%if(Model.Content == null)
+              {%>
             $.get('<%=Url.Action(Model.Action, Model.Controller) %>',            
             <%=JsTools.JsonParam(Model.Parameters) %>            
             function(d){
             l<%=o %> = null;
             $("#<%=o %>").html(d).dialog('open');
             });
+            <%
+              }else
+              {%>
+            $("#<%=o %>").dialog('open');  
+            l<%=o %> = null;
+              <%}%>            
         }  
 </script>
 <div id="<%=o %>">
+<%=Model.Content %>
 </div>

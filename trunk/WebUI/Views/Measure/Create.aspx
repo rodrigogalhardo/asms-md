@@ -7,4 +7,3 @@
     <%=Html.EditorFor(o => o.Description) %>
     <%=Html.EditorFor(o => o.NoContest) %>
     <% } %>
-    <%=Html.ClientSideValidation<MeasureInput>() %>

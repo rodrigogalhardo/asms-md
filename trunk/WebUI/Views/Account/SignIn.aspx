@@ -18,5 +18,4 @@
         </div>
         <% } %>
     </div>
-    <%=Html.ClientSideValidation<SignInInput>() %>
 </asp:Content>

@@ -11,42 +11,40 @@
     </h2>
     <%=Html.Confirm("Sunteti sigur ca doriti sa efectuati aceasta actiune ?") %>
     <% Html.RenderPartial("back"); %>
-    <ul class="bl">
+    
     
     <% if (States.Registered.IsEqual(Model.StateId))
        {%>
-       <li>
-    <%:Html.ActionLink("alege masuri", "ManageMeasures", new { measuresetId = Model.Id }, new{@class="abtn"})%></li>
-    <li>
+     
+    <%:Html.ActionLink("alege masuri", "ManageMeasures", new { measuresetId = Model.Id }, new{@class="abtn"})%>
+ 
     <form method="post" action="<%:Url.Action("Activate") %>">
     <input type="hidden" name="id" value="<%:Model.Id %>" class="confirm" />
-    <% Html.RenderPartial("save"); %>
+        <input type="submit" value="Salveaza" />
     </form>
-    </li>
+   <br />
     <%}
        else if (States.Active.IsEqual(Model.StateId))
        {%>
-    <li>
-        <%=Html.ActionLink("planul financiar","Index","Fpi",new{measuresetId = Model.Id}, new{@class="abtn"} ) %></li>
-    <li>
+   
+        <%=Html.ActionLink("planul financiar","Index","Fpi",new{measuresetId = Model.Id}, new{@class="abtn"} ) %>
+ 
     <form method="post" action="<%:Url.Action("deactivate") %>">
     <input type="hidden" name="id" value="<%:Model.Id %>" />
     <input type="submit" value="dezactiveaza" class="confirm"/>
-    </form></li>
+    </form>
     <%}
        else
-       {%><li>
-        acest set de masuri este inactiv</li>
+       {%>
+        acest set de masuri este inactiv
     <%}%>
-    <li>
     <script type="text/javascript">
         function openReport(o) {
             window.open('<%=Url.Content(@"~\Repor.aspx") %>' + '?report=crossDistrictMeasure&measuresetId=' + o.MeasuresetId + '&date='+o.Date, 'newtaborsomething');
         }
     </script>
-
+    <br />
     <%=Html.MakePopupForm<ReportController>(o => o.CrossDistrictMeasure(0), successFunction:"openReport", width:500, height:200) %>
     <%=Html.PopupFormActionLink<ReportController>(o => o.CrossDistrictMeasure(Model.Id),"raport raioane x masuri", new{@class="abtn"}) %>
-    </li>
-    </ul>
+
 </asp:Content>

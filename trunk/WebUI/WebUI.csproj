@@ -39,32 +39,18 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Castle.Core, Version=1.2.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+    <Reference Include="Castle.Core, Version=2.5.1.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\libs\Castle.Core.dll</HintPath>
+      <HintPath>..\packages\Castle.Core.2.5.2\lib\NET35\Castle.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Castle.MicroKernel, Version=2.1.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+    <Reference Include="Castle.Windsor, Version=2.5.1.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\libs\Castle.MicroKernel.dll</HintPath>
-    </Reference>
-    <Reference Include="Castle.Windsor, Version=2.1.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\libs\Castle.Windsor.dll</HintPath>
+      <HintPath>..\packages\Castle.Windsor.2.5.2\lib\NET40\Castle.Windsor.dll</HintPath>
     </Reference>
     <Reference Include="Elmah">
       <HintPath>..\packages\elmah.1.1\lib\Elmah.dll</HintPath>
     </Reference>
-    <Reference Include="HyperPropertyDescriptor">
-      <HintPath>..\libs\HyperPropertyDescriptor.dll</HintPath>
-    </Reference>
-    <Reference Include="log4net">
-      <HintPath>..\libs\log4net.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="MvcContrib.Castle, Version=2.0.36.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\libs\MvcContrib.Castle.dll</HintPath>
-    </Reference>
     <Reference Include="Omu.Awesome.Core">
       <HintPath>..\libs\Omu.Awesome.Core.dll</HintPath>
     </Reference>
@@ -126,10 +112,6 @@
     <Reference Include="System.Web.Mobile">
       <Private>True</Private>
     </Reference>
-    <Reference Include="xVal, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f8fbed92c68c4006, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\libs\xVal.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_GlobalResources\Messages.Designer.cs">
@@ -166,7 +148,6 @@
     <Compile Include="Controllers\FieldController.cs" />
     <Compile Include="Controllers\FieldsetController.cs" />
     <Compile Include="Controllers\FillFieldsController.cs" />
-    <Compile Include="Controllers\FillObject.cs" />
     <Compile Include="Controllers\FpiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IndicatorController.cs" />
@@ -181,6 +162,7 @@
     <Compile Include="Controllers\PoStateAjaxDropdownController.cs" />
     <Compile Include="Controllers\RankController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
+    <Compile Include="Controllers\RolesLookupController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Helpers\Extensions.cs" />
     <Compile Include="FormAuths.cs" />
@@ -200,6 +182,7 @@
     <Compile Include="RouteConfigurator.cs" />
     <Compile Include="WhitespaceModule.cs" />
     <Compile Include="WindsorConfigurator.cs" />
+    <Compile Include="WindsorControllerFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Awesome.css" />
@@ -235,7 +218,6 @@
     <Content Include="Repor.aspx" />
     <Content Include="Scripts\Awesome.js" />
     <Content Include="Scripts\dp.ro.js" />
-    <Content Include="Scripts\xVal.jquery.validate.js" />
     <Content Include="Views\Address\Create.aspx" />
     <Content Include="Views\Address\Index.ascx" />
     <Content Include="Views\Admin\Index.aspx" />
@@ -254,15 +236,50 @@
     <Content Include="Views\Contract\Create.ascx" />
     <Content Include="Views\Contract\Index.ascx" />
     <Content Include="Views\Contract\view.ascx" />
+    <Content Include="Views\DistrictIdLookup\Item.ascx" />
+    <Content Include="Views\District\header.ascx" />
+    <Content Include="Views\District\hrow.ascx" />
+    <Content Include="Views\District\rows.ascx" />
+    <Content Include="Views\District\searchBox.ascx" />
     <Content Include="Views\Dossier\ChangeAmountPayed.aspx" />
     <Content Include="Views\Dossier\CalcItems.ascx" />
     <Content Include="Views\Dossier\CoefficientValues.ascx" />
     <Content Include="Views\Dossier\Values.aspx" />
+    <Content Include="Views\FarmerVersionIdLookup\item.ascx" />
     <Content Include="Views\Fieldset\Edit.aspx" />
+    <Content Include="Views\Fieldset\header.ascx" />
+    <Content Include="Views\Fieldset\hrow.ascx" />
+    <Content Include="Views\Fieldset\rows.ascx" />
+    <Content Include="Views\Fieldset\searchBox.ascx" />
+    <Content Include="Views\Field\header.ascx" />
+    <Content Include="Views\Field\hrow.ascx" />
+    <Content Include="Views\Field\rows.ascx" />
+    <Content Include="Views\Field\searchBox.ascx" />
     <Content Include="Views\Fpi\State.ascx" />
+    <Content Include="Views\Locality\header.ascx" />
+    <Content Include="Views\Locality\hrow.ascx" />
+    <Content Include="Views\Locality\rows.ascx" />
+    <Content Include="Views\Locality\searchBox.ascx" />
     <Content Include="Views\Measureset\Edit.aspx" />
+    <Content Include="Views\Measureset\header.ascx" />
+    <Content Include="Views\Measureset\hrow.ascx" />
+    <Content Include="Views\Measureset\rows.ascx" />
+    <Content Include="Views\Measureset\searchBox.ascx" />
+    <Content Include="Views\Measure\header.ascx" />
+    <Content Include="Views\Measure\hrow.ascx" />
+    <Content Include="Views\Measure\rows.ascx" />
+    <Content Include="Views\Measure\searchBox.ascx" />
     <Content Include="Views\PaymentOrder\Create.ascx" />
     <Content Include="Views\PaymentOrder\Edit.ascx" />
+    <Content Include="Views\Perfecter\header.ascx" />
+    <Content Include="Views\Perfecter\hrow.ascx" />
+    <Content Include="Views\Perfecter\rows.ascx" />
+    <Content Include="Views\Perfecter\searchBox.ascx" />
+    <Content Include="Views\RolesLookup\Item.ascx" />
+    <Content Include="Views\Shared\Awesome\MultiLookup.ascx" />
+    <Content Include="Views\Shared\Awesome\MultiLookupPopup.ascx" />
+    <Content Include="Views\Shared\Awesome\Popup.ascx" />
+    <Content Include="Views\Shared\cruds.aspx" />
     <Content Include="Views\Shared\ed.ascx" />
     <Content Include="Views\Email\Create.aspx" />
     <Content Include="Views\Email\Index.ascx" />
@@ -275,7 +292,6 @@
     <Content Include="Views\Farmer\DisplayOrganization.ascx" />
     <Content Include="Views\Farmer\Index.aspx" />
     <Content Include="Views\Locality\Create.aspx" />
-    <Content Include="Views\Locality\Index.aspx" />
     <Content Include="Views\Report\CrossDistrictMeasure.ascx" />
     <Content Include="Views\Fpi\ChangeAmount.aspx" />
     <Content Include="Views\Rank\comp.ascx" />
@@ -299,9 +315,7 @@
     <Content Include="Views\Measureset\AssignedListLite.ascx" />
     <Content Include="Views\Measureset\View.aspx" />
     <Content Include="Views\Perfecter\Create.aspx" />
-    <Content Include="Views\Perfecter\Index.aspx" />
     <Content Include="Views\District\Create.aspx" />
-    <Content Include="Views\District\Index.aspx" />
     <Content Include="Views\Measureset\Assigned.ascx" />
     <Content Include="Views\Measureset\ManageMeasures.aspx" />
     <Content Include="Views\Measureset\Create.aspx" />
@@ -309,7 +323,6 @@
     <Content Include="Views\Measureset\Open.aspx" />
     <Content Include="Views\Measureset\Unassigned.ascx" />
     <Content Include="Views\Measure\Create.aspx" />
-    <Content Include="Views\Measure\Index.aspx" />
     <Content Include="Views\Fieldset\Assigned.ascx" />
     <Content Include="Views\Fieldset\AssignedListLite.ascx" />
     <Content Include="Views\Fieldset\Create.aspx" />
@@ -318,7 +331,6 @@
     <Content Include="Views\Fieldset\Open.aspx" />
     <Content Include="Views\Fieldset\Unassigned.ascx" />
     <Content Include="Views\Field\Create.aspx" />
-    <Content Include="Views\Field\Index.aspx" />
     <Content Include="Views\Indicator\Index.aspx" />
     <Content Include="Views\Indicator\List.ascx" />
     <Content Include="Views\Indicator\ListLite.ascx" />
@@ -360,7 +372,10 @@
     <Content Include="Views\User\ChangePassword.aspx" />
     <Content Include="Views\User\Create.aspx" />
     <Content Include="Views\User\Edit.aspx" />
-    <Content Include="Views\User\Index.aspx" />
+    <Content Include="Views\User\header.ascx" />
+    <Content Include="Views\User\hrow.ascx" />
+    <Content Include="Views\User\rows.ascx" />
+    <Content Include="Views\User\searchBox.ascx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

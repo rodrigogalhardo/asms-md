@@ -1,6 +1,6 @@
 <%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<System.Collections.Generic.IEnumerable<MRGSP.ASMS.Core.Model.Measure>>" %>
 
-<table>
+<table class='atbl'>
     <%
         foreach (var o in Model)
         {%>

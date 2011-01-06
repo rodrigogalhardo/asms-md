@@ -2,22 +2,28 @@
 <%
     var o = ViewData["prop"].ToString();
 %>
-
-<form id="<%="searchForm"+o %>" action="<%=Url.Action("LookupList") %>" method="post">
-<%
-    Html.RenderAction("SearchForm"); %>
+<form id="lsf<%=o %>" action="<%=Url.Action("search") %>" method="post">
+<% Html.RenderAction("SearchForm"); %>
 </form>
-
-<div id="<%=o %>list">
+<div id='<%=o %>lsh'>
+<% Html.RenderAction("header"); %>
+</div>
+<div id="<%=o%>ls" class="lookupList">
 </div>
 <script type="text/javascript">
-$('#<%="searchForm"+o %> input').keypress(function(e){ if(e.which == 13){ e.preventDefault(); $('#<%="searchForm"+o %>').submit(); } })
-$('#<%="searchForm"+o %>').ajaxForm({
+function lay<%=o %>() {
+    var av = $("#lp<%=o %>").height() - $('#lsf<%=o %>').height() - $('#<%=o %>lsh').height();
+    $('#<%=o %>ls').css('height', av+'px');     
+} 
+$("#lp<%=o %>").bind( "dialogresize", lay<%=o %>);
+$('#lsf<%=o %> input').keypress(function(e){ if(e.which == 13){ e.preventDefault(); $('#lsf<%=o %>').submit(); } })
+$('#lsf<%=o %>').ajaxForm({
     success: function (d) {
-        $('#<%=o %>list').html(d);
-        $("#<%=o %>list table tbody tr").click(grow<%=o %>Click);                       
-        $('#<%="searchForm"+o %> input:first').focus();
+        lay<%=o %>();
+        $('#<%=o%>ls').html(d);
+        $("#<%=o%>ls li").click(lgc<%=o %>);        
     }
 });
-$('#<%="searchForm"+o %>').submit();
+$('#lsf<%=o %>').submit();
+$('#lsf<%=o %> input:first').focus();
 </script>

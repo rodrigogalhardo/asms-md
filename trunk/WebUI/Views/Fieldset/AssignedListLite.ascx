@@ -2,7 +2,7 @@
 <h2>
 Campuri asignate
 </h2>
-<table>
+<table class='atbl'>
 <thead><tr><td>Nume</td><td>Descriere</td><td>Cod</td></tr></thead>
     <%
         foreach (var o in Model)

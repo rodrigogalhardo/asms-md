@@ -73,32 +73,23 @@ namespace MRGSP.ASMS.Infra
         }
     }
 
-    public class RolesToLookup : LoopValueInjection<IEnumerable<Role>, object>
+    public class RolesToInts : LoopValueInjection<IEnumerable<Role>, IEnumerable<int>>
     {
-        protected override object SetValue(IEnumerable<Role> sourcePropertyValue)
+        protected override IEnumerable<int> SetValue(IEnumerable<Role> v)
         {
-            var roles = IoC.Resolve<IUserService>().GetRoles();
-
-            return roles.Select(o => new SelectListItem
-                                         {
-                                             Text = o.Name,
-                                             Value = o.Id.ToString(),
-                                             Selected = sourcePropertyValue.Select(v => v.Id).Contains(o.Id)
-                                         });
+            return v.Select(o => o.Id);
         }
     }
 
-    public class LookupToRoles : LoopValueInjection<object, IEnumerable<Role>>
+    public class IntsToRoles : LoopValueInjection<IEnumerable<int>, IEnumerable<Role>>
     {
-        protected override IEnumerable<Role> SetValue(object sourcePropertyValue)
+        protected override IEnumerable<Role> SetValue(IEnumerable<int> v)
         {
-            if (sourcePropertyValue == null) return Enumerable.Empty<Role>();
-
-            var keys = (string[])sourcePropertyValue;
+            if (v == null) return Enumerable.Empty<Role>();
 
             return IoC.Resolve<IUserService>()
                 .GetRoles()
-                .Where(o => keys.Contains(o.Id.ToString()));
+                .Where(o => v.Contains(o.Id));
         }
     }
 

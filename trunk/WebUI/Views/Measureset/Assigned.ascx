@@ -1,5 +1,5 @@
 <%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<IEnumerable<Measure>>" %>
-<table>
+<table class='atbl'>
     <%
         foreach (var o in Model)
         {%>

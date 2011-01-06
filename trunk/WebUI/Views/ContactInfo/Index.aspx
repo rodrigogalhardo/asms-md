@@ -1,10 +1,9 @@
 <%@ Page Title="" Language="C#" Inherits="System.Web.Mvc.ViewPage" MasterPageFile="~/Views/Shared/Site.Master" %>
-<%@ Import Namespace="MRGSP.ASMS.WebUI.Helpers" %>
 
 <asp:Content runat="server" ID="Title" ContentPlaceHolderID="TitleContent">
 </asp:Content>
 <asp:Content runat="server" ID="Main" ContentPlaceHolderID="MainContent">
-<% Html.Confirm("sunteti sigur ?"); %>
+<%=Html.Confirm("sunteti sigur ?") %>
     <%
         var id = ViewData["id"]; %>
     <% Html.RenderAction("Info", "Farmer", new { id }); %>

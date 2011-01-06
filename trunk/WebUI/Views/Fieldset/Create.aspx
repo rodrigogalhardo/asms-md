@@ -4,4 +4,3 @@
     <%=Html.EditorFor(o => o.Name) %>
     <%=Html.EditorFor(o => o.Year) %>
     </form>
-    <%=Html.ClientSideValidation<FieldsetInput>() %>

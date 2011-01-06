@@ -19,14 +19,14 @@ namespace MRGSP.ASMS.Service
             return repo.GetPageable(page, pageSize);
         }
 
-        public T Get(int id)
+        public virtual T Get(int id)
         {
             return repo.Get(id);
         }
 
-        public virtual void Create(T e)
+        public virtual int Create(T e)
         {
-            repo.Insert(e);
+            return repo.Insert(e);
         }
 
         public virtual void Save(T e)
@@ -37,6 +37,11 @@ namespace MRGSP.ASMS.Service
         public void Delete(int id)
         {
             repo.Delete(id);
+        }
+
+        public int Count()
+        {
+            return repo.Count();
         }
     }
 }

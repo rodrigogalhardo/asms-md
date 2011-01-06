@@ -47,7 +47,7 @@ namespace MRGSP.ASMS.Service
         {
             var c = u.Get<Contract>(id);
             var dossier = u.Get<Dossier>(c.DossierId);
-            var fvi = u.Get<FarmerVersionInfo>(dossier.FarmerVersionId);
+            var fvi = u.Get<FarmerVersionInfo>(dossier.FarmerVersionId.Value);
             var measure = u.Get<Measure>(dossier.MeasureId);
             var a = u.GetWhere<AddressInfo>(new { fvi.FarmerId, EndDate = DBNull.Value }).FirstOrDefault();
 
@@ -86,7 +86,7 @@ namespace MRGSP.ASMS.Service
                          dossier.AmountPayed; 
 
 
-            var fvi = u.Get<FarmerVersionInfo>(dossier.FarmerVersionId);
+            var fvi = u.Get<FarmerVersionInfo>(dossier.FarmerVersionId.Value);
             var ai = u.GetWhere<AddressInfo>(new { fvi.FarmerId, EndDate = DBNull.Value }).FirstOrDefault();
 
             return new

@@ -29,7 +29,10 @@ namespace MRGSP.ASMS.Infra.Dto
         public string ConfirmPassword { get; set; }
 
         [DisplayName("Roluri")]
-        public object Roles { get; set; }
+        [UIHint("Lookup")]
+        [Lookup(Multiselect = true)]
+        [Req]
+        public IEnumerable<int> Roles { get; set; }
     }
 
     public class ErrorDisplay
@@ -224,7 +227,7 @@ namespace MRGSP.ASMS.Infra.Dto
         public DateTime Date { get; set; }
     }
 
-    public class MeasuresetInput : IdInput
+    public class MeasuresetInput : EntityEditInput
     {
         [Req]
         [DisplayName("Nume")]
@@ -237,7 +240,7 @@ namespace MRGSP.ASMS.Infra.Dto
         public int Year { get; set; }
     }
 
-    public class MeasuresetEditInput : IdInput
+    public class MeasuresetEditInput : EntityEditInput
     {
         [Req]
         [DisplayName("Nume")]
@@ -245,7 +248,7 @@ namespace MRGSP.ASMS.Infra.Dto
         public string Name { get; set; }
     }
 
-    public class FieldsetInput : IdInput
+    public class FieldsetInput : EntityEditInput
     {
         [Req]
         [DisplayName("Nume")]
@@ -258,7 +261,7 @@ namespace MRGSP.ASMS.Infra.Dto
 
     }
 
-    public class FieldsetEditInput : IdInput
+    public class FieldsetEditInput : EntityEditInput
     {
         [Req]
         [DisplayName("Nume")]
@@ -272,7 +275,7 @@ namespace MRGSP.ASMS.Infra.Dto
         public IEnumerable<Field> Fields { get; set; }
     }
 
-    public class PerfecterInput : IdInput
+    public class PerfecterInput : EntityEditInput
     {
         [Req]
         [DisplayName("Nume")]
@@ -280,7 +283,7 @@ namespace MRGSP.ASMS.Infra.Dto
         public string Name { get; set; }
     }
 
-    public class LocalityInput : IdInput
+    public class LocalityInput : EntityEditInput
     {
         [Req]
         [DisplayName("Denumire")]
@@ -288,7 +291,7 @@ namespace MRGSP.ASMS.Infra.Dto
         public string Name { get; set; }
     }
 
-    public class DistrictInput : IdInput
+    public class DistrictInput : EntityEditInput
     {
         [Req]
         [DisplayName("Nume")]
@@ -302,7 +305,7 @@ namespace MRGSP.ASMS.Infra.Dto
 
     }
 
-    public class FieldInput : IdInput
+    public class FieldInput : EntityEditInput
     {
         [Req]
         [DisplayName("Nume")]
@@ -324,7 +327,7 @@ namespace MRGSP.ASMS.Infra.Dto
         public bool HasError { get { return !string.IsNullOrEmpty(ErrorMessage); } }
     }
 
-    public class MeasureInput : IdInput
+    public class MeasureInput : EntityEditInput
     {
         [Req]
         [DisplayName("Nume")]
@@ -344,21 +347,26 @@ namespace MRGSP.ASMS.Infra.Dto
     {
         [Req]
         [StringLength(20)]
+        [DisplayName("Prenume")]
         public string FirstName { get; set; }
 
         [Req]
         [StringLength(20)]
+        [DisplayName("Nume")]
         public string LastName { get; set; }
 
         [Req]
         [StringLength(20)]
+        [DisplayName("Patronimic")]
         public string FathersName { get; set; }
 
         [Req]
+        [DisplayName("Data nasterii")]
         public DateTime? DateOfBirth { get; set; }
 
         [Req]
         [StringLength(13, MinimumLength = 13)]
+        [DisplayName("Cod fiscal")]
         public string FiscalCode { get; set; }
 
         public int FarmerId { get; set; }
@@ -368,24 +376,30 @@ namespace MRGSP.ASMS.Infra.Dto
     {
         [Req]
         [StringLength(200)]
+        [DisplayName("Denumirea")]
         public string Name { get; set; }
 
         [Req]
         [StringLength(13, MinimumLength = 13)]
+        [DisplayName("Cod fiscal")]
         public string FiscalCode { get; set; }
 
-        [UIHint("Dropdown")]
-        public object OrganizationFormId { get; set; }
+        [UIHint("AjaxDropdown")]
+        [DisplayName("Forma organizatorica")]
+        public int? OrganizationFormId { get; set; }
 
         [Req]
+        [DisplayName("Data inregistrarii")]
         public DateTime? RegDate { get; set; }
 
         [Req]
         [StringLength(20)]
+        [DisplayName("Numarul de inregistrare")]
         public string RegNr { get; set; }
 
         [Req]
         [StringLength(20)]
+        [DisplayName("Tipul de activitate")]
         public string ActivityType { get; set; }
 
         public int FarmerId { get; set; }
@@ -393,10 +407,13 @@ namespace MRGSP.ASMS.Infra.Dto
 
 
 
-    public class UserEditInput
+    public class UserEditInput : EntityEditInput
     {
-        public int Id { get; set; }
-        public object Roles { get; set; }
+        [DisplayName("Roluri")]
+        [UIHint("Lookup")]
+        [Lookup(Multiselect = true)]
+        [Req]
+        public IEnumerable<int> Roles { get; set; }
     }
 
     [PropertiesMustMatch("Password", "ConfirmPassword")]
@@ -430,12 +447,12 @@ namespace MRGSP.ASMS.Infra.Dto
         public string Password { get; set; }
     }
 
-    public class IdInput
+    public class EntityEditInput
     {
         public int Id { get; set; }
     }
 
-    public class PaymentOrderCreateInput : IdInput
+    public class PaymentOrderCreateInput : EntityEditInput
     {
         public int Nr { get; set; }
         public DateTime Date { get; set; }
@@ -443,7 +460,7 @@ namespace MRGSP.ASMS.Infra.Dto
         public int? AgreementId { get; set; }
     }
 
-    public class PaymentOrderEditInput : IdInput
+    public class PaymentOrderEditInput : EntityEditInput
     {
         public int Nr { get; set; }
         public DateTime Date { get; set; }
@@ -453,7 +470,7 @@ namespace MRGSP.ASMS.Infra.Dto
         public int State { get; set; }
     }
 
-    public class AgreementInput : IdInput
+    public class AgreementInput : EntityEditInput
     {
         public int? ContractId { get; set; }
         
@@ -466,7 +483,7 @@ namespace MRGSP.ASMS.Infra.Dto
 
     }
 
-    public class ContractInput : IdInput
+    public class ContractInput : EntityEditInput
     {
         [DisplayName("Data")]
         public DateTime? Date { get; set; }

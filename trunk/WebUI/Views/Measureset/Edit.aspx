@@ -4,5 +4,4 @@
     <%: Html.ValidationSummary(true) %>
         <%=Html.EditorFor(o => o.Name) %>
     <% } %>
-    <%=Html.ClientSideValidation<MeasuresetEditInput>() %>
     

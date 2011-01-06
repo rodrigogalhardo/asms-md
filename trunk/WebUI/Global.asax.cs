@@ -5,15 +5,12 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
 using System.Web.UI;
-using log4net;
 using MRGSP.ASMS.WebUI.Controllers;
 
 namespace MRGSP.ASMS.WebUI
 {
     public class MvcApplication : HttpApplication
     {
-        private readonly ILog log = LogManager.GetLogger(string.Empty);
-
         protected void Application_Start()
         {
             Bootstrapper.Bootstrap();
@@ -51,8 +48,6 @@ namespace MRGSP.ASMS.WebUI
         {
             //return;
             var exception = Server.GetLastError();
-            // Log the exception.
-            log.Error(exception.Message, exception);
             Response.Clear();
 
             var httpException = exception as HttpException;

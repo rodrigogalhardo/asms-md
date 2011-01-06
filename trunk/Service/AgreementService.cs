@@ -26,7 +26,7 @@ namespace MRGSP.ASMS.Service
             return u.GetWhere<Agreement>(new { contractId });
         }
 
-        public override void Create(Agreement o)
+        public override int Create(Agreement o)
         {
             var contract = u.Get<Contract>(o.ContractId);
             var dossier = u.Get<Dossier>(contract.DossierId);
@@ -44,7 +44,7 @@ namespace MRGSP.ASMS.Service
             var ags = u.GetWhere<Agreement>(new { o.ContractId });
             o.Nr = (byte)(ags.Count() == 0 ? 1 : 1 + ags.Max(a => a.Nr));
 
-            u.Insert(o);
+            return u.Insert(o);
         }
     }
 }
